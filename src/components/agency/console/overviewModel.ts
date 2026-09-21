@@ -61,7 +61,7 @@ function createRecentRuns(state: DemoState): OverviewActivity[] {
 
 function createReviewQueue(state: DemoState): OverviewActivity[] {
   const agentReviews = state.agentJobs
-    .filter((job) => job.requiresApproval || job.status === "approval-required")
+    .filter((job) => job.status === "approval-required")
     .map((job) => ({
       id: job.id,
       label: skillLabels[job.skill],

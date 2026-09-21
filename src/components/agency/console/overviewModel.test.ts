@@ -18,4 +18,34 @@ describe("createAgencyOverviewModel", () => {
     expect(model.nodes.some((node) => node.kind === "approval" && node.label === "담당자 승인")).toBe(true);
     expect(model.nodes.some((node) => /자동 합격|외모 점수/.test(node.label))).toBe(false);
   });
+
+  it("excludes transitioned jobs from the active review queue", () => {
+    const approvalJob = demoState.agentJobs.find((job) => job.status === "approval-required");
+    if (!approvalJob) throw new Error("Expected an approval-required fixture job");
+
+    const model = createAgencyOverviewModel({
+      ...demoState,
+      agentJobs: [{ ...approvalJob, status: "completed" as const, requiresApproval: true }],
+    });
+
+    expect(model.reviewQueue.some((item) => item.id === approvalJob.id)).toBe(false);
+  });
+
+  it("exposes the required workflow chains and planned integration text", () => {
+    const model = createAgencyOverviewModel(demoState);
+
+    expect(model.connections).toEqual(
+      expect.arrayContaining([
+        { from: "auditions", to: "screening" },
+        { from: "screening", to: "approval" },
+        { from: "approval", to: "pipeline" },
+        { from: "demo-audio", to: "approval" },
+        { from: "approval", to: "review-brief" },
+        { from: "source-video", to: "content" },
+        { from: "content", to: "approval" },
+        { from: "approval", to: "channels" },
+      ]),
+    );
+    expect(model.metrics.find((item) => item.id === "integrations")?.value).toBe("연동 예정");
+  });
 });

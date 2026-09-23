@@ -6,32 +6,63 @@
   <title>ENTER—AX | IR Deck 2026</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; }
+    :root {
+      --canvas: #f6f5f1;
+      --paper: #ffffff;
+      --ink: #141820;
+      --muted: #626a78;
+      --cobalt: #2864e8;
+      --pale-blue: #dceaff;
+      --approval: #c8f45d;
+      --risk: #f06445;
+      --rule: #d7dae0;
+      --font-sans: Pretendard, "Noto Sans KR", "Apple SD Gothic Neo", Arial, sans-serif;
+      --font-mono: "IBM Plex Mono", "Space Mono", ui-monospace, monospace;
+      --slide-w: 1600px;
+      --slide-h: 900px;
+      --safe-x: 88px;
+      --safe-y: 64px;
+    }
     html, body { margin: 0; width: 100%; height: 100%; }
-    body { overflow: hidden; font-family: Arial, sans-serif; background: #e7e7e3; color: #141820; }
+    body { overflow: hidden; font-family: var(--font-sans); background: #e7e7e3; color: var(--ink); }
     #deck { width: 100vw; height: 100vh; display: grid; place-items: center; }
-    #deck-frame { position: relative; width: 1600px; height: 900px; transform-origin: center; }
+    #deck-frame { position: relative; width: var(--slide-w); height: var(--slide-h); transform-origin: center; box-shadow: 0 24px 64px rgba(20, 24, 32, .18); }
     #slides { position: relative; width: 100%; height: 100%; }
-    .slide { position: absolute; inset: 0; display: none; padding: 64px 88px 76px; background: #f6f5f1; overflow: hidden; }
-    .slide.is-active { display: grid; grid-template-rows: auto auto 1fr auto; gap: 18px; }
-    .slide-kicker { margin: 0; font: 700 13px/1 monospace; letter-spacing: .12em; color: #2864e8; }
-    h1 { max-width: 1180px; margin: 0; font-size: 56px; line-height: 1.08; letter-spacing: -.035em; }
+    .slide { position: absolute; inset: 0; display: none; width: var(--slide-w); height: var(--slide-h); padding: var(--safe-y) var(--safe-x) 58px; background: var(--canvas); overflow: hidden; }
+    .slide::before { content: ""; position: absolute; top: 38px; left: var(--safe-x); right: var(--safe-x); height: 1px; background: var(--rule); }
+    .slide::after { content: attr(data-title); position: absolute; top: 19px; right: var(--safe-x); font: 600 10px/1 var(--font-mono); letter-spacing: .13em; text-transform: uppercase; color: var(--muted); }
+    .slide.is-active { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: auto auto minmax(0, 1fr) auto; column-gap: 24px; row-gap: 18px; }
+    .slide-kicker { grid-column: 1 / 13; margin: 0; font: 600 14px/1 var(--font-mono); letter-spacing: .12em; color: var(--cobalt); }
+    .slide h1 { grid-column: 1 / 11; max-width: 1220px; margin: 0; font: 800 58px/1.08 var(--font-sans); letter-spacing: -.035em; }
     p { margin: 0; }
-    .slide-content { min-height: 0; }
-    .source-line { align-self: end; font-size: 12px; line-height: 1.4; color: #626a78; }
-    .evidence-tag { display: inline-flex; padding: 5px 8px; border: 1px solid currentColor; font: 700 11px/1 monospace; letter-spacing: .08em; }
+    .slide-content { grid-column: 1 / 13; min-height: 0; }
+    .source-line { grid-column: 1 / 11; align-self: end; font: 500 12px/1.35 var(--font-sans); color: var(--muted); }
+    .evidence-tag { display: inline-flex; padding: 5px 8px; border: 1px solid currentColor; font: 600 12px/1 var(--font-mono); letter-spacing: .08em; }
+    .figure { font: 800 88px/.95 var(--font-sans); letter-spacing: -.055em; }
+    .diagram { width: 100%; height: 100%; display: block; }
+    .diagram text { font-family: var(--font-sans); fill: var(--ink); }
+    .diagram .mono { font-family: var(--font-mono); letter-spacing: 1px; }
+    .diagram .muted { fill: var(--muted); }
+    .diagram .paper { fill: var(--paper); stroke: var(--rule); stroke-width: 1.5; }
+    .diagram .ink-block { fill: var(--ink); }
+    .diagram .ink-text { fill: var(--paper); }
+    .diagram .blue { fill: var(--cobalt); }
+    .diagram .blue-stroke { fill: none; stroke: var(--cobalt); stroke-width: 3; }
+    .diagram .approval { fill: var(--approval); stroke: var(--ink); stroke-width: 1.5; }
+    .diagram .risk { fill: var(--risk); }
     .deck-nav { position: absolute; z-index: 20; right: 32px; bottom: 24px; display: flex; gap: 8px; align-items: center; }
-    .deck-nav button { border: 1px solid #d7dae0; background: #fff; color: #141820; padding: 8px 12px; cursor: pointer; }
+    .deck-nav button { border: 1px solid var(--rule); background: var(--paper); color: var(--ink); padding: 8px 12px; cursor: pointer; }
     .nav-dots { display: flex; gap: 5px; }
     .nav-dot { width: 8px; height: 8px; padding: 0 !important; border-radius: 50%; }
-    .nav-dot[aria-current="true"] { background: #2864e8; border-color: #2864e8; }
-    .slide-counter { min-width: 58px; font: 700 11px/1 monospace; text-align: center; }
-    .keyboard-hint { position: fixed; right: 16px; bottom: 10px; font: 11px/1 monospace; color: #626a78; }
-    .lede { max-width: 820px; font-size: 20px; line-height: 1.55; color: #626a78; }
+    .nav-dot[aria-current="true"] { background: var(--cobalt); border-color: var(--cobalt); }
+    .slide-counter { min-width: 58px; font: 700 11px/1 var(--font-mono); text-align: center; }
+    .keyboard-hint { position: fixed; right: 16px; bottom: 10px; font: 11px/1 var(--font-mono); color: var(--muted); }
+    .lede { max-width: 820px; font-size: 20px; line-height: 1.55; color: var(--muted); }
     .cover-grid, .problem-map, .stat-grid, .flow, .proof-grid, .boundary-grid, .market-grid,
     .competition-grid, .money-flow, .validation-grid, .team-grid, .ask-grid { display: grid; gap: 24px; height: 100%; align-content: center; }
     .cover-grid { grid-template-columns: 1.3fr .7fr; align-items: end; }
-    .wordmark { font-size: 96px; font-weight: 900; letter-spacing: -.07em; }
-    .cover-note { padding-left: 24px; border-left: 2px solid #2864e8; font-size: 18px; line-height: 1.5; }
+    .wordmark { font-size: 104px; font-weight: 900; letter-spacing: -.075em; }
+    .cover-note { padding-left: 24px; border-left: 2px solid var(--cobalt); font-size: 18px; line-height: 1.5; }
     .problem-map { grid-template-columns: 1fr 1.2fr; align-items: center; }
     .problem-list { display: grid; gap: 10px; }
     .problem-list span { padding: 18px; border-top: 1px solid #d7dae0; font-size: 18px; }
@@ -127,15 +158,23 @@
         <section class="slide" id="slide-02" data-title="Problem" aria-hidden="true">
           <p class="slide-kicker">01 / PROBLEM</p>
           <h1>한 명의 실무자가 영상, 후보표, 콘텐츠 파일 사이를 오갑니다.</h1>
-          <div class="slide-content problem-map">
-            <div class="problem-list" aria-label="분절된 업무 도구">
-              <span>오디션 영상 · 이메일</span>
-              <span>후보 상태 · 스프레드시트</span>
-              <span>원본 파일 · 드라이브</span>
-              <span>승인 요청 · 메신저</span>
-            </div>
-            <div class="operator">검토의 맥락은 사람에게 남고,<br>실행 기록은 도구마다 흩어집니다.</div>
-          </div>
+          <svg class="slide-content diagram" data-diagram="fragmentation" viewBox="0 0 1424 500" role="img" aria-labelledby="fragmentation-title">
+            <title id="fragmentation-title">이메일, 스프레드시트, 드라이브, 메신저 업무가 한 명의 담당자에게 집중되는 구조</title>
+            <defs><marker id="arrow-fragment" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" class="blue"/></marker></defs>
+            <g>
+              <rect class="paper" x="0" y="10" width="380" height="90"/><text class="mono muted" x="28" y="42" font-size="13">01 / INBOX</text><text x="28" y="76" font-size="22" font-weight="700">오디션 영상 · 이메일</text>
+              <rect class="paper" x="0" y="132" width="380" height="90"/><text class="mono muted" x="28" y="164" font-size="13">02 / STATUS</text><text x="28" y="198" font-size="22" font-weight="700">후보 상태 · 스프레드시트</text>
+              <rect class="paper" x="0" y="254" width="380" height="90"/><text class="mono muted" x="28" y="286" font-size="13">03 / FILE</text><text x="28" y="320" font-size="22" font-weight="700">원본 파일 · 드라이브</text>
+              <rect class="paper" x="0" y="376" width="380" height="90"/><text class="mono muted" x="28" y="408" font-size="13">04 / APPROVAL</text><text x="28" y="442" font-size="22" font-weight="700">승인 요청 · 메신저</text>
+            </g>
+            <g class="blue-stroke" marker-end="url(#arrow-fragment)"><path d="M400 55C600 55 610 215 760 238"/><path d="M400 177C580 177 620 225 760 242"/><path d="M400 299C580 299 620 260 760 250"/><path d="M400 421C600 421 610 285 760 257"/></g>
+            <rect class="ink-block" x="790" y="92" width="634" height="330"/>
+            <text class="mono ink-text" x="836" y="140" font-size="14">ONE OPERATOR / FOUR TOOLS</text>
+            <text class="ink-text" x="836" y="225" font-size="38" font-weight="800">맥락은 사람에게 남고,</text>
+            <text class="ink-text" x="836" y="276" font-size="38" font-weight="800">기록은 도구마다 흩어집니다.</text>
+            <line x1="836" y1="322" x2="1260" y2="322" stroke="#626a78"/>
+            <text x="836" y="363" font-size="17" class="ink-text">검토 → 공유 → 제작 사이의 인수인계가 반복됩니다.</text>
+          </svg>
           <p class="source-line">초기 문제 가설 · 고객 인터뷰에서 업무량과 처리시간을 검증할 항목</p>
         </section>
 
@@ -153,13 +192,16 @@
         <section class="slide" id="slide-04" data-title="Solution" aria-hidden="true">
           <p class="slide-kicker">03 / SOLUTION</p>
           <h1>AI는 먼저 정리하고, 사람은 판단하고, 시스템은 실행합니다.</h1>
-          <div class="slide-content flow" aria-label="Enter-AX 다섯 단계 운영 흐름">
-            <div class="flow-step"><b>01 REGISTER</b><span>프로필·미디어 등록</span></div>
-            <div class="flow-step"><b>02 SCREEN</b><span>역량 분석·정리</span></div>
-            <div class="flow-step"><b>03 REVIEW</b><span>후보 파이프라인 검토</span></div>
-            <div class="flow-step"><b>04 EXECUTE</b><span>콘텐츠 실행</span></div>
-            <div class="flow-step approve"><b>05 APPROVE</b><span>사람이 최종 승인</span></div>
-          </div>
+          <svg class="slide-content diagram" data-diagram="workflow" viewBox="0 0 1424 470" role="img" aria-labelledby="workflow-title">
+            <title id="workflow-title">등록, 분석, 검토, 실행, 사람 승인으로 이어지는 Enter-AX 운영 흐름</title>
+            <defs><marker id="arrow-flow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" class="blue"/></marker></defs>
+            <path d="M245 215H330M530 215H615M815 215H900M1100 215H1185" class="blue-stroke" marker-end="url(#arrow-flow)"/>
+            <g transform="translate(0 95)"><rect class="paper" width="245" height="240"/><circle cx="52" cy="54" r="24" class="blue-stroke"/><path d="M26 112h52M52 88v48" class="blue-stroke"/><text class="mono muted" x="24" y="172" font-size="13">01 / REGISTER</text><text x="24" y="210" font-size="20" font-weight="700">프로필·미디어 등록</text></g>
+            <g transform="translate(285 95)"><rect class="paper" width="245" height="240"/><rect x="28" y="28" width="68" height="56" class="blue-stroke"/><path d="M28 110h88M28 134h64" class="blue-stroke"/><text class="mono muted" x="24" y="172" font-size="13">02 / SCREEN</text><text x="24" y="210" font-size="20" font-weight="700">역량 분석·정리</text></g>
+            <g transform="translate(570 95)"><rect class="paper" width="245" height="240"/><path d="M28 36h150v86H28zM78 36v86M128 36v86" class="blue-stroke"/><text class="mono muted" x="24" y="172" font-size="13">03 / REVIEW</text><text x="24" y="210" font-size="20" font-weight="700">후보 파이프라인</text></g>
+            <g transform="translate(855 95)"><rect class="paper" width="245" height="240"/><path d="M34 90V38h44v52M34 90h44M108 42h88v70h-88zM140 58l30 20-30 20z" class="blue-stroke"/><text class="mono muted" x="24" y="172" font-size="13">04 / EXECUTE</text><text x="24" y="210" font-size="20" font-weight="700">콘텐츠 실행</text></g>
+            <g transform="translate(1140 95)"><rect class="approval" width="284" height="240"/><circle cx="58" cy="68" r="32" fill="#141820"/><path d="M43 68l10 10 22-24" fill="none" stroke="#c8f45d" stroke-width="6"/><text class="mono" x="24" y="172" font-size="13">05 / APPROVE</text><text x="24" y="210" font-size="20" font-weight="800">사람이 최종 승인</text></g>
+          </svg>
           <p class="source-line"><span class="evidence-tag">PROTOTYPE</span> 자동 합격·탈락 없음 · 최종 판단과 발송은 사람이 승인</p>
         </section>
 
@@ -182,22 +224,26 @@
         <section class="slide" id="slide-06" data-title="Product Boundary" aria-hidden="true">
           <p class="slide-kicker">05 / PRODUCT BOUNDARY</p>
           <h1>지금 동작하는 것과 앞으로 확장할 것을 분리했습니다.</h1>
-          <div class="slide-content boundary-grid">
-            <article class="boundary now"><h2>NOW · LIVE</h2><p>프로필과 후보 파이프라인<br>포즈·피치·안무 비교<br>숏폼 렌더링과 전달</p></article>
-            <article class="boundary next"><h2>NEXT · TEST</h2><p>3–5개사 파일럿<br>권한·미디어 저장<br>작업 큐와 비용 계측</p></article>
-            <article class="boundary"><h2>LATER · VISION</h2><p>A&amp;R 문서 흐름<br>메신저·일정 연동<br>회사별 AX 자동화</p></article>
-          </div>
+          <svg class="slide-content diagram" data-diagram="boundary" viewBox="0 0 1424 470" role="img" aria-labelledby="boundary-title">
+            <title id="boundary-title">현재 기능, 다음 검증, 장기 확장을 구분한 제품 경계</title>
+            <line x1="70" y1="112" x2="1354" y2="112" stroke="#d7dae0" stroke-width="2"/>
+            <circle cx="250" cy="112" r="13" class="blue"/><circle cx="712" cy="112" r="13" fill="#c8f45d" stroke="#141820"/><circle cx="1174" cy="112" r="13" fill="#ffffff" stroke="#141820" stroke-width="2"/>
+            <g transform="translate(40 145)"><text class="mono blue" x="0" y="30" font-size="15">NOW / LIVE</text><text x="0" y="82" font-size="28" font-weight="800">작동하는 핵심 흐름</text><text class="muted" x="0" y="126" font-size="18">프로필과 후보 파이프라인</text><text class="muted" x="0" y="160" font-size="18">포즈·피치·안무 비교</text><text class="muted" x="0" y="194" font-size="18">숏폼 렌더링과 전달</text></g>
+            <g transform="translate(502 145)"><text class="mono" x="0" y="30" font-size="15">NEXT / TEST</text><text x="0" y="82" font-size="28" font-weight="800">운영 조건 검증</text><text class="muted" x="0" y="126" font-size="18">3–5개사 파일럿</text><text class="muted" x="0" y="160" font-size="18">권한·미디어 저장</text><text class="muted" x="0" y="194" font-size="18">작업 큐와 비용 계측</text></g>
+            <g transform="translate(964 145)"><text class="mono muted" x="0" y="30" font-size="15">LATER / VISION</text><text x="0" y="82" font-size="28" font-weight="800">Enterprise AX 확장</text><text class="muted" x="0" y="126" font-size="18">A&amp;R 문서 흐름</text><text class="muted" x="0" y="160" font-size="18">메신저·일정 연동</text><text class="muted" x="0" y="194" font-size="18">회사별 업무 자동화</text></g>
+          </svg>
           <p class="source-line"><span class="evidence-tag">TESTED</span> 자동 테스트 102개 통과 · PostgreSQL 연동 테스트 4개는 별도 환경 필요</p>
         </section>
 
         <section class="slide" id="slide-07" data-title="Market" aria-hidden="true">
           <p class="slide-kicker">06 / MARKET</p>
           <h1>첫 시장은 국내 6,629개 등록 기획사의 운영 소프트웨어입니다.</h1>
-          <div class="slide-content market-grid">
-            <div class="market-row tam"><span class="market-label">TAM</span><div class="market-bar"><span class="market-value">736억 원/년</span></div><span class="market-formula">6,629개 × 연 1,110만 원<br><b>기업 수 공식 · 객단가 가정</b></span></div>
-            <div class="market-row sam"><span class="market-label">SAM</span><div class="market-bar"><span class="market-value">135억 원/년</span></div><span class="market-formula">1,500개 × 연 900만 원<br><b>고객 수·객단가 가정</b></span></div>
-            <div class="market-row som"><span class="market-label">SOM</span><div class="market-bar"><span class="market-value">9.9억 원 ARR</span></div><span class="market-formula">Starter 50 + Growth 25 + Enterprise 5<br><b>3년 목표</b></span></div>
-          </div>
+          <svg class="slide-content diagram" data-diagram="market" viewBox="0 0 1424 460" role="img" aria-labelledby="market-title">
+            <title id="market-title">등록 기업 수와 가격 가정을 바탕으로 계산한 TAM, SAM, SOM 수평 막대</title>
+            <g transform="translate(0 22)"><text class="mono" y="48" font-size="16" font-weight="700">TAM</text><rect x="110" width="900" height="92" fill="#dceaff"/><rect x="110" width="8" height="92" class="blue"/><text x="148" y="57" font-size="36" font-weight="900">736억 원/년</text><text class="muted" x="1052" y="35" font-size="15">6,629개 × 연 1,110만 원</text><text x="1052" y="61" font-size="14" font-weight="700">기업 수 공식 · 객단가 가정</text></g>
+            <g transform="translate(0 166)"><text class="mono" y="48" font-size="16" font-weight="700">SAM</text><rect x="110" width="585" height="92" fill="#dceaff"/><rect x="110" width="8" height="92" class="blue"/><text x="148" y="57" font-size="36" font-weight="900">135억 원/년</text><text class="muted" x="737" y="35" font-size="15">1,500개 × 연 900만 원</text><text x="737" y="61" font-size="14" font-weight="700">고객 수·객단가 가정</text></g>
+            <g transform="translate(0 310)"><text class="mono" y="48" font-size="16" font-weight="700">SOM</text><rect x="110" width="365" height="92" fill="#ffffff" stroke="#d7dae0"/><rect x="110" width="8" height="92" class="risk"/><text x="148" y="57" font-size="36" font-weight="900">9.9억 원 ARR</text><text class="muted" x="517" y="35" font-size="15">Starter 50 + Growth 25 + Enterprise 5</text><text x="517" y="61" font-size="14" font-weight="700">3년 목표</text></g>
+          </svg>
           <p class="source-line"><span class="evidence-tag">ASSUMPTION</span> 출처: 공공데이터포털 대중문화예술기획업 등록기업 현황(2026.08.12) · 가격과 적합 고객 수는 파일럿 검증 대상</p>
         </section>
 
@@ -235,11 +281,14 @@
         <section class="slide" id="slide-10" data-title="Validation and GTM" aria-hidden="true">
           <p class="slide-kicker">09 / VALIDATION &amp; GTM</p>
           <h1>다음 목표는 기능 추가가 아니라 첫 반복 가능한 고객 검증입니다.</h1>
-          <div class="slide-content validation-grid">
-            <article class="validation-step current"><span class="evidence-tag">LIVE</span><strong>Engineering proof</strong><p>실제 미디어 분석과 렌더링 파이프라인의 로컬 실행을 확인했습니다.</p></article>
-            <article class="validation-step"><span class="evidence-tag">TARGET</span><strong>3–5 pilots</strong><p>처리시간, 승인율, 재사용률과 운영 장애를 회사별로 기록합니다.</p></article>
-            <article class="validation-step target"><span class="evidence-tag">TARGET</span><strong>Paid evidence</strong><p>유료 전환과 추천 가능한 도입 사례가 반복 가능한 GTM의 출발점입니다.</p></article>
-          </div>
+          <svg class="slide-content diagram" data-diagram="validation" viewBox="0 0 1424 460" role="img" aria-labelledby="validation-title">
+            <title id="validation-title">엔지니어링 증거에서 파일럿과 유료 전환 증거로 이어지는 검증 사다리</title>
+            <path d="M70 370H480V250H890V130H1354" fill="none" stroke="#d7dae0" stroke-width="16"/>
+            <circle cx="280" cy="370" r="18" class="blue"/><circle cx="685" cy="250" r="18" fill="#ffffff" stroke="#141820" stroke-width="3"/><circle cx="1125" cy="130" r="18" fill="#c8f45d" stroke="#141820" stroke-width="3"/>
+            <g transform="translate(70 40)"><text class="mono blue" y="26" font-size="14">LIVE / CURRENT</text><text y="76" font-size="31" font-weight="800">Engineering proof</text><text class="muted" y="116" font-size="17">분석·렌더링의 로컬 실행 확인</text></g>
+            <g transform="translate(505 160)"><text class="mono" y="26" font-size="14">TARGET / NEXT</text><text y="76" font-size="31" font-weight="800">3–5 pilots</text><text class="muted" y="116" font-size="17">처리시간·승인율·재사용 측정</text></g>
+            <g transform="translate(935 280)"><text class="mono" y="26" font-size="14">TARGET / EVIDENCE</text><text y="76" font-size="31" font-weight="800">Paid conversion</text><text class="muted" y="116" font-size="17">유료 전환과 추천 사례 확보</text></g>
+          </svg>
           <p class="source-line">현재 고객 인터뷰·LOI·유료 계약은 제시하지 않음 · 확보 즉시 근거 수준을 갱신</p>
         </section>
 

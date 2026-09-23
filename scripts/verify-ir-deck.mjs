@@ -42,6 +42,10 @@ export function inspectMarkup(html) {
     hasEvidenceTags: ["LIVE", "PROTOTYPE", "ASSUMPTION", "TARGET"].every((tag) => html.includes(tag)),
     hasPrintRules: /@media\s+print/.test(html),
     hasAccessibleDeckLabel: /aria-label="Enter-AX IR deck"/.test(html),
+    hasDesignTokens: ["--canvas:", "--paper:", "--ink:", "--cobalt:", "--approval:", "--risk:"].every((token) => html.includes(token)),
+    diagramNames: [...html.matchAll(/<svg\b[^>]*data-diagram="([^"]+)"/g)].map((match) => match[1]),
+    hasProductEvidenceImage: /assets\/deck\/ax-command-center\.png/.test(html),
+    hasGradientDeclaration: /(?:linear|radial|conic)-gradient\s*\(/i.test(html),
   };
 }
 
@@ -53,6 +57,12 @@ export function assertStructure(report) {
   if (!report.hasEvidenceTags) errors.push("missing evidence-state tags");
   if (!report.hasPrintRules) errors.push("missing print rules");
   if (!report.hasAccessibleDeckLabel) errors.push("missing accessible deck label");
+  if (!report.hasDesignTokens) errors.push("missing approved design tokens");
+  for (const name of ["fragmentation", "workflow", "boundary", "market", "validation"]) {
+    if (!report.diagramNames.includes(name)) errors.push(`missing ${name} diagram`);
+  }
+  if (!report.hasProductEvidenceImage) errors.push("missing product evidence image");
+  if (report.hasGradientDeclaration) errors.push("gradient declarations are not allowed");
   return errors;
 }
 

@@ -25,7 +25,7 @@
     }
     html, body { margin: 0; width: 100%; height: 100%; }
     body { overflow: hidden; font-family: var(--font-sans); background: #e7e7e3; color: var(--ink); }
-    #deck { width: 100vw; height: 100vh; display: grid; place-items: center; }
+    #deck { width: 100vw; height: 100vh; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); place-items: center; }
     #deck-frame { position: relative; width: var(--slide-w); height: var(--slide-h); transform-origin: center; box-shadow: 0 24px 64px rgba(20, 24, 32, .18); }
     #slides { position: relative; width: 100%; height: 100%; }
     .slide { position: absolute; inset: 0; display: none; width: var(--slide-w); height: var(--slide-h); padding: var(--safe-y) var(--safe-x) 68px; background: var(--canvas); overflow: hidden; }
@@ -79,8 +79,9 @@
     .flow-step b { display: block; font: 700 13px/1 monospace; letter-spacing: .08em; }
     .flow-step span { display: block; margin-top: 70px; font-size: 18px; font-weight: 700; }
     .proof-grid { grid-template-columns: 1.55fr .65fr; align-items: stretch; }
-    .proof-shot { min-height: 0; border: 1px solid #d7dae0; background: #fff; overflow: hidden; }
+    .proof-shot { position: relative; min-height: 0; border: 1px solid #d7dae0; background: #fff; overflow: hidden; }
     .proof-shot img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+    .proof-shot figcaption { position: absolute; left: 16px; bottom: 16px; display: flex; gap: 9px; align-items: center; padding: 9px 11px; border: 1px solid var(--rule); background: var(--paper); font-size: 13px; font-weight: 700; }
     .proof-results { display: grid; align-content: center; }
     .proof-result { padding: 18px 0; border-top: 1px solid #d7dae0; }
     .proof-result strong { display: block; margin: 8px 0 4px; font-size: 22px; }
@@ -214,6 +215,7 @@
           <div class="slide-content proof-grid">
             <figure class="proof-shot">
               <img src="assets/deck/ax-command-center.png" alt="지원자 검토와 콘텐츠 실행 상태를 보여주는 Enter-AX 운영 화면">
+              <figcaption><span class="evidence-tag">PROTOTYPE</span> 화면 수치는 데모 데이터</figcaption>
             </figure>
             <div class="proof-results">
               <div class="proof-result"><span class="evidence-tag">LIVE</span><strong>Pose + beat</strong><span>60초 로컬 샘플 · 약 14초</span></div>

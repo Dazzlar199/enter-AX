@@ -46,6 +46,7 @@ export function inspectMarkup(html) {
     hasDesignTokens: ["--canvas:", "--paper:", "--ink:", "--cobalt:", "--approval:", "--risk:"].every((token) => html.includes(token)),
     diagramNames: [...html.matchAll(/<svg\b[^>]*data-diagram="([^"]+)"/g)].map((match) => match[1]),
     hasProductEvidenceImage: /assets\/deck\/ax-command-center\.png/.test(html),
+    hasFixtureDataLabel: /PROTOTYPE[^<]*<\/span>\s*화면 수치는 데모 데이터/.test(html),
     hasGradientDeclaration: /(?:linear|radial|conic)-gradient\s*\(/i.test(html),
   };
 }
@@ -63,6 +64,7 @@ export function assertStructure(report) {
     if (!report.diagramNames.includes(name)) errors.push(`missing ${name} diagram`);
   }
   if (!report.hasProductEvidenceImage) errors.push("missing product evidence image");
+  if (!report.hasFixtureDataLabel) errors.push("product screenshot fixture data is not labeled");
   if (report.hasGradientDeclaration) errors.push("gradient declarations are not allowed");
   return errors;
 }
@@ -142,6 +144,17 @@ async function runRuntimeChecks(page) {
       if (report.safeAreaViolations.length) errors.push(...report.safeAreaViolations.map((item) => `safe-area: ${item}`));
       if (report.visible !== 1) errors.push(`slide ${index + 1}: expected one visible slide, found ${report.visible}`);
     }
+
+    for (const viewport of [{ width: 1280, height: 720 }, { width: 1366, height: 768 }]) {
+      await page.setViewportSize(viewport);
+      await page.waitForTimeout(50);
+      const bounds = await page.locator("#deck-frame").boundingBox();
+      if (!bounds || bounds.x < -1 || bounds.y < -1 || bounds.x + bounds.width > viewport.width + 1 || bounds.y + bounds.height > viewport.height + 1) {
+        errors.push(`viewport ${viewport.width}x${viewport.height} clips deck: ${JSON.stringify(bounds)}`);
+      }
+    }
+    await page.setViewportSize({ width: 1600, height: 900 });
+    await page.evaluate(() => window.deckController.goTo(0));
   }
 
   return [...new Set(errors)];

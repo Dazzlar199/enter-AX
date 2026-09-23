@@ -28,7 +28,7 @@
     #deck { width: 100vw; height: 100vh; display: grid; place-items: center; }
     #deck-frame { position: relative; width: var(--slide-w); height: var(--slide-h); transform-origin: center; box-shadow: 0 24px 64px rgba(20, 24, 32, .18); }
     #slides { position: relative; width: 100%; height: 100%; }
-    .slide { position: absolute; inset: 0; display: none; width: var(--slide-w); height: var(--slide-h); padding: var(--safe-y) var(--safe-x) 58px; background: var(--canvas); overflow: hidden; }
+    .slide { position: absolute; inset: 0; display: none; width: var(--slide-w); height: var(--slide-h); padding: var(--safe-y) var(--safe-x) 68px; background: var(--canvas); overflow: hidden; }
     .slide::before { content: ""; position: absolute; top: 38px; left: var(--safe-x); right: var(--safe-x); height: 1px; background: var(--rule); }
     .slide::after { content: attr(data-title); position: absolute; top: 19px; right: var(--safe-x); font: 600 10px/1 var(--font-mono); letter-spacing: .13em; text-transform: uppercase; color: var(--muted); }
     .slide.is-active { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: auto auto minmax(0, 1fr) auto; column-gap: 24px; row-gap: 18px; }
@@ -132,8 +132,8 @@
     @media print {
       html, body { width: auto; height: auto; overflow: visible; background: #fff; }
       #deck { display: block; width: auto; height: auto; }
-      #deck-frame, #slides { width: 1600px; height: auto; transform: none !important; }
-      .slide { position: relative; display: grid !important; width: 1600px; height: 900px; page-break-after: always; break-after: page; }
+      #deck-frame, #slides { width: 1280px; height: auto; transform: none !important; box-shadow: none; }
+      .slide { position: relative; display: grid !important; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: auto auto minmax(0, 1fr) auto; column-gap: 24px; row-gap: 18px; width: 1600px; height: 900px; zoom: .8; page-break-after: always; break-after: page; }
       .deck-nav, .keyboard-hint { display: none !important; }
     }
   </style>
@@ -337,7 +337,7 @@
       dot.type = 'button';
       dot.className = 'nav-dot';
       dot.setAttribute('aria-label', `${index + 1}번 슬라이드: ${slide.dataset.title}`);
-      dot.addEventListener('click', () => activate(index));
+      dot.addEventListener('click', () => window.deckController.goTo(index));
       dots.append(dot);
     });
     function activate(index) {
@@ -354,15 +354,37 @@
       const scale = Math.min(window.innerWidth / 1600, window.innerHeight / 900, 1);
       document.querySelector('#deck-frame').style.transform = `scale(${scale})`;
     }
-    document.querySelector('.nav-prev').addEventListener('click', () => activate(currentIndex - 1));
-    document.querySelector('.nav-next').addEventListener('click', () => activate(currentIndex + 1));
+    window.deckController = {
+      get current() { return currentIndex; },
+      get total() { return slides.length; },
+      goTo(index) { activate(Math.max(0, Math.min(slides.length - 1, index))); },
+      next() { this.goTo(currentIndex + 1); },
+      previous() { this.goTo(currentIndex - 1); },
+      scale: applyScale
+    };
+    document.querySelector('.nav-prev').addEventListener('click', () => window.deckController.previous());
+    document.querySelector('.nav-next').addEventListener('click', () => window.deckController.next());
     document.addEventListener('keydown', (event) => {
-      if (['ArrowRight', 'ArrowDown'].includes(event.key)) activate(currentIndex + 1);
-      if (['ArrowLeft', 'ArrowUp'].includes(event.key)) activate(currentIndex - 1);
+      if (['ArrowRight', 'ArrowDown', 'PageDown', ' '].includes(event.key)) {
+        event.preventDefault();
+        window.deckController.next();
+      }
+      if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(event.key)) {
+        event.preventDefault();
+        window.deckController.previous();
+      }
+      if (event.key === 'Home') {
+        event.preventDefault();
+        window.deckController.goTo(0);
+      }
+      if (event.key === 'End') {
+        event.preventDefault();
+        window.deckController.goTo(slides.length - 1);
+      }
     });
-    activate(0);
-    applyScale();
-    window.addEventListener('resize', applyScale);
+    window.deckController.goTo(0);
+    window.deckController.scale();
+    window.addEventListener('resize', window.deckController.scale);
   </script>
 </body>
 </html>

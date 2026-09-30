@@ -100,4 +100,37 @@ integrationDescribe("backend foundation schema", () => {
 
     expect(rows).toEqual([{ userId }]);
   });
+
+  it("creates the agency accounts table with forced row-level security", async () => {
+    const tables = await sql!<{ tablename: string; rowsecurity: boolean; forcerowsecurity: boolean }[]>`
+      SELECT c.relname AS tablename, c.relrowsecurity AS rowsecurity, c.relforcerowsecurity AS forcerowsecurity
+      FROM pg_class c
+      JOIN pg_namespace n ON n.oid = c.relnamespace
+      WHERE n.nspname = 'public' AND c.relkind = 'r' AND c.relname = 'tenant_staff_profiles'
+    `;
+    expect(tables).toEqual([{ tablename: "tenant_staff_profiles", rowsecurity: true, forcerowsecurity: true }]);
+  });
+
+  it("looks up agency credentials by email without a prior session context", async () => {
+    const userId = crypto.randomUUID();
+    const tenantSlug = `tenant-${userId.slice(0, 8)}`;
+
+    await sql!.begin(async (transaction) => {
+      await transaction`SELECT set_config('app.user_id', ${userId}, true)`;
+      const [tenant] = await transaction`
+        INSERT INTO tenants (slug, name, verification_status) VALUES (${tenantSlug}, '테스트 기획사', 'verified') RETURNING id
+      `;
+      await transaction`SELECT set_config('app.tenant_id', ${tenant.id}, true)`;
+      await transaction`INSERT INTO users (id) VALUES (${userId})`;
+      await transaction`
+        INSERT INTO tenant_staff_profiles (user_id, tenant_id, email, display_name, password_hash)
+        VALUES (${userId}, ${tenant.id}, ${`${userId}@example.test`}, '테스트 담당자', 'placeholder-hash')
+      `;
+    });
+
+    const rows = await sql!<{ userId: string }[]>`
+      SELECT user_id AS "userId" FROM lookup_agency_credentials(${`${userId}@example.test`})
+    `;
+    expect(rows).toEqual([{ userId }]);
+  });
 });

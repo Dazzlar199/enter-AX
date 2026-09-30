@@ -109,6 +109,11 @@ export class MemoryPlatformRepository
     this.memberships.push(membership);
   }
 
+  setMembershipStatus(tenantId: string, userId: string, status: TenantMembership["status"]): void {
+    const membership = this.memberships.find((item) => item.tenantId === tenantId && item.userId === userId);
+    if (membership) membership.status = status;
+  }
+
   setIdentityStatus(
     userId: string,
     status: Partial<Pick<CommunitySession, "userStatus" | "profileStatus">>,

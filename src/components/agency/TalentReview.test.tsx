@@ -6,6 +6,20 @@ import { demoState } from "@/features/demo/fixtures";
 
 import { TalentReview } from "./TalentReview";
 
+it("disables the offer button for a view-only role even when the agency is verified", () => {
+  render(
+    <TalentReview
+      agency={{ ...demoState.agencies[0], verification: "verified" }}
+      talent={demoState.talents[0]}
+      isViewOnly
+      onCreateOffer={vi.fn()}
+      onFavorite={vi.fn()}
+      onReview={vi.fn()}
+    />,
+  );
+  expect(screen.getByRole("button", { name: "오디션 제안 보내기" })).toBeDisabled();
+});
+
 it("blocks profile media and offers for a pending agency", () => {
   render(<TalentReview agency={demoState.agencies[2]} talent={demoState.talents[0]} onCreateOffer={vi.fn()} onFavorite={vi.fn()} onReview={vi.fn()} />);
   expect(screen.getByText("검증 완료 후 열람할 수 있습니다.")).toBeInTheDocument();

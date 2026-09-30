@@ -8,11 +8,15 @@ import type { IdentityRepository } from "./repository";
 
 type PlatformRepository = IdentityRepository & CommunityRepository & TenancyRepository & AuditRepository;
 
-export function agencyAccountContract(name: string, factory: () => Promise<PlatformRepository>) {
+export function agencyAccountContract(
+  name: string,
+  factory: () => Promise<PlatformRepository>,
+  createTenantId: () => Promise<string>,
+) {
   it(`${name}: creates an agency account, authenticates it, and scopes sessions per tenant`, async () => {
     const repository = await factory();
     const userId = crypto.randomUUID();
-    const tenantId = crypto.randomUUID();
+    const tenantId = await createTenantId();
     const email = `owner-${userId.slice(0, 8)}@example.test`;
 
     const account = await repository.createAgencyAccount({

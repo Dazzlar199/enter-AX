@@ -1,0 +1,18 @@
+-- revokeSession() runs `UPDATE sessions SET revoked_at = now() WHERE id = ... AND user_id = ...`.
+-- PostgreSQL requires SELECT privilege on any column referenced in an UPDATE's WHERE clause,
+-- separate from the UPDATE privilege itself. Migration 001 granted only INSERT, UPDATE on
+-- sessions (deliberately withholding SELECT to keep token_hash unreadable directly by
+-- enter_ax_app), so this WHERE clause has always failed with "permission denied for table
+-- sessions" against real Postgres. This affects both community and agency session revocation
+-- (logout) — neither has ever worked against real Postgres before this fix.
+--
+-- Scoped to exactly the two columns revokeSession's WHERE clause needs (id, user_id), not a
+-- blanket GRANT SELECT ON sessions, so token_hash/expires_at/revoked_at/created_at remain
+-- unreadable to enter_ax_app via direct SELECT.
+--
+-- This GRANT alone is NOT sufficient to make revokeSession's UPDATE actually match a row:
+-- sessions has FORCE ROW LEVEL SECURITY and, before 005_fix_sessions_select_policy.sql, no
+-- SELECT policy applicable to enter_ax_app at all, so the UPDATE's WHERE-clause row scan found
+-- zero candidate rows even once this GRANT removed the permission-denied error. See 005 for
+-- the policy this GRANT was written to pair with.
+GRANT SELECT (id, user_id) ON sessions TO enter_ax_app;

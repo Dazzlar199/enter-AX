@@ -133,4 +133,34 @@ integrationDescribe("backend foundation schema", () => {
     `;
     expect(rows).toEqual([{ userId }]);
   });
+
+  it("lets enter_ax_app revoke its own session (UPDATE ... WHERE needs SELECT on id, user_id)", async () => {
+    const userId = crypto.randomUUID();
+    const tokenHash = crypto.randomUUID();
+    // Generated application-side, matching how PostgresPlatformRepository actually inserts
+    // sessions (createCommunityIdentity/createAgencySession pass an explicit id) — not via
+    // `INSERT ... RETURNING`, which triggers a *separate* RLS visibility check (no SELECT
+    // policy exists for enter_ax_app on sessions, only the column-level GRANT this migration
+    // adds) that production code paths never actually exercise.
+    const sessionId = crypto.randomUUID();
+
+    await sql!.begin(async (transaction) => {
+      await transaction`SELECT set_config('app.user_id', ${userId}, true)`;
+      await transaction`INSERT INTO users (id) VALUES (${userId})`;
+      await transaction`INSERT INTO community_profiles (user_id, nickname) VALUES (${userId}, ${`user-${userId.slice(0, 8)}`})`;
+      await transaction`
+        INSERT INTO sessions (id, user_id, token_hash, expires_at)
+        VALUES (${sessionId}, ${userId}, ${tokenHash}, now() + interval '30 days')
+      `;
+    });
+
+    const updated = await sql!.begin(async (transaction) => {
+      await transaction`SELECT set_config('app.user_id', ${userId}, true)`;
+      return transaction`
+        UPDATE sessions SET revoked_at = now() WHERE id = ${sessionId} AND user_id = ${userId}
+      `;
+    });
+
+    expect(updated.count).toBe(1);
+  });
 });

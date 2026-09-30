@@ -1,6 +1,14 @@
 import type { ReactNode } from "react";
-import { AppShell } from "@/components/shared/AppShell";
+
+import { AgencyConsoleShell } from "@/components/agency/console/AgencyConsoleShell";
+import { AgencySessionProvider } from "@/features/agency/AgencySessionProvider";
+
+import "./agency-console.css";
 
 export default function AgencyLayout({ children }: { children: ReactNode }) {
-  return <AppShell mode="agency">{children}</AppShell>;
+  return (
+    <AgencySessionProvider>
+      <AgencyConsoleShell>{children}</AgencyConsoleShell>
+    </AgencySessionProvider>
+  );
 }

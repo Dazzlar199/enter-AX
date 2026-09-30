@@ -10,6 +10,15 @@ import { generateSessionToken, hashSessionToken } from "./token";
 
 const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000;
 
+// A fixed, valid-format ("salt:hash", hex) scrypt hash with no corresponding
+// real account. When login fails because the email isn't found (or the
+// account is inactive), we still run verifyPassword against this dummy hash
+// before returning - so that path pays the same scrypt cost as a bad-password
+// failure, and the login endpoint's response time can't be used to enumerate
+// which emails have accounts.
+const DUMMY_PASSWORD_HASH =
+  "c2c5a52820d8a8246f247eb028b74eef:e7d2f541001c0d287d198798291d51f34295af8b8faed4df6787eb044a957ad4cb7c4fa4408f74b73e7c611a03f62b2683ab93c5bcfb5a6587e692414e367ad2";
+
 export class IdentityService {
   private readonly identity: IdentityRepository;
   private readonly audit: AuditRepository;
@@ -111,6 +120,7 @@ export class IdentityService {
   }): Promise<{ token: string; session: AgencySession } | null> {
     const credentials = await this.identity.findAgencyCredentialsByEmail(input.email);
     if (!credentials || credentials.userStatus !== "active" || credentials.profileStatus !== "active") {
+      await verifyPassword(input.password, DUMMY_PASSWORD_HASH);
       await this.audit.append({
         actorUserId: null,
         tenantId: null,

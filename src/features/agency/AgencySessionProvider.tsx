@@ -22,12 +22,23 @@ export function AgencySessionProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!isApiMode) return;
     let cancelled = false;
-    fetchAgencySession().then((result) => {
-      if (!cancelled) {
-        setProfile(result);
-        setStatus("ready");
-      }
-    });
+    fetchAgencySession()
+      .then((result) => {
+        if (!cancelled) {
+          setProfile(result);
+          setStatus("ready");
+        }
+      })
+      .catch(() => {
+        // Any error other than UNAUTHENTICATED (already normalized to null by
+        // fetchAgencySession) means we could not confirm a valid session -
+        // e.g. FORBIDDEN for a revoked membership, or a network/5xx failure.
+        // Treat it as signed-out rather than leaving status stuck at "loading".
+        if (!cancelled) {
+          setProfile(null);
+          setStatus("ready");
+        }
+      });
     return () => {
       cancelled = true;
     };

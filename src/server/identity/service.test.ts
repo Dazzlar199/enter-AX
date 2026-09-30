@@ -1,9 +1,15 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { MemoryPlatformRepository } from "@/server/testing/memory-platform";
 
+import * as passwordModule from "./password";
 import { IdentityService } from "./service";
 import { hashSessionToken } from "./token";
+
+vi.mock("./password", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("./password")>();
+  return { ...actual, verifyPassword: vi.fn(actual.verifyPassword) };
+});
 
 describe("IdentityService", () => {
   it("creates a thirty-day session while persisting only the token hash", async () => {
@@ -123,6 +129,46 @@ describe("IdentityService — agency accounts", () => {
     expect(result).toBeNull();
     expect(repository.auditEvents.at(-1)).toMatchObject({ action: "agency.session.login_failed" });
     expect(JSON.stringify(repository.auditEvents)).not.toContain("wrong password");
+  });
+
+  it("pays the same password-verification cost for an unknown email as for a wrong password (timing side-channel mitigation)", async () => {
+    const repository = new MemoryPlatformRepository(() => "2026-09-30T00:00:00.000Z");
+    const service = new IdentityService({
+      identity: repository,
+      audit: repository,
+      now: () => new Date("2026-09-30T00:00:00.000Z"),
+      createId: () => "00000000-0000-4000-8000-000000000204",
+    });
+    await service.createAgencyAccount({
+      tenantId: "00000000-0000-4000-8000-000000000010",
+      email: "owner4@example.test",
+      displayName: "최담당",
+      password: "correct horse battery staple",
+      role: "owner",
+      requestId: "req-create-4",
+    });
+
+    vi.mocked(passwordModule.verifyPassword).mockClear();
+
+    const notFound = await service.authenticateAgency({
+      email: "nobody@example.test",
+      password: "whatever",
+      requestId: "req-login-missing",
+    });
+    expect(notFound).toBeNull();
+    expect(repository.auditEvents.at(-1)).toMatchObject({ metadata: { reason: "not_found" } });
+    expect(passwordModule.verifyPassword).toHaveBeenCalledTimes(1);
+
+    const badPassword = await service.authenticateAgency({
+      email: "owner4@example.test",
+      password: "wrong password",
+      requestId: "req-login-bad",
+    });
+    expect(badPassword).toBeNull();
+    expect(repository.auditEvents.at(-1)).toMatchObject({ metadata: { reason: "bad_password" } });
+    // Both the "email not found" and the "wrong password" paths call verifyPassword
+    // exactly once each, so they pay the same scrypt cost and can't be told apart by timing.
+    expect(passwordModule.verifyPassword).toHaveBeenCalledTimes(2);
   });
 
   it("resolves and revokes an agency session", async () => {

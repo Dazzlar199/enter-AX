@@ -30,7 +30,8 @@ export function TalentReview({
   onFavorite: () => void;
   onReview: () => void;
 }) {
-  const verified = agency.verification === "verified" && !isViewOnly;
+  const verified = agency.verification === "verified";
+  const canSendOffer = verified && !isViewOnly;
   const [form, setForm] = useState({ title: "", purpose: "", dueAt: "", message: "" });
   const [sent, setSent] = useState(false);
   const [queued, setQueued] = useState(false);
@@ -39,7 +40,7 @@ export function TalentReview({
 
   const submit = (event: React.FormEvent) => {
     event.preventDefault();
-    if (!verified || !form.title || !form.purpose || !form.dueAt || !form.message) return;
+    if (!canSendOffer || !form.title || !form.purpose || !form.dueAt || !form.message) return;
     onCreateOffer({
       talentId: talent.id,
       title: form.title,
@@ -148,7 +149,7 @@ export function TalentReview({
           </label>
           <div className="rv-form__wide rv-form__submit">
             {sent ? <p role="status">제안을 보냈어요. 지원자가 답하면 지원자 관리에서 확인할 수 있어요.</p> : <span />}
-            <button className="s-btn s-btn--dark" disabled={!verified} type="submit">오디션 제안 보내기</button>
+            <button className="s-btn s-btn--dark" disabled={!canSendOffer} type="submit">오디션 제안 보내기</button>
           </div>
         </form>
       </section>

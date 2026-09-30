@@ -34,18 +34,19 @@ export function agencyAccountContract(
 
     expect(await repository.findAgencyCredentialsByEmail("nobody@example.test")).toBeNull();
 
+    const tokenHash = `token-${crypto.randomUUID()}`;
     const session = await repository.createAgencySession({
       userId,
-      tokenHash: "token-hash-value",
+      tokenHash,
       expiresAt: "2026-10-30T00:00:00.000Z",
     });
     expect(session).toMatchObject({ userId, tenantId, email, displayName: "김담당", revokedAt: null });
 
-    const found = await repository.findAgencySessionByTokenHash("token-hash-value");
+    const found = await repository.findAgencySessionByTokenHash(tokenHash);
     expect(found).toMatchObject({ sessionId: session.sessionId, userId, tenantId });
 
     await repository.revokeSession(session.sessionId, userId);
-    const revoked = await repository.findAgencySessionByTokenHash("token-hash-value");
+    const revoked = await repository.findAgencySessionByTokenHash(tokenHash);
     expect(revoked?.revokedAt).not.toBeNull();
   });
 }

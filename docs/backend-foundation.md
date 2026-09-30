@@ -87,6 +87,12 @@ All four fixes are verified against a real local PostgreSQL instance, not just t
 
 Rollback does not require deleting data: set `NEXT_PUBLIC_BACKEND_MODE=demo` and redeploy. Keep the database intact for diagnosis.
 
+## Known, accepted risk: provisioning grants widen self-insert scope
+
+`db/migrations/003_agency_accounts.sql` grants `enter_ax_app` `INSERT` on `tenants` and `tenant_memberships` so `scripts/create-agency-account.mjs` can run as the ordinary runtime role instead of `enter_ax_owner`. Combined with `tenant_memberships_self_insert`'s policy (`WITH CHECK (user_id = app.user_id)`), this means any code path running as `enter_ax_app` — not just the CLI — could in principle insert `(any tenant, self, 'owner')`. No endpoint exposes this today (only the CLI script uses these grants, and it runs outside the request path), so this is a deliberate, reviewed, accepted risk for the current pilot scope, not an oversight.
+
+**Decision (2026-10-01):** left as-is for now rather than introducing a separate provisioning role or a `SECURITY DEFINER` provisioning function. Re-examine this when Phase 3 adds the first real tenant-scoped resource API — at that point, confirm no new endpoint can reach `tenant_memberships`/`tenants` INSERT through `enter_ax_app`, or revisit one of the two remediation options above if one does.
+
 ## Current moderation boundary
 
 This foundation accepts reports and records audit events, but it does not yet provide an administrator moderation UI. Before a public launch, add a restricted review queue for hiding/removing content, resolving reports, suspending profiles, and recording moderator reasons.

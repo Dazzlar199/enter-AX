@@ -16,6 +16,8 @@ The Compose initializer creates two roles:
 - `enter_ax_owner`: migration owner; never use it as the web application's runtime connection.
 - `enter_ax_app`: non-owner runtime role without `BYPASSRLS`.
 
+**These exact role names are a hard requirement, not a suggestion.** Migrations `002` and `003` hard-code the literal role names `enter_ax_owner` and `enter_ax_app` (in `GRANT`/policy statements and `SECURITY DEFINER` function ownership) — they do not read the names from a variable. On any managed PostgreSQL provider where the database's default owner role is named something else (e.g. `postgres`, or a provider-generated admin user), migrations must still run as a role literally named `enter_ax_owner`, and the application's runtime connection must use a role literally named `enter_ax_app`, exactly matching `db/init/001-roles.sql`. If you provision managed Postgres, create these two roles first (with the same privilege split `001-roles.sql` sets up locally) before running migrations — do not substitute the provider's own admin role name, or migrations will either fail outright or silently scope RLS policies to a role nothing ever connects as (see "A SECURITY DEFINER gotcha worth remembering" below for what that failure mode looks like).
+
 Use this runtime URL locally:
 
 ```dotenv
@@ -54,6 +56,10 @@ Audit records are append-only from the runtime role. Metadata may contain IDs, c
 
 `NEXT_PUBLIC_BACKEND_MODE=api` also enables real agency staff login at `/agency/login`, backed by `tenant_staff_profiles` (email + scrypt password hash, `db/migrations/003_agency_accounts.sql`) and the existing `tenant_memberships` role table. There is no self-service signup: provision the first account per pilot tenant with `scripts/create-agency-account.mjs` (see its `--help`-style usage message). Login sets an `enter_ax_agency_session` cookie, distinct from the community session cookie. `TenancyService.requireMembership` is the single place that turns a resolved session into a role or a 403 + `authorization.denied` audit event — this logic already existed and was already tested before this work; what changed is that real HTTP callers (`/agency/login`, the agency console shell) now actually go through it for the first time. Every future tenant-scoped endpoint should call it rather than re-checking `tenant_memberships` directly.
 
+`scripts/create-agency-account.mjs` must be run with `DATABASE_URL` set to the **`enter_ax_app`** runtime role, not `enter_ax_owner` — it relies on the row-level-security-scoped INSERT grants migration `003` gives `enter_ax_app` on `tenants`, `tenant_staff_profiles`, and `tenant_memberships`, and inherits `app.user_id`/`app.tenant_id` session-variable behavior the same way the running application does.
+
+**Known gap: the "temporary password" the script prints is effectively permanent.** `scripts/create-agency-account.mjs` generates and prints a random password and labels it "temporary password," but there is no change-password, reset-password, or rotation flow anywhere in this phase — this is an explicit, deliberate scope cut, not an oversight. In practice, whatever the script prints at account-creation time is the account's password until an operator manually re-runs some future rotation process (which does not exist yet). Treat the "temporary" label as aspirational: share it with the pilot agency over a secure channel as you would any long-lived credential, and track building a real password-change flow as a known gap for a future phase before this goes beyond a small pilot.
+
 ### A SECURITY DEFINER gotcha worth remembering
 
 Any new cross-user lookup function (session-by-token, credentials-by-email) must run `SECURITY DEFINER` as `enter_ax_owner`, and `enter_ax_owner` is **not** `BYPASSRLS`. If the table it reads has `FORCE ROW LEVEL SECURITY` and every existing policy is scoped `TO enter_ax_app`, the function will silently return zero rows for everyone — no error, just an empty result — because none of the policies apply to the role the function actually runs as. Add an explicit `FOR SELECT TO enter_ax_owner USING (true)` policy on that table in the same migration that adds the function.
@@ -76,7 +82,8 @@ All four fixes are verified against a real local PostgreSQL instance, not just t
 5. Configure `DATABASE_URL`, `APP_ORIGIN`, and `SESSION_COOKIE_SECURE=true`.
 6. Switch Preview to `NEXT_PUBLIC_BACKEND_MODE=api`.
 7. Verify session creation, posting, comments, reports, rate limits, authorization denials, and audit records.
-8. Enable Production only after moderation operations have an assigned owner.
+8. Run `scripts/create-agency-account.mjs` against the Preview database (using the `enter_ax_app` `DATABASE_URL`, per above) to provision a pilot tenant's first agency account, then verify agency login and logout end to end at `/agency/login`: sign in with the printed credentials, confirm the console loads and `TenancyService.requireMembership` gates role-restricted actions as expected, then sign out and confirm the session cookie is revoked (re-using the page requires signing in again).
+9. Enable Production only after moderation operations have an assigned owner.
 
 Rollback does not require deleting data: set `NEXT_PUBLIC_BACKEND_MODE=demo` and redeploy. Keep the database intact for diagnosis.
 

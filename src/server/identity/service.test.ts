@@ -2,7 +2,6 @@ import { describe, expect, it } from "vitest";
 
 import { MemoryPlatformRepository } from "@/server/testing/memory-platform";
 
-import { hashPassword } from "./password";
 import { IdentityService } from "./service";
 import { hashSessionToken } from "./token";
 

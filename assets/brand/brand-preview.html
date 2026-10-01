@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>Enter-AX Brand Identity Showcase</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 60px 40px;
+      background: #0b0f17;
+      color: #fff;
+      font-family: "Pretendard Variable", -apple-system, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+    }
+    h1 {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin: 0;
+      text-align: center;
+    }
+    p {
+      color: #94a3b8;
+      font-size: 18px;
+      margin: 8px 0 0;
+      text-align: center;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      max-width: 1200px;
+      width: 100%;
+    }
+    .card {
+      background: #111827;
+      border: 1.5px solid #1f2937;
+      border-radius: 16px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .card.light {
+      background: #ffffff;
+      color: #0f172a;
+      border-color: #e2e8f0;
+    }
+    .card h3 {
+      font-size: 20px;
+      font-weight: 800;
+      margin: 0;
+    }
+    .card p {
+      font-size: 15px;
+      color: #64748b;
+      margin: 0;
+    }
+    .svg-wrap {
+      width: 340px;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .svg-wrap img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <h1>ENTER—AX 브랜드 아이덴티티: 'ㄴ자' 엔터키 정면 로고 시스템</h1>
+    <p>ISO Enter 키캡 실루엣 + ↵ 리턴 화살표 + AX 결합 순수 벡터(SVG) 로고</p>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>다크 모드 공식 로고 (Dark Vector)</h3>
+      <p>옵시디언 매트 블랙 + 코발트 블루 네온 액센트</p>
+      <div class="svg-wrap">
+        <img src="logo-enter-ax-iso.svg" alt="Enter-AX Dark Logo">
+      </div>
+    </div>
+
+    <div class="card light">
+      <h3 style="color:#0f172a;">라이트 모드 공식 로고 (Light Vector)</h3>
+      <p>클린 화이트 키캡 + 딥 잉크 & 코발트 블루</p>
+      <div class="svg-wrap">
+        <img src="logo-enter-ax-iso-light.svg" alt="Enter-AX Light Logo">
+      </div>
+    </div>
+  </div>
+</body>
+</html>

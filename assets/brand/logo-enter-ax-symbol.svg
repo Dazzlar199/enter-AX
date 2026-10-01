@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="axBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+    <linearGradient id="keycapDark" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1a202c"/>
+      <stop offset="100%" stop-color="#0b0f17"/>
+    </linearGradient>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#2563eb" flood-opacity="0.32"/>
+    </filter>
+  </defs>
+
+  <!-- Background Dark Rounded Canvas -->
+  <rect width="512" height="512" rx="64" fill="#070a10"/>
+
+  <!-- ISO 'ㄴ' Enter Keycap Outer Body -->
+  <path d="M 236 68 H 376 A 22 22 0 0 1 398 90 V 378 A 22 22 0 0 1 376 400 H 136 A 22 22 0 0 1 114 378 V 236 A 22 22 0 0 1 136 214 H 192 A 22 22 0 0 0 214 192 V 90 A 22 22 0 0 1 236 68 Z"
+        fill="url(#keycapDark)"
+        stroke="#2563eb"
+        stroke-width="12"
+        stroke-linejoin="round"
+        filter="url(#softGlow)"/>
+
+  <!-- Subtle Inset Keycap Top Surface Bevel -->
+  <path d="M 242 86 H 360 A 14 14 0 0 1 374 100 V 364 A 14 14 0 0 1 360 378 H 152 A 14 14 0 0 1 138 364 V 242 A 14 14 0 0 1 152 228 H 202 A 18 18 0 0 0 220 210 V 100 A 14 14 0 0 1 234 86 Z"
+        fill="none"
+        stroke="#334155"
+        stroke-width="2.5"
+        stroke-opacity="0.6"/>
+
+  <!-- Return Arrow ↵ (Inverted L Motion) in Top Section -->
+  <path d="M 346 200 V 144 H 262"
+        stroke="#60a5fa"
+        stroke-width="16"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+  <path d="M 280 126 L 254 144 L 280 162"
+        stroke="#60a5fa"
+        stroke-width="16"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+  <!-- AX Monogram in Lower Wide Section -->
+  <!-- A: Modern Apex Architecture -->
+  <path d="M 166 348 L 208 244 L 250 348 M 180 316 H 236"
+        stroke="#ffffff"
+        stroke-width="18"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+  <!-- X: Dynamic Forward Cross -->
+  <path d="M 268 244 L 352 348 M 352 244 L 268 348"
+        stroke="url(#axBlue)"
+        stroke-width="20"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+</svg>

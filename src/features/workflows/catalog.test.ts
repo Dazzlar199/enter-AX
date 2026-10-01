@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
+import type { TalentProfile } from "@/types/domain";
 import {
   deleteCustomNode,
   getAllNodeDefinitions,
@@ -120,7 +121,7 @@ describe("Workflow Executor with Domain Nodes", () => {
         bio: "메인보컬 지망생",
         openToOffers: true,
         createdAt: "2026-03-01T00:00:00Z",
-      } as any,
+      } as unknown as TalentProfile,
     ],
     moveTalentToReview: () => "cand-123",
     createCommunityPost: () => "post-123",

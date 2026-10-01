@@ -189,6 +189,7 @@ export function CustomNodeModal({ isOpen, onClose, onCreated }: CustomNodeModalP
                     data-selected={selectedLogo === item.path || undefined}
                     onClick={() => setSelectedLogo(item.path)}
                   >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={item.path} alt={item.label} width={26} height={26} />
                     <span>{item.label}</span>
                   </button>

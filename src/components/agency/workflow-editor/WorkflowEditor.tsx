@@ -276,12 +276,13 @@ function Editor({ app, permissions }: { app: WorkflowAppContext; permissions: Wo
     return active.edges.map((edge) => {
       const source = run.nodes[edge.source];
       const target = run.nodes[edge.target];
-      const count = source?.status === "success" ? source.output?.length ?? 0 : null;
+      const count = source?.status === "success" ? (edge.sourceHandle && source.branches ? source.branches[edge.sourceHandle]?.length ?? 0 : source.output?.length ?? 0) : null;
       const done = source?.status === "success" && target && target.status !== "idle" && target.status !== "skipped";
       return {
         id: edge.id,
         source: edge.source,
         target: edge.target,
+        sourceHandle: edge.sourceHandle,
         animated: source?.status === "running" || target?.status === "running",
         className: `wf-edge${done ? " wf-edge--done" : ""}`,
         label: count !== null ? `${count}건` : undefined,
@@ -308,8 +309,14 @@ function Editor({ app, permissions }: { app: WorkflowAppContext; permissions: Wo
     (connection: Connection) => {
       if (!permissions.canEdit) return;
       if (!active || !connection.source || !connection.target || connection.source === connection.target) return;
-      if (active.edges.some((edge) => edge.source === connection.source && edge.target === connection.target)) return;
-      const edge = { id: `${connection.source}->${connection.target}`, source: connection.source, target: connection.target };
+      const sourceHandle = connection.sourceHandle ?? undefined;
+      if (active.edges.some((edge) => edge.source === connection.source && edge.target === connection.target && edge.sourceHandle === sourceHandle)) return;
+      const edge = {
+        id: `${connection.source}${sourceHandle ? `:${sourceHandle}` : ""}->${connection.target}`,
+        source: connection.source,
+        target: connection.target,
+        ...(sourceHandle ? { sourceHandle } : {}),
+      };
       try {
         executionOrder({ ...active, edges: [...active.edges, edge] });
       } catch (reason) {
@@ -343,7 +350,7 @@ function Editor({ app, permissions }: { app: WorkflowAppContext; permissions: Wo
       updateActive((workflow) => ({
         ...workflow,
         nodes: [...workflow.nodes, node],
-        edges: !position && anchor && anchor.id === selectedId ? [...workflow.edges, { id: `${anchor.id}->${id}`, source: anchor.id, target: id }] : workflow.edges,
+        edges: !position && anchor && anchor.id === selectedId ? [...workflow.edges, { id: `${anchor.id}->${id}`, source: anchor.id, target: id, ...(getNodeDefinition(anchor.type).outputs ? { sourceHandle: getNodeDefinition(anchor.type).outputs![0].id } : {}) }] : workflow.edges,
       }));
       setSelectedId(id);
       setIsPanelCollapsed(false);

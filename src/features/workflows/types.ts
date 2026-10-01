@@ -9,6 +9,8 @@ export const builtInNodeTypes = [
   "http.request",
   "logic.filter",
   "logic.fields",
+  "logic.if",
+  "logic.merge",
   "logic.sort",
   "logic.limit",
   "logic.dedupe",
@@ -56,6 +58,8 @@ export const workflowEdgeSchema = z.object({
   id: z.string().min(1),
   source: z.string().min(1),
   target: z.string().min(1),
+  /** Which output of a branching node (e.g. "true"/"false" on logic.if) this edge leaves from. */
+  sourceHandle: z.string().min(1).optional(),
 });
 
 export const workflowDefinitionSchema = z.object({
@@ -76,6 +80,8 @@ export type NodeRunState = {
   status: NodeRunStatus;
   input?: WorkflowItem[];
   output?: WorkflowItem[];
+  /** Items per output handle for branching nodes. */
+  branches?: Record<string, WorkflowItem[]>;
   error?: string;
   startedAt?: number;
   finishedAt?: number;

@@ -87,6 +87,9 @@ export function createExecutor(app: WorkflowAppContext): NodeExecutor {
       case "logic.fields":
         return pickFields(input, params.keep ?? "");
 
+      case "logic.merge":
+        return input;
+
       case "logic.sort":
         return sortItems(input, params);
 

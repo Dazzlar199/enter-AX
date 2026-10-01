@@ -1158,3 +1158,6 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.wf-handle--branch { overflow: visible; }
+.wf-handle__label { position: absolute; left: 14px; top: -7px; font-size: 10px; font-weight: 700; color: #475569; white-space: nowrap; pointer-events: none; }

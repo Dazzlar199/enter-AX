@@ -38,6 +38,26 @@ function StatusBadge({ run, missing }: { run: NodeRunState; missing: string[] })
   return null;
 }
 
+function SourceHandles({ outputs }: { outputs?: Array<{ id: string; label: string }> }) {
+  if (!outputs?.length) return <Handle className="wf-handle" position={Position.Right} type="source" />;
+  return (
+    <>
+      {outputs.map((output, index) => (
+        <Handle
+          className="wf-handle wf-handle--branch"
+          id={output.id}
+          key={output.id}
+          position={Position.Right}
+          style={{ top: `${((index + 1) / (outputs.length + 1)) * 100}%` }}
+          type="source"
+        >
+          <span className="wf-handle__label">{output.label}</span>
+        </Handle>
+      ))}
+    </>
+  );
+}
+
 function FlowNodeView({ data, selected }: NodeProps<FlowNodeType>) {
   const { node, run, preview } = data;
   const definition = getNodeDefinition(node.type);
@@ -71,7 +91,7 @@ function FlowNodeView({ data, selected }: NodeProps<FlowNodeType>) {
           <StatusBadge missing={missing} run={run} />
           {isTrigger ? <span aria-hidden="true" className="wf-bolt"><Icon name="bolt" size={12} /></span> : null}
         </div>
-        <Handle className="wf-handle" position={Position.Right} type="source" />
+        <SourceHandles outputs={definition.outputs} />
       </div>
     );
   }
@@ -97,7 +117,7 @@ function FlowNodeView({ data, selected }: NodeProps<FlowNodeType>) {
         <StatusBadge missing={missing} run={run} />
         {isTrigger ? <span aria-hidden="true" className="wf-bolt"><Icon name="bolt" size={12} /></span> : null}
       </div>
-      <Handle className="wf-handle" position={Position.Right} type="source" />
+      <SourceHandles outputs={definition.outputs} />
     </div>
   );
 }

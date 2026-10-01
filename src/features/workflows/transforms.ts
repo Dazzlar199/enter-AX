@@ -36,11 +36,11 @@ export function talentsToItems(talents: TalentProfile[], params: Record<string, 
     }));
 }
 
-export function filterItems(items: WorkflowItem[], params: Record<string, string>): WorkflowItem[] {
+function conditionMatcher(params: Record<string, string>): (item: WorkflowItem) => boolean {
   const field = params.field?.trim();
   if (!field) throw new Error("필터할 필드를 입력해 주세요.");
   const expected = (params.value ?? "").trim();
-  return items.filter((item) => {
+  return (item) => {
     const actual = readPath(item, field);
     const text = actual === undefined || actual === null ? "" : String(actual);
     switch (params.operator) {
@@ -54,7 +54,19 @@ export function filterItems(items: WorkflowItem[], params: Record<string, string
       default:
         return text.toLowerCase().includes(expected.toLowerCase());
     }
-  });
+  };
+}
+
+export function filterItems(items: WorkflowItem[], params: Record<string, string>): WorkflowItem[] {
+  return items.filter(conditionMatcher(params));
+}
+
+/** Splits items into the two outputs of an if-node. */
+export function splitItems(items: WorkflowItem[], params: Record<string, string>): { true: WorkflowItem[]; false: WorkflowItem[] } {
+  const matches = conditionMatcher(params);
+  const result: { true: WorkflowItem[]; false: WorkflowItem[] } = { true: [], false: [] };
+  for (const item of items) result[matches(item) ? "true" : "false"].push(item);
+  return result;
 }
 
 export function pickFields(items: WorkflowItem[], keep: string): WorkflowItem[] {

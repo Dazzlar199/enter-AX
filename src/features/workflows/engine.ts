@@ -1,4 +1,6 @@
-import type { NodeRunState, RunState, WorkflowDefinition, WorkflowItem, WorkflowNode } from "./types";
+import { getNodeDefinition } from "./catalog";
+import { splitItems } from "./transforms";
+import type { NodeRunState, RunState, WorkflowDefinition, WorkflowEdge, WorkflowItem, WorkflowNode } from "./types";
 
 export type NodeExecutor = (node: WorkflowNode, input: WorkflowItem[]) => Promise<WorkflowItem[]>;
 
@@ -53,8 +55,8 @@ export async function runWorkflow(
 ): Promise<RunState> {
   const order = executionOrder(definition);
   const byId = new Map(definition.nodes.map((node) => [node.id, node]));
-  const parents = new Map<string, string[]>(definition.nodes.map((node) => [node.id, []]));
-  for (const edge of definition.edges) parents.get(edge.target)?.push(edge.source);
+  const incoming = new Map<string, WorkflowEdge[]>(definition.nodes.map((node) => [node.id, []]));
+  for (const edge of definition.edges) incoming.get(edge.target)?.push(edge);
 
   let nodes: Record<string, NodeRunState> = { ...previous.nodes };
   const commit = (id: string, next: NodeRunState, status: RunState["status"] = "running") => {
@@ -67,14 +69,31 @@ export async function runWorkflow(
     const current = nodes[id] ?? { status: "idle" };
     if (current.status === "success" || current.status === "waiting" || current.status === "rejected") continue;
 
-    const parentStates = (parents.get(id) ?? []).map((parentId) => nodes[parentId]?.status ?? "idle");
-    if (parentStates.some((status) => status === "error" || status === "rejected" || status === "skipped")) {
+    const edges = incoming.get(id) ?? [];
+    const stateOf = (edge: WorkflowEdge) => nodes[edge.source]?.status ?? "idle";
+    if (edges.some((edge) => stateOf(edge) === "error" || stateOf(edge) === "rejected")) {
       commit(id, { status: "skipped" });
       continue;
     }
-    if (parentStates.some((status) => status !== "success")) continue;
+    // A merge node tolerates branches that were skipped (e.g. the unused side of an if-node); everything else does not.
+    const skippedCount = edges.filter((edge) => stateOf(edge) === "skipped").length;
+    if (node.type === "logic.merge" ? skippedCount > 0 && skippedCount === edges.length : skippedCount > 0) {
+      commit(id, { status: "skipped" });
+      continue;
+    }
+    const live = edges.filter((edge) => stateOf(edge) !== "skipped");
+    if (live.some((edge) => stateOf(edge) !== "success")) continue;
 
-    const input = (parents.get(id) ?? []).flatMap((parentId) => nodes[parentId]?.output ?? []);
+    const edgeItems = (edge: WorkflowEdge): WorkflowItem[] => {
+      const source = nodes[edge.source];
+      return edge.sourceHandle && source?.branches ? source.branches[edge.sourceHandle] ?? [] : source?.output ?? [];
+    };
+    const input = live.flatMap(edgeItems);
+    // Fed only by branch outputs that came up empty: nothing to do down this path.
+    if (live.length > 0 && live.every((edge) => edge.sourceHandle) && input.length === 0) {
+      commit(id, { status: "skipped" });
+      continue;
+    }
 
     if (node.type === "human.approval") {
       commit(id, { status: "waiting", input });
@@ -84,6 +103,11 @@ export async function runWorkflow(
     const startedAt = Date.now();
     commit(id, { status: "running", input, startedAt });
     try {
+      if (node.type === "logic.if") {
+        const branches = splitItems(input, { ...getNodeDefinition(node.type).defaults, ...node.params });
+        commit(id, { status: "success", input, output: input, branches, startedAt, finishedAt: Date.now() });
+        continue;
+      }
       const output = await execute(node, input);
       commit(id, { status: "success", input, output, startedAt, finishedAt: Date.now() });
     } catch (reason) {

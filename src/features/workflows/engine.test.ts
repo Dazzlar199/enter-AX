@@ -64,4 +64,52 @@ describe("workflow engine", () => {
     expect(rejected.nodes.gate.status).toBe("rejected");
     expect(rejected.nodes.act.status).toBe("skipped");
   });
+
+  describe("branching", () => {
+    const branching = (ifParams: Record<string, string>): WorkflowDefinition => ({
+      id: "wf-if",
+      name: "branch",
+      updatedAt: "",
+      nodes: [
+        node("start", "trigger.manual"),
+        { ...node("split", "logic.if"), params: ifParams },
+        node("yes", "logic.fields"),
+        node("no", "logic.fields"),
+        node("join", "logic.merge"),
+      ],
+      edges: [
+        { id: "e1", source: "start", target: "split" },
+        { id: "e2", source: "split", target: "yes", sourceHandle: "true" },
+        { id: "e3", source: "split", target: "no", sourceHandle: "false" },
+        { id: "e4", source: "yes", target: "join" },
+        { id: "e5", source: "no", target: "join" },
+      ],
+    });
+    const run = (def: WorkflowDefinition, items: Record<string, unknown>[]) =>
+      runWorkflow(def, emptyRun(def), async (current, input) => (current.id === "start" ? items : input.map((item) => ({ ...item, via: current.id }))), () => {});
+
+    it("routes items down the matching handle and merges both sides", async () => {
+      const state = await run(branching({ field: "분야", operator: "contains", value: "보컬" }), [{ 분야: "보컬" }, { 분야: "댄스" }]);
+      expect(state.nodes.yes.output).toEqual([{ 분야: "보컬", via: "yes" }]);
+      expect(state.nodes.no.output).toEqual([{ 분야: "댄스", via: "no" }]);
+      expect(state.nodes.join.output).toHaveLength(2);
+      expect(state.status).toBe("success");
+    });
+
+    it("skips an empty branch and still lets the merge node finish", async () => {
+      const state = await run(branching({ field: "분야", operator: "contains", value: "보컬" }), [{ 분야: "보컬" }]);
+      expect(state.nodes.no.status).toBe("skipped");
+      expect(state.nodes.yes.status).toBe("success");
+      expect(state.nodes.join).toMatchObject({ status: "success", output: [{ 분야: "보컬", via: "join" }] });
+    });
+
+    it("skips downstream of a non-merge node when its branch is skipped", async () => {
+      const def = branching({ field: "분야", operator: "contains", value: "보컬" });
+      def.edges = def.edges.filter((edge) => edge.id !== "e5");
+      def.nodes.push(node("after", "logic.fields"));
+      def.edges.push({ id: "e6", source: "no", target: "after" });
+      const state = await run(def, [{ 분야: "보컬" }]);
+      expect(state.nodes.after.status).toBe("skipped");
+    });
+  });
 });

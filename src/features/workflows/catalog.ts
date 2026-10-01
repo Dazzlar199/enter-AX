@@ -37,6 +37,8 @@ export type NodeDefinition = {
   /** Whether this step performs a real action or only demonstrates the expected result. */
   execution?: "live" | "demo";
   hiddenFromPalette?: boolean;
+  /** Named outputs for branching nodes; edges leaving one carry its id as `sourceHandle`. */
+  outputs?: Array<{ id: string; label: string }>;
   presets?: NodePreset[];
   isCustom?: boolean;
 };
@@ -274,6 +276,44 @@ export const nodeCatalog: NodeDefinition[] = [
     runtime: "client",
     params: [{ key: "keep", label: "남길 항목 (쉼표로 구분)", kind: "text", placeholder: "id, 활동명, 분야, 연락처" }],
     defaults: { keep: "" },
+  },
+  {
+    type: "logic.if",
+    label: "조건으로 갈라서 처리",
+    description: "조건에 맞는 데이터와 맞지 않는 데이터를 서로 다른 길로 보냅니다. 비어 있는 길의 다음 단계는 건너뜁니다.",
+    category: "data",
+    icon: { glyph: "filter" },
+    runtime: "client",
+    outputs: [
+      { id: "true", label: "맞음" },
+      { id: "false", label: "아님" },
+    ],
+    params: [
+      { key: "field", label: "기준 항목", kind: "text", placeholder: "분야", required: true },
+      {
+        key: "operator",
+        label: "조건",
+        kind: "select",
+        options: [
+          { value: "contains", label: "포함" },
+          { value: "equals", label: "같음" },
+          { value: "not_empty", label: "비어 있지 않음" },
+          { value: "gt", label: "보다 큼 (숫자)" },
+        ],
+      },
+      { key: "value", label: "값", kind: "text", placeholder: "보컬" },
+    ],
+    defaults: { field: "", operator: "contains", value: "" },
+  },
+  {
+    type: "logic.merge",
+    label: "갈라진 길 합치기",
+    description: "갈라졌던 길의 데이터를 하나로 모아 다음 단계로 보냅니다. 건너뛴 길이 있어도 진행합니다.",
+    category: "data",
+    icon: { glyph: "columns" },
+    runtime: "client",
+    params: [],
+    defaults: {},
   },
   {
     type: "logic.sort",

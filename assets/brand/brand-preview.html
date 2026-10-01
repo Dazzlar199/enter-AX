@@ -2,102 +2,402 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
-  <title>Enter-AX Brand Identity Showcase - Classic Gray Keycap</title>
+  <title>ENTER—AX Brand Identity System · 3D Luxury Beveled Keycap</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800;900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@600;700;800&display=swap">
   <style>
     *, *::before, *::after { box-sizing: border-box; }
     body {
       margin: 0;
-      padding: 60px 40px;
-      background: #eef1f6;
-      color: #111827;
-      font-family: "Pretendard Variable", -apple-system, sans-serif;
+      padding: 64px 32px 100px;
+      background: #edf0f5;
+      color: #0f172a;
+      font-family: "Pretendard Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 36px;
+      gap: 48px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .header-wrap {
+      max-width: 1040px;
+      width: 100%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      font: 700 12px/1 "IBM Plex Mono", monospace;
+      letter-spacing: .08em;
+      color: #2563eb;
+      box-shadow: 0 2px 8px rgba(15,23,42,0.04);
+    }
+    .badge-pill::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #2563eb;
     }
     h1 {
-      font-size: 32px;
+      font-size: 38px;
       font-weight: 900;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.03em;
       margin: 0;
-      text-align: center;
       color: #0f172a;
     }
-    p {
-      color: #64748b;
-      font-size: 18px;
-      margin: 8px 0 0;
-      text-align: center;
+    .h1-ax {
+      background: linear-gradient(180deg, #3b82f6 0%, #2563eb 55%, #1d4ed8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 8px rgba(37,99,235,0.25));
     }
+    p.lead {
+      color: #526071;
+      font-size: 17px;
+      line-height: 1.6;
+      margin: 0;
+      max-width: 720px;
+    }
+
+    /* Primary Grid */
     .grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 32px;
+      gap: 28px;
       max-width: 1100px;
       width: 100%;
     }
+
     .card {
       background: #ffffff;
-      border: 1.5px solid #d8dde6;
-      border-radius: 20px;
+      border: 1px solid #d4dae5;
+      border-radius: 24px;
       padding: 32px;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+      box-shadow: 0 12px 32px rgba(15,23,42,0.06);
+      position: relative;
+      overflow: hidden;
     }
-    .card h3 {
-      font-size: 22px;
+    .card.dark-theme {
+      background: #090e17;
+      border-color: #1e293b;
+      color: #ffffff;
+    }
+
+    .card-top {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .card-title-group h3 {
+      font-size: 20px;
       font-weight: 900;
+      letter-spacing: -0.02em;
       margin: 0;
       color: #0f172a;
     }
-    .card p {
-      font-size: 15px;
-      color: #64748b;
-      margin: 0;
+    .card.dark-theme .card-title-group h3 {
+      color: #f8fafc;
     }
+    .card-title-group p {
+      font-size: 13.5px;
+      color: #64748b;
+      margin: 4px 0 0;
+    }
+    .card.dark-theme .card-title-group p {
+      color: #94a3b8;
+    }
+
+    .format-pill {
+      font: 700 11px/1 "IBM Plex Mono", monospace;
+      padding: 5px 10px;
+      border-radius: 6px;
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #e2e8f0;
+    }
+    .card.dark-theme .format-pill {
+      background: #1e293b;
+      color: #93c5fd;
+      border-color: #334155;
+    }
+
     .preview-box {
-      width: 360px;
-      height: 420px;
+      width: 100%;
+      height: 380px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 12px;
-      overflow: hidden;
+      border-radius: 16px;
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      padding: 16px;
+    }
+    .card.dark-theme .preview-box {
+      background: #040810;
+      border-color: #1e293b;
     }
     .preview-box img {
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
     }
+
+    /* Specs List */
+    .specs-grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      padding-top: 12px;
+      border-top: 1px solid #e2e8f0;
+    }
+    .card.dark-theme .specs-grid {
+      border-top-color: #1e293b;
+    }
+    .spec-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .spec-k {
+      font: 700 10.5px/1 "IBM Plex Mono", monospace;
+      color: #94a3b8;
+      text-transform: uppercase;
+    }
+    .spec-v {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #1e293b;
+    }
+    .card.dark-theme .spec-v {
+      color: #cbd5e1;
+    }
+
+    /* Lockup Row */
+    .lockup-section {
+      max-width: 1100px;
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #d4dae5;
+      border-radius: 24px;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
+      box-shadow: 0 12px 32px rgba(15,23,42,0.06);
+    }
+    .lockup-header {
+      text-align: center;
+    }
+    .lockup-header h3 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 900;
+      color: #0f172a;
+    }
+    .lockup-header p {
+      margin: 6px 0 0;
+      font-size: 14px;
+      color: #64748b;
+    }
+
+    .brand-hero-row {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 24px 44px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+    }
+    .brand-hero-keycap {
+      height: 112px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 14px 28px rgba(15,23,42,0.16));
+    }
+    .brand-hero-title {
+      font: 900 96px/.9 "Space Grotesk", sans-serif;
+      letter-spacing: -.07em;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+    }
+    .brand-hero-ax {
+      background: linear-gradient(180deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 4px 12px rgba(37,99,235,0.3));
+    }
+
+    @media (max-width: 860px) {
+      .grid { grid-template-columns: 1fr; }
+      .brand-hero-title { font-size: 64px; }
+      .brand-hero-keycap { height: 76px; }
+    }
   </style>
 </head>
 <body>
-  <div>
-    <h1>ENTER—AX 브랜드 아이덴티티: 클래식 그레이 'ㄴ자' 엔터키</h1>
-    <p>리얼포스 / 기계식 키보드 고유의 뉴트럴 그레이 키캡 실루엣 + ↵ 리턴 화살표 + 코발트 블루 AX</p>
+
+  <div class="header-wrap">
+    <div class="badge-pill">ENTERTAINMENT ALL-IN-ONE AX OS · BRAND IDENTITY</div>
+    <h1>ENTER—<span class="h1-ax">AX</span> 3D 럭셔리 키캡 아이덴티티 시스템</h1>
+    <p class="lead">
+      컴퓨터 엔터(↵) 키캡의 촉각적 실루엣에 <b>다이아몬드 커팅 메탈릭 베벨(Diamond-Cut Bevel)</b>과 
+      <b>코발트 블루 쥬얼 에나멜 음각(Vitreous Enamel Deboss)</b>을 결합하여, 최고급 하드웨어 만듦새의 입체감을 완성했습니다.
+    </p>
   </div>
 
+  <!-- Primary Showcase Grid -->
   <div class="grid">
+    <!-- Card 1: 3D Vector SVG -->
     <div class="card">
-      <h3>클래식 키보드 그레이 엔터키 (정면 마크)</h3>
-      <p>기계식 키보드 매트 질감 + ↵ 리턴 화살표 + 볼드 코발트 AX</p>
+      <div class="card-top">
+        <div class="card-title-group">
+          <h3>3D 딥 레이저 음각 에나멜 벡터 마크</h3>
+          <p>외곽 흰선 없이 순수 캐비티 음각 깊이감 + 벨벳 코발트 블루 인레이</p>
+        </div>
+        <span class="format-pill">MASTER SVG</span>
+      </div>
       <div class="preview-box">
-        <img src="logo-enter-gray-keycap.jpg" alt="Classic Gray Keycap Logo">
+        <img src="logo-enter-gray-keycap.svg" alt="Enter-AX 3D Keycap SVG Logo">
+      </div>
+      <div class="specs-grid">
+        <div class="spec-item">
+          <span class="spec-k">Engraving</span>
+          <span class="spec-v">딥 캐비티 음각 (No White Lines)</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-k">Inlay</span>
+          <span class="spec-v">4-Stop 벨벳 코발트 쥬얼</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-k">Return Arrow</span>
+          <span class="spec-v">↵ 정밀 90° 음각 인레이</span>
+        </div>
       </div>
     </div>
 
+    <!-- Card 2: Physical 3D Studio Reference -->
     <div class="card">
-      <h3>순수 벡터 SVG 에디션 (Scalable Vector)</h3>
-      <p>키캡 베벨 하이라이트 + 그래파이트 & 코발트 정밀 벡터 코드</p>
+      <div class="card-top">
+        <div class="card-title-group">
+          <h3>피지컬 3D 스튜디오 렌더 (ISO)</h3>
+          <p>아노다이징 티타늄 그레이 바디 + 마이크로 베벨 음각</p>
+        </div>
+        <span class="format-pill">3D STUDIO RENDER</span>
+      </div>
       <div class="preview-box">
-        <img src="logo-enter-gray-keycap.svg" alt="Gray Keycap SVG Logo">
+        <img src="logo-enter-keycap-3d-iso.jpg" alt="Physical 3D Keycap Render">
+      </div>
+      <div class="specs-grid">
+        <div class="spec-item">
+          <span class="spec-k">Material</span>
+          <span class="spec-v">Anodized PBT / Metal</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-k">Finish</span>
+          <span class="spec-v">Satin Matte + Gloss Inlay</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-k">Lighting</span>
+          <span class="spec-v">Key Light Top-Left 135°</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: Dark Background Application -->
+    <div class="card dark-theme">
+      <div class="card-top">
+        <div class="card-title-group">
+          <h3>옵시디언 다크 테마 적용 (Dark Mode)</h3>
+          <p>딥 옵시디언 나이트 배경에서의 메탈릭 하이라이트 대비</p>
+        </div>
+        <span class="format-pill">NIGHT APPLICATION</span>
+      </div>
+      <div class="preview-box">
+        <img src="logo-enter-gray-keycap.svg" alt="Dark Mode 3D Logo">
+      </div>
+      <div class="specs-grid">
+        <div class="spec-item">
+          <span class="spec-k">Contrast</span>
+          <span class="spec-v">High-Luminance Edge</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-k">Gleam</span>
+          <span class="spec-v">Specular Screen Blend</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-k">Application</span>
+          <span class="spec-v">Keynote / Terminal / Dark UI</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4: Wide 3D Keycap Format -->
+    <div class="card">
+      <div class="card-top">
+        <div class="card-title-group">
+          <h3>와이드 3D 키캡 인더스트리얼 렌더</h3>
+          <p>가로형 심볼 레이아웃 · 정밀 절삭 가공 마감</p>
+        </div>
+        <span class="format-pill">WIDE FORMAT</span>
+      </div>
+      <div class="preview-box">
+        <img src="logo-enter-keycap-3d-wide.jpg" alt="Wide 3D Keycap Render">
+      </div>
+      <div class="specs-grid">
+        <div class="spec-item">
+          <span class="spec-k">Form</span>
+          <span class="spec-v">Horizontal ISO Return</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-k">Core</span>
+          <span class="spec-v">Deep Cavity Inset</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-k">Symbol</span>
+          <span class="spec-v">AX ↵ Co-planar</span>
+        </div>
       </div>
     </div>
   </div>
+
+  <!-- Primary Brand Lockup Section -->
+  <div class="lockup-section">
+    <div class="lockup-header">
+      <h3>공식 프라이머리 브랜드 락업 (Official Lockup)</h3>
+      <p>IR 덱 표지 및 메인 웹사이트 헤더 표준 규격: 클래식 그레이 3D 키캡 + 스플릿 톤 워드마크</p>
+    </div>
+
+    <div class="brand-hero-row">
+      <img src="logo-enter-gray-keycap.svg" class="brand-hero-keycap" alt="Enter-AX Official 3D Emblem">
+      <div class="brand-hero-title">
+        <span>ENTER—</span><span class="brand-hero-ax">AX</span>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>

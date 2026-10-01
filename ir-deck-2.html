@@ -258,8 +258,17 @@
     .cover-title {
       font: 900 106px/.9 "Space Grotesk", sans-serif;
       letter-spacing: -.07em;
-      color: var(--cobalt);
+      color: var(--ink);
       margin: 0;
+      display: inline-flex;
+      align-items: center;
+    }
+    .cover-title-ax {
+      color: var(--cobalt);
+      background: linear-gradient(180deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 4px 12px rgba(37, 99, 235, 0.28));
     }
     .cover-h1 {
       font-size: 44px;
@@ -1405,7 +1414,7 @@
               <span class="cover-badge">ENTERTAINMENT ALL-IN-ONE AX OS · SEED ROUND</span>
               <div class="cover-title-row">
                 <img src="assets/brand/logo-enter-gray-keycap.svg" class="cover-title-keycap" alt="Enter-AX Keycap Logo">
-                <div class="cover-title">ENTER—AX</div>
+                <div class="cover-title">ENTER—<span class="cover-title-ax">AX</span></div>
               </div>
               <h1 class="cover-h1">기획사 4대 밸류체인을 연결하는<br><span class="headline-key">엔터테인먼트 올인원 AX OS</span></h1>
               <p class="cover-desc">지원자 접수부터 AI 듀얼 심사, <b>카카오톡 알림톡·Slack 전사 발송</b>까지 원클릭으로 자동화합니다.</p>

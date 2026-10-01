@@ -1,21 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="90 50 330 380" fill="none">
   <defs>
     <!-- Matte Titanium PBT Body Gradient -->
-    <linearGradient id="pbtTitanium" x1="0%" y1="0%" x2="0%" y2="100%">
+    <linearGradient id="symTitanium" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#9ca4b1"/>
       <stop offset="50%" stop-color="#798290"/>
       <stop offset="100%" stop-color="#515967"/>
     </linearGradient>
 
-    <!-- Ergonomic Keycap Cylindrical Dish (Top Concavity) -->
-    <radialGradient id="dishSurface" cx="50%" cy="36%" r="68%">
+    <!-- Ergonomic Keycap Cylindrical Dish -->
+    <radialGradient id="symDishSurface" cx="50%" cy="36%" r="68%">
       <stop offset="0%" stop-color="#b8c0cc"/>
       <stop offset="55%" stop-color="#9fa7b4"/>
       <stop offset="100%" stop-color="#848c99"/>
     </radialGradient>
 
     <!-- Deep Vitreous Cobalt Blue Enamel Gradient -->
-    <linearGradient id="cobaltJewel" x1="0%" y1="0%" x2="0%" y2="100%">
+    <linearGradient id="symCobaltJewel" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#142c6e"/>
       <stop offset="20%" stop-color="#1e40af"/>
       <stop offset="65%" stop-color="#2563eb"/>
@@ -23,13 +23,13 @@
     </linearGradient>
 
     <!-- Keycap Physical Ground Shadow -->
-    <filter id="keyShadow" x="-20%" y="-15%" width="140%" height="145%">
+    <filter id="symKeyShadow" x="-20%" y="-15%" width="140%" height="145%">
       <feDropShadow dx="0" dy="24" stdDeviation="24" flood-color="#0b1120" flood-opacity="0.30"/>
       <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.18"/>
     </filter>
 
-    <!-- Physical Inset Cavity Depth (Pure Engraved Shadow, ZERO White Stroke Lines) -->
-    <filter id="cavityDepth" x="-20%" y="-20%" width="140%" height="140%">
+    <!-- Physical Inset Cavity Depth -->
+    <filter id="symCavityDepth" x="-20%" y="-20%" width="140%" height="140%">
       <feDropShadow dx="0" dy="3.5" stdDeviation="2.2" flood-color="#02050e" flood-opacity="0.9"/>
       <feDropShadow dx="0" dy="1.2" stdDeviation="0.8" flood-color="#000000" flood-opacity="0.95"/>
     </filter>
@@ -37,33 +37,33 @@
 
   <!-- 1. Outer Keycap Skirt -->
   <path d="M 232 64 H 380 A 24 24 0 0 1 404 88 V 384 A 24 24 0 0 1 380 408 H 132 A 24 24 0 0 1 108 384 V 240 A 24 24 0 0 1 132 216 H 188 A 20 20 0 0 0 208 196 V 88 A 24 24 0 0 1 232 64 Z"
-        fill="url(#pbtTitanium)"
+        fill="url(#symTitanium)"
         stroke="#3c4450"
         stroke-width="2.5"
         stroke-linejoin="round"
-        filter="url(#keyShadow)"/>
+        filter="url(#symKeyShadow)"/>
 
   <!-- 2. Top Dish Surface -->
   <path d="M 238 78 H 368 A 18 18 0 0 1 386 96 V 372 A 18 18 0 0 1 368 390 H 144 A 18 18 0 0 1 126 372 V 246 A 18 18 0 0 1 144 228 H 194 A 22 22 0 0 0 216 206 V 96 A 18 18 0 0 1 238 78 Z"
-        fill="url(#dishSurface)"
+        fill="url(#symDishSurface)"
         stroke="#7c8492"
         stroke-width="1.8"
         stroke-linejoin="round"/>
 
-  <!-- 3. Return Arrow: Pure Solid Engraved Inlay (Zero White Outlines) -->
-  <g filter="url(#cavityDepth)">
+  <!-- 3. Return Arrow: Pure Solid Inlay (Zero White Lines) -->
+  <g filter="url(#symCavityDepth)">
     <path d="M 330 136 V 172 H 280 V 186 L 246 164 L 280 142 V 156 H 314 V 136 Z"
           fill="#060c18"
           stroke="#060c18"
           stroke-width="2"
           stroke-linejoin="round"/>
     <path d="M 330 136 V 172 H 280 V 186 L 246 164 L 280 142 V 156 H 314 V 136 Z"
-          fill="url(#cobaltJewel)"
+          fill="url(#symCobaltJewel)"
           stroke-linejoin="round"/>
   </g>
 
-  <!-- 4. AX Typography: Pure Deep Laser Engraving (Zero White Outlines, Pristine Kerning) -->
-  <g filter="url(#cavityDepth)">
+  <!-- 4. AX Typography: Pure Deep Laser Engraving (Zero White Lines) -->
+  <g filter="url(#symCavityDepth)">
     <text x="256" y="358"
           font-family="'Pretendard Variable', 'Pretendard', 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
           font-weight="900"
@@ -81,6 +81,6 @@
           font-size="114"
           letter-spacing="0.03em"
           text-anchor="middle"
-          fill="url(#cobaltJewel)">AX</text>
+          fill="url(#symCobaltJewel)">AX</text>
   </g>
 </svg>

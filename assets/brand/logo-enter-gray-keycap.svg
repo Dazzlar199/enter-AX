@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 700" fill="none">
+  <defs>
+    <!-- Authentic Gray Keyboard Gradients -->
+    <linearGradient id="keycapOuterWall" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#949ba8"/>
+      <stop offset="100%" stop-color="#646b78"/>
+    </linearGradient>
+
+    <linearGradient id="keycapTopSurface" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a6adb8"/>
+      <stop offset="100%" stop-color="#8e95a2"/>
+    </linearGradient>
+
+    <linearGradient id="keycapTopHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#cbd0da"/>
+      <stop offset="100%" stop-color="#9aa1ad"/>
+    </linearGradient>
+
+    <linearGradient id="axCobalt" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e40af"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+
+    <!-- Keycap Drop Shadow -->
+    <filter id="keycapShadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#1e293b" flood-opacity="0.16"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <!-- Clean Off-White Background Canvas -->
+  <rect width="600" height="700" rx="36" fill="#f4f5f8"/>
+
+  <g transform="translate(44, 20)">
+    <!-- 1. Outer Bottom Wall (Keycap Skirt) -->
+    <path d="M 232 64 H 380 A 24 24 0 0 1 404 88 V 384 A 24 24 0 0 1 380 408 H 132 A 24 24 0 0 1 108 384 V 240 A 24 24 0 0 1 132 216 H 188 A 20 20 0 0 0 208 196 V 88 A 24 24 0 0 1 232 64 Z"
+          fill="url(#keycapOuterWall)"
+          stroke="#475060"
+          stroke-width="5"
+          stroke-linejoin="round"
+          filter="url(#keycapShadow)"/>
+
+    <!-- 2. Inner Chamfer Step (Top Surface Outline) -->
+    <path d="M 238 78 H 368 A 18 18 0 0 1 386 96 V 372 A 18 18 0 0 1 368 390 H 144 A 18 18 0 0 1 126 372 V 246 A 18 18 0 0 1 144 228 H 194 A 22 22 0 0 0 216 206 V 96 A 18 18 0 0 1 238 78 Z"
+          fill="url(#keycapTopSurface)"
+          stroke="url(#keycapTopHighlight)"
+          stroke-width="2.5"
+          stroke-linejoin="round"/>
+
+    <!-- 3. Classic Keyboard Return Arrow (↵) in Top Section -->
+    <path d="M 330 206 V 154 H 268"
+          stroke="#1e2430"
+          stroke-width="20"
+          stroke-linecap="square"
+          stroke-linejoin="miter"/>
+    <path d="M 288 132 L 252 154 L 288 176"
+          stroke="#1e2430"
+          stroke-width="20"
+          stroke-linecap="square"
+          stroke-linejoin="miter"/>
+
+    <!-- 4. Bold AX Legend in Lower Wide Section (Crisp Typographic Geometry) -->
+    <text x="256" y="360"
+          font-family="'Pretendard Variable', 'Space Grotesk', -apple-system, sans-serif"
+          font-weight="900"
+          font-size="114"
+          letter-spacing="-0.02em"
+          fill="#155dfc"
+          text-anchor="middle">AX</text>
+  </g>
+
+  <!-- Clean Wordmark Below -->
+  <text x="300" y="535"
+        font-family="system-ui, -apple-system, sans-serif"
+        font-weight="900"
+        font-size="52"
+        letter-spacing="0.14em"
+        fill="#1e2530"
+        text-anchor="middle">ENTER—AX</text>
+
+  <!-- Subtitle Tagline -->
+  <text x="300" y="580"
+        font-family="system-ui, -apple-system, sans-serif"
+        font-weight="750"
+        font-size="16"
+        letter-spacing="0.22em"
+        fill="#2563eb"
+        text-anchor="middle">ENTERTAINMENT AX OS</text>
+</svg>

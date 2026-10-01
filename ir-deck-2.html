@@ -335,79 +335,95 @@
       white-space: nowrap;
     }
 
-    /* ---------- SLIDE 02: PROBLEM (Airbnb 3-Pillar Style) ---------- */
-    /* Bigger, centered headline just for this slide — other slides keep the compact left-aligned header. */
-    #slide-02 .slide-head { margin-bottom: 40px; }
-    #slide-02 .kicker { justify-content: center; }
+    /* ---------- SLIDE 02: PROBLEM (Airbnb 4-Pillar Style, one per department) ---------- */
+    /* Bigger headline just for this slide — other slides keep the compact header. Left-aligned
+       like the rest of the deck (centering read as excessive); the key phrase gets a boxed
+       highlight instead of just color, for emphasis without full-width centering. */
+    #slide-02 .slide-head { margin-bottom: 36px; }
     #slide-02 .kicker .timing { display: none; }
     #slide-02 h1 {
-      text-align: center;
-      font-size: 56px;
+      font-size: 50px;
       letter-spacing: -.04em;
+    }
+    #slide-02 h1 .headline-key {
+      display: inline-block;
+      background: var(--pale-blue);
+      padding: 2px 16px;
+      border-radius: 8px;
     }
     .prob-stage-airbnb {
       display: flex;
       flex-direction: column;
-      gap: 32px;
+      gap: 28px;
       flex: 1;
       min-height: 0;
       justify-content: center;
     }
-    .prob-3-grid {
+    .prob-4-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+      grid-template-columns: repeat(4, 1fr);
+      align-items: start;
+      gap: 18px;
     }
     .prob-card-airbnb {
       background: var(--paper);
       border: 1.5px solid var(--rule);
       border-top: 6px solid var(--risk);
       border-radius: 8px;
-      padding: 32px 30px;
+      padding: 26px 22px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       box-shadow: 0 8px 24px rgba(0,0,0,0.03);
     }
     .prob-card-airbnb:nth-child(2) { border-top-color: #f59e0b; }
-    .prob-card-airbnb:nth-child(3) { border-top-color: var(--ink); }
+    .prob-card-airbnb:nth-child(3) { border-top-color: #8b5cf6; }
+    .prob-card-airbnb:nth-child(4) { border-top-color: var(--cobalt); }
 
-    .prob-card-top { display: flex; flex-direction: column; gap: 12px; }
+    .prob-card-top { display: flex; flex-direction: column; gap: 10px; }
     .prob-tag-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font: 800 13px/1 var(--font-mono);
-      letter-spacing: .08em;
+      font: 800 12px/1 var(--font-mono);
+      letter-spacing: .06em;
       color: var(--risk);
       background: var(--risk-bg);
-      padding: 5px 10px;
+      padding: 5px 9px;
       border-radius: 4px;
       width: fit-content;
     }
     .prob-card-airbnb:nth-child(2) .prob-tag-badge { color: #d97706; background: #fef3c7; }
-    .prob-card-airbnb:nth-child(3) .prob-tag-badge { color: var(--ink); background: #f1f5f9; }
+    .prob-card-airbnb:nth-child(3) .prob-tag-badge { color: #7c3aed; background: #f3e8ff; }
+    .prob-card-airbnb:nth-child(4) .prob-tag-badge { color: var(--cobalt); background: var(--pale-blue); }
 
     .prob-card-airbnb h2 {
-      font-size: 30px;
+      font-size: 22px;
       font-weight: 900;
-      line-height: 1.25;
+      line-height: 1.3;
       color: var(--ink);
     }
     .prob-card-airbnb p {
-      font-size: 19px;
-      line-height: 1.5;
+      font-size: 15.5px;
+      line-height: 1.55;
       color: var(--muted);
       font-weight: 600;
     }
     .prob-logos-row {
       display: flex;
       align-items: center;
-      gap: 16px;
-      padding-top: 20px;
+      gap: 12px;
+      margin-top: 18px;
+      padding-top: 18px;
       border-top: 1.5px solid #edf0f5;
     }
-    .prob-logos-row img { height: 38px; width: 38px; object-fit: contain; }
+    .prob-logos-row img { height: 30px; width: 30px; object-fit: contain; }
+    .prob-stat-row {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1.5px solid #edf0f5;
+      font: 800 13.5px/1.4 var(--font-mono);
+      color: var(--ink-2);
+    }
 
     /* Contrast ribbon */
     .prob-ribbon {
@@ -1389,19 +1405,18 @@
         <section class="slide" id="slide-02" data-title="Problem" data-section="P" aria-hidden="true">
           <header class="slide-head">
             <p class="kicker">
-              <b>P</b><span class="ch">PROBLEM</span><span class="sub">기획사 4대 부서의 단절과 수작업 현실</span>
-              <span class="timing">발표 권장 30초</span>
+              <b>P</b><span class="ch">PROBLEM</span><span class="sub">캐스팅부터 콘텐츠까지, 기획사 4대 부서의 현장 병목</span>
             </p>
-            <h1>도구 파편화로 <span class="headline-key">매월 150시간을 수작업에 낭비</span>합니다</h1>
+            <h1>기획사 4대 부서가 <span class="headline-key">제각각 다른 도구</span>로 일하고 있습니다</h1>
           </header>
           <div class="slide-content prob-stage-airbnb">
-            <!-- 3 Classic Problem Pillars -->
-            <div class="prob-3-grid">
+            <!-- 4 Pillars — one per department value chain (CASTING / TRAINING / A&R / CONTENT) -->
+            <div class="prob-4-grid">
               <article class="prob-card-airbnb">
                 <div class="prob-card-top">
-                  <span class="prob-tag-badge">01 대용량 유실</span>
-                  <h2>30일 만료 &amp; 코덱 에러</h2>
-                  <p>이메일과 드라이브 링크가 30일 만에 만료되어 지원자 18%가 심사 전 영구 유실됩니다.</p>
+                  <span class="prob-tag-badge">01 신인개발 · CASTING</span>
+                  <h2>대용량 30일 만료 &amp; 코덱 에러</h2>
+                  <p>월 1,500~3,000건 오디션이 쏟아지는데 공유 링크는 30일 만에 끊기고, 아이폰 영상은 코덱 에러로 열리지도 않습니다.</p>
                 </div>
                 <div class="prob-logos-row">
                   <img src="assets/deck/logos/logo-gmail.svg" alt="Gmail" title="Gmail">
@@ -1412,25 +1427,35 @@
 
               <article class="prob-card-airbnb">
                 <div class="prob-card-top">
-                  <span class="prob-tag-badge">02 수기 데이터 이관</span>
-                  <h2>엑셀 재입력 &amp; 종이 채점</h2>
-                  <p>지원자 인적사항을 엑셀로 복사하는 데 80시간, 심사위원 종이 채점 취합에 매회 4시간이 걸립니다.</p>
+                  <span class="prob-tag-badge">02 육성·평가 · TRAINING</span>
+                  <h2>종이 채점표 &amp; 비교 불가능한 과거 영상</h2>
+                  <p>매달 연습생 10~30명을 종이로 채점하고, 3개월 전 영상과 지금을 나란히 볼 방법이 없어 성장을 증명하지 못합니다.</p>
+                </div>
+                <div class="prob-stat-row">월 10~30명 평가 · 디지털 기록 0건</div>
+              </article>
+
+              <article class="prob-card-airbnb">
+                <div class="prob-card-top">
+                  <span class="prob-tag-badge">03 A&amp;R · 데모 수급</span>
+                  <h2>같은 곡 중복 접수 &amp; 링크 혼선</h2>
+                  <p>컴백마다 수백 곡이 몰리는데, 여러 퍼블리셔가 같은 곡을 다른 파일로 보내도 걸러낼 방법이 없습니다.</p>
                 </div>
                 <div class="prob-logos-row">
                   <img src="assets/deck/logos/logo-sheets.svg" alt="Sheets" title="Sheets">
-                  <img src="assets/deck/logos/logo-notion.svg" alt="Notion" title="Notion">
+                  <img src="assets/deck/logos/logo-gdrive.svg" alt="Google Drive" title="Google Drive">
                 </div>
               </article>
 
               <article class="prob-card-airbnb">
                 <div class="prob-card-top">
-                  <span class="prob-tag-badge">03 통지 지연</span>
-                  <h2>카톡·Slack 수동 개별 발송</h2>
-                  <p>심사 결과를 전사 공유하고 합격자에게 통보하기까지 5일 이상 지연되어 인재를 놓칩니다.</p>
+                  <span class="prob-tag-badge">04 미디어·마케팅 · CONTENT</span>
+                  <h2>킬링파트 수동 탐색 &amp; 자막 수작업</h2>
+                  <p>매주 숏폼 수십 편을 만드는데 하이라이트 구간을 일일이 찾고, 채널마다 자막을 손으로 다시 칩니다.</p>
                 </div>
                 <div class="prob-logos-row">
-                  <img src="assets/deck/logos/logo-kakaotalk.svg" alt="KakaoTalk" title="KakaoTalk">
-                  <img src="assets/deck/logos/logo-slack.svg" alt="Slack" title="Slack">
+                  <img src="public/logos/youtube.svg" alt="YouTube" title="YouTube">
+                  <img src="public/logos/tiktok.svg" alt="TikTok" title="TikTok">
+                  <img src="public/logos/instagram.svg" alt="Instagram" title="Instagram">
                 </div>
               </article>
             </div>
@@ -1438,12 +1463,12 @@
             <!-- Bottom Contrast Ribbon -->
             <div class="prob-ribbon">
               <div class="prob-ribbon-left">
-                <span>기존 현실: 파편화 도구 6종 · 월 150시간 수작업 허비</span>
+                <span>기존 현실: 부서마다 도구 6종 이상 · 데이터 단절</span>
               </div>
               <div class="prob-ribbon-arrow">➔</div>
               <div class="prob-ribbon-right">
-                <span>ENTER—AX: 0초 스트리밍 &amp; 실시간 AI 심사</span>
-                <span class="prob-ribbon-pill">업무 시간 96% 감축</span>
+                <span>ENTER—AX: 신인개발·육성·A&amp;R·콘텐츠 올인원 연결</span>
+                <span class="prob-ribbon-pill">4대 부서, 하나의 워크스페이스</span>
               </div>
             </div>
           </div>

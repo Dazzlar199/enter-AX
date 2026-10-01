@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server";
 
 import { fetchChannelVideos, resolveChannelId } from "@/lib/media/youtube";
-import { automationDisabledResponse } from "@/server/http/automation-guard";
+import { automationAccessResponse } from "@/server/http/automation-guard";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
 
 export async function GET(request: Request) {
-  const disabled = automationDisabledResponse();
+  const disabled = await automationAccessResponse(request);
   if (disabled) return disabled;
 
   const { searchParams } = new URL(request.url);

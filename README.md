@@ -25,6 +25,8 @@ npm run test:e2e
 - `NEXT_PUBLIC_BACKEND_MODE=api`에서는 커뮤니티 세션·게시글·댓글·신고가 PostgreSQL에 저장됩니다.
 - 지원자 온보딩에서 선택한 사진과 영상은 브라우저 객체 URL로만 미리보며 서버로 전송하지 않습니다.
 - 엔터사용 콘텐츠 자동화 화면에서 명시적으로 선택한 영상은 `/api/content/process`로 전송되어 처리됩니다.
+- `GEMINI_API_KEY`를 설정하면 문서 분석·숏폼 기획·나레이션 문구/음성 생성이 Google Gemini API로 전송되어 처리됩니다. 키가 없으면 로컬 Ollama를 사용합니다(`.env.example` 참고).
+- 콘텐츠·지원자 분석·문서 AX 라우트는 배포 환경에서 기획사 로그인(API 모드) 또는 `ENABLE_CONTENT_AUTOMATION=true`가 있어야 호출됩니다.
 - YouTube는 공식 임베드 재생 전용이며 다운로드·캐시·분리 분석하지 않습니다.
 - 자동 합격·탈락과 외모 점수화는 제공하지 않습니다.
 - 가상 AI 결과에는 `데모` 또는 `API 연동 예정`을 표시합니다.
@@ -42,6 +44,10 @@ TEST_DATABASE_URL=postgres://enter_ax_app:enter_ax_app@localhost:54329/enter_ax_
 ```
 
 로컬 역할, RLS, Preview 활성화와 롤백 절차는 [`docs/backend-foundation.md`](docs/backend-foundation.md)를 참고하세요.
+
+## 업그레이드 방향
+
+[`docs/enter-ax-upgrade-direction-2026-10-01.md`](docs/enter-ax-upgrade-direction-2026-10-01.md)를 참고하세요.
 
 ## 배포
 

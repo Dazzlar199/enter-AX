@@ -189,6 +189,8 @@ export function CustomNodeModal({ isOpen, onClose, onCreated }: CustomNodeModalP
                     data-selected={selectedLogo === item.path || undefined}
                     onClick={() => setSelectedLogo(item.path)}
                   >
+                    {/* 26px local logo asset; next/image optimization adds nothing here */}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={item.path} alt={item.label} width={26} height={26} />
                     <span>{item.label}</span>
                   </button>

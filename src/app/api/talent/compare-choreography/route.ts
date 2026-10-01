@@ -6,7 +6,7 @@ import path from "node:path";
 import { NextResponse } from "next/server";
 
 import { compareChoreography } from "@/lib/vision/choreo";
-import { automationDisabledResponse } from "@/server/http/automation-guard";
+import { automationAccessResponse } from "@/server/http/automation-guard";
 
 export const runtime = "nodejs";
 export const maxDuration = 180;
@@ -22,7 +22,7 @@ function validateVideo(file: FormDataEntryValue | null): file is File {
 }
 
 export async function POST(request: Request) {
-  const disabled = automationDisabledResponse();
+  const disabled = await automationAccessResponse(request);
   if (disabled) return disabled;
 
   const jobId = randomUUID();

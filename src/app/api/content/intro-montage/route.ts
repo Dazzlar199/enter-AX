@@ -10,7 +10,7 @@ import { probeDurationSeconds } from "@/lib/media/ffmpeg";
 import { buildImageMontage, concatWithCrossfade, type MontageImage } from "@/lib/media/montage";
 import { generatePromoNarration, synthesizeNarration } from "@/lib/media/narration";
 import { resolveGeneratedClip } from "@/lib/media/paths";
-import { automationDisabledResponse } from "@/server/http/automation-guard";
+import { automationAccessResponse } from "@/server/http/automation-guard";
 
 export const runtime = "nodejs";
 export const maxDuration = 180;
@@ -60,7 +60,7 @@ async function downloadImage(url: string, destDir: string, index: number): Promi
 }
 
 export async function POST(request: Request) {
-  const disabled = automationDisabledResponse();
+  const disabled = await automationAccessResponse(request);
   if (disabled) return disabled;
 
   const jobId = randomUUID();

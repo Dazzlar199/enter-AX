@@ -1,13 +1,12 @@
 import { createReadStream } from "node:fs";
 import { access } from "node:fs/promises";
-import path from "node:path";
 
 import { google } from "googleapis";
 import { NextResponse } from "next/server";
 
 import { getAuthorizedClient } from "@/lib/auth/youtube";
 import { resolveGeneratedClip } from "@/lib/media/paths";
-import { automationDisabledResponse } from "@/server/http/automation-guard";
+import { automationAccessResponse } from "@/server/http/automation-guard";
 
 export const runtime = "nodejs";
 export const maxDuration = 300;
@@ -20,7 +19,7 @@ interface RequestBody {
 }
 
 export async function POST(request: Request) {
-  const disabled = automationDisabledResponse();
+  const disabled = await automationAccessResponse(request);
   if (disabled) return disabled;
 
   try {

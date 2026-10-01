@@ -7,7 +7,7 @@ import { NextResponse } from "next/server";
 
 import type { AspectRatio, CaptionStylePreset, ClipOverlay, LayoutMode } from "@/lib/media/clip";
 import { runShortformPipeline } from "@/lib/media/pipeline";
-import { automationDisabledResponse } from "@/server/http/automation-guard";
+import { automationAccessResponse } from "@/server/http/automation-guard";
 
 export const runtime = "nodejs";
 export const maxDuration = 300;
@@ -17,7 +17,7 @@ const DURATION_TO_SECONDS: Record<string, number> = { "15": 15, "30": 30, "60": 
 const ASPECT_RATIOS: AspectRatio[] = ["9:16", "1:1", "16:9"];
 
 export async function POST(request: Request) {
-  const disabled = automationDisabledResponse();
+  const disabled = await automationAccessResponse(request);
   if (disabled) return disabled;
 
   const jobId = randomUUID();

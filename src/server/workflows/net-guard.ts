@@ -27,10 +27,37 @@ export function isPrivateAddress(address: string): boolean {
       ["224.0.0.0", 4],
     ].some(([base, bits]) => inRange(address, base as string, bits as number));
   }
-  const lower = address.toLowerCase();
-  if (lower === "::" || lower === "::1") return true;
-  if (lower.startsWith("::ffff:")) return isPrivateAddress(lower.slice(7));
-  return lower.startsWith("fc") || lower.startsWith("fd") || lower.startsWith("fe8") || lower.startsWith("fe9") || lower.startsWith("fea") || lower.startsWith("feb");
+  const groups = parseIpv6(address);
+  if (!groups) return true; // unparseable: fail closed
+  const embedded = (hi: number, lo: number) => `${hi >> 8}.${hi & 255}.${lo >> 8}.${lo & 255}`;
+  const leadingZero = groups.slice(0, 5).every((group) => group === 0);
+  if (leadingZero && groups[5] === 0xffff) return isPrivateAddress(embedded(groups[6], groups[7])); // ::ffff:a.b.c.d
+  if (groups.slice(0, 6).every((group) => group === 0)) return true; // ::, ::1 and deprecated IPv4-compatible
+  if (groups[0] === 0x64 && groups[1] === 0xff9b && groups.slice(2, 6).every((group) => group === 0)) {
+    return isPrivateAddress(embedded(groups[6], groups[7])); // NAT64
+  }
+  if (groups[0] === 0x2002) return isPrivateAddress(embedded(groups[1], groups[2])); // 6to4
+  return (groups[0] & 0xfe00) === 0xfc00 || (groups[0] & 0xffc0) === 0xfe80 || (groups[0] & 0xff00) === 0xff00;
+}
+
+/** Expands an IPv6 literal (incl. `::` and a trailing dotted IPv4) into eight 16-bit groups. */
+function parseIpv6(address: string): number[] | null {
+  let text = address.split("%")[0].toLowerCase();
+  const dotted = text.match(/(\d+\.\d+\.\d+\.\d+)$/);
+  if (dotted) {
+    const octets = dotted[1].split(".").map(Number);
+    if (octets.some((octet) => octet > 255)) return null;
+    text = text.slice(0, -dotted[1].length) + ((octets[0] << 8) | octets[1]).toString(16) + ":" + ((octets[2] << 8) | octets[3]).toString(16);
+  }
+  const halves = text.split("::");
+  if (halves.length > 2) return null;
+  const toGroups = (part: string) => (part === "" ? [] : part.split(":").map((group) => (/^[0-9a-f]{1,4}$/.test(group) ? parseInt(group, 16) : NaN)));
+  const head = toGroups(halves[0]);
+  const tail = halves.length === 2 ? toGroups(halves[1]) : [];
+  const missing = 8 - head.length - tail.length;
+  if (halves.length === 1 ? missing !== 0 : missing < 1) return null;
+  const groups = [...head, ...new Array<number>(halves.length === 2 ? missing : 0).fill(0), ...tail];
+  return groups.some(Number.isNaN) ? null : groups;
 }
 
 /** Rejects non-http(s) URLs and hosts that resolve to non-public addresses (SSRF guard). */

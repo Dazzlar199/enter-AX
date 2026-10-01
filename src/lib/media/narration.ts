@@ -1,19 +1,69 @@
 import { execFile } from "node:child_process";
+import { writeFile } from "node:fs/promises";
 import { promisify } from "node:util";
 
-import { generateText } from "@/lib/ai/llm";
+import { generateText, resolveProvider } from "@/lib/ai/llm";
 
 const execFileAsync = promisify(execFile);
 
 const NARRATION_VOICE = process.env.NARRATION_VOICE ?? "Yuna";
 
-/** Synthesizes Korean speech locally via macOS's built-in `say` command (Yuna voice). macOS-only. */
+const GEMINI_TTS_MODEL = process.env.GEMINI_TTS_MODEL ?? "gemini-2.5-flash-preview-tts";
+const GEMINI_TTS_VOICE = process.env.GEMINI_TTS_VOICE ?? "Kore";
+const PCM_SAMPLE_RATE = 24_000;
+
+/** Wraps raw 16-bit mono PCM in a WAV container. */
+function pcmToWav(pcm: Buffer): Buffer {
+  const header = Buffer.alloc(44);
+  header.write("RIFF", 0);
+  header.writeUInt32LE(36 + pcm.length, 4);
+  header.write("WAVEfmt ", 8);
+  header.writeUInt32LE(16, 16);
+  header.writeUInt16LE(1, 20); // PCM
+  header.writeUInt16LE(1, 22); // mono
+  header.writeUInt32LE(PCM_SAMPLE_RATE, 24);
+  header.writeUInt32LE(PCM_SAMPLE_RATE * 2, 28);
+  header.writeUInt16LE(2, 32);
+  header.writeUInt16LE(16, 34);
+  header.write("data", 36);
+  header.writeUInt32LE(pcm.length, 40);
+  return Buffer.concat([header, pcm]);
+}
+
+async function synthesizeWithGemini(text: string, outputPath: string): Promise<void> {
+  let response: Response;
+  try {
+    response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_TTS_MODEL}:generateContent`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-goog-api-key": process.env.GEMINI_API_KEY ?? "" },
+      signal: AbortSignal.timeout(60_000),
+      body: JSON.stringify({
+        contents: [{ parts: [{ text }] }],
+        generationConfig: {
+          responseModalities: ["AUDIO"],
+          speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: GEMINI_TTS_VOICE } } },
+        },
+      }),
+    });
+  } catch {
+    throw new Error("Gemini 음성 합성 API에 연결하지 못했습니다.");
+  }
+  if (!response.ok) throw new Error(`Gemini 음성 합성이 실패했습니다 (status ${response.status}).`);
+  const data = (await response.json()) as { candidates?: { content?: { parts?: { inlineData?: { data?: string } }[] } }[] };
+  const audio = data.candidates?.[0]?.content?.parts?.find((part) => part.inlineData?.data)?.inlineData?.data;
+  if (!audio) throw new Error("Gemini가 음성을 만들지 못했습니다.");
+  // Content is WAV regardless of the file extension; ffmpeg detects the format by probing.
+  await writeFile(outputPath, pcmToWav(Buffer.from(audio, "base64")));
+}
+
+/** Synthesizes Korean speech: Gemini TTS when a key is configured, otherwise macOS's built-in `say` (Yuna). */
 export async function synthesizeNarration(text: string, outputPath: string): Promise<void> {
+  if (resolveProvider() === "gemini") return synthesizeWithGemini(text, outputPath);
   try {
     await execFileAsync("say", ["-v", NARRATION_VOICE, "-o", outputPath, text]);
   } catch {
     throw new Error(
-      "로컬 TTS(macOS 'say' 명령)로 나레이션을 만들지 못했습니다. macOS 환경에서만 지원되는 기능입니다.",
+      "로컬 TTS(macOS 'say' 명령)로 나레이션을 만들지 못했습니다. GEMINI_API_KEY를 설정하면 서버에서도 음성을 만들 수 있습니다.",
     );
   }
 }

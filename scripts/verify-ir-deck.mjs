@@ -108,13 +108,6 @@ export function assertStructure(report) {
   return errors;
 }
 
-function describeElement(element) {
-  const tag = element.tagName.toLowerCase();
-  const id = element.id ? `#${element.id}` : "";
-  const classes = [...element.classList].map((name) => `.${name}`).join("");
-  return `${tag}${id}${classes}`;
-}
-
 async function inspectRuntime(page) {
   return page.evaluate(() => {
     const active = document.querySelector(".slide.is-active");

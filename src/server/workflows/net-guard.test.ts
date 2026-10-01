@@ -4,10 +4,10 @@ import { assertPublicUrl, isPrivateAddress } from "./net-guard";
 
 describe("workflow network guard", () => {
   it("classifies private and public addresses", () => {
-    for (const address of ["127.0.0.1", "10.1.2.3", "172.16.0.1", "192.168.1.1", "169.254.169.254", "100.64.0.1", "::1", "fd00::1", "::ffff:127.0.0.1"]) {
+    for (const address of ["127.0.0.1", "10.1.2.3", "172.16.0.1", "192.168.1.1", "169.254.169.254", "100.64.0.1", "::1", "fd00::1", "::ffff:127.0.0.1", "::ffff:7f00:1", "::ffff:a9fe:a9fe", "0:0:0:0:0:ffff:7f00:1", "64:ff9b::7f00:1", "2002:7f00:1::", "fe80::1%eth0", "ff02::1", "::"]) {
       expect(isPrivateAddress(address), address).toBe(true);
     }
-    for (const address of ["8.8.8.8", "1.1.1.1", "172.32.0.1", "2606:4700::1111"]) {
+    for (const address of ["8.8.8.8", "1.1.1.1", "172.32.0.1", "2606:4700::1111", "::ffff:8.8.8.8", "2001:4860:4860::8888"]) {
       expect(isPrivateAddress(address), address).toBe(false);
     }
   });

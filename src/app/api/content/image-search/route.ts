@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { automationDisabledResponse } from "@/server/http/automation-guard";
+import { automationAccessResponse } from "@/server/http/automation-guard";
 
 export const runtime = "nodejs";
 
@@ -30,7 +30,7 @@ function stripHtmlTags(value: string): string {
 }
 
 export async function GET(request: Request) {
-  const disabled = automationDisabledResponse();
+  const disabled = await automationAccessResponse(request);
   if (disabled) return disabled;
 
   const clientId = process.env.NAVER_CLIENT_ID;

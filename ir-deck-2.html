@@ -668,100 +668,44 @@
       color: var(--cobalt);
     }
 
-    /* ---------- SLIDE 05: MARKET SIZE & GTM (Airbnb TAM/SAM/SOM Circles) ---------- */
-    .market-stage-airbnb {
-      display: flex;
-      flex-direction: column;
-      gap: 32px;
-      flex: 1;
-      min-height: 0;
-      justify-content: center;
-    }
+    /* ---------- SLIDE 05: MARKET SIZE & GTM (Airbnb TAM/SAM/SOM 3-Card Style) ---------- */
     .market-3-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+      gap: 20px;
+      align-items: start;
     }
-    .market-card-airbnb {
-      background: var(--paper);
-      border: 1.5px solid var(--rule);
-      border-radius: 8px;
-      padding: 36px 32px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.03);
-    }
-    .market-card-airbnb > p { margin-top: 28px; }
-    .market-card-airbnb:nth-child(1) { border-top: 6px solid #94a3b8; }
-    .market-card-airbnb:nth-child(2) { border-top: 6px solid #3b82f6; }
-    .market-card-airbnb:nth-child(3) { border-top: 6px solid var(--cobalt); background: #f8fbff; }
-
-    .market-card-top small {
-      display: block;
-      font: 900 15px/1 var(--font-mono);
-      color: var(--cobalt);
-      letter-spacing: .12em;
-      margin-bottom: 12px;
-    }
-    .market-card-number {
-      font: 900 74px/1 var(--font-mono);
-      color: var(--ink);
+    .market-card-num-row {
+      font: 900 64px/1 var(--font-mono);
       letter-spacing: -.05em;
-      margin-bottom: 12px;
+      color: var(--ink);
+      margin: 6px 0 8px;
     }
-    .market-card-airbnb:nth-child(3) .market-card-number { color: var(--cobalt); }
-    .market-card-number small {
-      font-size: 26px;
+    .market-card-num-row small {
+      font-size: 24px;
       font-family: var(--font-sans);
       color: var(--muted);
+      font-weight: 800;
       margin-left: 6px;
     }
-    .market-card-airbnb:nth-child(3) .market-card-number small { color: var(--cobalt-deep); }
-    .market-card-top h3 {
-      font-size: 24px;
-      font-weight: 900;
-      color: var(--ink);
-      margin-bottom: 8px;
+    .market-som-featured {
+      border: 1.5px solid #bfdbfe !important;
+      border-top: 4px solid var(--cobalt) !important;
+      background: #f8fbff !important;
     }
-    .market-card-airbnb p {
-      font-size: 18px;
-      color: var(--muted);
-      font-weight: 600;
-      line-height: 1.4;
+    .market-som-badge {
+      color: var(--cobalt) !important;
+      font-weight: 800 !important;
     }
-
-    .market-flywheel-ribbon {
-      background: var(--paper);
-      border: 1.5px solid var(--rule);
-      border-left: 6px solid var(--cobalt);
-      border-radius: 6px;
-      padding: 18px 28px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .market-som-num {
+      color: var(--cobalt) !important;
     }
-    .market-flywheel-step {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 19px;
-      font-weight: 850;
-      color: var(--ink);
+    .market-som-num small {
+      color: var(--cobalt-deep) !important;
     }
-    .market-flywheel-step b {
-      display: grid;
-      place-items: center;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: var(--cobalt);
-      color: #fff;
-      font: 800 14px/1 var(--font-mono);
-    }
-    .market-flywheel-arrow {
-      font: 900 24px/1 var(--font-mono);
-      color: var(--cobalt);
+    .market-som-stat {
+      color: var(--cobalt-deep) !important;
+      font-weight: 800 !important;
     }
 
     /* ---------- SLIDE 06: COMPETITION (The Iconic Airbnb 2x2 Matrix) ---------- */
@@ -1180,11 +1124,13 @@
       display: block;
       margin-bottom: 4px;
     }
-    .bm-arr-goal-box strong { font-size: 20px; font-weight: 900; color: var(--ink); }
+    .bm-arr-goal-box strong { font-size: 18px; font-weight: 900; color: var(--ink); }
     .bm-arr-val-airbnb {
       font: 900 48px/1 var(--font-mono);
       color: var(--cobalt);
       letter-spacing: -.04em;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
     .bm-arr-val-airbnb small {
       font-size: 22px;
@@ -1636,48 +1582,73 @@
               <b>M</b><span class="ch">MARKET SIZE &amp; GTM</span><span class="sub">시장 규모 및 독점 유통 파이프라인</span>
               <span class="timing">발표 권장 30초</span>
             </p>
-            <h1>전국 6,629개 기획사와 <span class="headline-key">280개 독점 학원 파이프라인</span></h1>
+            <h1>국내 800억 SaaS 시장, <span class="headline-key">280개 독점 학원망으로 18억 ARR</span>을 선점합니다</h1>
           </header>
-          <div class="slide-content market-stage-airbnb">
-            <!-- 3 TAM / SAM / SOM Giant Cards -->
+          <div class="slide-content prob-stage-airbnb">
+            <!-- 3 TAM / SAM / SOM Giant Cards (Slide 2 Style) -->
             <div class="market-3-grid">
-              <div class="market-card-airbnb">
-                <div class="market-card-top">
-                  <small>TAM · 전체 시장</small>
-                  <div class="market-card-number">6,629<small>개사</small></div>
-                  <h3>전국 등록 기획사</h3>
+              <!-- 01 TAM -->
+              <article class="prob-card-airbnb">
+                <div class="prob-card-top">
+                  <span class="prob-tag-badge">01 TAM · 전체 시장</span>
+                  <div class="market-card-num-row">
+                    800<small>억 원</small>
+                  </div>
+                  <h2>전국 6,629개 등록 기획사</h2>
+                  <ul class="prob-frag-list">
+                    <li>국내 대중문화예술기획업 6,629개사 (KOCCA)</li>
+                    <li>연간 K-POP 지원자 50만 명 대상 운영 시장</li>
+                    <li>글로벌 K-엔터 OS 확장 시 1.2조 원 잠재 시장</li>
+                  </ul>
                 </div>
-                <p>국내 대중문화예술기획업 등록사 전수. 연간 K-POP 오디션 지원자 50만 명 규모.</p>
-              </div>
+                <div class="prob-stat-row">6,629개사 × 연 1,200만 원 (평균 ARPA)</div>
+              </article>
 
-              <div class="market-card-airbnb">
-                <div class="market-card-top">
-                  <small>SAM · 유효 시장</small>
-                  <div class="market-card-number">1,200<small>개사</small></div>
-                  <h3>정기 오디션 기획사</h3>
+              <!-- 02 SAM -->
+              <article class="prob-card-airbnb">
+                <div class="prob-card-top">
+                  <span class="prob-tag-badge">02 SAM · 유효 시장</span>
+                  <div class="market-card-num-row">
+                    216<small>억 원</small>
+                  </div>
+                  <h2>정기 오디션 가동 1,200개사</h2>
+                  <ul class="prob-frag-list">
+                    <li>수도권 정기 오디션·연습생 육성 기획사 1,200곳</li>
+                    <li>Pro 플랜 (월 150만 원 / 연 1,800만 원) 타깃</li>
+                    <li>신인개발·A&amp;R·미디어 전담 부서 보유 고객군</li>
+                  </ul>
                 </div>
-                <p>오디션 및 신인개발팀을 정기 가동하는 기획사. 월 50만~150만 원 SaaS 구독 잠재 고객군.</p>
-              </div>
+                <div class="prob-stat-row">1,200개사 × 연 1,800만 원 (Pro 플랜)</div>
+              </article>
 
-              <div class="market-card-airbnb">
-                <div class="market-card-top">
-                  <small>SOM / GTM · 초기 독점 진입</small>
-                  <div class="market-card-number">280<small>개원</small></div>
-                  <h3>전국 독점 제휴 학원망</h3>
+              <!-- 03 SOM -->
+              <article class="prob-card-airbnb market-som-featured">
+                <div class="prob-card-top">
+                  <span class="prob-tag-badge market-som-badge">03 SOM · 3년 초기 목표</span>
+                  <div class="market-card-num-row market-som-num">
+                    18<small>억 원</small>
+                  </div>
+                  <h2>유료 100개사 독점 선점 (8.3%)</h2>
+                  <ul class="prob-frag-list">
+                    <li>전국 280개 보컬·댄스 학원 단독 접수 파이프라인</li>
+                    <li>연 5만 명 원생 지원 데이터 축적으로 기획사 락인</li>
+                    <li>Starter 40곳 + Pro 50곳 + Enterprise 10곳</li>
+                  </ul>
                 </div>
-                <p>전국 보컬·댄스 입시 학원과 공식 접수 독점 제휴. 연간 5만 명 원생 지원자 독점 인입.</p>
-              </div>
+                <div class="prob-stat-row market-som-stat">초기 점유율 8.3% · 연 ARR 18억 원</div>
+              </article>
             </div>
 
-            <!-- Flywheel Ribbon -->
-            <div class="market-flywheel-ribbon">
-              <div class="market-flywheel-step"><b>1</b><span>학원 원생 독점 인입</span></div>
-              <div class="market-flywheel-arrow">➔</div>
-              <div class="market-flywheel-step"><b>2</b><span>지원자 프로필 데이터 축적</span></div>
-              <div class="market-flywheel-arrow">➔</div>
-              <div class="market-flywheel-step"><b>3</b><span>기획사 100곳 인재 공급</span></div>
-              <div class="market-flywheel-arrow">➔</div>
-              <div class="market-flywheel-step"><b>4</b><span style="color:var(--cobalt); font-weight:900;">B2B OS 독점 락인</span></div>
+            <!-- Bottom Contrast Ribbon (Slide 2 Style) -->
+            <div class="prob-ribbon">
+              <div class="prob-ribbon-left">
+                <span>GTM 독점 진입: 280개 학원망 연 5만 명 인입</span>
+              </div>
+              <div class="prob-ribbon-arrow">➔</div>
+              <div class="prob-ribbon-right">
+                <span><b class="prob-ribbon-brand">ENTER—AX</b> B2B 독점 락인으로 기획사 100곳, ARR 18억 달성</span>
+                <span class="prob-ribbon-pill">SAM 대비 점유율 8.3%</span>
+              </div>
             </div>
           </div>
           <div class="footer-rule" aria-hidden="true"></div>
@@ -1871,10 +1842,10 @@
 
               <div class="bm-arr-goal-box">
                 <div>
-                  <span>3년 차 목표 ARR (유료 고객 80개사)</span>
-                  <strong>Pro 65개사 + Enterprise 15개사</strong>
+                  <span>3년 차 목표 ARR (초기 유료 100개사)</span>
+                  <strong>Starter 40곳 + Pro 50곳 + Enterprise 10곳</strong>
                 </div>
-                <div class="bm-arr-val-airbnb">9.9<small>억 원</small></div>
+                <div class="bm-arr-val-airbnb">18<small>억 원</small></div>
               </div>
             </div>
           </div>

@@ -242,11 +242,24 @@
       border: 1.5px solid #bfdbfe;
       border-radius: 4px;
     }
+    .cover-title-row {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      margin-bottom: 20px;
+    }
+    .cover-title-keycap {
+      height: 108px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 28px rgba(15, 23, 42, 0.14));
+      flex-shrink: 0;
+    }
     .cover-title {
-      font: 900 110px/.9 "Space Grotesk", sans-serif;
+      font: 900 106px/.9 "Space Grotesk", sans-serif;
       letter-spacing: -.07em;
       color: var(--cobalt);
-      margin-bottom: 20px;
+      margin: 0;
     }
     .cover-h1 {
       font-size: 44px;
@@ -309,17 +322,13 @@
       height: 94px;
       background: var(--paper);
       border-top: 3px solid var(--cobalt);
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      display: flex;
       align-items: center;
       padding: 0 330px 0 84px;
     }
     .cover-foot-col {
       text-align: left;
-      padding: 0 24px;
-      border-right: 1.5px solid var(--rule);
     }
-    .cover-foot-col:last-child { border-right: none; }
     .cover-foot-col small {
       display: block;
       font: 800 12px/1 var(--font-mono);
@@ -1401,20 +1410,8 @@
             </div>
             <div class="cover-footer">
               <div class="cover-foot-col">
-                <small>TARGET MARKET</small>
-                <strong>전국 6,629개 기획사</strong>
-              </div>
-              <div class="cover-foot-col">
-                <small>SCREENING SPEED</small>
-                <strong>3초 즉시 스트리밍 심사</strong>
-              </div>
-              <div class="cover-foot-col">
-                <small>UNIT ECONOMICS</small>
-                <strong>건당 원가 45원 (마진 91%)</strong>
-              </div>
-              <div class="cover-foot-col">
-                <small>CURRENT ASK</small>
-                <strong>Seed 3억 원 유치</strong>
+                <small>발표자</small>
+                <strong>김찬주</strong>
               </div>
             </div>
           </div>

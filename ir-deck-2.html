@@ -559,7 +559,101 @@
       margin: 2px 0 6px;
     }
 
-    /* ---------- SLIDE 04: CORE TECH (Dance & Vocal Visual Duo) ---------- */
+    /* ---------- SLIDE 04: COMMUNITY & TALENT ZONE (Live Split + 3 Flywheel Cards) ---------- */
+    .comm-stage-airbnb {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
+      flex: 1;
+      min-height: 0;
+    }
+    .comm-screen-card {
+      background: #fff;
+      border: 1.5px solid var(--rule);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 14px 36px rgba(0,0,0,0.06);
+      min-height: 0;
+    }
+    .comm-screen-bar {
+      height: 38px;
+      background: #eaedf3;
+      border-bottom: 1.5px solid var(--rule);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      font: 800 13px/1 var(--font-mono);
+      color: var(--muted);
+      flex: none;
+    }
+    .comm-screen-bar b { color: var(--cobalt); }
+    .comm-screen-card img {
+      flex: 1 1 0;
+      min-height: 0;
+      width: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+    .comm-screen-foot {
+      height: 40px;
+      padding: 0 16px;
+      background: #f8fafc;
+      border-top: 1.5px solid #edf0f5;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--ink-2);
+      flex: none;
+    }
+    .comm-screen-foot small {
+      font: 800 11.5px/1 var(--font-mono);
+      color: var(--cobalt);
+      background: #eaf1ff;
+      padding: 3px 7px;
+      border-radius: 4px;
+    }
+    .comm-cards-stack {
+      display: grid;
+      grid-template-rows: repeat(3, 1fr);
+      gap: 8px;
+      min-height: 0;
+    }
+    .comm-card-airbnb {
+      background: var(--paper);
+      border: 1.5px solid var(--rule);
+      border-radius: 8px;
+      padding: 11px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 3px;
+      box-shadow: 0 2px 8px rgba(17,21,28,0.03);
+    }
+    .comm-card-airbnb h2 {
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--ink);
+      margin: 1px 0 3px;
+    }
+    .comm-card-airbnb .prob-frag-list {
+      gap: 5px;
+    }
+    .comm-card-airbnb .prob-frag-list li {
+      font-size: 14px;
+      line-height: 1.3;
+    }
+    .comm-card-airbnb .prob-stat-row {
+      margin-top: 5px;
+      padding-top: 5px;
+      font-size: 12.5px;
+    }
+
+    /* ---------- SLIDE 05: CORE TECH (Dance & Vocal Visual Duo) ---------- */
     .tech-stage-airbnb {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1465,8 +1559,75 @@
           <div class="footer-rule" aria-hidden="true"></div>
         </section>
 
-        <!-- 04 CORE TECH (Dance & Vocal Side-by-Side Visuals) -->
-        <section class="slide" id="slide-04" data-title="Core Tech" data-section="S1" aria-hidden="true">
+        <!-- 04 COMMUNITY & TALENT ZONE (Live Split + 3 Flywheel Cards + Ribbon) -->
+        <section class="slide" id="slide-04" data-title="Community &amp; Talent Zone" data-section="C" aria-hidden="true">
+          <header class="slide-head">
+            <p class="kicker">
+              <b>C</b><span class="ch">COMMUNITY &amp; TALENT ZONE</span><span class="sub">B2C 오디션 커뮤니티 기반 '독점 인재 유입 존(Zone)' 구축</span>
+            </p>
+            <h1>50만 지망생이 모이는 커뮤니티로 <span class="headline-key">우리만의 독점 인재 존(Zone)</span>을 확보합니다</h1>
+          </header>
+          <div class="slide-content comm-stage-airbnb">
+            <!-- Left: Live Community UI Screen -->
+            <div class="comm-screen-card">
+              <div class="comm-screen-bar">
+                <span>AUDITION COMMUNITY · <b>ENTER-AX B2C</b></span>
+                <span>52,480 ACTIVE APPLICANTS</span>
+              </div>
+              <img src="assets/deck/community-color-v1.png" alt="Enter-AX 오디션 지망생 커뮤니티 실화면">
+              <div class="comm-screen-foot">
+                <small>PROPRIETARY ZONE</small>
+                <span>50만 지망생 커뮤니티 ➔ 우리만의 독점 인재 존(Zone) 구축 ➔ 기획사 B2B 락인</span>
+              </div>
+            </div>
+
+            <!-- Right: 3 Flywheel Cards -->
+            <div class="comm-cards-stack">
+              <div class="comm-card-airbnb">
+                <div class="prob-card-top">
+                  <span class="prob-tag-badge">01 자생적 유입 · ORGANIC INFLOW</span>
+                  <h2>오디션 정보 &amp; 꿀팁 공유 공간</h2>
+                  <ul class="prob-frag-list">
+                    <li>기획사별 실시간 공고 &amp; 합격 팁 자발적 바이럴</li>
+                    <li>광고비 지출 없이(CAC 0원) 전국 지망생 50만 결집</li>
+                    <li>지원 준비 과정에서 프로필·포트폴리오 자연 등록</li>
+                  </ul>
+                </div>
+                <div class="prob-stat-row">CAC 0원 · 오가닉 지망생 유입률 88%</div>
+              </div>
+
+              <div class="comm-card-airbnb">
+                <div class="prob-card-top">
+                  <span class="prob-tag-badge" style="color:var(--cobalt); font-weight:800;">02 독점 인재 존 · PROPRIETARY ZONE</span>
+                  <h2>우리만의 독점 인재 유입 존(Zone)</h2>
+                  <ul class="prob-frag-list">
+                    <li>외부 도구가 절대 침범할 수 없는 단독 보유 인재 풀</li>
+                    <li>일회성 지원서가 아닌 365일 실시간 업데이트 DB</li>
+                    <li>기획사는 오직 Enter-AX를 통해서만 원석 인재 탐색</li>
+                  </ul>
+                </div>
+                <div class="prob-stat-row" style="color:var(--cobalt); font-weight:800;">연간 5만 명 독점 프로필 DB 영구 축적</div>
+              </div>
+
+              <div class="comm-card-airbnb">
+                <div class="prob-card-top">
+                  <span class="prob-tag-badge" style="color:var(--cobalt); font-weight:800;">03 양면 플라이휠 · FLYWHEEL MOAT</span>
+                  <h2>인재 풀이 견인하는 기획사 락인</h2>
+                  <ul class="prob-frag-list">
+                    <li>지망생이 모일수록 기획사는 필수로 도입할 수밖에 없음</li>
+                    <li>단순 SaaS 기능 교체가 불가능한 대체 불가능한 플랫폼</li>
+                    <li>지망생 유입 ➔ 인재 풀 축적 ➔ 기획사 영구 락인 선순환</li>
+                  </ul>
+                </div>
+                <div class="prob-stat-row" style="color:var(--cobalt); font-weight:800;">기획사 이탈률 0% · B2C ↔ B2B 영구 락인</div>
+              </div>
+            </div>
+          </div>
+          <div class="footer-rule" aria-hidden="true"></div>
+        </section>
+
+        <!-- 05 CORE TECH (Dance & Vocal Side-by-Side Visuals) -->
+        <section class="slide" id="slide-05" data-title="Core Tech" data-section="T" aria-hidden="true">
           <header class="slide-head">
             <p class="kicker">
               <b>T</b><span class="ch">CORE TECH</span><span class="sub">MediaPipe 33관절 안무 골격 비교 &amp; F0 보컬 주파수 대조</span>
@@ -1523,8 +1684,8 @@
           <div class="footer-rule" aria-hidden="true"></div>
         </section>
 
-        <!-- 05 MARKET SIZE & GTM (Airbnb TAM/SAM/SOM 3-Card Style) -->
-        <section class="slide" id="slide-05" data-title="Market Size" data-section="M" aria-hidden="true">
+        <!-- 06 MARKET SIZE & GTM (Airbnb TAM/SAM/SOM 3-Card Style) -->
+        <section class="slide" id="slide-06" data-title="Market Size" data-section="M" aria-hidden="true">
           <header class="slide-head">
             <p class="kicker">
               <b>M</b><span class="ch">MARKET SIZE &amp; GTM</span><span class="sub">전국 6,629개사 SaaS 시장 및 280개 학원 독점 파이프라인</span>
@@ -1601,8 +1762,8 @@
           <div class="footer-rule" aria-hidden="true"></div>
         </section>
 
-        <!-- 06 COMPETITION (The Iconic Airbnb 2x2 Positioning Matrix) -->
-        <section class="slide" id="slide-06" data-title="Competition" data-section="C" aria-hidden="true">
+        <!-- 07 COMPETITION (The Iconic Airbnb 2x2 Positioning Matrix) -->
+        <section class="slide" id="slide-07" data-title="Competition" data-section="C" aria-hidden="true">
           <header class="slide-head">
             <p class="kicker">
               <b>C</b><span class="ch">COMPETITION</span><span class="sub">단일 기능 AI·범용 클라우드 대비 유일한 엔터 특화 OS</span>
@@ -1707,8 +1868,8 @@
           <div class="footer-rule" aria-hidden="true"></div>
         </section>
 
-        <!-- 07 BUSINESS MODEL (Airbnb Simplicity: Clean Tiers + 91% Margin Bar) -->
-        <section class="slide" id="slide-07" data-title="Business Model" data-section="BM" aria-hidden="true">
+        <!-- 08 BUSINESS MODEL (Airbnb Simplicity: Clean Tiers + 91% Margin Bar) -->
+        <section class="slide" id="slide-08" data-title="Business Model" data-section="BM" aria-hidden="true">
           <header class="slide-head">
             <p class="kicker">
               <b>B</b><span class="ch">BUSINESS MODEL</span><span class="sub">구독 요금제 티어 및 건당 원가 45원 91% 마진 구조</span>
@@ -1806,8 +1967,8 @@
           <div class="footer-rule" aria-hidden="true"></div>
         </section>
 
-        <!-- 08 ROADMAP & ASK (Airbnb 4-Phase Milestones + Seed Round Ask) -->
-        <section class="slide" id="slide-08" data-title="Roadmap & Ask" data-section="R" aria-hidden="true">
+        <!-- 09 ROADMAP & ASK (Airbnb 4-Phase Milestones + Seed Round Ask) -->
+        <section class="slide" id="slide-09" data-title="Roadmap &amp; Ask" data-section="R" aria-hidden="true">
           <header class="slide-head">
             <p class="kicker">
               <b>R</b><span class="ch">ROADMAP &amp; ASK</span><span class="sub">4단계 마일스톤 로드맵 및 시드 3억 원 유치 계획</span>
@@ -1899,7 +2060,7 @@
     </div>
 
     <!-- Navigation & Page Counter -->
-    <div class="page-no" id="page-counter">01 / 08</div>
+    <div class="page-no" id="page-counter">01 / 09</div>
     <nav class="deck-nav" aria-label="Slide navigation">
       <button class="nav-prev" id="nav-prev" aria-label="이전 슬라이드 (←)">←</button>
       <div class="nav-dots" id="nav-dots">
@@ -1911,6 +2072,7 @@
         <button class="nav-dot" aria-current="false" aria-label="6번 슬라이드"></button>
         <button class="nav-dot" aria-current="false" aria-label="7번 슬라이드"></button>
         <button class="nav-dot" aria-current="false" aria-label="8번 슬라이드"></button>
+        <button class="nav-dot" aria-current="false" aria-label="9번 슬라이드"></button>
       </div>
       <button class="nav-next" id="nav-next" aria-label="다음 슬라이드 (→)">→</button>
     </nav>

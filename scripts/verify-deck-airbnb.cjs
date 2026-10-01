@@ -51,7 +51,7 @@ const fs = require('fs');
     console.error('FAILED: Some slides have vertical overflow!');
     process.exit(1);
   } else {
-    console.log('SUCCESS: All 8 slides passed with 0 overflow and screenshots saved.');
+    console.log(`SUCCESS: All ${slidesCount} slides passed with 0 overflow and screenshots saved.`);
     process.exit(0);
   }
 })();

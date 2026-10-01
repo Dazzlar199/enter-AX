@@ -885,6 +885,14 @@
       window.addEventListener("resize", fitScale);
       fitScale();
 
+      window.addEventListener("hashchange", () => {
+        const h = location.hash.replace("#", "");
+        if (h) {
+          const idx = slides.findIndex(s => s.id === "slide-" + h);
+          if (idx >= 0 && idx !== currentIndex) goTo(idx);
+        }
+      });
+
       const initialHash = location.hash.replace("#", "");
       if (initialHash) {
         const found = slides.findIndex(s => s.id === "slide-" + initialHash);

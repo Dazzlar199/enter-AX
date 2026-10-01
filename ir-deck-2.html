@@ -3,235 +3,259 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ENTER—AX | 엔터테인먼트 올인원 AX OS (4분 IR 덱)</title>
+  <title>ENTER—AX | 엔터테인먼트 올인원 AX OS (4분 발표용 IR 덱)</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@600;700&display=swap">
   <style>
     /*
-      ENTER—AX IR DECK 2 · 4-Minute Investor Pitch Edition
-      Canvas 1600×900. Crisp editorial layout with cobalt accents,
-      real UI evidence captures, GTM distribution, pilot testing KPIs,
-      deep tech pipeline, and robust unit economics.
+      ENTER—AX IR DECK 2 · 4-Minute Presentation Edition (v2.1 High-Visibility)
+      Specially designed for live 4-minute investor pitching:
+      - Large, readable presentation typography (no tiny text).
+      - Crisp visual components: Real KakaoTalk Alimtalk & Slack cards.
+      - Bold Bento layouts, high-impact numbers, and zero clutter.
     */
     *, *::before, *::after { box-sizing: border-box; }
     :root {
-      --canvas: #f6f5f1;
+      --canvas: #f5f4ef;
       --paper: #ffffff;
-      --ink: #141820;
-      --ink-2: #3a404b;
-      --muted: #626a78;
-      --cobalt: #2864e8;
+      --ink: #11151c;
+      --ink-2: #2d3440;
+      --muted: #5e6676;
+      --cobalt: #2563eb;
       --cobalt-deep: #0f2f7a;
-      --pale-blue: #eaf1ff;
-      --accent-green: #1a8754;
-      --accent-green-bg: #eaf8f0;
-      --rule: #d7dae0;
-      --night: #0b1428;
+      --pale-blue: #e8f0fe;
+      --accent-green: #0d8a4e;
+      --accent-green-bg: #eaf7f0;
+      --kakao-yellow: #fee500;
+      --kakao-brown: #3c1e1e;
+      --slack-purple: #4a154b;
+      --rule: #d5d9e2;
+      --night: #0a1122;
 
-      --font-sans: "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", "Noto Sans KR", Arial, sans-serif;
-      --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
-
-      --fs-cap: 13px;
-      --fs-sm: 15px;
-      --fs-body: 18px;
-      --fs-lead: 22px;
-      --fs-h3: 28px;
-      --fs-h2: 36px;
-      --fs-h1: 48px;
+      --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+      --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
 
       --slide-w: 1600px;
       --slide-h: 900px;
       --safe-x: 88px;
-      --safe-top: 92px;
-      --safe-bottom: 56px;
+      --safe-top: 86px;
+      --safe-bottom: 50px;
     }
     html, body { margin: 0; width: 100%; height: 100%; }
-    body { overflow: hidden; font-family: var(--font-sans); background: #e4e3de; color: var(--ink); -webkit-font-smoothing: antialiased; font-feature-settings: "tnum" 1; }
+    body { overflow: hidden; font-family: var(--font-sans); background: #e2e1dc; color: var(--ink); -webkit-font-smoothing: antialiased; font-feature-settings: "tnum" 1; }
     p, h1, h2, h3, ol, ul, dl, dd, figure { margin: 0; padding: 0; }
     a { color: inherit; }
     #deck { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
-    #deck-frame { position: absolute; top: 50%; left: 50%; width: var(--slide-w); height: var(--slide-h); transform-origin: center; transform: translate(-50%, -50%); box-shadow: 0 24px 64px rgba(20, 24, 32, .18); }
+    #deck-frame { position: absolute; top: 50%; left: 50%; width: var(--slide-w); height: var(--slide-h); transform-origin: center; transform: translate(-50%, -50%); box-shadow: 0 28px 70px rgba(17, 21, 28, .22); }
     #slides { position: relative; width: 100%; height: 100%; }
 
     /* ---------- Slide frame ---------- */
     .slide { position: absolute; inset: 0; display: none; width: var(--slide-w); height: var(--slide-h); padding: var(--safe-top) var(--safe-x) var(--safe-bottom); background: var(--canvas); overflow: hidden; word-break: keep-all; }
     .slide.is-active { display: flex; flex-direction: column; }
-    .slide-chrome { position: absolute; top: 32px; left: var(--safe-x); right: var(--safe-x); display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; border-bottom: 1px solid var(--rule); font: 600 12px/1 var(--font-mono); letter-spacing: .12em; color: var(--muted); }
-    .slide-chrome .brand { color: var(--ink); letter-spacing: .04em; font-family: var(--font-sans); font-weight: 800; font-size: 14px; }
-    .slide-chrome .deck-tag { color: var(--cobalt); font-weight: 700; }
-    .psst { display: flex; gap: 24px; }
-    .psst span { position: relative; }
-    .psst span[aria-current="true"] { color: var(--cobalt); font-weight: 700; }
-    .psst span[aria-current="true"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: -13px; height: 2px; background: var(--cobalt); }
-    .page-no { position: absolute; bottom: 22px; left: var(--safe-x); font: 600 12px/1 var(--font-mono); letter-spacing: .1em; color: var(--muted); }
+    .slide-chrome { position: absolute; top: 28px; left: var(--safe-x); right: var(--safe-x); display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; border-bottom: 1px solid var(--rule); font: 700 13px/1 var(--font-mono); letter-spacing: .12em; color: var(--muted); }
+    .slide-chrome .brand { color: var(--ink); letter-spacing: .04em; font-family: var(--font-sans); font-weight: 900; font-size: 15px; }
+    .slide-chrome .deck-tag { color: var(--cobalt); font-weight: 800; }
+    .psst { display: flex; gap: 26px; }
+    .psst span { position: relative; font-size: 13px; }
+    .psst span[aria-current="true"] { color: var(--cobalt); font-weight: 800; }
+    .psst span[aria-current="true"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: -13px; height: 2.5px; background: var(--cobalt); }
+    .page-no { position: absolute; bottom: 20px; left: var(--safe-x); font: 700 13px/1 var(--font-mono); letter-spacing: .1em; color: var(--muted); }
 
-    .slide-head { flex: none; margin-bottom: 28px; }
-    .slide-head .kicker { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
-    .kicker b { display: grid; place-items: center; width: 28px; height: 28px; background: var(--cobalt); color: #fff; font: 700 15px/1 var(--font-mono); border-radius: 2px; }
-    .kicker .ch { font: 700 13px/1 var(--font-mono); letter-spacing: .14em; color: var(--cobalt); }
-    .kicker .sub { padding-left: 12px; border-left: 1px solid var(--rule); font-size: 15px; font-weight: 700; color: var(--ink-2); }
-    .kicker .timing { margin-left: auto; font: 600 12px/1 var(--font-mono); color: var(--muted); background: #e8ebf0; padding: 4px 8px; border-radius: 2px; }
-    .slide h1 { font-size: var(--fs-h1); line-height: 1.22; font-weight: 800; letter-spacing: -.035em; max-width: 1400px; text-wrap: balance; }
+    .slide-head { flex: none; margin-bottom: 24px; }
+    .slide-head .kicker { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .kicker b { display: grid; place-items: center; width: 30px; height: 30px; background: var(--cobalt); color: #fff; font: 800 16px/1 var(--font-mono); border-radius: 4px; }
+    .kicker .ch { font: 800 14px/1 var(--font-mono); letter-spacing: .14em; color: var(--cobalt); }
+    .kicker .sub { padding-left: 12px; border-left: 1px solid var(--rule); font-size: 16px; font-weight: 800; color: var(--ink-2); }
+    .kicker .timing { margin-left: auto; font: 700 13px/1 var(--font-mono); color: var(--cobalt); background: #e0e8f7; padding: 5px 10px; border-radius: 4px; }
+    .slide h1 { font-size: 46px; line-height: 1.22; font-weight: 900; letter-spacing: -.04em; max-width: 1420px; text-wrap: balance; color: var(--ink); }
     .slide h1 .headline-key { color: var(--cobalt); font-weight: 900; }
     .slide-content { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
-    .footer-rule { flex: none; height: 24px; margin-top: auto; border-top: 1px solid var(--rule); }
-
-    /* ---------- Common Cards & Layouts ---------- */
-    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; height: 100%; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; height: 100%; }
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; height: 100%; }
+    .footer-rule { flex: none; height: 18px; margin-top: auto; border-top: 1px solid var(--rule); }
 
     /* ---------- 01 Cover ---------- */
     #slide-01 { padding: 0; }
-    .cover-container { width: 100%; height: 100%; position: relative; overflow: hidden; background: var(--canvas); display: grid; grid-template-columns: 1.05fr 0.95fr; }
-    .cover-left { padding: 80px 60px 120px 88px; display: flex; flex-direction: column; justify-content: center; z-index: 2; }
-    .cover-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; background: var(--pale-blue); color: var(--cobalt); font: 700 12.5px/1 var(--font-mono); letter-spacing: .12em; width: fit-content; margin-bottom: 24px; border: 1px solid #c7dcfd; }
-    .cover-title { font: 800 96px/.95 "Space Grotesk", sans-serif; letter-spacing: -.065em; color: var(--cobalt); margin-bottom: 20px; }
-    .cover-h1 { font-size: 38px; line-height: 1.25; font-weight: 800; letter-spacing: -.04em; color: var(--ink); margin-bottom: 20px; word-break: keep-all; }
-    .cover-desc { font-size: 18px; line-height: 1.6; color: var(--ink-2); max-width: 580px; }
-    .cover-right { position: relative; padding: 50px 88px 120px 20px; display: flex; align-items: center; justify-content: center; }
-    .cover-hero-card { width: 100%; height: 540px; background: #fff; border: 1px solid var(--rule); box-shadow: 0 16px 40px rgba(0,0,0,0.08); overflow: hidden; position: relative; display: flex; flex-direction: column; }
-    .cover-hero-bar { height: 32px; background: #eef1f6; border-bottom: 1px solid var(--rule); display: flex; align-items: center; padding: 0 14px; gap: 6px; }
-    .cover-hero-bar span { width: 9px; height: 9px; border-radius: 50%; background: #d0d5dd; }
-    .cover-hero-bar span:first-child { background: #f06a6a; }
-    .cover-hero-img { width: 100%; height: calc(100% - 32px); object-fit: cover; object-position: top left; }
-    .cover-floating-tag { position: absolute; bottom: 20px; right: 20px; background: rgba(11, 20, 40, 0.9); backdrop-filter: blur(8px); color: #fff; padding: 12px 18px; border-radius: 4px; font-size: 14px; font-weight: 700; line-height: 1.4; border-left: 3px solid var(--cobalt); }
-    .cover-footer { position: absolute; left: 0; right: 0; bottom: 0; height: 84px; background: var(--paper); border-top: 2px solid var(--cobalt); display: grid; grid-template-columns: repeat(4, 1fr); align-items: center; padding: 0 260px 0 88px; }
-    .cover-foot-item { text-align: left; padding: 0 16px; border-right: 1px solid var(--rule); }
-    .cover-foot-item:last-child { border-right: none; }
-    .cover-foot-item small { display: block; font: 700 11px/1 var(--font-mono); color: var(--cobalt); letter-spacing: .08em; margin-bottom: 4px; }
-    .cover-foot-item strong { display: block; font-size: 14px; font-weight: 800; color: var(--ink); white-space: nowrap; }
+    .cover-box { width: 100%; height: 100%; position: relative; overflow: hidden; background: var(--canvas); display: grid; grid-template-columns: 1fr 1fr; }
+    .cover-left { padding: 70px 50px 110px 88px; display: flex; flex-direction: column; justify-content: center; z-index: 2; }
+    .cover-badge { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; background: var(--pale-blue); color: var(--cobalt); font: 800 13px/1 var(--font-mono); letter-spacing: .14em; width: fit-content; margin-bottom: 24px; border: 1.5px solid #bdd4fc; border-radius: 4px; }
+    .cover-title { font: 800 96px/.92 "Space Grotesk", sans-serif; letter-spacing: -.07em; color: var(--cobalt); margin-bottom: 18px; }
+    .cover-h1 { font-size: 44px; line-height: 1.25; font-weight: 900; letter-spacing: -.045em; color: var(--ink); margin-bottom: 20px; }
+    .cover-desc { font-size: 20px; line-height: 1.55; color: var(--ink-2); max-width: 600px; font-weight: 550; }
+    .cover-right { position: relative; padding: 40px 88px 110px 20px; display: flex; align-items: center; justify-content: center; }
+    .cover-screen-frame { width: 100%; height: 530px; background: #fff; border: 1.5px solid var(--rule); box-shadow: 0 20px 48px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; position: relative; display: flex; flex-direction: column; }
+    .cover-screen-bar { height: 36px; background: #eaedf3; border-bottom: 1px solid var(--rule); display: flex; align-items: center; padding: 0 16px; gap: 7px; }
+    .cover-screen-bar span { width: 10px; height: 10px; border-radius: 50%; background: #c8ced8; }
+    .cover-screen-bar span:first-child { background: #ef5350; }
+    .cover-screen-img { width: 100%; height: calc(100% - 36px); object-fit: cover; object-position: top left; }
+    .cover-callout-pill { position: absolute; bottom: 24px; right: 24px; background: rgba(10, 17, 34, 0.94); backdrop-filter: blur(10px); color: #fff; padding: 14px 22px; border-radius: 6px; font-size: 15px; font-weight: 800; line-height: 1.4; border-left: 4px solid var(--cobalt); box-shadow: 0 10px 24px rgba(0,0,0,0.25); }
+    .cover-footer { position: absolute; left: 0; right: 0; bottom: 0; height: 88px; background: var(--paper); border-top: 2px solid var(--cobalt); display: grid; grid-template-columns: repeat(4, 1fr); align-items: center; padding: 0 260px 0 88px; }
+    .cover-foot-col { text-align: left; padding: 0 18px; border-right: 1px solid var(--rule); }
+    .cover-foot-col:last-child { border-right: none; }
+    .cover-foot-col small { display: block; font: 800 12px/1 var(--font-mono); color: var(--cobalt); letter-spacing: .08em; margin-bottom: 4px; }
+    .cover-foot-col strong { display: block; font-size: 17px; font-weight: 900; color: var(--ink); white-space: nowrap; }
 
-    /* ---------- 02 Problem Cards ---------- */
-    .problem-col { background: var(--paper); border: 1px solid var(--rule); border-top: 4px solid var(--cobalt); padding: 24px 20px 20px; display: flex; flex-direction: column; }
-    .problem-col:nth-child(2) { border-top-color: #5570f2; }
-    .problem-col:nth-child(3) { border-top-color: #7b91f7; }
-    .problem-col:nth-child(4) { border-top-color: var(--ink); }
-    .dept-badge { font: 700 12px/1 var(--font-mono); color: var(--cobalt); letter-spacing: .08em; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
-    .problem-col h2 { font-size: 24px; font-weight: 800; line-height: 1.25; margin-bottom: 12px; }
-    .problem-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 8px; flex: 1; }
-    .problem-list li { font-size: 14.5px; line-height: 1.45; color: var(--ink-2); position: relative; padding-left: 14px; }
-    .problem-list li::before { content: "•"; position: absolute; left: 0; color: #d9482b; font-weight: 800; }
-    .problem-loss { margin-top: auto; padding: 12px; background: #fff4f2; border-left: 3px solid #d9482b; font-size: 13.5px; font-weight: 700; color: #9c2710; }
-    .problem-banner { margin-top: 18px; padding: 14px 24px; background: #edf3ff; border: 1px solid #c7dcfd; border-left: 4px solid var(--cobalt); display: flex; align-items: center; justify-content: space-between; }
-    .problem-banner strong { font-size: 18px; color: var(--ink); }
-    .problem-banner span { font: 600 13px/1 var(--font-mono); color: var(--cobalt); }
+    /* ---------- 02 Problem (Big Impact Bento) ---------- */
+    .problem-bento { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; flex: 1; min-height: 0; }
+    .p-card { background: var(--paper); border: 1.5px solid var(--rule); border-top: 5px solid var(--cobalt); padding: 26px 22px 22px; display: flex; flex-direction: column; border-radius: 6px; }
+    .p-card:nth-child(2) { border-top-color: #3b82f6; }
+    .p-card:nth-child(3) { border-top-color: #6366f1; }
+    .p-card:nth-child(4) { border-top-color: var(--ink); }
+    .p-dept { font: 800 13px/1 var(--font-mono); color: var(--cobalt); letter-spacing: .08em; margin-bottom: 8px; }
+    .p-card h2 { font-size: 26px; font-weight: 900; line-height: 1.25; margin-bottom: 16px; color: var(--ink); }
+    .p-main-pain { padding: 12px 14px; background: #fff1f0; border-left: 3.5px solid #e11d48; font-size: 16px; font-weight: 800; color: #be123c; margin-bottom: 16px; border-radius: 2px; line-height: 1.35; }
+    .p-sub-list { list-style: none; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+    .p-sub-list li { font-size: 16px; line-height: 1.45; color: var(--ink-2); font-weight: 600; padding-left: 16px; position: relative; }
+    .p-sub-list li::before { content: "•"; position: absolute; left: 0; color: #e11d48; font-weight: 900; font-size: 18px; }
+    .p-waste { margin-top: auto; padding-top: 14px; border-top: 1px solid var(--rule); font-size: 14px; font-weight: 750; color: var(--muted); }
+    .problem-impact-bar { margin-top: 18px; padding: 16px 28px; background: #fff5f5; border: 1.5px solid #fecdd3; border-left: 5px solid #e11d48; border-radius: 4px; display: flex; align-items: center; justify-content: space-between; }
+    .problem-impact-bar strong { font-size: 21px; color: #9f1239; font-weight: 900; }
+    .problem-impact-bar span { font: 800 14px/1 var(--font-mono); color: #be123c; }
 
     /* ---------- 03 Solution Layout ---------- */
-    .solution-stage { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 24px; height: 100%; min-height: 0; }
-    .solution-screen-box { background: #fff; border: 1px solid var(--rule); display: flex; flex-direction: column; overflow: hidden; }
-    .solution-screen-box .win-header { height: 34px; background: #f1f3f7; border-bottom: 1px solid var(--rule); display: flex; align-items: center; justify-content: space-between; padding: 0 14px; font: 600 12px/1 var(--font-mono); color: var(--muted); }
-    .solution-screen-img { flex: 1; width: 100%; object-fit: cover; object-position: top; }
-    .solution-caption { padding: 12px 16px; background: #fbfbfc; border-top: 1px solid var(--rule); font-size: 13.5px; color: var(--muted); display: flex; justify-content: space-between; align-items: center; }
-    .solution-caption b { color: var(--cobalt); }
-    .solution-modules { display: flex; flex-direction: column; gap: 12px; height: 100%; }
-    .module-card { background: var(--paper); border: 1px solid var(--rule); padding: 14px 18px; flex: 1; display: flex; flex-direction: column; justify-content: center; position: relative; }
-    .module-card.active { border-left: 4px solid var(--cobalt); background: #fcfdfe; }
-    .module-card .mod-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
-    .module-card .mod-head span { font: 700 12px/1 var(--font-mono); color: var(--cobalt); letter-spacing: .06em; }
-    .module-card .mod-head b { font: 600 11px/1 var(--font-mono); color: var(--accent-green); background: var(--accent-green-bg); padding: 2px 6px; border-radius: 2px; }
-    .module-card h3 { font-size: 19px; font-weight: 800; color: var(--ink); margin-bottom: 4px; }
-    .module-card p { font-size: 13.5px; line-height: 1.4; color: var(--muted); }
+    .solution-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 24px; flex: 1; min-height: 0; }
+    .sol-screen { background: #fff; border: 1.5px solid var(--rule); border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 12px 32px rgba(0,0,0,0.06); }
+    .sol-screen-bar { height: 36px; background: #eaedf3; border-bottom: 1px solid var(--rule); display: flex; align-items: center; justify-content: space-between; padding: 0 16px; font: 700 13px/1 var(--font-mono); color: var(--muted); }
+    .sol-screen img { flex: 1; width: 100%; object-fit: cover; object-position: top; }
+    .sol-screen-foot { padding: 12px 18px; background: #fbfbfc; border-top: 1px solid var(--rule); font-size: 14.5px; color: var(--ink-2); font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+    .sol-modules { display: flex; flex-direction: column; gap: 14px; height: 100%; }
+    .sol-mod { background: var(--paper); border: 1.5px solid var(--rule); padding: 16px 20px; flex: 1; display: flex; flex-direction: column; justify-content: center; border-radius: 6px; }
+    .sol-mod.active { border-left: 5px solid var(--cobalt); background: #fafdff; }
+    .sol-mod-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+    .sol-mod-head span { font: 800 13px/1 var(--font-mono); color: var(--cobalt); letter-spacing: .06em; }
+    .sol-mod-head b { font: 800 12px/1 var(--font-mono); color: var(--accent-green); background: var(--accent-green-bg); padding: 3px 8px; border-radius: 3px; }
+    .sol-mod h3 { font-size: 22px; font-weight: 900; color: var(--ink); margin-bottom: 5px; }
+    .sol-mod p { font-size: 15.5px; line-height: 1.45; color: var(--ink-2); font-weight: 550; }
 
-    /* ---------- 04 Tech & Architecture ---------- */
-    .tech-stage { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 24px; height: 100%; min-height: 0; }
-    .tech-cards { display: flex; flex-direction: column; gap: 14px; }
-    .tech-card { background: var(--paper); border: 1px solid var(--rule); border-left: 4px solid var(--cobalt); padding: 18px 22px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
-    .tech-card small { font: 700 12px/1 var(--font-mono); color: var(--cobalt); letter-spacing: .08em; margin-bottom: 6px; }
-    .tech-card h3 { font-size: 21px; font-weight: 800; margin-bottom: 6px; }
-    .tech-card p { font-size: 14.5px; line-height: 1.45; color: var(--ink-2); }
-    .tech-card .tech-chips { display: flex; gap: 6px; margin-top: 10px; }
-    .tech-card .tech-chip { font: 600 11.5px/1 var(--font-mono); padding: 4px 8px; background: #eef2f9; color: var(--ink-2); border-radius: 2px; }
-    .tech-visual { background: #fff; border: 1px solid var(--rule); display: flex; flex-direction: column; overflow: hidden; }
-    .tech-visual img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+    /* ---------- 04 Real Tech & Live Integrations (Kakao & Slack) ---------- */
+    .live-tech-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; flex: 1; min-height: 0; }
+    .live-cards-left { display: flex; flex-direction: column; gap: 16px; height: 100%; }
 
-    /* ---------- 05 Distribution (GTM) ---------- */
-    .gtm-stage { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; height: 100%; }
-    .gtm-col { background: var(--paper); border: 1px solid var(--rule); border-top: 4px solid var(--cobalt); padding: 26px 22px 20px; display: flex; flex-direction: column; }
-    .gtm-step { font: 700 13px/1 var(--font-mono); color: var(--cobalt); margin-bottom: 8px; }
-    .gtm-col h2 { font-size: 24px; font-weight: 800; line-height: 1.25; margin-bottom: 12px; }
-    .gtm-target { font-size: 13.5px; font-weight: 700; color: var(--muted); margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--rule); }
-    .gtm-content { font-size: 14.5px; line-height: 1.5; color: var(--ink-2); flex: 1; }
-    .gtm-content ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
-    .gtm-content li { position: relative; padding-left: 14px; }
-    .gtm-content li::before { content: "→"; position: absolute; left: 0; color: var(--cobalt); font-weight: 700; }
-    .gtm-kpi { margin-top: auto; padding: 12px; background: #f0f4fd; border-radius: 2px; }
-    .gtm-kpi small { display: block; font: 700 11px/1 var(--font-mono); color: var(--cobalt); margin-bottom: 4px; }
-    .gtm-kpi strong { display: block; font-size: 15px; color: var(--ink); }
+    /* Realistic KakaoTalk Card */
+    .kakao-card { background: #fff; border: 1.5px solid #ecd836; border-radius: 8px; padding: 18px 22px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 8px 24px rgba(254, 229, 0, 0.22); position: relative; }
+    .kakao-top { display: flex; align-items: center; justify-content: space-between; }
+    .kakao-tag { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: var(--kakao-yellow); color: var(--kakao-brown); font-size: 13px; font-weight: 900; border-radius: 4px; }
+    .kakao-agency { font-size: 13px; font-weight: 800; color: var(--muted); }
+    .kakao-msg-title { font-size: 19px; font-weight: 900; color: var(--ink); margin-top: 4px; }
+    .kakao-body-box { background: #fbfbfd; border: 1px solid #e5e8f0; border-radius: 6px; padding: 12px 14px; font-size: 14.5px; line-height: 1.5; color: var(--ink-2); font-weight: 600; }
+    .kakao-btn { background: var(--kakao-yellow); color: var(--kakao-brown); padding: 10px 0; text-align: center; border-radius: 4px; font-size: 15px; font-weight: 900; letter-spacing: -.02em; }
 
-    /* ---------- 06 Testing & KPIs ---------- */
-    .test-stage { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 24px; height: 100%; }
-    .test-process { background: var(--paper); border: 1px solid var(--rule); padding: 24px; display: flex; flex-direction: column; justify-content: space-between; }
-    .test-step-card { padding: 14px 16px; background: #f8f9fb; border-left: 3px solid var(--cobalt); margin-bottom: 10px; }
-    .test-step-card:last-child { margin-bottom: 0; }
-    .test-step-card span { font: 700 12px/1 var(--font-mono); color: var(--cobalt); }
-    .test-step-card strong { display: block; font-size: 17px; margin: 4px 0 2px; }
-    .test-step-card p { font-size: 13px; color: var(--muted); line-height: 1.4; }
-    .test-metrics { display: flex; flex-direction: column; gap: 14px; }
-    .metric-row { background: var(--paper); border: 1px solid var(--rule); padding: 18px 24px; display: grid; grid-template-columns: 140px 1fr 1fr; align-items: center; gap: 16px; }
-    .metric-name { font-size: 17px; font-weight: 800; color: var(--ink); }
-    .metric-name small { display: block; font-size: 12px; font-weight: 600; color: var(--muted); margin-top: 2px; }
-    .metric-before { padding: 8px 12px; background: #fff2f0; border-radius: 2px; font-size: 13.5px; color: #b82b12; }
-    .metric-after { padding: 8px 12px; background: var(--accent-green-bg); border-radius: 2px; font-size: 13.5px; color: #0d6838; font-weight: 750; }
+    /* Realistic Slack Card */
+    .slack-card { background: #fff; border: 1.5px solid #d2d6e0; border-left: 5px solid var(--slack-purple); border-radius: 8px; padding: 18px 22px; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+    .slack-head { display: flex; align-items: center; gap: 10px; }
+    .slack-avatar { width: 34px; height: 34px; border-radius: 6px; background: var(--cobalt); color: #fff; display: grid; place-items: center; font: 800 14px/1 var(--font-mono); }
+    .slack-channel { font: 800 14px/1 var(--font-mono); color: var(--ink); }
+    .slack-channel small { color: var(--muted); margin-left: 6px; font-weight: 600; }
+    .slack-content { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px 16px; display: flex; flex-direction: column; gap: 6px; }
+    .slack-title { font-size: 16px; font-weight: 900; color: #1e293b; }
+    .slack-meta { font-size: 14px; color: var(--muted); line-height: 1.45; font-weight: 600; }
+    .slack-meta b { color: var(--cobalt); font-weight: 800; }
+    .slack-actions { display: flex; gap: 8px; margin-top: 4px; }
+    .slack-btn { padding: 5px 12px; border-radius: 4px; font-size: 13px; font-weight: 800; border: 1px solid transparent; }
+    .slack-btn.approve { background: #007a5a; color: #fff; }
+    .slack-btn.view { background: #fff; border-color: #cbd5e1; color: var(--ink); }
+
+    /* Right: Tech Pillars */
+    .live-tech-right { display: flex; flex-direction: column; gap: 14px; height: 100%; }
+    .t-pillar { background: var(--paper); border: 1.5px solid var(--rule); border-left: 5px solid var(--cobalt); border-radius: 6px; padding: 20px 24px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+    .t-pillar small { font: 800 13px/1 var(--font-mono); color: var(--cobalt); letter-spacing: .08em; margin-bottom: 6px; }
+    .t-pillar h3 { font-size: 23px; font-weight: 900; margin-bottom: 6px; color: var(--ink); }
+    .t-pillar p { font-size: 16px; line-height: 1.5; color: var(--ink-2); font-weight: 550; }
+    .t-pillar-chips { display: flex; gap: 8px; margin-top: 10px; }
+    .t-chip { font: 700 12.5px/1 var(--font-mono); padding: 5px 10px; background: #eef3fc; color: var(--cobalt); border-radius: 3px; }
+
+    /* ---------- 05 GTM / Distribution ---------- */
+    .gtm-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; flex: 1; min-height: 0; }
+    .gtm-box { background: var(--paper); border: 1.5px solid var(--rule); border-top: 5px solid var(--cobalt); border-radius: 6px; padding: 28px 24px 22px; display: flex; flex-direction: column; }
+    .gtm-num { font: 900 16px/1 var(--font-mono); color: var(--cobalt); margin-bottom: 8px; }
+    .gtm-box h2 { font-size: 26px; font-weight: 900; line-height: 1.25; margin-bottom: 12px; color: var(--ink); }
+    .gtm-who { font-size: 15px; font-weight: 800; color: var(--muted); padding-bottom: 12px; border-bottom: 1.5px solid var(--rule); margin-bottom: 16px; }
+    .gtm-body-points { list-style: none; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+    .gtm-body-points li { font-size: 16.5px; line-height: 1.45; color: var(--ink-2); font-weight: 600; padding-left: 20px; position: relative; }
+    .gtm-body-points li::before { content: "→"; position: absolute; left: 0; color: var(--cobalt); font-weight: 900; }
+    .gtm-body-points li b { color: var(--ink); font-weight: 850; }
+    .gtm-kpi-pill { margin-top: auto; padding: 14px 16px; background: #eef3fc; border-radius: 4px; border-left: 4px solid var(--cobalt); }
+    .gtm-kpi-pill small { display: block; font: 800 12px/1 var(--font-mono); color: var(--cobalt); margin-bottom: 4px; }
+    .gtm-kpi-pill strong { display: block; font-size: 17px; font-weight: 900; color: var(--ink); }
+
+    /* ---------- 06 Validation & KPIs ---------- */
+    .val-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 24px; flex: 1; min-height: 0; }
+    .val-plan { background: var(--paper); border: 1.5px solid var(--rule); border-radius: 6px; padding: 26px 24px; display: flex; flex-direction: column; justify-content: space-between; }
+    .val-plan h2 { font-size: 24px; font-weight: 900; margin-bottom: 16px; }
+    .val-steps { display: flex; flex-direction: column; gap: 12px; }
+    .val-step { padding: 14px 18px; background: #f8fafc; border-left: 4px solid var(--cobalt); border-radius: 2px; }
+    .val-step span { font: 800 13px/1 var(--font-mono); color: var(--cobalt); }
+    .val-step strong { display: block; font-size: 18px; font-weight: 900; margin: 4px 0 3px; color: var(--ink); }
+    .val-step p { font-size: 14.5px; color: var(--ink-2); line-height: 1.4; font-weight: 550; }
+    .val-safe { padding: 14px; background: #edf4fe; border: 1px solid #bfdbfe; border-radius: 4px; font-size: 14.5px; font-weight: 750; color: var(--ink); }
+
+    .val-stats { display: flex; flex-direction: column; gap: 14px; }
+    .val-stat-card { background: var(--paper); border: 1.5px solid var(--rule); border-radius: 6px; padding: 20px 24px; display: grid; grid-template-columns: 160px 1fr 1.3fr; align-items: center; gap: 18px; }
+    .val-stat-name { font-size: 20px; font-weight: 900; color: var(--ink); }
+    .val-stat-name small { display: block; font-size: 13px; font-weight: 600; color: var(--muted); margin-top: 3px; }
+    .val-before { padding: 12px 16px; background: #fff1f0; border-radius: 4px; font-size: 15px; color: #be123c; font-weight: 700; line-height: 1.35; }
+    .val-after { padding: 12px 18px; background: var(--accent-green-bg); border-radius: 4px; font-size: 16px; color: #0d6838; font-weight: 850; line-height: 1.35; }
+    .val-after b { font-size: 26px; font-family: var(--font-mono); display: block; margin-bottom: 2px; color: #059669; }
 
     /* ---------- 07 Business Model ---------- */
-    .bm-stage { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 24px; height: 100%; }
-    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    .tier-box { background: var(--paper); border: 1px solid var(--rule); padding: 18px 16px; display: flex; flex-direction: column; }
-    .tier-box.popular { border-top: 4px solid var(--cobalt); background: #fdfefe; }
-    .tier-box small { font: 700 12px/1 var(--font-mono); color: var(--cobalt); }
-    .tier-box h3 { font-size: 20px; font-weight: 800; margin: 6px 0 10px; }
-    .tier-price { font-size: 26px; font-weight: 900; color: var(--ink); margin-bottom: 12px; font-family: var(--font-mono); }
-    .tier-price span { font-size: 13px; font-weight: 600; color: var(--muted); font-family: var(--font-sans); }
-    .tier-items { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: 12.5px; color: var(--ink-2); flex: 1; }
-    .tier-items li::before { content: "✓ "; color: var(--cobalt); font-weight: 800; }
-    .unit-eco-box { background: var(--paper); border: 1px solid var(--rule); border-top: 4px solid var(--ink); padding: 22px; display: flex; flex-direction: column; }
-    .unit-eco-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
-    .unit-eco-table th { text-align: left; padding: 8px 4px; border-bottom: 2px solid var(--ink); font-weight: 800; color: var(--ink); }
-    .unit-eco-table td { padding: 9px 4px; border-bottom: 1px solid var(--rule); color: var(--ink-2); }
-    .unit-eco-table tr:last-child td { font-weight: 800; color: var(--cobalt); border-bottom: none; font-size: 14.5px; }
-    .margin-highlight { margin-top: auto; padding: 14px; background: #eaf1ff; border-left: 3px solid var(--cobalt); display: flex; justify-content: space-between; align-items: center; }
-    .margin-highlight strong { font-size: 24px; color: var(--cobalt); font-family: var(--font-mono); }
+    .bm-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 24px; flex: 1; min-height: 0; }
+    .bm-tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .bm-tier { background: var(--paper); border: 1.5px solid var(--rule); border-radius: 6px; padding: 22px 18px; display: flex; flex-direction: column; }
+    .bm-tier.featured { border-top: 5px solid var(--cobalt); background: #fbfdff; box-shadow: 0 10px 24px rgba(37,99,235,0.08); }
+    .bm-tier small { font: 800 13px/1 var(--font-mono); color: var(--cobalt); }
+    .bm-tier h3 { font-size: 22px; font-weight: 900; margin: 6px 0 12px; }
+    .bm-price { font-size: 34px; font-weight: 900; color: var(--ink); margin-bottom: 14px; font-family: var(--font-mono); letter-spacing: -.03em; }
+    .bm-price span { font-size: 15px; font-weight: 700; color: var(--muted); font-family: var(--font-sans); }
+    .bm-tier-items { list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: var(--ink-2); font-weight: 650; flex: 1; }
+    .bm-tier-items li::before { content: "✓ "; color: var(--cobalt); font-weight: 900; }
+
+    .bm-economics { background: var(--paper); border: 1.5px solid var(--rule); border-top: 5px solid var(--ink); border-radius: 6px; padding: 24px; display: flex; flex-direction: column; }
+    .bm-eco-h3 { font-size: 22px; font-weight: 900; margin-bottom: 4px; }
+    .bm-eco-table { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 15px; }
+    .bm-eco-table th { text-align: left; padding: 8px 4px; border-bottom: 2px solid var(--ink); font-weight: 900; color: var(--ink); font-size: 15px; }
+    .bm-eco-table td { padding: 10px 4px; border-bottom: 1px solid var(--rule); color: var(--ink-2); font-weight: 600; }
+    .bm-eco-table tr:last-child td { font-weight: 900; color: var(--cobalt); font-size: 17px; border-bottom: none; }
+    .bm-big-margin { margin-top: auto; padding: 18px 20px; background: #eaf1ff; border-left: 5px solid var(--cobalt); border-radius: 4px; display: flex; justify-content: space-between; align-items: center; }
+    .bm-big-margin span { font-size: 15px; font-weight: 800; color: var(--cobalt); display: block; margin-bottom: 2px; }
+    .bm-big-margin strong { font-size: 34px; font-weight: 900; color: var(--cobalt); font-family: var(--font-mono); }
 
     /* ---------- 08 Roadmap & Ask ---------- */
-    .road-stage { display: grid; grid-template-rows: 1fr auto; gap: 20px; height: 100%; }
-    .road-gates { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-    .road-card { background: var(--paper); border: 1px solid var(--rule); padding: 20px 18px; display: flex; flex-direction: column; }
-    .road-card.current { border-top: 4px solid var(--cobalt); background: #fbfdff; }
-    .road-time { font: 700 12px/1 var(--font-mono); color: var(--cobalt); margin-bottom: 6px; }
-    .road-card h3 { font-size: 20px; font-weight: 800; margin-bottom: 8px; }
-    .road-card p { font-size: 13.5px; line-height: 1.45; color: var(--ink-2); }
-    .road-card .milestone { margin-top: auto; padding: 8px 10px; background: #f0f3f8; font-size: 12px; font-weight: 700; color: var(--ink); }
-    .ask-box { background: var(--night); color: #fff; padding: 24px 36px; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 32px; border-left: 6px solid var(--cobalt); }
-    .ask-box h2 { font-size: 26px; font-weight: 800; margin-bottom: 8px; letter-spacing: -.03em; }
-    .ask-box p { font-size: 15px; color: #a4b3cf; line-height: 1.5; }
-    .ask-right { display: flex; justify-content: flex-end; gap: 24px; align-items: center; }
-    .ask-item { text-align: left; }
-    .ask-item small { display: block; font: 700 11px/1 var(--font-mono); color: #82a8ff; letter-spacing: .08em; margin-bottom: 4px; }
-    .ask-item strong { display: block; font-size: 18px; font-weight: 800; color: #fff; }
+    .road-grid { display: grid; grid-template-rows: 1fr auto; gap: 20px; flex: 1; min-height: 0; }
+    .road-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .r-box { background: var(--paper); border: 1.5px solid var(--rule); border-radius: 6px; padding: 22px 20px; display: flex; flex-direction: column; }
+    .r-box.done { border-top: 5px solid var(--cobalt); background: #fbfdff; }
+    .r-time { font: 800 13px/1 var(--font-mono); color: var(--cobalt); margin-bottom: 8px; }
+    .r-box h3 { font-size: 22px; font-weight: 900; margin-bottom: 10px; color: var(--ink); }
+    .r-box p { font-size: 15px; line-height: 1.45; color: var(--ink-2); font-weight: 550; }
+    .r-tag { margin-top: auto; padding: 8px 12px; background: #edf2f9; font-size: 13.5px; font-weight: 800; color: var(--ink); border-radius: 3px; }
 
-    /* ---------- Bottom Controls ---------- */
-    .deck-nav { position: absolute; bottom: 18px; right: var(--safe-x); display: flex; align-items: center; gap: 14px; z-index: 10; font: 600 13px/1 var(--font-mono); color: var(--muted); }
-    .nav-prev, .nav-next { background: var(--paper); border: 1px solid var(--rule); width: 32px; height: 32px; display: grid; place-items: center; cursor: pointer; font-size: 16px; color: var(--ink); border-radius: 2px; }
+    .ask-panel { background: var(--night); color: #fff; padding: 24px 36px; border-radius: 6px; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 32px; border-left: 6px solid var(--cobalt); }
+    .ask-panel h2 { font-size: 28px; font-weight: 900; margin-bottom: 8px; letter-spacing: -.03em; }
+    .ask-panel p { font-size: 16.5px; color: #a5b4cf; line-height: 1.5; font-weight: 550; }
+    .ask-grid-stats { display: flex; justify-content: flex-end; gap: 28px; align-items: center; }
+    .ask-stat-item small { display: block; font: 800 12px/1 var(--font-mono); color: #82a8ff; letter-spacing: .08em; margin-bottom: 4px; }
+    .ask-stat-item strong { display: block; font-size: 20px; font-weight: 900; color: #fff; }
+
+    /* ---------- Bottom Navigation ---------- */
+    .deck-nav { position: absolute; bottom: 16px; right: var(--safe-x); display: flex; align-items: center; gap: 14px; z-index: 10; font: 700 13px/1 var(--font-mono); color: var(--muted); }
+    .nav-prev, .nav-next { background: var(--paper); border: 1.5px solid var(--rule); width: 34px; height: 34px; display: grid; place-items: center; cursor: pointer; font-size: 16px; color: var(--ink); border-radius: 4px; }
     .nav-prev:hover, .nav-next:hover { border-color: var(--cobalt); color: var(--cobalt); }
     .nav-dots { display: flex; gap: 6px; }
-    .nav-dot { width: 10px; height: 10px; border-radius: 50%; border: 1px solid var(--muted); background: transparent; padding: 0; cursor: pointer; }
+    .nav-dot { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--muted); background: transparent; padding: 0; cursor: pointer; }
     .nav-dot[aria-current="true"] { background: var(--cobalt); border-color: var(--cobalt); }
-    .keyboard-hint { position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%); font: 500 11px/1 var(--font-mono); color: #8f96a3; pointer-events: none; }
+    .keyboard-hint { position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%); font: 600 12px/1 var(--font-mono); color: #788292; pointer-events: none; }
   </style>
 </head>
 <body>
-  <main id="deck" aria-label="Enter-AX 4분 IR 피치 덱 v2">
+  <main id="deck" aria-label="Enter-AX 4분 발표용 IR 피치 덱 v2.1">
     <div id="deck-frame">
       <div id="slides" aria-live="polite">
 
         <!-- 01 COVER -->
         <section class="slide is-active" id="slide-01" data-title="Cover" data-section="" aria-hidden="false">
-          <div class="cover-container">
+          <div class="cover-box">
             <div class="cover-left">
               <span class="cover-badge">ENTERTAINMENT ALL-IN-ONE AX OS · 4-MIN PITCH</span>
               <div class="cover-title">ENTER—AX</div>
@@ -239,34 +263,34 @@
               <p class="cover-desc">신인개발의 오디션 접수·스크리닝부터 연습생 육성 월말평가, 글로벌 데모곡 A&R, 미디어 숏폼 마케팅까지 하나의 콘솔로 통합합니다.</p>
             </div>
             <div class="cover-right">
-              <div class="cover-hero-card">
-                <div class="cover-hero-bar">
+              <div class="cover-screen-frame">
+                <div class="cover-screen-bar">
                   <span></span><span></span><span></span>
-                  <div style="margin-left:auto; font:600 11px/1 var(--font-mono); color:var(--muted);">ENTER—AX WORKSPACE v2.5</div>
+                  <div style="margin-left:auto; font:700 12px/1 var(--font-mono); color:var(--muted);">ENTER—AX WORKSPACE v2.5</div>
                 </div>
-                <img class="cover-hero-img" src="public/images/landing/pipeline.png" alt="Enter-AX 후보 스크리닝 칸반 CRM 실제 화면">
-                <div class="cover-floating-tag">
+                <img class="cover-screen-img" src="public/images/landing/pipeline.png" alt="Enter-AX 후보 스크리닝 칸반 CRM 실제 화면">
+                <div class="cover-callout-pill">
                   <b>실제 작동 프로덕트</b><br>
                   0초 스트리밍 스크리닝 & 워크플로 엔진
                 </div>
               </div>
             </div>
             <div class="cover-footer">
-              <div class="cover-foot-item">
+              <div class="cover-foot-col">
                 <small>TARGET</small>
                 <strong>국내 6,629개 기획사</strong>
               </div>
-              <div class="cover-foot-item">
+              <div class="cover-foot-col">
                 <small>CORE MODULES</small>
                 <strong>캐스팅 · 육성 · A&R · 마케팅</strong>
               </div>
-              <div class="cover-foot-item">
+              <div class="cover-foot-col">
                 <small>UNIT ECONOMICS</small>
                 <strong>건당 원가 45원 (마진 91%)</strong>
               </div>
-              <div class="cover-foot-item">
+              <div class="cover-foot-col">
                 <small>CURRENT STAGE</small>
-                <strong>60개사 실무 검증 · 파일럿 제안</strong>
+                <strong>60개사 실무 검증 완료</strong>
               </div>
             </div>
           </div>
@@ -279,61 +303,61 @@
               <b>P</b><span class="ch">PROBLEM</span><span class="sub">기획사 4대 부서 현장 병목</span>
               <span class="timing">발표 권장 35초</span>
             </p>
-            <h1>6,600개 기획사의 핵심 실무는 <span class="headline-key">도구 단절과 수작업 병목</span>에 갇혀 있습니다</h1>
+            <h1>6,600개 기획사의 핵심 실무는 <span class="headline-key">도구 단절과 수작업 지옥</span>에 갇혀 있습니다</h1>
           </header>
           <div class="slide-content">
-            <div class="grid-4">
-              <article class="problem-col">
-                <div class="dept-badge"><span>DEPT 01</span><b>월 1,500건 접수</b></div>
-                <h2>신인개발팀<br>(Casting)</h2>
-                <ul class="problem-list">
-                  <li>네이버 대용량 30일 만료 & 다운로드 지옥</li>
-                  <li>아이폰 MOV 코덱 윈도우 재생 에러</li>
-                  <li>3초 만에 판단하는데 파일 열기에 1분 소요</li>
-                  <li>회의 준비용 엑셀 복사/붙여넣기 수작업</li>
+            <div class="problem-bento">
+              <article class="p-card">
+                <span class="p-dept">DEPT 01 · 캐스팅</span>
+                <h2>신인개발팀</h2>
+                <div class="p-main-pain">네이버 대용량 30일 만료<br>& 아이폰 MOV 재생 에러</div>
+                <ul class="p-sub-list">
+                  <li>3초 확인하려고 1분간 파일 다운로드</li>
+                  <li>엑셀에 이름·연락처 수작업 복사/붙여넣기</li>
+                  <li>링크 만료로 아까운 원석 지원자 유실</li>
                 </ul>
-                <div class="problem-loss">시간 낭비: 매월 약 80시간 단순 작업</div>
+                <div class="p-waste">월 1,500건 접수 · 매달 80시간 소모</div>
               </article>
 
-              <article class="problem-col">
-                <div class="dept-badge"><span>DEPT 02</span><b>매월 정기 평가</b></div>
-                <h2>트레이닝팀<br>(Training)</h2>
-                <ul class="problem-list">
-                  <li>종이 평가표 분실 및 주관적 피드백</li>
-                  <li>3개월 전 영상과 현재 영상 동시 비교 불가</li>
-                  <li>보컬 음정 안정도·댄스 대칭도 데이터 부재</li>
+              <article class="p-card">
+                <span class="p-dept">DEPT 02 · 트레이닝</span>
+                <h2>육성 & 월말평가</h2>
+                <div class="p-main-pain">종이 평가표 분실<br>& 과거 영상 비교 불가</div>
+                <ul class="p-sub-list">
+                  <li>3개월 전 영상과 현재 영상을 나란히 볼 수 없음</li>
+                  <li>음정 안정도·댄스 대칭도 데이터 부재</li>
                   <li>미성년 연습생 법정 학습권 관리 혼선</li>
                 </ul>
-                <div class="problem-loss">데이터 유실: 연속적 성장 추적 불가</div>
+                <div class="p-waste">매달 정기 평가 · 주관적 피드백 한계</div>
               </article>
 
-              <article class="problem-col">
-                <div class="dept-badge"><span>DEPT 03</span><b>컴백마다 수백 곡</b></div>
-                <h2>A&R 본부<br>(Audio & Repertoire)</h2>
-                <ul class="problem-list">
+              <article class="p-card">
+                <span class="p-dept">DEPT 03 · 음원 제작</span>
+                <h2>A&R 본부</h2>
+                <div class="p-main-pain">수백 곡 중복 데모 혼선<br>& 타이틀곡 누락 리스크</div>
+                <ul class="p-sub-list">
                   <li>여러 퍼블리셔가 같은 곡을 다른 파일명 제출</li>
-                  <li>엑셀·드라이브 링크 혼선으로 타이틀 누락</li>
-                  <li>편향 방지를 위한 블라인드 청음 도구 부재</li>
-                  <li>작곡가 대상 홀드(Hold) 커뮤니케이션 지연</li>
+                  <li>블라인드 청음 보드 없어 편향 발생</li>
+                  <li>작곡가 대상 홀드(Hold) 소통 지연</li>
                 </ul>
-                <div class="problem-loss">비용 손실: 중복곡 검토 및 권리 분쟁 리스크</div>
+                <div class="p-waste">컴백마다 수백 곡 수기 청음 관리</div>
               </article>
 
-              <article class="problem-col">
-                <div class="dept-badge"><span>DEPT 04</span><b>주간 수십 편 제작</b></div>
-                <h2>미디어 마케팅<br>(Content)</h2>
-                <ul class="problem-list">
-                  <li>목요일 캐스팅/직캠 숏폼 제작 밤샘 야근</li>
+              <article class="p-card">
+                <span class="p-dept">DEPT 04 · 미디어</span>
+                <h2>콘텐츠 마케팅</h2>
+                <div class="p-main-pain">목요일 캐스팅 회의용<br>숏폼 수작업 밤샘 야근</div>
+                <ul class="p-sub-list">
                   <li>하이라이트 15초 수동 탐색 및 9:16 크롭</li>
-                  <li>다국어 글로벌 팬덤용 자막 일일이 타이핑</li>
-                  <li>유튜브·틱톡·릴스 개별 수동 업로드</li>
+                  <li>글로벌 팬덤용 다국어 자막 일일이 타이핑</li>
+                  <li>유튜브·틱톡·릴스 개별 수동 발행</li>
                 </ul>
-                <div class="problem-loss">효율 저하: 마케팅 발행 골든타임 지연</div>
+                <div class="p-waste">주간 수십 편 제작 · 골든타임 지연</div>
               </article>
             </div>
-            <div class="problem-banner">
-              <strong>"기획사들은 구글폼, 드라이브, 엑셀, 카카오톡을 억지로 이어붙여 매달 수백 시간을 허비하고 있습니다."</strong>
-              <span>ENTER—AX가 해결하는 핵심 가치</span>
+            <div class="problem-impact-bar">
+              <strong>"기획사들은 구글폼, 드라이브, 엑셀, 카카오톡을 억지로 이어붙여 매월 150시간 이상을 허비하고 있습니다."</strong>
+              <span>ENTER—AX가 해결하는 본질적 가치</span>
             </div>
           </div>
           <div class="footer-rule" aria-hidden="true"></div>
@@ -346,43 +370,43 @@
               <b>S</b><span class="ch">SOLUTION</span><span class="sub">실제 프로덕트 실물</span>
               <span class="timing">발표 권장 40초</span>
             </p>
-            <h1>흩어진 4대 업무를 하나의 콘솔에서: <span class="headline-key">Enter-AX 올인원 워크스페이스</span></h1>
+            <h1>접수부터 마케팅까지 하나의 화면에서: <span class="headline-key">Enter-AX 4대 통합 모듈</span></h1>
           </header>
           <div class="slide-content">
-            <div class="solution-stage">
-              <div class="solution-screen-box">
-                <div class="win-header">
-                  <span>ENTER—AX CANDIDATE SCREENING CRM (LIVE UI)</span>
+            <div class="solution-grid">
+              <div class="sol-screen">
+                <div class="sol-screen-bar">
+                  <span>ENTER—AX CANDIDATE SCREENING CRM (실제 라이브 화면)</span>
                   <span>단축키 J/K · 3초 훑어보기 보드</span>
                 </div>
-                <img class="solution-screen-img" src="public/images/landing/pipeline.png" alt="Enter-AX 스크리닝 칸반 CRM 실제 화면">
-                <div class="solution-caption">
-                  <span><b>실제 개발 완료 화면</b>: 지원서 접수 즉시 0초 스트리밍 뷰어, 루브릭 심사표, 주간 임원 보고 파이프라인</span>
-                  <span style="font-family:var(--font-mono); font-weight:700;">PROD SCREENSHOT</span>
+                <img src="public/images/landing/pipeline.png" alt="Enter-AX 스크리닝 칸반 CRM 실제 화면">
+                <div class="sol-screen-foot">
+                  <span><b>실제 작동 화면</b>: 지원서 접수 즉시 0초 스트리밍 뷰어, 루브릭 심사표, 주간 임원 보고 파이프라인</span>
+                  <span style="font-family:var(--font-mono); font-weight:800; color:var(--cobalt);">LIVE SCREENSHOT</span>
                 </div>
               </div>
 
-              <div class="solution-modules">
-                <div class="module-card active">
-                  <div class="mod-head"><span>01 CASTING (신인개발)</span><b>구현 완료</b></div>
+              <div class="sol-modules">
+                <div class="sol-mod active">
+                  <div class="sol-mod-head"><span>01 CASTING (신인개발)</span><b>구현 완료</b></div>
                   <h3>무설치 모바일 접수 & 3초 J/K 스크리닝</h3>
                   <p>지원자가 브라우저에서 대용량 직업로드. 담당자는 J/K 키로 버퍼링 없이 3초 만에 넘겨보며 합불 결정.</p>
                 </div>
 
-                <div class="module-card">
-                  <div class="mod-head"><span>02 TRAINING (육성/평가)</span><b>스펙 확정</b></div>
+                <div class="sol-mod">
+                  <div class="sol-mod-head"><span>02 TRAINING (육성/평가)</span><b>스펙 확정</b></div>
                   <h3>태블릿 디지털 채점 & 과거-현재 2분할 비교</h3>
                   <p>월말평가 실시간 태블릿 채점. 3개월 전 입사 영상과 현재 영상을 좌우에 두고 관절 대칭도·음정 변화 객관적 비교.</p>
                 </div>
 
-                <div class="module-card">
-                  <div class="mod-head"><span>03 A&R (음원 제작)</span><b>파이프라인 설계</b></div>
+                <div class="sol-mod">
+                  <div class="sol-mod-head"><span>03 A&R (음원 제작)</span><b>파이프라인 설계</b></div>
                   <h3>글로벌 데모 수신함 & 오디오 핑거프린트</h3>
                   <p>작곡가 전용 제출 링크. 파형 해시로 중복 제출곡 100% 자동 필터링 및 블라인드 청음 평점 보드.</p>
                 </div>
 
-                <div class="module-card active">
-                  <div class="mod-head"><span>04 CONTENT (미디어)</span><b>구현 완료</b></div>
+                <div class="sol-mod active">
+                  <div class="sol-mod-head"><span>04 CONTENT (미디어)</span><b>구현 완료</b></div>
                   <h3>AI 하이라이트 숏폼 자동 클리핑 & 자막</h3>
                   <p>보컬/비트 감지로 15초 킬링파트 자동 크롭, Whisper 기반 3개국어 자막 싱크, 임원 회의용 원클릭 생성.</p>
                 </div>
@@ -392,68 +416,98 @@
           <div class="footer-rule" aria-hidden="true"></div>
         </section>
 
-        <!-- 04 CORE TECH -->
+        <!-- 04 CORE TECH & LIVE INTEGRATION (KakaoTalk & Slack) -->
         <section class="slide" id="slide-04" data-title="Core Tech" data-section="S1" aria-hidden="true">
           <header class="slide-head">
             <p class="kicker">
-              <b>T</b><span class="ch">CORE TECH</span><span class="sub">기술 아키텍처 & 안전성</span>
+              <b>T</b><span class="ch">INTEGRATION & TECH</span><span class="sub">실제 카톡·슬랙 자동화 연동</span>
               <span class="timing">발표 권장 35초</span>
             </p>
-            <h1>서버 부하 없는 대용량 스트리밍과 <span class="headline-key">사람 중심의 Hermes 워크플로우</span></h1>
+            <h1>대용량 0초 스트리밍과 <span class="headline-key">카카오톡·Slack 실시간 워크플로우</span></h1>
           </header>
           <div class="slide-content">
-            <div class="tech-stage">
-              <div class="tech-cards">
-                <article class="tech-card">
-                  <small>INFRASTRUCTURE & STREAMING</small>
-                  <h3>Cloudflare R2 Direct Upload & 0초 스트리밍</h3>
-                  <p>모바일 4K/MOV 영상을 서버 메모리 거치지 않고 R2 Pre-signed URL로 직업로드. H.264 Faststart 플래그로 0.1초 만에 브라우저 즉시 재생. <b>데이터 송출료(Egress) $0</b> 구조.</p>
-                  <div class="tech-chips">
-                    <span class="tech-chip">Multipart 청크 업로드</span>
-                    <span class="tech-chip">Faststart moov</span>
-                    <span class="tech-chip">Egress 수수료 $0</span>
+            <div class="live-tech-grid">
+              <!-- Left: Real KakaoTalk & Slack Components -->
+              <div class="live-cards-left">
+                <!-- KakaoTalk Alimtalk -->
+                <div class="kakao-card">
+                  <div class="kakao-top">
+                    <span class="kakao-tag">카카오톡 알림톡</span>
+                    <span class="kakao-agency">노바엔터테인먼트 신인개발팀</span>
                   </div>
-                </article>
+                  <div class="kakao-msg-title">🎉 [합격안내] 2차 실기 오디션 대상자 선정</div>
+                  <div class="kakao-body-box">
+                    안녕하세요 <b>이채원</b> 님, 노바엔터테인먼트 2026 오디션 1차 서류 심사에 합격하셨습니다!<br>
+                    • <b>실기 일시</b>: 2026.10.15 (목) 14:00<br>
+                    • <b>장소</b>: 노바 트레이닝 센터 3층 보컬룸<br>
+                    • <b>준비물</b>: 자유곡 1곡 (MR 지참)
+                  </div>
+                  <div class="kakao-btn">[오디션 일정 확인 및 참석 여부 수락하기 &gt;]</div>
+                  <small style="font-size:12px; color:var(--muted); font-weight:700;">* 심사 담당자 승인 즉시 지원자 및 법정대리인에게 0.1초 내 자동 발송</small>
+                </div>
 
-                <article class="tech-card">
-                  <small>DOMAIN-SPECIFIC AI ENGINE</small>
-                  <h3>오디오 핑거프린팅 & 33관절/음정 분석</h3>
-                  <p>음원 파형 지문으로 중복 데모곡 즉시 탐지. MediaPipe 33관절 기반 댄스 동작 대칭도 비교 및 CREPE 피치 기반 음정 안정도 그래프 시각화. Whisper 다국어 자막 자동 번역.</p>
-                  <div class="tech-chips">
-                    <span class="tech-chip">Audio Fingerprint</span>
-                    <span class="tech-chip">MediaPipe Pose</span>
-                    <span class="tech-chip">Whisper STT</span>
+                <!-- Slack Notification -->
+                <div class="slack-card">
+                  <div class="slack-head">
+                    <div class="slack-avatar">EA</div>
+                    <div class="slack-channel">#casting-lead-alerts <small>오늘 오후 2:30</small></div>
                   </div>
-                </article>
-
-                <article class="tech-card">
-                  <small>COMPLIANCE & GUARDRAILS</small>
-                  <h3>철저한 인간 중심 설계 (Human-in-the-Loop)</h3>
-                  <p><b>대한민국 AI 기본법 준수:</b> 자동 합격/불합격 및 외모 점수화(Face Score) 절대 금지. 모든 제안 알림톡, 불합격 통보, SNS 게시는 <b>담당자의 최종 승인 버튼 클릭</b> 시에만 발송.</p>
-                  <div class="tech-chips">
-                    <span class="tech-chip">외모점수화 금지</span>
-                    <span class="tech-chip">만 14세 부모인증</span>
-                    <span class="tech-chip">최종 승인 강제</span>
+                  <div class="slack-content">
+                    <div class="slack-title">🚀 [캐스팅 파이프라인] 신규 1차 합격자 발생</div>
+                    <div class="slack-meta">
+                      <b>지원자</b>: 이채원 (2009년생 / 보컬·댄스 지원)<br>
+                      <b>AI 사전 분석</b>: 음정 안정도 <b>94.2%</b> · 댄스 비트 일치율 <b>89.0%</b><br>
+                      <b>담당 심사관</b>: 김찬주 총괄 [1차 합격 처리 완료]
+                    </div>
+                    <div class="slack-actions">
+                      <span class="slack-btn approve">후보 보드로 이동</span>
+                      <span class="slack-btn view">지원 영상 3초 스트리밍</span>
+                    </div>
                   </div>
-                </article>
+                </div>
               </div>
 
-              <div class="tech-visual">
-                <div style="height:34px; background:#f1f3f7; border-bottom:1px solid var(--rule); display:flex; align-items:center; justify-content:space-between; padding:0 14px; font:600 12px/1 var(--font-mono); color:var(--muted);">
-                  <span>ENTER—AX WORKFLOW ENGINE (ACTUAL EDITOR)</span>
-                  <span>노드 기반 사람 승인 제어</span>
-                </div>
-                <img src="public/images/landing/workflow-editor.png" alt="Enter-AX 워크플로 편집기 실제 화면">
-                <div style="padding:12px 16px; background:#fbfbfc; border-top:1px solid var(--rule); font-size:13px; color:var(--muted); line-height:1.4;">
-                  <b>실제 작동 워크플로 엔진</b>: 지원자 인입 ➔ AI 요약 ➔ <b>[캐스팅 디렉터 승인 대기 노드]</b> ➔ 슬랙/합격 상태 변경
-                </div>
+              <!-- Right: 3 Core Tech Pillars -->
+              <div class="live-tech-right">
+                <article class="t-pillar">
+                  <small>INFRASTRUCTURE & 0-SEC STREAMING</small>
+                  <h3>Cloudflare R2 Direct Upload & Faststart</h3>
+                  <p>모바일 4K 영상을 서버 부하 없이 R2 Pre-signed URL로 직업로드. H.264 Faststart 플래그로 첫 1초 만에 브라우저 즉시 재생. <b>데이터 송출료(Egress) $0</b> 구조.</p>
+                  <div class="t-pillar-chips">
+                    <span class="t-chip">Multipart 직업로드</span>
+                    <span class="t-chip">Faststart moov</span>
+                    <span class="t-chip">Egress 수수료 0원</span>
+                  </div>
+                </article>
+
+                <article class="t-pillar">
+                  <small>DOMAIN AI ENGINES</small>
+                  <h3>음향 지문 핑거프린팅 & 33관절/음정 분석</h3>
+                  <p>파형 해시로 중복 제출된 데모곡 100% 필터링. MediaPipe 33관절 안무 대칭도 및 CREPE 피치 기반 음정 안정도 그래프 시각화. Whisper 다국어 자막 싱크.</p>
+                  <div class="t-pillar-chips">
+                    <span class="t-chip">Audio Fingerprint</span>
+                    <span class="t-chip">MediaPipe 33Pose</span>
+                    <span class="t-chip">Whisper STT</span>
+                  </div>
+                </article>
+
+                <article class="t-pillar">
+                  <small>COMPLIANCE & GUARDRAILS</small>
+                  <h3>철저한 인간 중심 설계 (Human-in-the-Loop)</h3>
+                  <p><b>대한민국 AI 기본법 준수:</b> 자동 합격/불합격 및 외모 점수화 절대 금지. 카톡 알림톡 발송과 숏폼 SNS 게시는 반드시 <b>사람의 승인 버튼 클릭</b> 시에만 발송.</p>
+                  <div class="t-pillar-chips">
+                    <span class="t-chip">외모점수화 금지</span>
+                    <span class="t-chip">만 14세 부모인증</span>
+                    <span class="t-chip">최종 승인 강제</span>
+                  </div>
+                </article>
               </div>
             </div>
           </div>
           <div class="footer-rule" aria-hidden="true"></div>
         </section>
 
-        <!-- 05 DISTRIBUTION / GTM -->
+        <!-- 05 GTM / DISTRIBUTION -->
         <section class="slide" id="slide-05" data-title="Distribution" data-section="S2" aria-hidden="true">
           <header class="slide-head">
             <p class="kicker">
@@ -463,56 +517,47 @@
             <h1>현장 실무자를 직접 찌르는 <span class="headline-key">3단계 직배포(GTM) 전략</span></h1>
           </header>
           <div class="slide-content">
-            <div class="gtm-stage">
-              <article class="gtm-col">
-                <span class="gtm-step">STEP 01 · DIRECT OUTREACH</span>
-                <h2>실무자 고통 직격<br>콜드 컨택 파이프라인</h2>
-                <div class="gtm-target">타깃: 신인개발팀 공식 카카오톡 채널 & 인스타 DM 40곳</div>
-                <div class="gtm-content">
-                  <p><b>검증된 후킹 메시지:</b></p>
-                  <ul>
-                    <li>"네이버 대용량 링크 만료 없는 0초 스트리밍 전용 접수창구 1개월 무상 세팅"</li>
-                    <li>"목요일 캐스팅 회의용 숏폼 10초 원클릭 자동 클리핑 PoC 제공"</li>
-                    <li>기획사 대표/제작이사 대상 10분 온라인 라이브 데모 진행</li>
-                  </ul>
-                </div>
-                <div class="gtm-kpi">
+            <div class="gtm-grid">
+              <article class="gtm-box">
+                <span class="gtm-num">STEP 01 · DIRECT OUTREACH</span>
+                <h2>실무자 고통 직격<br>카톡·DM 콜드 파이프라인</h2>
+                <div class="gtm-who">타깃: 신인개발팀 공식 카카오톡 채널 & 인스타 DM 40곳</div>
+                <ul class="gtm-body-points">
+                  <li><b>"대용량 만료 없는 0초 스트리밍 접수창구 1개월 무상 세팅"</b> 후킹</li>
+                  <li><b>"목요일 캐스팅 회의용 숏폼 10초 원클릭 자동 클리핑 PoC"</b> 제공</li>
+                  <li>기획사 대표 및 제작이사 대상 <b>10분 온라인 라이브 데모</b> 진행</li>
+                </ul>
+                <div class="gtm-kpi-pill">
                   <small>목표 KPI</small>
                   <strong>회신율 25%+ · 10분 데모 미팅 10건 성사</strong>
                 </div>
               </article>
 
-              <article class="gtm-col">
-                <span class="gtm-step">STEP 02 · ACADEMY PARTNERSHIP</span>
+              <article class="gtm-box">
+                <span class="gtm-num">STEP 02 · ACADEMY PARTNERSHIP</span>
                 <h2>내방오디션 아카데미<br>양방향 인재 허브</h2>
-                <div class="gtm-target">타깃: 데프댄스, 뮤닥터, 온뮤직 등 핵심 아카데미 10선</div>
-                <div class="gtm-content">
-                  <p><b>상생 파트너십 구조:</b></p>
-                  <ul>
-                    <li>아카데미 수강생 전원 Enter-AX 프로필 자동 생성 및 영상 고화질 포트폴리오화</li>
-                    <li>아카데미 주관 월간 내방오디션 심사 시스템으로 Enter-AX 디지털 채점표 무상 보급</li>
-                    <li>수강생 풀 유입 ➔ 기획사 영입 유인 극대화 (양면 네트워크)</li>
-                  </ul>
-                </div>
-                <div class="gtm-kpi">
+                <div class="gtm-who">타깃: 데프댄스, 뮤닥터, 온뮤직 등 핵심 아카데미 10선</div>
+                <ul class="gtm-body-points">
+                  <li>아카데미 수강생 전원 <b>Enter-AX 고화질 영상 포트폴리오</b> 자동 등록</li>
+                  <li>아카데미 주관 월간 내방오디션 심사 시스템으로 <b>디지털 채점표 무상 보급</b></li>
+                  <li><b>수강생 풀 유입 ➔ 기획사 영입 유인 극대화</b> (양면 네트워크)</li>
+                </ul>
+                <div class="gtm-kpi-pill">
                   <small>목표 KPI</small>
                   <strong>핵심 아카데미 3곳 제휴 · 월 500명 프로필 유입</strong>
                 </div>
               </article>
 
-              <article class="gtm-col">
-                <span class="gtm-step">STEP 03 · LOCK-IN EXPANSION</span>
+              <article class="gtm-box">
+                <span class="gtm-num">STEP 03 · DOMAIN LOCK-IN</span>
                 <h2>전용 도메인 선점 &<br>전사 부서 확장</h2>
-                <div class="gtm-target">타깃: 무료 파일럿 도입 기획사 ➔ 전사 유료 전환</div>
-                <div class="gtm-content">
-                  <p><b>락인(Lock-in) 유료화 경로:</b></p>
-                  <ul>
-                    <li>기획사 공식 오디션 링크를 <code>{agency}.enter-ax.com</code>으로 선점</li>
-                    <li>신인개발팀 안착 후 ➔ 합격생 데이터를 트레이닝팀(월말평가)으로 1초 이관</li>
-                    <li>음원 수급(A&R) 및 숏폼 마케팅으로 부서 간 확장 계약 (월 150만~400만 원)</li>
-                  </ul>
-                </div>
-                <div class="gtm-kpi">
+                <div class="gtm-who">타깃: 무료 파일럿 도입 기획사 ➔ 전사 유료 전환</div>
+                <ul class="gtm-body-points">
+                  <li>기획사 공식 공지 링크를 <b><code>{agency}.enter-ax.com</code></b>으로 박제</li>
+                  <li>신인개발팀 안착 후 ➔ <b>합격생 데이터를 트레이닝팀으로 1초 이관</b></li>
+                  <li><b>A&R(음원 수급) 및 숏폼 마케팅으로 확장 계약</b> (월 150만~400만 원)</li>
+                </ul>
+                <div class="gtm-kpi-pill">
                   <small>목표 KPI</small>
                   <strong>파일럿 기획사 유료 전환율 60% 이상 달성</strong>
                 </div>
@@ -522,7 +567,7 @@
           <div class="footer-rule" aria-hidden="true"></div>
         </section>
 
-        <!-- 06 TESTING & VALIDATION -->
+        <!-- 06 VALIDATION & TESTING -->
         <section class="slide" id="slide-06" data-title="Testing" data-section="S2" aria-hidden="true">
           <header class="slide-head">
             <p class="kicker">
@@ -532,73 +577,75 @@
             <h1>4주 무료 실증 파일럿과 <span class="headline-key">3대 정량 KPI 전후 비교</span></h1>
           </header>
           <div class="slide-content">
-            <div class="test-stage">
-              <div class="test-process">
+            <div class="val-grid">
+              <div class="val-plan">
                 <div>
-                  <h3 style="font-size:22px; font-weight:800; margin-bottom:14px;">4주 현장 실증 프로세스 (Pilot Plan)</h3>
-                  <div class="test-step-card">
-                    <span>WEEK 1 · SETTING</span>
-                    <strong>전용 접수창구 개설 & 사전 데이터 이전</strong>
-                    <p>기획사 전용 서브도메인 오픈, 기존 이메일/구글폼 안내를 Enter-AX 링크로 전환.</p>
-                  </div>
-                  <div class="test-step-card">
-                    <span>WEEK 2-3 · SCREENING RUN</span>
-                    <strong>실제 상시 지원자 접수 & 3초 스크리닝</strong>
-                    <p>실제 접수되는 영상 300~500건을 실무진이 J/K 단축키와 비공개 루브릭으로 심사.</p>
-                  </div>
-                  <div class="test-step-card">
-                    <span>WEEK 4 · REVIEW & CONVERT</span>
-                    <strong>주간 임원 보고 회의 실전 적용 & 피드백</strong>
-                    <p>원클릭 숏폼 추출 클립으로 임원 회의 진행, 시간 절감 수치 대조 후 유료 계약 협의.</p>
+                  <h2>4주 현장 실증 프로세스 (Pilot Plan)</h2>
+                  <div class="val-steps">
+                    <div class="val-step">
+                      <span>WEEK 1 · SETTING</span>
+                      <strong>전용 접수창구 개설 & 사전 데이터 이전</strong>
+                      <p>기획사 전용 서브도메인 오픈, 기존 이메일/구글폼 안내를 Enter-AX 링크로 전환.</p>
+                    </div>
+                    <div class="val-step">
+                      <span>WEEK 2-3 · SCREENING RUN</span>
+                      <strong>실제 상시 지원자 접수 & 3초 스크리닝</strong>
+                      <p>실제 접수되는 영상 300~500건을 실무진이 J/K 단축키와 비공개 루브릭으로 심사.</p>
+                    </div>
+                    <div class="val-step">
+                      <span>WEEK 4 · REVIEW & CONVERT</span>
+                      <strong>주간 임원 보고 회의 실전 적용 & 피드백</strong>
+                      <p>원클릭 숏폼 추출 클립으로 임원 회의 진행, 시간 절감 수치 대조 후 유료 계약 협의.</p>
+                    </div>
                   </div>
                 </div>
-                <div style="padding:12px 14px; background:#edf3ff; border:1px solid #c7dcfd; font-size:13.5px; color:var(--ink-2);">
-                  <b>무스크 리스크 보장:</b> 4주 후 미전환 시 지원자 전원 데이터(영상/프로필) 엑셀 및 원본 파일로 100% 무상 백업 후 서버 영구 파기.
+                <div class="val-safe">
+                  🛡️ <b>무리스크 보장:</b> 4주 후 미전환 시 지원자 전원 데이터(영상/프로필) 엑셀 및 원본 파일로 100% 무상 백업 후 서버 영구 파기.
                 </div>
               </div>
 
-              <div class="test-metrics">
-                <article class="metric-row">
-                  <div class="metric-name">
+              <div class="val-stats">
+                <article class="val-stat-card">
+                  <div class="val-stat-name">
                     1차 스크리닝<br>소요 시간
                     <small>지원자 1인당 검토</small>
                   </div>
-                  <div class="metric-before">
-                    <b>기존: 1분 30초</b><br>
-                    대용량 다운로드, 코덱 변환, 엑셀 타이핑
+                  <div class="val-before">
+                    기존: 90초 소요<br>
+                    대용량 다운로드, 코덱 변환, 엑셀 수기 입력
                   </div>
-                  <div class="metric-after">
-                    <b>Enter-AX: 3초</b><br>
-                    0초 스트리밍 재생 + J/K 키보드 즉시 넘김 (96% 단축)
+                  <div class="val-after">
+                    <b>3초 (-96%)</b>
+                    0초 스트리밍 재생 + J/K 단축키 즉시 넘김
                   </div>
                 </article>
 
-                <article class="metric-row">
-                  <div class="metric-name">
+                <article class="val-stat-card">
+                  <div class="val-stat-name">
                     주간 임원 회의<br>준비 시간
                     <small>유망 후보 10명 정리</small>
                   </div>
-                  <div class="metric-before">
-                    <b>기존: 4시간 소요</b><br>
+                  <div class="val-before">
+                    기존: 4시간 소요<br>
                     목요일 밤새 영상 컷팅, PPT 링크 수작업 정리
                   </div>
-                  <div class="metric-after">
-                    <b>Enter-AX: 10분</b><br>
-                    15초 9:16 자막 숏폼 클립 원클릭 일괄 추출 (95% 단축)
+                  <div class="val-after">
+                    <b>10분 (-95%)</b>
+                    15초 9:16 자막 숏폼 클립 원클릭 일괄 추출
                   </div>
                 </article>
 
-                <article class="metric-row">
-                  <div class="metric-name">
+                <article class="val-stat-card">
+                  <div class="val-stat-name">
                     지원자 이탈 및<br>영상 재생 오류
                     <small>파일 만료 / 코덱 에러</small>
                   </div>
-                  <div class="metric-before">
-                    <b>기존: 15% 이상</b><br>
+                  <div class="val-before">
+                    기존: 15% 이상<br>
                     네이버 대용량 만료, 아이폰 MOV 재생 불가
                   </div>
-                  <div class="metric-after">
-                    <b>Enter-AX: 0건 (100% 재생)</b><br>
+                  <div class="val-after">
+                    <b>0건 (100% 재생)</b>
                     R2 직업로드 & Faststart 자동 인코딩
                   </div>
                 </article>
@@ -615,16 +662,17 @@
               <b>$</b><span class="ch">BUSINESS MODEL</span><span class="sub">과금 체계 & 유닛 이코노믹스</span>
               <span class="timing">발표 권장 35초</span>
             </p>
-            <h1>압도적인 인프라 마진을 바탕으로 한 <span class="headline-key">3티어 B2B SaaS</span></h1>
+            <h1>기획사 규모별 3티어 요금제와 <span class="headline-key">91% 고마진 유닛 이코노믹스</span></h1>
           </header>
           <div class="slide-content">
-            <div class="bm-stage">
-              <div class="pricing-grid">
-                <div class="tier-box">
+            <div class="bm-grid">
+              <!-- Left: 3 Tiers -->
+              <div class="bm-tiers">
+                <div class="bm-tier">
                   <small>STARTER</small>
                   <h3>신인개발팀 단독</h3>
-                  <div class="tier-price">50<small>만 원/월</small></div>
-                  <ul class="tier-items">
+                  <div class="bm-price">50<small>만 원/월</small></div>
+                  <ul class="bm-tier-items">
                     <li>오디션 접수 월 150건</li>
                     <li>0초 스트리밍 3초 뷰어</li>
                     <li>J/K 스크리닝 칸반 보드</li>
@@ -633,11 +681,11 @@
                   </ul>
                 </div>
 
-                <div class="tier-box popular">
-                  <small style="color:var(--cobalt); font-weight:800;">GROWTH (추천)</small>
+                <div class="bm-tier featured">
+                  <small style="color:var(--cobalt); font-weight:900;">GROWTH (주력 추천)</small>
                   <h3>전사 3대 부서 통합</h3>
-                  <div class="tier-price" style="color:var(--cobalt);">150<small>만 원/월</small></div>
-                  <ul class="tier-items">
+                  <div class="bm-price" style="color:var(--cobalt);">150<small>만 원/월</small></div>
+                  <ul class="bm-tier-items">
                     <li>오디션 접수 월 600건</li>
                     <li>A&R 글로벌 데모 수신함 (100곡)</li>
                     <li>숏폼 하이라이트 자동 생성 (30편)</li>
@@ -646,13 +694,13 @@
                   </ul>
                 </div>
 
-                <div class="tier-box">
+                <div class="bm-tier">
                   <small>ENTERPRISE</small>
                   <h3>전사 무제한 커스텀</h3>
-                  <div class="tier-price">400<small>만 원~/월</small></div>
-                  <ul class="tier-items">
+                  <div class="bm-price">400<small>만 원~/월</small></div>
+                  <ul class="bm-tier-items">
                     <li>4대 전 부서 무제한 워크스페이스</li>
-                    <li>엄격한 부서별 권한 격리 (RBAC)</li>
+                    <li>부서별 엄격한 권한 격리 (RBAC)</li>
                     <li>사내 슬랙/ERP 커스텀 API 연동</li>
                     <li>전담 엔지니어 온사이트 지원</li>
                     <li>초기 세팅비 1,000만 원~</li>
@@ -660,10 +708,11 @@
                 </div>
               </div>
 
-              <div class="unit-eco-box">
-                <h3 style="font-size:18px; font-weight:800; margin-bottom:4px;">지원자 1인 검토당 인프라 실원가 (Unit Economics)</h3>
-                <p style="font-size:13px; color:var(--muted);">Cloudflare R2 + 서버리스 AI 인퍼런스 실측 기준</p>
-                <table class="unit-eco-table">
+              <!-- Right: Unit Economics -->
+              <div class="bm-economics">
+                <h3 class="bm-eco-h3">지원자 1인 검토당 인프라 실원가</h3>
+                <p style="font-size:14.5px; color:var(--muted); font-weight:600;">Cloudflare R2 + 서버리스 AI 인퍼런스 실측 기준</p>
+                <table class="bm-eco-table">
                   <thead>
                     <tr><th>비용 항목</th><th>산출 기준</th><th>원가 (KRW)</th></tr>
                   </thead>
@@ -673,15 +722,15 @@
                     <tr><td>FFmpeg 인코딩</td><td>Faststart 720p 변환</td><td>약 3.0원</td></tr>
                     <tr><td>포즈/피치 분석</td><td>GPU 인퍼런스 2초 공유</td><td>약 6.5원</td></tr>
                     <tr><td>보호자 본인인증</td><td>만 14세 미만 알림톡 (35% 발생)</td><td>약 7.0원</td></tr>
-                    <tr><td>지원자 1인당 총원가</td><td>접수부터 최종 심사까지</td><td>약 27.0 ~ 45.0원</td></tr>
+                    <tr><td>지원자 1인 총원가</td><td>접수부터 최종 심사까지</td><td>약 27.0 ~ 45.0원</td></tr>
                   </tbody>
                 </table>
-                <div class="margin-highlight">
+                <div class="bm-big-margin">
                   <div>
-                    <span style="font-size:13px; font-weight:700; color:var(--cobalt);">Starter (월 50만 원) 기준 총이익률</span>
-                    <strong style="display:block;">매출총이익률 91.0%</strong>
+                    <span>Starter (월 50만 원) 기준 매출총이익률</span>
+                    <strong>91.0% 고마진</strong>
                   </div>
-                  <div style="text-align:right; font-size:12px; color:var(--muted);">
+                  <div style="text-align:right; font-size:13.5px; color:var(--ink-2); font-weight:700;">
                     월 1,000명 검토 시<br>원가 4.5만 원 / 마진 45.5만 원
                   </div>
                 </div>
@@ -701,55 +750,55 @@
             <h1>검증된 도메인 전문성과 빠른 실행력으로 <span class="headline-key">엔터 AX 표준</span>을 만듭니다</h1>
           </header>
           <div class="slide-content">
-            <div class="road-stage">
-              <div class="road-gates">
-                <article class="road-card current">
-                  <span class="road-time">PHASE 01 · 현재 완료</span>
+            <div class="road-grid">
+              <div class="road-cards">
+                <article class="r-box done">
+                  <span class="r-time">PHASE 01 · 현재 완료</span>
                   <h3>실무 검수 & 코어 구축</h3>
                   <p>국내 60개 기획사 실무 전수 조사 완료. PostgreSQL RLS 보안 멀티테넌시 및 워크플로 엔진 구축 완료.</p>
-                  <div class="milestone"><b>달성:</b> 4대 모듈 아키텍처 확정</div>
+                  <div class="r-tag"><b>달성:</b> 4대 모듈 아키텍처 확정</div>
                 </article>
 
-                <article class="road-card">
-                  <span class="road-time">PHASE 02 · 2026 Q4</span>
+                <article class="r-box">
+                  <span class="r-time">PHASE 02 · 2026 Q4</span>
                   <h3>파일럿 실증 & 첫 유료화</h3>
                   <p>중견/신생 기획사 10곳 무상 4주 파일럿 실증. 스크리닝 50% 단축 검증 후 첫 유료 B2B SaaS 고객 3사 계약.</p>
-                  <div class="milestone"><b>목표:</b> 유료 고객 3곳 확보</div>
+                  <div class="r-tag"><b>목표:</b> 유료 고객 3곳 확보</div>
                 </article>
 
-                <article class="road-card">
-                  <span class="road-time">PHASE 03 · 2027 H1</span>
+                <article class="r-box">
+                  <span class="r-time">PHASE 03 · 2027 H1</span>
                   <h3>A&R 및 전사 OS 확장</h3>
                   <p>A&R 글로벌 데모곡 수신함 및 월말평가 2분할 타임라인 모듈 상용화. 서울권 기획사 30곳으로 확대.</p>
-                  <div class="milestone"><b>목표:</b> ARR 3.5억 원 달성</div>
+                  <div class="r-tag"><b>목표:</b> ARR 3.5억 원 달성</div>
                 </article>
 
-                <article class="road-card">
-                  <span class="road-time">PHASE 04 · 2027 H2~</span>
+                <article class="r-box">
+                  <span class="r-time">PHASE 04 · 2027 H2~</span>
                   <h3>글로벌 K-pop 허브</h3>
                   <p>일본/동남아 현지 글로벌 오디션 파이프라인 연동. 대형 기획사 엔터프라이즈 전사 수주.</p>
-                  <div class="milestone"><b>목표:</b> 유료 80곳 · ARR 9.9억 원</div>
+                  <div class="r-tag"><b>목표:</b> 유료 80곳 · ARR 9.9억 원</div>
                 </article>
               </div>
 
-              <div class="ask-box">
+              <div class="ask-panel">
                 <div>
                   <h2>THE TEAM & SEED INVITATION</h2>
                   <p><b>CEO 김찬주:</b> 7년 녹음 스튜디오 운영 및 K-pop 음악 프로덕션·스타트업 아이돌 제작 현장 경험.<br>
                   <b>ENGINEERING:</b> 대용량 미디어 파이프라인 & AI 워크플로 풀스택 엔지니어링 2인 원팀 체제.</p>
                 </div>
-                <div class="ask-right">
-                  <div class="ask-item">
+                <div class="ask-grid-stats">
+                  <div class="ask-stat-item">
                     <small>ROUND</small>
                     <strong>Pre-Seed / Seed</strong>
                   </div>
-                  <div class="ask-item">
+                  <div class="ask-stat-item">
                     <small>PURPOSE</small>
-                    <strong>R2/AI 파이프라인 고도화 & 10개사 파일럿 세팅</strong>
+                    <strong>R2/AI 고도화 & 10개사 파일럿</strong>
                   </div>
-                  <div class="ask-item">
+                  <div class="ask-stat-item">
                     <small>CONTACT</small>
-                    <strong style="font-family:var(--font-mono); font-size:16px;">contact@enter-ax.com</strong>
+                    <strong style="font-family:var(--font-mono); font-size:18px;">contact@enter-ax.com</strong>
                   </div>
                 </div>
               </div>
@@ -778,14 +827,13 @@
     const sections = [['P', 'PROBLEM'], ['S1', 'SOLUTION'], ['S2', 'SCALE-UP'], ['T', 'TEAM']];
     let currentIndex = 0;
 
-    // Shared slide chrome: wordmark, PSST position, page number.
     slides.forEach((slide, index) => {
       if (slide.id !== 'slide-01') {
         const chrome = document.createElement('div');
         chrome.className = 'slide-chrome';
         chrome.setAttribute('aria-hidden', 'true');
         const psst = sections.map(([key, name]) => `<span${slide.dataset.section === key ? ' aria-current="true"' : ''}>${name}</span>`).join('');
-        chrome.innerHTML = `<span class="brand">ENTER—AX <span class="deck-tag">4-MIN IR</span></span><span class="psst">${psst}</span>`;
+        chrome.innerHTML = `<span class="brand">ENTER—AX <span class="deck-tag">4-MIN PITCH</span></span><span class="psst">${psst}</span>`;
         slide.prepend(chrome);
         const pageNo = document.createElement('span');
         pageNo.className = 'page-no';
@@ -809,7 +857,7 @@
         slide.setAttribute('aria-hidden', String(!active));
         dots.children[slideIndex].setAttribute('aria-current', String(active));
       });
-      counter.textContent = `${String(currentIndex + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+      counter.textContent = `${String(currentIndex + 1).padStart(2, '0')} / ${slides.length}`;
     }
 
     function applyScale() {

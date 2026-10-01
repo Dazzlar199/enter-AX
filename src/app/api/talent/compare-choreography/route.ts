@@ -6,6 +6,7 @@ import path from "node:path";
 import { NextResponse } from "next/server";
 
 import { compareChoreography } from "@/lib/vision/choreo";
+import { automationDisabledResponse } from "@/server/http/automation-guard";
 
 export const runtime = "nodejs";
 export const maxDuration = 180;
@@ -21,6 +22,9 @@ function validateVideo(file: FormDataEntryValue | null): file is File {
 }
 
 export async function POST(request: Request) {
+  const disabled = automationDisabledResponse();
+  if (disabled) return disabled;
+
   const jobId = randomUUID();
   const tempDir = path.join(tmpdir(), "enter-ax-choreo", jobId);
 

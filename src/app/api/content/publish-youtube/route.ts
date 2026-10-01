@@ -6,6 +6,8 @@ import { google } from "googleapis";
 import { NextResponse } from "next/server";
 
 import { getAuthorizedClient } from "@/lib/auth/youtube";
+import { resolveGeneratedClip } from "@/lib/media/paths";
+import { automationDisabledResponse } from "@/server/http/automation-guard";
 
 export const runtime = "nodejs";
 export const maxDuration = 300;
@@ -18,17 +20,20 @@ interface RequestBody {
 }
 
 export async function POST(request: Request) {
+  const disabled = automationDisabledResponse();
+  if (disabled) return disabled;
+
   try {
     const body = (await request.json()) as RequestBody;
 
-    if (!body.clipUrl?.startsWith("/generated/")) {
+    const clipPath = resolveGeneratedClip(body.clipUrl);
+    if (!clipPath) {
       return NextResponse.json({ error: "잘못된 클립 경로입니다." }, { status: 400 });
     }
     if (!body.title?.trim()) {
       return NextResponse.json({ error: "제목을 입력해주세요." }, { status: 400 });
     }
 
-    const clipPath = path.join(process.cwd(), "public", body.clipUrl);
     try {
       await access(clipPath);
     } catch {

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import { analyzePlanningDocument } from "@/lib/documents/analyze";
 import { extractDocumentText } from "@/lib/documents/extract";
+import { automationDisabledResponse } from "@/server/http/automation-guard";
 
 export const runtime = "nodejs";
 export const maxDuration = 120;
@@ -10,6 +11,9 @@ const ALLOWED_EXTENSIONS = new Set(["pdf", "docx", "txt", "md"]);
 const MAX_FILE_BYTES = 20 * 1024 * 1024;
 
 export async function POST(request: Request) {
+  const disabled = automationDisabledResponse();
+  if (disabled) return disabled;
+
   try {
     const formData = await request.formData();
     const file = formData.get("file");

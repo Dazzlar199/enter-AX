@@ -1,3 +1,4 @@
+import { generateText } from "@/lib/ai/llm";
 import type { TranscriptChunk } from "./transcribe";
 
 export interface PlanSegment {
@@ -14,8 +15,6 @@ export interface ShortformPlan {
   segments: PlanSegment[];
 }
 
-const OLLAMA_HOST = process.env.OLLAMA_HOST ?? "http://localhost:11434";
-const PLAN_MODEL = process.env.SHORTFORM_PLAN_MODEL ?? "qwen2.5:7b-instruct";
 const MAX_ROLE_LENGTH = 12;
 
 function buildPrompt(transcriptChunks: TranscriptChunk[], durationSec: number, targetDurationSec: number, purpose?: string): string {
@@ -43,10 +42,6 @@ ${purposeLine}먼저 이 영상이 어떤 종류의 콘텐츠인지(예: 아이�
 - 아래 JSON 형식으로만, 다른 설명 없이 답하라.
 
 {"contentType":"...","segments":[{"role":"...","start":0,"end":5,"caption":"..."},{"role":"...","start":10,"end":25,"caption":"..."}]}`;
-}
-
-interface OllamaGenerateResponse {
-  response: string;
 }
 
 const MAX_SEGMENT_SECONDS = 40;
@@ -112,34 +107,15 @@ export async function planShortformStructure(
   targetDurationSec = 45,
   purpose?: string,
 ): Promise<ShortformPlan> {
-  let response: Response;
-  try {
-    response = await fetch(`${OLLAMA_HOST}/api/generate`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: PLAN_MODEL,
-        prompt: buildPrompt(transcriptChunks, durationSec, targetDurationSec, purpose),
-        format: "json",
-        stream: false,
-        options: { temperature: 0.4 },
-      }),
-    });
-  } catch {
-    throw new Error(
-      "로컬 Ollama 서버에 연결할 수 없습니다. 터미널에서 'ollama serve'가 실행 중인지 확인해주세요.",
-    );
-  }
-
-  if (!response.ok) {
-    throw new Error(`Ollama 요청이 실패했습니다 (status ${response.status}). '${PLAN_MODEL}' 모델이 설치되어 있는지 확인해주세요.`);
-  }
-
-  const data = (await response.json()) as OllamaGenerateResponse;
+  const raw = await generateText({
+    prompt: buildPrompt(transcriptChunks, durationSec, targetDurationSec, purpose),
+    json: true,
+    temperature: 0.4,
+  });
 
   let parsed: { contentType?: unknown; segments?: unknown };
   try {
-    parsed = JSON.parse(data.response) as { contentType?: unknown; segments?: unknown };
+    parsed = JSON.parse(raw) as { contentType?: unknown; segments?: unknown };
   } catch {
     throw new Error("AI가 기획안을 올바른 형식으로 만들지 못했습니다. 다시 시도해주세요.");
   }

@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
+import { demoState } from "@/features/demo/fixtures";
 import {
   deleteCustomNode,
   getAllNodeDefinitions,
@@ -112,6 +113,7 @@ describe("Workflow Executor with Domain Nodes", () => {
   const mockApp: WorkflowAppContext = {
     talents: [
       {
+        ...demoState.talents[0],
         id: "tal-1",
         stageName: "민지",
         fields: ["vocal", "dance"],

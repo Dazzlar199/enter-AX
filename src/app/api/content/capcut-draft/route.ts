@@ -6,6 +6,8 @@ import { NextResponse } from "next/server";
 
 import { relativeCaptionsForClip } from "@/lib/media/captions";
 import type { TranscriptChunk } from "@/lib/media/transcribe";
+import { resolveGeneratedClip } from "@/lib/media/paths";
+import { automationDisabledResponse } from "@/server/http/automation-guard";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -47,13 +49,17 @@ interface CapcutDraftRequestBody {
 }
 
 export async function POST(request: Request) {
+  const disabled = automationDisabledResponse();
+  if (disabled) return disabled;
+
   const body = (await request.json()) as CapcutDraftRequestBody;
   const { draftsFolder, clipUrl, start, end, width = 1080, height = 1920 } = body;
 
   if (!draftsFolder?.trim()) {
     return NextResponse.json({ error: "CapCut 드래프트 폴더 경로를 입력해주세요." }, { status: 400 });
   }
-  if (!clipUrl?.startsWith("/generated/")) {
+  const videoPath = resolveGeneratedClip(clipUrl);
+  if (!videoPath) {
     return NextResponse.json({ error: "잘못된 클립 경로입니다." }, { status: 400 });
   }
 
@@ -66,7 +72,6 @@ export async function POST(request: Request) {
     );
   }
 
-  const videoPath = path.join(process.cwd(), "public", clipUrl);
   try {
     await access(videoPath);
   } catch {

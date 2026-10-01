@@ -6,6 +6,7 @@ import path from "node:path";
 import { NextResponse } from "next/server";
 
 import { analyzePoseVideo } from "@/lib/vision/pose";
+import { automationDisabledResponse } from "@/server/http/automation-guard";
 
 export const runtime = "nodejs";
 export const maxDuration = 180;
@@ -14,6 +15,9 @@ const ALLOWED_VIDEO_TYPES = new Set(["video/mp4", "video/webm", "video/quicktime
 const MAX_FILE_BYTES = 300 * 1024 * 1024;
 
 export async function POST(request: Request) {
+  const disabled = automationDisabledResponse();
+  if (disabled) return disabled;
+
   const jobId = randomUUID();
   const tempDir = path.join(tmpdir(), "enter-ax-pose", jobId);
 

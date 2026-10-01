@@ -9,6 +9,8 @@ import type { AspectRatio } from "@/lib/media/clip";
 import { probeDurationSeconds } from "@/lib/media/ffmpeg";
 import { buildImageMontage, concatWithCrossfade, type MontageImage } from "@/lib/media/montage";
 import { generatePromoNarration, synthesizeNarration } from "@/lib/media/narration";
+import { resolveGeneratedClip } from "@/lib/media/paths";
+import { automationDisabledResponse } from "@/server/http/automation-guard";
 
 export const runtime = "nodejs";
 export const maxDuration = 180;
@@ -58,6 +60,9 @@ async function downloadImage(url: string, destDir: string, index: number): Promi
 }
 
 export async function POST(request: Request) {
+  const disabled = automationDisabledResponse();
+  if (disabled) return disabled;
+
   const jobId = randomUUID();
   const tempDir = path.join(tmpdir(), "enter-ax-montage", jobId);
 
@@ -74,11 +79,11 @@ export async function POST(request: Request) {
     if (images.length > MAX_IMAGES) {
       return NextResponse.json({ error: `이미지는 최대 ${MAX_IMAGES}개까지 선택할 수 있습니다.` }, { status: 400 });
     }
-    if (!body.clipUrl?.startsWith("/generated/")) {
+    const clipPath = resolveGeneratedClip(body.clipUrl);
+    if (!clipPath) {
       return NextResponse.json({ error: "잘못된 클립 경로입니다." }, { status: 400 });
     }
 
-    const clipPath = path.join(process.cwd(), "public", body.clipUrl);
     try {
       await access(clipPath);
     } catch {

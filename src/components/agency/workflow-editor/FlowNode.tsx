@@ -38,7 +38,7 @@ function StatusBadge({ run, missing }: { run: NodeRunState; missing: string[] })
   return null;
 }
 
-function SourceHandles({ outputs }: { outputs?: Array<{ id: string; label: string }> }) {
+function SourceHandles({ outputs, params }: { outputs?: Array<{ id: string; label: string; labelParam?: string }>; params: Record<string, string> }) {
   if (!outputs?.length) return <Handle className="wf-handle" position={Position.Right} type="source" />;
   return (
     <>
@@ -51,7 +51,7 @@ function SourceHandles({ outputs }: { outputs?: Array<{ id: string; label: strin
           style={{ top: `${((index + 1) / (outputs.length + 1)) * 100}%` }}
           type="source"
         >
-          <span className="wf-handle__label">{output.label}</span>
+          <span className="wf-handle__label">{(output.labelParam && params[output.labelParam]?.trim()) || output.label}</span>
         </Handle>
       ))}
     </>
@@ -91,7 +91,7 @@ function FlowNodeView({ data, selected }: NodeProps<FlowNodeType>) {
           <StatusBadge missing={missing} run={run} />
           {isTrigger ? <span aria-hidden="true" className="wf-bolt"><Icon name="bolt" size={12} /></span> : null}
         </div>
-        <SourceHandles outputs={definition.outputs} />
+        <SourceHandles outputs={definition.outputs} params={node.params} />
       </div>
     );
   }
@@ -117,7 +117,7 @@ function FlowNodeView({ data, selected }: NodeProps<FlowNodeType>) {
         <StatusBadge missing={missing} run={run} />
         {isTrigger ? <span aria-hidden="true" className="wf-bolt"><Icon name="bolt" size={12} /></span> : null}
       </div>
-      <SourceHandles outputs={definition.outputs} />
+      <SourceHandles outputs={definition.outputs} params={node.params} />
     </div>
   );
 }

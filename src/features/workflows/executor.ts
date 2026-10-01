@@ -2,14 +2,14 @@ import type { CommunityCategory, TalentProfile } from "@/types/domain";
 
 import { getNodeDefinition } from "./catalog";
 import type { NodeExecutor } from "./engine";
-import { aggregateItems, dedupeItems, filterItems, limitItems, pickFields, renderTemplate, setFields, sortItems, talentsToItems } from "./transforms";
+import { aggregateItems, waitSeconds, dedupeItems, filterItems, limitItems, pickFields, renderTemplate, setFields, sortItems, talentsToItems } from "./transforms";
 import type { WorkflowItem } from "./types";
 
 /** App capabilities a workflow can use. Supplied by the page so nodes act on real app data. */
 export type WorkflowAppContext = {
   talents: TalentProfile[];
   moveTalentToReview: (talentId: string) => string;
-  createCommunityPost: (input: { authorName: string; category: CommunityCategory; title: string; body: string }) => string;
+  createCommunityPost: (input: { authorName: string; category: CommunityCategory; title: string; body: string; verifiedAgency?: boolean }) => string;
 };
 
 async function executeOnServer(type: string, params: Record<string, string>, items: WorkflowItem[]): Promise<WorkflowItem[]> {
@@ -76,7 +76,7 @@ export function createExecutor(app: WorkflowAppContext): NodeExecutor {
         const title = renderTemplate(params.title ?? "", input).trim();
         const body = renderTemplate(params.body ?? "", input).trim();
         if (!title || !body) throw new Error("공지 제목과 본문을 입력해 주세요.");
-        const postId = app.createCommunityPost({ authorName: "관리자", category: params.category as CommunityCategory, title, body });
+        const postId = app.createCommunityPost({ authorName: "관리자", category: params.category as CommunityCategory, title, body, verifiedAgency: true });
         return [{ postId, title, category: params.category }];
       }
 
@@ -86,6 +86,10 @@ export function createExecutor(app: WorkflowAppContext): NodeExecutor {
 
       case "logic.fields":
         return pickFields(input, params.keep ?? "");
+
+      case "logic.wait":
+        await new Promise((resolve) => setTimeout(resolve, waitSeconds(params) * 1000));
+        return input;
 
       case "logic.merge":
         return input;

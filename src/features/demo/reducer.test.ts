@@ -76,4 +76,12 @@ describe("demoReducer", () => {
     expect(reset).toEqual(demoState);
     expect(reset).not.toBe(demoState);
   });
+
+  it("adds and removes a community like without going below zero", () => {
+    const id = demoState.communityPosts[0].id;
+    const liked = demoReducer(demoState, { type: "community/like-toggled", payload: { postId: id, liked: true } });
+    expect(liked.communityPosts[0].likes).toBe((demoState.communityPosts[0].likes ?? 0) + 1);
+    const none = demoReducer({ ...demoState, communityPosts: [{ ...demoState.communityPosts[0], likes: 0 }] }, { type: "community/like-toggled", payload: { postId: id, liked: false } });
+    expect(none.communityPosts[0].likes).toBe(0);
+  });
 });

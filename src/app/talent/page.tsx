@@ -23,7 +23,7 @@ const fieldFilters: Array<{ value: TalentField | "all"; label: string }> = [
 ];
 
 export default function TalentStartPage() {
-  const { state, createCommunityPost, replyToCommunityPost } = useDemo();
+  const { state, createCommunityPost, replyToCommunityPost, setCommunityLike } = useDemo();
   const useApiCommunity = process.env.NEXT_PUBLIC_BACKEND_MODE === "api";
   const [query, setQuery] = useState("");
   const [field, setField] = useState<TalentField | "all">("all");
@@ -126,7 +126,7 @@ export default function TalentStartPage() {
         {useApiCommunity ? (
           <CommunityApiBoard query={query} />
         ) : (
-          <CommunityBoard posts={state.communityPosts} query={query} onCreatePost={createCommunityPost} onReply={replyToCommunityPost} />
+          <CommunityBoard posts={state.communityPosts} query={query} onCreatePost={createCommunityPost} onReply={replyToCommunityPost} onToggleLike={setCommunityLike} />
         )}
       </section>
 

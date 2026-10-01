@@ -24,7 +24,7 @@ test("agency can run a workflow that pauses for approval and moves talent to rev
   await page.goto("/agency/ax");
   await page.getByRole("button", { name: "업무 흐름 시작", exact: true }).click();
   await expect(page.getByText("승인이 필요합니다")).toBeVisible();
-  await page.getByRole("button", { name: "승인하고 계속" }).click();
+  await page.getByRole("button", { name: "확인하고 계속" }).click();
   await expect(page.getByText(/실행 완료 · 4\/4 단계/)).toBeVisible();
   await page.getByRole("button", { name: "패널 닫기" }).click();
   await page.getByTestId("rf__node-review").click();
@@ -34,8 +34,11 @@ test("agency can run a workflow that pauses for approval and moves talent to rev
 
 test("agency can prepare promotional content candidates", async ({ page }) => {
   await page.goto("/agency/content");
+  const submit = page.getByRole("button", { name: "AI로 하이라이트 추출하기" });
+  await expect(submit).toBeDisabled();
   await page.getByLabel("홍보 목적").fill("신인 소개");
-  await page.getByRole("button", { name: "데모 초안 만들기" }).click();
-  await expect(page.getByRole("article", { name: "클립 후보" })).toHaveCount(3);
-  await expect(page.getByText("데모 생성물")).toHaveCount(3);
+  // A source video is required, so the action stays disabled until one is chosen.
+  await expect(submit).toBeDisabled();
+  await page.getByLabel("원본 영상 파일").setInputFiles({ name: "sample.mp4", mimeType: "video/mp4", buffer: Buffer.from("not a real video") });
+  await expect(submit).toBeEnabled();
 });

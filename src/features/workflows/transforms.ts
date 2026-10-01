@@ -141,3 +141,27 @@ export function setFields(items: WorkflowItem[], params: Record<string, string>)
   const base = items.length > 0 ? items : [{}];
   return base.map((item) => ({ ...item, ...Object.fromEntries(assignments.map(([name, template]) => [name, renderTemplate(template, [item])])) }));
 }
+
+export const SWITCH_CASES = ["case1", "case2", "case3"] as const;
+
+/** Routes items to the first matching case of a switch-node; everything unmatched goes to `other`. */
+export function switchItems(items: WorkflowItem[], params: Record<string, string>): Record<string, WorkflowItem[]> {
+  const field = params.field?.trim();
+  if (!field) throw new Error("나눌 기준 항목을 입력해 주세요.");
+  const cases = SWITCH_CASES.map((key) => [key, (params[key] ?? "").trim().toLowerCase()] as const).filter(([, value]) => value);
+  if (cases.length === 0) throw new Error("경우를 하나 이상 입력해 주세요.");
+  const result: Record<string, WorkflowItem[]> = { case1: [], case2: [], case3: [], other: [] };
+  for (const item of items) {
+    const actual = String(readPath(item, field) ?? "").trim().toLowerCase();
+    const hit = cases.find(([, value]) => (params.operator === "equals" ? actual === value : actual.includes(value)));
+    result[hit ? hit[0] : "other"].push(item);
+  }
+  return result;
+}
+
+/** Seconds a wait-node pauses, clamped so a workflow cannot hang the editor. */
+export function waitSeconds(params: Record<string, string>): number {
+  const seconds = Number(params.seconds);
+  if (!Number.isFinite(seconds) || seconds < 0) throw new Error("대기 시간을 0 이상의 숫자(초)로 입력해 주세요.");
+  return Math.min(seconds, 30);
+}

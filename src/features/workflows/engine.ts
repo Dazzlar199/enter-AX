@@ -1,5 +1,5 @@
 import { getNodeDefinition } from "./catalog";
-import { splitItems } from "./transforms";
+import { splitItems, switchItems } from "./transforms";
 import type { NodeRunState, RunState, WorkflowDefinition, WorkflowEdge, WorkflowItem, WorkflowNode } from "./types";
 
 export type NodeExecutor = (node: WorkflowNode, input: WorkflowItem[]) => Promise<WorkflowItem[]>;
@@ -103,8 +103,9 @@ export async function runWorkflow(
     const startedAt = Date.now();
     commit(id, { status: "running", input, startedAt });
     try {
-      if (node.type === "logic.if") {
-        const branches = splitItems(input, { ...getNodeDefinition(node.type).defaults, ...node.params });
+      if (node.type === "logic.if" || node.type === "logic.switch") {
+        const params = { ...getNodeDefinition(node.type).defaults, ...node.params };
+        const branches = node.type === "logic.if" ? splitItems(input, params) : switchItems(input, params);
         commit(id, { status: "success", input, output: input, branches, startedAt, finishedAt: Date.now() });
         continue;
       }

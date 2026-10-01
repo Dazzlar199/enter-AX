@@ -154,6 +154,7 @@ const communityPosts: CommunityPost[] = [
   {
     id: "post-4",
     authorName: "관리자",
+    verifiedAgency: true,
     category: "정보공유",
     title: "9월 넷째 주 오픈 캐스팅 일정 안내",
     body: "이번 주 노바 엔터테인먼트, 오빗 크리에이티브에서 보컬/댄스 포지션 오디션 접수 중입니다. 프로필 등록 후 지원 가능해요.",
@@ -215,6 +216,7 @@ const communityPosts: CommunityPost[] = [
   {
     id: "post-10",
     authorName: "관리자",
+    verifiedAgency: true,
     category: "정보공유",
     title: "스테이지랩 A&R팀 인증 심사 진행 중 안내",
     body: "스테이지랩은 현재 사업자 인증 심사 중입니다. 인증 완료 전까지는 프로필이 제한적으로만 노출됩니다.",

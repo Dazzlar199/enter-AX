@@ -76,4 +76,21 @@ describe("CommunityService", () => {
     expect(serializedAudit).not.toContain("민감한 본문");
     expect(serializedAudit).not.toContain("신고 사유");
   });
+
+  it("masks phone numbers and chat invites before storing posts and comments", async () => {
+    const repository = new MemoryPlatformRepository();
+    repository.seedViewer(actor());
+    const service = new CommunityService(repository, repository);
+
+    const post = await service.createPost(
+      actor(),
+      { category: "scam-alert", title: "사칭 제보", body: "010-1234-5678 로 연락 왔고 https://open.kakao.com/o/x 초대함" },
+      "req-1",
+    );
+    expect(post.body).toBe("010-****-**** 로 연락 왔고 [외부 채팅 링크 삭제됨] 초대함");
+
+    const comment = await service.createComment(actor(), post.id, { body: "저도 01099998888 에서 왔어요" }, "req-2");
+    expect(comment.body).toBe("저도 010-****-**** 에서 왔어요");
+    expect(JSON.stringify(repository.auditEvents)).not.toContain("1234");
+  });
 });

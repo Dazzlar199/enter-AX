@@ -11,6 +11,8 @@ export const builtInNodeTypes = [
   "logic.fields",
   "logic.if",
   "logic.merge",
+  "logic.switch",
+  "logic.wait",
   "logic.sort",
   "logic.limit",
   "logic.dedupe",

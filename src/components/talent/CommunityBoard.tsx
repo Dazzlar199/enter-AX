@@ -8,6 +8,37 @@ import type { CommunityCategory, CommunityPost } from "@/types/domain";
 type BoardFilter = "전체" | CommunityCategory;
 type SortMode = "latest" | "popular" | "unanswered";
 
+const LIKED_KEY = "enter-ax.community.liked";
+
+function popularity(post: CommunityPost): number {
+  return (post.likes ?? 0) * 2 + post.replies.length;
+}
+
+// Reactions are remembered per browser so a viewer cannot like the same post twice.
+function useLikedIds(): [Set<string>, (id: string, liked: boolean) => void] {
+  const [liked, setLiked] = useState<Set<string>>(new Set());
+  useEffect(() => {
+    try {
+      setLiked(new Set(JSON.parse(window.localStorage.getItem(LIKED_KEY) ?? "[]") as string[]));
+    } catch {
+      /* storage unavailable: start empty */
+    }
+  }, []);
+  const update = (id: string, isLiked: boolean) =>
+    setLiked((current) => {
+      const next = new Set(current);
+      if (isLiked) next.add(id);
+      else next.delete(id);
+      try {
+        window.localStorage.setItem(LIKED_KEY, JSON.stringify([...next]));
+      } catch {
+        /* ignore */
+      }
+      return next;
+    });
+  return [liked, update];
+}
+
 const categories: CommunityCategory[] = ["자유", "질문", "합격후기", "정보공유", "주의제보"];
 
 const boardMeta: Record<BoardFilter, { label: string; description: string }> = {
@@ -21,7 +52,7 @@ const boardMeta: Record<BoardFilter, { label: string; description: string }> = {
 
 const sortLabels: Record<SortMode, string> = {
   latest: "최신",
-  popular: "댓글 많은 순",
+  popular: "인기순",
   unanswered: "답변 필요",
 };
 
@@ -82,7 +113,11 @@ function PostCard({
   onSubmitReply,
   viewerName,
   now,
+  liked,
+  onToggleLike,
 }: {
+  liked: boolean;
+  onToggleLike?: () => void;
   post: CommunityPost;
   isOpen: boolean;
   onToggle: () => void;
@@ -103,6 +138,7 @@ function PostCard({
           <span className="cm-post__author">{post.authorName}</span>
           <span className="cm-dot" aria-hidden="true" />
           <time dateTime={post.createdAt}>{formatRelative(post.createdAt, now)}</time>
+          {post.verifiedAgency ? <span className="cm-verified" title="인증된 기획사 계정이 작성한 글">인증 기획사</span> : null}
           {isNotice(post) ? <span className="cm-tag" data-category="공지">공지</span> : <span className="cm-tag" data-category={post.category}>{boardMeta[post.category].label}</span>}
           {isNew ? <span className="cm-new">NEW</span> : null}
           {scanRisks(`${post.title} ${post.body}`).length > 0 && post.category !== "주의제보" ? <span className="cm-risk">주의 표현 포함</span> : null}
@@ -114,6 +150,7 @@ function PostCard({
             <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M4 4h12v9H9l-4 3v-3H4z" /></svg>
             {post.replies.length}
           </span>
+          {(post.likes ?? 0) > 0 ? <span className="cm-stat" aria-label={`공감 ${post.likes}개`}>♥ {post.likes}</span> : null}
           {post.category === "질문" && post.replies.length === 0 ? <span className="cm-needs">답변을 기다려요</span> : null}
         </span>
       </button>
@@ -121,6 +158,11 @@ function PostCard({
       {isOpen ? (
         <div className="cm-post__detail" id={detailId}>
           <p className="cm-post__body">{post.body}</p>
+          {onToggleLike ? (
+            <button aria-pressed={liked} className="cm-like" type="button" onClick={onToggleLike}>
+              {liked ? "♥ 공감 취소" : "♡ 공감"} {post.likes ? post.likes : ""}
+            </button>
+          ) : null}
 
           <div className="cm-thread">
             <p className="cm-thread__count">댓글 {post.replies.length}</p>
@@ -173,10 +215,13 @@ export function CommunityBoard({
   posts,
   onCreatePost,
   onReply,
+  onToggleLike,
   viewerName,
   onCreateSession,
   query: externalQuery,
 }: {
+  /** Present only where reactions are supported (demo mode). */
+  onToggleLike?: (postId: string, liked: boolean) => unknown;
   /** When the page owns the search box, pass its value here and the board hides its own. */
   query?: string;
   posts: CommunityPost[];
@@ -186,6 +231,7 @@ export function CommunityBoard({
   onCreateSession?: (nickname: string) => Promise<unknown>;
 }) {
   const now = useNow();
+  const [likedIds, setLikedId] = useLikedIds();
   const [board, setBoard] = useState<BoardFilter>("전체");
   const [sort, setSort] = useState<SortMode>("latest");
   const [localQuery, setQuery] = useState("");
@@ -217,7 +263,7 @@ export function CommunityBoard({
     return filtered.sort((a, b) => {
       // Admin notices stay pinned on top of the latest view, like a regular community board.
       if (sort === "latest" && isNotice(a) !== isNotice(b)) return isNotice(a) ? -1 : 1;
-      if (sort === "popular" && b.replies.length !== a.replies.length) return b.replies.length - a.replies.length;
+      if (sort === "popular" && popularity(b) !== popularity(a)) return popularity(b) - popularity(a);
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     });
   }, [posts, board, sort, query]);
@@ -354,6 +400,8 @@ export function CommunityBoard({
                 isOpen={openPostId === post.id}
                 now={now}
                 post={post}
+                liked={likedIds.has(post.id)}
+                onToggleLike={onToggleLike ? () => { const next = !likedIds.has(post.id); setLikedId(post.id, next); onToggleLike(post.id, next); } : undefined}
                 replyDraft={replyDraft}
                 viewerName={viewerName}
                 onReplyDraftChange={setReplyDraft}

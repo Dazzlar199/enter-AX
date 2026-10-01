@@ -37,7 +37,8 @@ export interface DemoRepository {
   transitionAgentJob(jobId: string, status: AgentJobStatus): void;
   createContentJob(input: ContentJobInput): string;
   transitionContentJob(jobId: string, action: ContentAction, rejectionReason?: string): void;
-  createCommunityPost(input: { authorName: string; category: CommunityCategory; title: string; body: string }): string;
+  createCommunityPost(input: { authorName: string; category: CommunityCategory; title: string; body: string; verifiedAgency?: boolean }): string;
+  setCommunityLike(postId: string, liked: boolean): void;
   replyToCommunityPost(postId: string, input: { authorName: string; body: string }): void;
 }
 
@@ -124,6 +125,9 @@ export function createDemoRepository(
         payload: { post: { id, ...input, createdAt: now, replies: [] } },
       });
       return id;
+    },
+    setCommunityLike: (postId, liked) => {
+      dispatch({ type: "community/like-toggled", payload: { postId, liked } });
     },
     replyToCommunityPost: (postId, input) => {
       const post = state.communityPosts.find((item) => item.id === postId);

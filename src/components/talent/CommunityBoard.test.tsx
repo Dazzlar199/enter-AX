@@ -69,4 +69,19 @@ describe("CommunityBoard authenticated author mode", () => {
     await user.click(screen.getByRole("button", { name: /주의 제보/ }));
     expect(screen.getByText("오디션 사기, 이렇게 구분하세요")).toBeInTheDocument();
   });
+
+  it("toggles a reaction once per browser and shows the verified agency badge", async () => {
+    window.localStorage.clear();
+    const user = userEvent.setup();
+    const onToggleLike = vi.fn();
+    const posts = [{ id: "p1", authorName: "관리자", category: "정보공유" as const, title: "공식 공고", body: "본문", createdAt: "2026-09-10T00:00:00.000Z", replies: [], likes: 2, verifiedAgency: true }];
+    render(<CommunityBoard posts={posts} onCreatePost={vi.fn()} onReply={vi.fn()} onToggleLike={onToggleLike} />);
+
+    expect(screen.getByText("인증 기획사")).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: /공식 공고/ }));
+    await user.click(screen.getByRole("button", { name: /♡ 공감/ }));
+    expect(onToggleLike).toHaveBeenLastCalledWith("p1", true);
+    await user.click(screen.getByRole("button", { name: /공감 취소/ }));
+    expect(onToggleLike).toHaveBeenLastCalledWith("p1", false);
+  });
 });

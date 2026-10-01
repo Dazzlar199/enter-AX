@@ -4,7 +4,7 @@ test("administrator can create a custom step and add it to the step list", async
   await page.goto("/agency/ax");
 
   // Verify palette title and '+ 노드 제작' button
-  await expect(page.getByText("단계 목록")).toBeVisible();
+  await expect(page.locator(".wf-palette").getByText("단계 목록", { exact: true })).toBeVisible();
   const makeNodeBtn = page.getByRole("button", { name: "+ 맞춤 단계" });
   await expect(makeNodeBtn).toBeVisible();
 
@@ -38,8 +38,8 @@ test("agency can run the K-POP audition review flow", async ({ page }) => {
   await select.selectOption({ label: "K-POP 오디션 검토 및 안내" });
 
   // Verify the pipeline nodes are rendered
-  await expect(page.getByText("카카오톡 안내 준비")).toBeVisible();
-  await expect(page.getByText("안무 동작 비교")).toBeVisible();
+  await expect(page.locator(".wf-canvas").getByText("카카오톡 안내 준비").first()).toBeVisible();
+  await expect(page.locator(".wf-canvas").getByText("안무 동작 비교").first()).toBeVisible();
 
   // Toggle card preview
   const toggleBtn = page.getByRole("button", { name: "단계 자세히 보기" });
@@ -60,26 +60,26 @@ test("user can collapse palette, minimize panel, and toggle canvas focus mode", 
   await page.goto("/agency/ax");
 
   // Palette is initially visible
-  await expect(page.getByText("단계 목록")).toBeVisible();
+  await expect(page.locator(".wf-palette").getByText("단계 목록", { exact: true })).toBeVisible();
 
   // Click collapse button on palette
   const collapsePaletteBtn = page.getByRole("button", { name: "단계 목록 접기" });
   await collapsePaletteBtn.click();
 
   // Palette is hidden, floating open tab is visible on canvas
-  await expect(page.getByText("단계 목록")).toBeHidden();
+  await expect(page.locator(".wf-palette").getByText("단계 목록", { exact: true })).toBeHidden();
   const floatingHubBtn = page.getByRole("button", { name: "단계 목록 펼치기" });
   await expect(floatingHubBtn).toBeVisible();
 
   // Re-open palette via floating button
   await floatingHubBtn.click();
-  await expect(page.getByText("단계 목록")).toBeVisible();
+  await expect(page.locator(".wf-palette").getByText("단계 목록", { exact: true })).toBeVisible();
 
   // On small mobile viewports, collapse palette before canvas interaction so canvas has full width
   const isMobile = (page.viewportSize()?.width ?? 1280) < 768;
   if (isMobile) {
     await collapsePaletteBtn.click();
-    await expect(page.getByText("단계 목록")).toBeHidden();
+    await expect(page.locator(".wf-palette").getByText("단계 목록", { exact: true })).toBeHidden();
     // Allow ReactFlow fitView transition (200ms) to settle
     await page.waitForTimeout(350);
   }
@@ -104,10 +104,10 @@ test("user can collapse palette, minimize panel, and toggle canvas focus mode", 
   const focusBtn = page.getByRole("button", { name: /캔버스 최대화/ });
   await focusBtn.click();
   await expect(page.getByText("원래 크기로")).toBeVisible();
-  await expect(page.getByText("단계 목록")).toBeHidden();
+  await expect(page.locator(".wf-palette").getByText("단계 목록", { exact: true })).toBeHidden();
 
   // Restore from focus
   await page.getByRole("button", { name: "원래 크기로" }).click();
-  await expect(page.getByText("단계 목록")).toBeVisible();
+  await expect(page.locator(".wf-palette").getByText("단계 목록", { exact: true })).toBeVisible();
 });
 

@@ -3,6 +3,7 @@ import type { CommunitySession } from "@/server/identity/model";
 import { AppError } from "@/server/shared/errors";
 
 import type { CommunityRepository, ListCommentsInput, ListPostsInput } from "./repository";
+import { sanitizePublicText } from "./sanitize";
 import type { CreateCommentInput, CreatePostInput, CreateReportInput } from "./schema";
 
 function requireActor(actor: CommunitySession | null): CommunitySession {
@@ -22,7 +23,9 @@ export class CommunityService {
 
   async createPost(actor: CommunitySession | null, input: CreatePostInput, requestId: string) {
     const authenticated = requireActor(actor);
-    const post = await this.community.createPost({ ...input, authorUserId: authenticated.userId });
+    const title = sanitizePublicText(input.title);
+    const body = sanitizePublicText(input.body);
+    const post = await this.community.createPost({ ...input, title: title.text, body: body.text, authorUserId: authenticated.userId });
     await this.audit.append({
       actorUserId: authenticated.userId,
       tenantId: null,
@@ -30,7 +33,7 @@ export class CommunityService {
       subjectType: "community_post",
       subjectId: post.id,
       requestId,
-      metadata: { category: post.category },
+      metadata: { category: post.category, sanitized: title.changed || body.changed },
     });
     return post;
   }
@@ -48,10 +51,11 @@ export class CommunityService {
     const authenticated = requireActor(actor);
     const target = await this.community.findPublishedTarget({ targetType: "post", targetId: postId });
     if (!target) throw new AppError("NOT_FOUND", "게시글을 찾을 수 없습니다.");
+    const body = sanitizePublicText(input.body);
     const comment = await this.community.createComment({
       authorUserId: authenticated.userId,
       postId,
-      body: input.body,
+      body: body.text,
     });
     await this.audit.append({
       actorUserId: authenticated.userId,
@@ -60,7 +64,7 @@ export class CommunityService {
       subjectType: "community_comment",
       subjectId: comment.id,
       requestId,
-      metadata: { postId },
+      metadata: { postId, sanitized: body.changed },
     });
     return comment;
   }

@@ -112,4 +112,29 @@ describe("workflow engine", () => {
       expect(state.nodes.after.status).toBe("skipped");
     });
   });
+
+  it("sends switch items to their case handle and skips unused cases", async () => {
+    const def: WorkflowDefinition = {
+      id: "wf-switch",
+      name: "switch",
+      updatedAt: "",
+      nodes: [
+        node("start", "trigger.manual"),
+        { ...node("route", "logic.switch"), params: { field: "분야", operator: "equals", case1: "보컬", case2: "댄스" } },
+        node("a", "logic.fields"),
+        node("b", "logic.fields"),
+        node("rest", "logic.fields"),
+      ],
+      edges: [
+        { id: "e1", source: "start", target: "route" },
+        { id: "e2", source: "route", target: "a", sourceHandle: "case1" },
+        { id: "e3", source: "route", target: "b", sourceHandle: "case2" },
+        { id: "e4", source: "route", target: "rest", sourceHandle: "other" },
+      ],
+    };
+    const state = await runWorkflow(def, emptyRun(def), async (current, input) => (current.id === "start" ? [{ 분야: "보컬" }, { 분야: "배우" }] : input), () => {});
+    expect(state.nodes.a.output).toEqual([{ 분야: "보컬" }]);
+    expect(state.nodes.b.status).toBe("skipped");
+    expect(state.nodes.rest.output).toEqual([{ 분야: "배우" }]);
+  });
 });

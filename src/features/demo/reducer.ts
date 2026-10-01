@@ -45,7 +45,8 @@ export type DemoAction =
       payload: { jobId: string; action: ContentAction; nextStep: ContentJob["step"]; rejectionReason?: string };
     }
   | { type: "community/post-created"; payload: { post: CommunityPost } }
-  | { type: "community/reply-created"; payload: { postId: string; reply: CommunityReply } };
+  | { type: "community/reply-created"; payload: { postId: string; reply: CommunityReply } }
+  | { type: "community/like-toggled"; payload: { postId: string; liked: boolean } };
 
 function appendActivity(candidate: Candidate, label: string): Candidate {
   return {
@@ -217,6 +218,15 @@ export function demoReducer(state: DemoState, action: DemoAction): DemoState {
         communityPosts: state.communityPosts.map((post) =>
           post.id === action.payload.postId
             ? { ...post, replies: [...post.replies, action.payload.reply] }
+            : post,
+        ),
+      };
+    case "community/like-toggled":
+      return {
+        ...state,
+        communityPosts: state.communityPosts.map((post) =>
+          post.id === action.payload.postId
+            ? { ...post, likes: Math.max(0, (post.likes ?? 0) + (action.payload.liked ? 1 : -1)) }
             : post,
         ),
       };

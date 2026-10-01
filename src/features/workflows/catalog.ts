@@ -38,7 +38,7 @@ export type NodeDefinition = {
   execution?: "live" | "demo";
   hiddenFromPalette?: boolean;
   /** Named outputs for branching nodes; edges leaving one carry its id as `sourceHandle`. */
-  outputs?: Array<{ id: string; label: string }>;
+  outputs?: Array<{ id: string; label: string; /** Param holding a user-given label for this output. */ labelParam?: string }>;
   presets?: NodePreset[];
   isCustom?: boolean;
 };
@@ -314,6 +314,46 @@ export const nodeCatalog: NodeDefinition[] = [
     runtime: "client",
     params: [],
     defaults: {},
+  },
+  {
+    type: "logic.switch",
+    label: "여러 갈래로 나누기",
+    description: "항목 값에 따라 최대 3갈래로 나눕니다. 어디에도 맞지 않으면 ‘그 외’로 갑니다.",
+    category: "data",
+    icon: { glyph: "filter" },
+    runtime: "client",
+    outputs: [
+      { id: "case1", label: "경우 1", labelParam: "case1" },
+      { id: "case2", label: "경우 2", labelParam: "case2" },
+      { id: "case3", label: "경우 3", labelParam: "case3" },
+      { id: "other", label: "그 외" },
+    ],
+    params: [
+      { key: "field", label: "기준 항목", kind: "text", required: true, placeholder: "분야" },
+      {
+        key: "operator",
+        label: "비교 방식",
+        kind: "select",
+        options: [
+          { value: "contains", label: "포함" },
+          { value: "equals", label: "같음" },
+        ],
+      },
+      { key: "case1", label: "경우 1 값", kind: "text", required: true, placeholder: "보컬" },
+      { key: "case2", label: "경우 2 값", kind: "text", placeholder: "댄스" },
+      { key: "case3", label: "경우 3 값", kind: "text", placeholder: "배우" },
+    ],
+    defaults: { field: "", operator: "contains", case1: "", case2: "", case3: "" },
+  },
+  {
+    type: "logic.wait",
+    label: "잠시 기다리기",
+    description: "지정한 시간(최대 30초)만 멈췄다가 데이터를 그대로 넘깁니다. 외부 서비스 호출 사이 간격을 둘 때 씁니다.",
+    category: "data",
+    icon: { glyph: "play" },
+    runtime: "client",
+    params: [{ key: "seconds", label: "기다릴 시간 (초)", kind: "text", required: true, placeholder: "3" }],
+    defaults: { seconds: "3" },
   },
   {
     type: "logic.sort",

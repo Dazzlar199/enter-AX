@@ -184,6 +184,10 @@ export interface CommunityPost {
   body: string;
   createdAt: string;
   replies: CommunityReply[];
+  /** Number of 공감 reactions; absent means zero. */
+  likes?: number;
+  /** Posted from a verified agency console account. */
+  verifiedAgency?: boolean;
 }
 
 export interface DemoState {

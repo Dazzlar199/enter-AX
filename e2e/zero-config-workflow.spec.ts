@@ -66,13 +66,13 @@ test.describe("Zero-Config Vertical Entertainment AX", () => {
 
     // Check shortform pipeline nodes on canvas
     await expect(
-      page.locator(".wf-canvas").getByText("세로 영상 만들기")
+      page.locator(".wf-canvas").getByText("세로 영상 만들기").first()
     ).toBeVisible();
     await expect(
-      page.locator(".wf-canvas").getByText("YouTube Shorts 공식 업로드")
+      page.locator(".wf-canvas").getByText("YouTube Shorts 공식 업로드").first()
     ).toBeVisible();
     await expect(
-      page.locator(".wf-canvas").getByText("TikTok 숏폼 동시 배포")
+      page.locator(".wf-canvas").getByText("TikTok 숏폼 동시 배포").first()
     ).toBeVisible();
   });
 
@@ -88,7 +88,7 @@ test.describe("Zero-Config Vertical Entertainment AX", () => {
     // Click on KakaoTalk node to open its settings
     const kakaoNode = page
       .locator(".react-flow__node")
-      .filter({ hasText: "카카오톡 합격 알림톡 발송" })
+      .filter({ hasText: "카카오톡 안내 준비" })
       .first();
     await kakaoNode.click();
 

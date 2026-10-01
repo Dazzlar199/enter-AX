@@ -167,7 +167,7 @@ export interface ProfileView {
   viewedAt: string;
 }
 
-export type CommunityCategory = "자유" | "질문" | "합격후기" | "정보공유";
+export type CommunityCategory = "자유" | "질문" | "합격후기" | "정보공유" | "주의제보";
 
 export interface CommunityReply {
   id: string;

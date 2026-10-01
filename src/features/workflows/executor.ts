@@ -2,7 +2,7 @@ import type { CommunityCategory, TalentProfile } from "@/types/domain";
 
 import { getNodeDefinition } from "./catalog";
 import type { NodeExecutor } from "./engine";
-import { filterItems, pickFields, renderTemplate, talentsToItems } from "./transforms";
+import { aggregateItems, dedupeItems, filterItems, limitItems, pickFields, renderTemplate, setFields, sortItems, talentsToItems } from "./transforms";
 import type { WorkflowItem } from "./types";
 
 /** App capabilities a workflow can use. Supplied by the page so nodes act on real app data. */
@@ -86,6 +86,21 @@ export function createExecutor(app: WorkflowAppContext): NodeExecutor {
 
       case "logic.fields":
         return pickFields(input, params.keep ?? "");
+
+      case "logic.sort":
+        return sortItems(input, params);
+
+      case "logic.limit":
+        return limitItems(input, params);
+
+      case "logic.dedupe":
+        return dedupeItems(input, params);
+
+      case "logic.aggregate":
+        return aggregateItems(input, params);
+
+      case "logic.set":
+        return setFields(input, params);
 
       case "audition.score_filter": {
         const minScore = Number(params.minScore) || 80;

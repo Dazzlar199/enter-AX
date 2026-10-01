@@ -7,6 +7,7 @@ const toApiCategory: Record<CommunityCategory, string> = {
   질문: "question",
   합격후기: "success-story",
   정보공유: "information",
+  주의제보: "scam-alert",
 };
 
 const fromApiCategory: Record<string, CommunityCategory> = {
@@ -14,6 +15,7 @@ const fromApiCategory: Record<string, CommunityCategory> = {
   question: "질문",
   "success-story": "합격후기",
   information: "정보공유",
+  "scam-alert": "주의제보",
 };
 
 interface ApiPost {

@@ -1,4 +1,4 @@
-export const communityCategories = ["free", "question", "success-story", "information"] as const;
+export const communityCategories = ["free", "question", "success-story", "information", "scam-alert"] as const;
 export type CommunityCategorySlug = (typeof communityCategories)[number];
 
 export interface CommunityPost {

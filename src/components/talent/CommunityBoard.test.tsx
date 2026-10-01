@@ -49,4 +49,24 @@ describe("CommunityBoard authenticated author mode", () => {
     expect(screen.getByText("연습실 이야기")).toBeInTheDocument();
     expect(screen.queryByText("유튜브 링크 질문")).not.toBeInTheDocument();
   });
+
+  it("warns while composing when text exposes a phone number or asks for upfront fees", async () => {
+    const user = userEvent.setup();
+    render(<CommunityBoard posts={[]} viewerName="루아" onCreatePost={vi.fn()} onReply={vi.fn()} />);
+
+    await user.click(screen.getAllByRole("button", { name: /글쓰기/ })[0]);
+    await user.type(screen.getByPlaceholderText("내용을 입력해주세요."), "프로필 촬영비 입금하래요 010-1234-5678");
+
+    const alerts = screen.getAllByRole("alert");
+    expect(alerts.map((alert) => alert.textContent).join(" ")).toMatch(/전화번호/);
+    expect(alerts.map((alert) => alert.textContent).join(" ")).toMatch(/금전 요구/);
+  });
+
+  it("shows the scam checklist on the 주의 제보 board", async () => {
+    const user = userEvent.setup();
+    render(<CommunityBoard posts={[]} onCreatePost={vi.fn()} onReply={vi.fn()} />);
+
+    await user.click(screen.getByRole("button", { name: /주의 제보/ }));
+    expect(screen.getByText("오디션 사기, 이렇게 구분하세요")).toBeInTheDocument();
+  });
 });

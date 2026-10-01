@@ -4,6 +4,7 @@ import { analyzePlanningDocument } from "@/lib/documents/analyze";
 import { readPath, renderTemplate, toItems } from "@/features/workflows/transforms";
 import type { WorkflowItem } from "@/features/workflows/types";
 
+import { aiClassify, aiExtract, aiGenerate } from "./ai-nodes";
 import { guardedFetch, readLimited } from "./net-guard";
 
 const REQUEST_TIMEOUT_MS = 15_000;
@@ -11,7 +12,7 @@ const MAX_RESPONSE_BYTES = 1024 * 1024;
 const MAX_OUTPUT_ITEMS = 500;
 const MAX_AI_INPUT_CHARS = 20_000;
 
-export const serverNodeTypes = ["http.request", "ai.summary", "slack.message"] as const;
+export const serverNodeTypes = ["http.request", "ai.summary", "ai.classify", "ai.extract", "ai.generate", "slack.message"] as const;
 
 export const executeRequestSchema = z.object({
   type: z.enum(serverNodeTypes),
@@ -99,6 +100,12 @@ export async function executeServerNode(request: ExecuteRequest): Promise<Workfl
       return httpRequest(request.params);
     case "ai.summary":
       return aiSummary(request.params, request.items);
+    case "ai.classify":
+      return aiClassify(request.params, request.items);
+    case "ai.extract":
+      return aiExtract(request.params, request.items);
+    case "ai.generate":
+      return aiGenerate(request.params, request.items);
     case "slack.message":
       return slackMessage(request.params, request.items);
   }

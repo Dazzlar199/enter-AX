@@ -2,12 +2,13 @@
 
 import { useEffect, useMemo, useState } from "react";
 
+import { scamChecklist, scanRisks } from "@/features/community/safety";
 import type { CommunityCategory, CommunityPost } from "@/types/domain";
 
 type BoardFilter = "전체" | CommunityCategory;
 type SortMode = "latest" | "popular" | "unanswered";
 
-const categories: CommunityCategory[] = ["자유", "질문", "합격후기", "정보공유"];
+const categories: CommunityCategory[] = ["자유", "질문", "합격후기", "정보공유", "주의제보"];
 
 const boardMeta: Record<BoardFilter, { label: string; description: string }> = {
   전체: { label: "전체 글", description: "모든 게시판의 새 글" },
@@ -15,6 +16,7 @@ const boardMeta: Record<BoardFilter, { label: string; description: string }> = {
   질문: { label: "질문", description: "지원 방법과 준비 Q&A" },
   합격후기: { label: "합격 후기", description: "서류·미팅 통과 경험" },
   정보공유: { label: "정보 공유", description: "오픈 캐스팅·일정 안내" },
+  주의제보: { label: "주의 제보", description: "사칭·선결제 요구 등 사기 의심 제보" },
 };
 
 const sortLabels: Record<SortMode, string> = {
@@ -103,6 +105,7 @@ function PostCard({
           <time dateTime={post.createdAt}>{formatRelative(post.createdAt, now)}</time>
           {isNotice(post) ? <span className="cm-tag" data-category="공지">공지</span> : <span className="cm-tag" data-category={post.category}>{boardMeta[post.category].label}</span>}
           {isNew ? <span className="cm-new">NEW</span> : null}
+          {scanRisks(`${post.title} ${post.body}`).length > 0 && post.category !== "주의제보" ? <span className="cm-risk">주의 표현 포함</span> : null}
         </span>
         <span className="cm-post__title">{post.title}</span>
         {!isOpen ? <span className="cm-post__excerpt">{post.body}</span> : null}
@@ -198,7 +201,7 @@ export function CommunityBoard({
   const [replyDraft, setReplyDraft] = useState({ authorName: "", body: "" });
 
   const counts = useMemo(() => {
-    const result: Record<BoardFilter, number> = { 전체: posts.length, 자유: 0, 질문: 0, 합격후기: 0, 정보공유: 0 };
+    const result: Record<BoardFilter, number> = { 전체: posts.length, 자유: 0, 질문: 0, 합격후기: 0, 정보공유: 0, 주의제보: 0 };
     for (const post of posts) result[post.category] += 1;
     return result;
   }, [posts]);
@@ -218,6 +221,8 @@ export function CommunityBoard({
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     });
   }, [posts, board, sort, query]);
+
+  const composerRisks = useMemo(() => scanRisks(`${draft.title} ${draft.body}`), [draft.title, draft.body]);
 
   function openComposer() {
     setDraft({ authorName: "", category: board === "전체" ? "자유" : board, title: "", body: "" });
@@ -289,6 +294,16 @@ export function CommunityBoard({
                 </button>
               ))}
             </div>
+            {draft.category === "주의제보" ? (
+              <div className="cm-safety" role="note">
+                <strong>이런 경우 사기를 의심하세요</strong>
+                <ul>{scamChecklist.map((rule) => <li key={rule}>{rule}</li>)}</ul>
+                <p>제보할 때는 상대방의 실명·전화번호 대신 상호명, 연락 방식, 요구 내용을 적어 주세요.</p>
+              </div>
+            ) : null}
+            {composerRisks.map((risk) => (
+              <p className="cm-risk-note" key={risk.kind} role="alert"><strong>{risk.label}</strong> · {risk.advice}</p>
+            ))}
             {!viewerName ? (
               <input className="cm-input" placeholder="닉네임" value={draft.authorName} onChange={(e) => setDraft({ ...draft, authorName: e.target.value })} />
             ) : null}
@@ -309,6 +324,13 @@ export function CommunityBoard({
             <span className="cm-button">글쓰기</span>
           </button>
         )}
+
+        {board === "주의제보" ? (
+          <aside className="cm-safety" role="note">
+            <strong>오디션 사기, 이렇게 구분하세요</strong>
+            <ul>{scamChecklist.map((rule) => <li key={rule}>{rule}</li>)}</ul>
+          </aside>
+        ) : null}
 
         <div className="cm-sort" role="tablist" aria-label="정렬">
           {(Object.keys(sortLabels) as SortMode[]).map((mode) => (

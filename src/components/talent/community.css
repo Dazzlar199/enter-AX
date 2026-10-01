@@ -197,6 +197,7 @@
 .cm-toolbar + .cm-section { margin-top: 32px; }
 
 /* Pinned notices */
+.cm-tag[data-category="주의제보"] { background: #fdecec; color: #b3261e; }
 .cm-tag[data-category="공지"] { background: var(--s-ink); color: #fff; }
 .cm-post[data-notice] { background: #fafafb; }
 
@@ -211,3 +212,9 @@
   .hc__track { transition: none; }
 }
 #community { scroll-margin-top: 88px; }
+
+.cm-risk { font-size: 11px; font-weight: 700; color: #b3261e; background: #fdecec; border-radius: 999px; padding: 2px 8px; }
+.cm-safety { border: 1px solid #f0c9c6; background: #fff7f6; border-radius: 12px; padding: 12px 14px; font-size: 13px; line-height: 1.5; }
+.cm-safety ul { margin: 6px 0 6px 18px; padding: 0; }
+.cm-safety p { margin: 0; color: #6b4a47; }
+.cm-risk-note { margin: 0; padding: 8px 12px; border-radius: 10px; background: #fff3d6; color: #6e4c00; font-size: 13px; }

@@ -55,6 +55,21 @@ export function starterWorkflows(): WorkflowDefinition[] {
       edges: chain(["start", "talents", "fields", "summary", "approve", "slack"]),
     },
     {
+      id: "wf-ai-triage",
+      name: "지원자 AI 분류 및 안내문 초안",
+      updatedAt: now,
+      nodes: [
+        node("start", "trigger.manual", "직접 시작", 0),
+        node("talents", "app.talents", "전체 지원자", 280, { field: "all", offers: "any" }),
+        node("dedupe", "logic.dedupe", "중복 제거", 560, { field: "활동명" }),
+        node("limit", "logic.limit", "상위 10건만", 840, { count: "10" }),
+        node("classify", "ai.classify", "주 특기 분류", 1120, { labels: "보컬 중심, 댄스 중심, 연기·모델 중심, 기타", instruction: "소개글에서 드러나는 주 특기", outputName: "특기분류" }),
+        node("draft", "ai.generate", "안내문 초안", 1400, { instruction: "{{특기분류}} 분야 지원자에게 보낼 1차 서류 확인 안내를 존댓말 3문장으로", outputName: "안내문" }),
+        node("approve", "human.approval", "담당자 검토", 1680, { approver: "캐스팅팀 리드", message: "AI 초안은 그대로 발송되지 않습니다. 내용을 확인해 주세요." }),
+      ],
+      edges: chain(["start", "talents", "dedupe", "limit", "classify", "draft", "approve"]),
+    },
+    {
       id: "wf-shortform-pipeline",
       name: "오디션 영상 9:16 숏폼 자동 발행",
       updatedAt: now,

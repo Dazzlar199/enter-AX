@@ -3,301 +3,1321 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ENTER—AX | 엔터테인먼트 올인원 AX OS (4분 발표용 IR 덱)</title>
+  <title>ENTER—AX | 엔터테인먼트 올인원 AX OS (Airbnb 스타일 IR 피치 덱)</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800;900&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@600;700;800&display=swap">
   <style>
     /*
-      ENTER—AX IR DECK 2 · 4-Minute Presentation Edition (Zero-Empty-Space & Large Typography)
-      - High readability from afar: min 16.5px text, 22-32px headings, 44-64px data metrics.
-      - Filled layouts: zero awkward vertical dead space, meaningful content in all cards.
-      - Visual-first: Diagrams, Real Logos (YG, JYP), MediaPipe & Vocal curves, GTM funnel, Comparison Matrix.
-      - 1600x900 fixed canvas with perfect auto-scale.
+      ENTER—AX IR DECK 2 · AIRBNB STYLE EXECUTIVE PITCH EDITION
+      - Iconic Airbnb Pitch Deck Aesthetics:
+        1. One Anchor Per Slide (Instant 3-second comprehension)
+        2. Big Figures & Minimal Copy (No walls of text, 1-2 lines per point)
+        3. Classic 3-Pillar Problem & Solution
+        4. Iconic 2x2 Positioning Matrix (General vs Domain Specific, Storage vs Multimodal AI)
+        5. TAM / SAM / SOM Big Numbers
+        6. Clean 3-Tier Business Model & 91% Margin Stacked Bar
+        7. 4-Phase Roadmap & 3-Part Seed Ask
+      - Canvas: 1600x900 fixed ratio with pixel-perfect auto-scaling.
     */
     *, *::before, *::after { box-sizing: border-box; }
     :root {
-      --canvas: #f5f4ef;
+      --canvas: #f6f5f0;
       --paper: #ffffff;
       --ink: #11151c;
-      --ink-2: #242b35;
-      --muted: #535c6d;
+      --ink-2: #27303d;
+      --muted: #5e6878;
       --cobalt: #2563eb;
-      --cobalt-deep: #0f2f7a;
-      --pale-blue: #e8f0fe;
+      --cobalt-deep: #1d4ed8;
+      --pale-blue: #eaf1ff;
       --accent-green: #0d8a4e;
       --accent-green-bg: #eaf7f0;
       --risk: #dc2626;
       --risk-bg: #fff1f0;
-      --rule: #d5d9e2;
-      --night: #0a1122;
+      --rule: #d8dde6;
+      --night: #0b1120;
 
       --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
       --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
 
       --slide-w: 1600px;
       --slide-h: 900px;
-      --safe-x: 80px;
-      --safe-top: 76px;
+      --safe-x: 84px;
+      --safe-top: 72px;
       --safe-bottom: 40px;
     }
+
     html, body { margin: 0; width: 100%; height: 100%; }
-    body { overflow: hidden; font-family: var(--font-sans); background: #e2e1dc; color: var(--ink); -webkit-font-smoothing: antialiased; font-feature-settings: "tnum" 1; }
+    body {
+      overflow: hidden;
+      font-family: var(--font-sans);
+      background: #dfded9;
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      font-feature-settings: "tnum" 1;
+    }
     p, h1, h2, h3, ol, ul, dl, dd, figure { margin: 0; padding: 0; }
     a { color: inherit; text-decoration: none; }
-    #deck { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
-    #deck-frame { position: absolute; top: 50%; left: 50%; width: var(--slide-w); height: var(--slide-h); transform-origin: center; transform: translate(-50%, -50%); box-shadow: 0 28px 70px rgba(17, 21, 28, .22); }
+
+    #deck {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+    #deck-frame {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: var(--slide-w);
+      height: var(--slide-h);
+      transform-origin: center;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 32px 80px rgba(17, 21, 28, .22);
+      background: var(--canvas);
+    }
     #slides { position: relative; width: 100%; height: 100%; }
 
-    /* ---------- Slide Frame & Top Bar ---------- */
-    .slide { position: absolute; inset: 0; display: none; width: var(--slide-w); height: var(--slide-h); padding: var(--safe-top) var(--safe-x) var(--safe-bottom); background: var(--canvas); overflow: hidden; word-break: keep-all; }
-    .slide.is-active { display: flex; flex-direction: column; }
-    .slide-chrome { position: absolute; top: 22px; left: var(--safe-x); right: var(--safe-x); display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; border-bottom: 1.5px solid var(--rule); font: 700 13.5px/1 var(--font-mono); letter-spacing: .12em; color: var(--muted); }
-    .slide-chrome .brand { color: var(--ink); letter-spacing: .04em; font-family: var(--font-sans); font-weight: 900; font-size: 16px; }
-    .slide-chrome .deck-tag { color: var(--cobalt); font-weight: 800; }
+    /* ---------- Slide Base & Chrome ---------- */
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      width: var(--slide-w);
+      height: var(--slide-h);
+      padding: var(--safe-top) var(--safe-x) var(--safe-bottom);
+      background: var(--canvas);
+      overflow: hidden;
+      word-break: keep-all;
+    }
+    .slide.is-active {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide-chrome {
+      position: absolute;
+      top: 22px;
+      left: var(--safe-x);
+      right: var(--safe-x);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 1.5px solid var(--rule);
+      font: 700 13px/1 var(--font-mono);
+      letter-spacing: .12em;
+      color: var(--muted);
+    }
+    .slide-chrome .brand {
+      color: var(--ink);
+      letter-spacing: .04em;
+      font-family: var(--font-sans);
+      font-weight: 900;
+      font-size: 16px;
+    }
+    .slide-chrome .deck-tag {
+      color: var(--cobalt);
+      font-weight: 800;
+    }
     .psst { display: flex; gap: 24px; }
-    .psst span { position: relative; font-size: 13.5px; }
+    .psst span { position: relative; font-size: 13px; }
     .psst span[aria-current="true"] { color: var(--cobalt); font-weight: 800; }
-    .psst span[aria-current="true"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: -13px; height: 2.5px; background: var(--cobalt); }
-    .page-no { position: absolute; bottom: 16px; left: var(--safe-x); font: 700 13.5px/1 var(--font-mono); letter-spacing: .1em; color: var(--muted); }
+    .psst span[aria-current="true"]::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -13px;
+      height: 2.5px;
+      background: var(--cobalt);
+    }
 
-    .slide-head { flex: none; margin-bottom: 18px; }
-    .slide-head .kicker { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
-    .kicker b { display: grid; place-items: center; width: 28px; height: 28px; background: var(--cobalt); color: #fff; font: 800 15px/1 var(--font-mono); border-radius: 4px; }
-    .kicker .ch { font: 800 13.5px/1 var(--font-mono); letter-spacing: .14em; color: var(--cobalt); }
-    .kicker .sub { padding-left: 12px; border-left: 1.5px solid var(--rule); font-size: 16px; font-weight: 800; color: var(--ink-2); }
-    .kicker .timing { margin-left: auto; font: 700 12.5px/1 var(--font-mono); color: var(--cobalt); background: #e0e8f7; padding: 4px 10px; border-radius: 4px; }
-    .slide h1 { font-size: 40px; line-height: 1.22; font-weight: 900; letter-spacing: -.04em; max-width: 1440px; color: var(--ink); }
-    .slide h1 .headline-key { color: var(--cobalt); font-weight: 900; }
-    .slide-content { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
-    .footer-rule { flex: none; height: 12px; margin-top: auto; border-top: 1px solid var(--rule); }
+    .page-no {
+      position: absolute;
+      bottom: 16px;
+      left: var(--safe-x);
+      font: 700 13.5px/1 var(--font-mono);
+      letter-spacing: .1em;
+      color: var(--muted);
+    }
 
-    /* ---------- 01 Cover ---------- */
+    .slide-head {
+      flex: none;
+      margin-bottom: 22px;
+    }
+    .slide-head .kicker {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .kicker b {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      background: var(--cobalt);
+      color: #fff;
+      font: 800 15px/1 var(--font-mono);
+      border-radius: 4px;
+    }
+    .kicker .ch {
+      font: 800 13.5px/1 var(--font-mono);
+      letter-spacing: .14em;
+      color: var(--cobalt);
+    }
+    .kicker .sub {
+      padding-left: 12px;
+      border-left: 1.5px solid var(--rule);
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--ink-2);
+    }
+    .kicker .timing {
+      margin-left: auto;
+      font: 700 12.5px/1 var(--font-mono);
+      color: var(--cobalt);
+      background: #e0e8f7;
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    .slide h1 {
+      font-size: 40px;
+      line-height: 1.2;
+      font-weight: 900;
+      letter-spacing: -.035em;
+      color: var(--ink);
+    }
+    .slide h1 .headline-key {
+      color: var(--cobalt);
+      font-weight: 900;
+    }
+    .slide-content {
+      flex: 1 1 auto;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .footer-rule {
+      flex: none;
+      height: 12px;
+      margin-top: auto;
+      border-top: 1px solid var(--rule);
+    }
+
+    /* ---------- SLIDE 01: COVER (Airbnb Style) ---------- */
     #slide-01 { padding: 0; }
-    .cover-box { width: 100%; height: 100%; position: relative; overflow: hidden; background: var(--canvas); display: grid; grid-template-columns: 1.05fr 0.95fr; }
-    .cover-left { padding: 75px 40px 105px 80px; display: flex; flex-direction: column; justify-content: center; z-index: 2; }
-    .cover-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: var(--pale-blue); color: var(--cobalt); font: 800 13px/1 var(--font-mono); letter-spacing: .12em; width: fit-content; margin-bottom: 20px; border: 1.5px solid #bdd4fc; border-radius: 4px; }
-    .cover-title { font: 800 106px/.9 "Space Grotesk", sans-serif; letter-spacing: -.07em; color: var(--cobalt); margin-bottom: 16px; }
-    .cover-h1 { font-size: 44px; line-height: 1.25; font-weight: 900; letter-spacing: -.045em; color: var(--ink); margin-bottom: 20px; }
-    .cover-desc { font-size: 22px; line-height: 1.5; color: var(--muted); max-width: 650px; font-weight: 600; margin-bottom: 24px; }
+    .cover-box {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      background: var(--canvas);
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+    }
+    .cover-left {
+      padding: 80px 40px 110px 84px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 2;
+    }
+    .cover-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: var(--pale-blue);
+      color: var(--cobalt);
+      font: 800 13px/1 var(--font-mono);
+      letter-spacing: .12em;
+      width: fit-content;
+      margin-bottom: 24px;
+      border: 1.5px solid #bfdbfe;
+      border-radius: 4px;
+    }
+    .cover-title {
+      font: 900 110px/.9 "Space Grotesk", sans-serif;
+      letter-spacing: -.07em;
+      color: var(--cobalt);
+      margin-bottom: 20px;
+    }
+    .cover-h1 {
+      font-size: 44px;
+      line-height: 1.22;
+      font-weight: 900;
+      letter-spacing: -.045em;
+      color: var(--ink);
+      margin-bottom: 20px;
+    }
+    .cover-desc {
+      font-size: 22px;
+      line-height: 1.5;
+      color: var(--muted);
+      max-width: 640px;
+      font-weight: 600;
+      margin-bottom: 28px;
+    }
     .cover-desc b { color: var(--ink); font-weight: 800; }
-    .cover-bullets { display: flex; flex-direction: column; gap: 10px; list-style: none; }
-    .cover-bullets li { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 800; color: var(--ink-2); }
-    .cover-bullets li span { display: inline-block; width: 8px; height: 8px; background: var(--cobalt); border-radius: 50%; }
-    .cover-right { position: relative; padding: 40px 80px 105px 20px; display: flex; align-items: center; justify-content: center; }
-    .cover-screen-frame { width: 100%; height: 570px; background: #fff; border: 1.5px solid var(--rule); box-shadow: 0 24px 54px rgba(0,0,0,0.12); border-radius: 8px; overflow: hidden; position: relative; display: flex; flex-direction: column; }
-    .cover-screen-bar { height: 38px; background: #eaedf3; border-bottom: 1px solid var(--rule); display: flex; align-items: center; padding: 0 16px; gap: 7px; }
+    .cover-right {
+      position: relative;
+      padding: 40px 84px 110px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cover-screen-frame {
+      width: 100%;
+      height: 560px;
+      background: #fff;
+      border: 1.5px solid var(--rule);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.12);
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .cover-screen-bar {
+      height: 38px;
+      background: #eaedf3;
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 7px;
+    }
     .cover-screen-bar span { width: 11px; height: 11px; border-radius: 50%; background: #c8ced8; }
     .cover-screen-bar span:first-child { background: #ef5350; }
-    .cover-screen-img { width: 100%; height: calc(100% - 38px); object-fit: cover; object-position: top left; }
-    .cover-callout-pill { position: absolute; bottom: 24px; right: 24px; background: rgba(10, 17, 34, 0.95); backdrop-filter: blur(10px); color: #fff; padding: 14px 22px; border-radius: 6px; font-size: 16px; font-weight: 800; line-height: 1.4; border-left: 5px solid var(--cobalt); box-shadow: 0 12px 28px rgba(0,0,0,0.3); }
-    .cover-footer { position: absolute; left: 0; right: 0; bottom: 0; height: 90px; background: var(--paper); border-top: 2.5px solid var(--cobalt); display: grid; grid-template-columns: repeat(4, 1fr); align-items: center; padding: 0 260px 0 80px; }
-    .cover-foot-col { text-align: left; padding: 0 24px; border-right: 1.5px solid var(--rule); }
+    .cover-screen-img {
+      width: 100%;
+      height: calc(100% - 38px);
+      object-fit: cover;
+      object-position: top left;
+    }
+    .cover-footer {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 94px;
+      background: var(--paper);
+      border-top: 3px solid var(--cobalt);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      align-items: center;
+      padding: 0 280px 0 84px;
+    }
+    .cover-foot-col {
+      text-align: left;
+      padding: 0 24px;
+      border-right: 1.5px solid var(--rule);
+    }
     .cover-foot-col:last-child { border-right: none; }
-    .cover-foot-col small { display: block; font: 800 12px/1 var(--font-mono); color: var(--cobalt); letter-spacing: .08em; margin-bottom: 4px; }
-    .cover-foot-col strong { display: block; font-size: 19px; font-weight: 900; color: var(--ink); white-space: nowrap; }
+    .cover-foot-col small {
+      display: block;
+      font: 800 12px/1 var(--font-mono);
+      color: var(--cobalt);
+      letter-spacing: .08em;
+      margin-bottom: 4px;
+    }
+    .cover-foot-col strong {
+      display: block;
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--ink);
+      white-space: nowrap;
+    }
 
-    /* ---------- 02 Problem (Real Cases & Tool Gap Diagram) ---------- */
-    .prob-stage { display: grid; grid-template-rows: 1.25fr 0.85fr; gap: 16px; flex: 1; min-height: 0; }
-    .prob-cases { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-    .prob-case-card { background: var(--paper); border: 1.5px solid var(--rule); border-top: 5px solid var(--cobalt); padding: 22px 26px 18px; display: flex; flex-direction: column; border-radius: 6px; }
-    .prob-case-card:nth-child(2) { border-top-color: var(--ink); }
-    .prob-case-head { display: flex; align-items: center; justify-content: space-between; }
-    .prob-case-head img { height: 40px; max-width: 180px; object-fit: contain; }
-    .prob-case-head span { font: 800 14.5px/1 var(--font-mono); color: var(--muted); letter-spacing: .08em; }
-    .prob-case-card h2 { font-size: 27px; font-weight: 900; line-height: 1.25; margin: 12px 0 14px; color: var(--ink); }
-    .prob-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    .prob-step { background: #f4f6fa; border: 1.5px solid var(--rule); border-radius: 5px; padding: 16px 15px; display: flex; flex-direction: column; justify-content: space-between; }
-    .prob-step b { display: block; font: 800 13.5px/1 var(--font-mono); color: var(--cobalt); margin-bottom: 6px; letter-spacing: .06em; }
-    .prob-step strong { display: block; font-size: 20px; font-weight: 900; margin-bottom: 6px; color: var(--ink); }
-    .prob-step small { font-size: 16px; color: var(--muted); font-weight: 650; line-height: 1.35; }
-    .prob-step.warn { background: var(--risk-bg); border-color: #fca5a5; }
-    .prob-step.warn b { color: var(--risk); }
-    .prob-card-foot { margin-top: auto; padding: 12px 16px; background: #f8fafc; border-left: 5px solid var(--cobalt); border-radius: 3px; font-size: 16px; font-weight: 800; color: var(--ink-2); display: flex; justify-content: space-between; align-items: center; }
-    .prob-case-card:nth-child(2) .prob-card-foot { border-left-color: var(--ink); }
-    .prob-card-foot span { color: var(--risk); font-weight: 900; }
+    /* ---------- SLIDE 02: PROBLEM (Airbnb 3-Pillar Style) ---------- */
+    .prob-stage-airbnb {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      flex: 1;
+      min-height: 0;
+      justify-content: space-between;
+    }
+    .prob-3-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      flex: 1;
+      min-height: 0;
+    }
+    .prob-card-airbnb {
+      background: var(--paper);
+      border: 1.5px solid var(--rule);
+      border-top: 6px solid var(--risk);
+      border-radius: 8px;
+      padding: 32px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.03);
+    }
+    .prob-card-airbnb:nth-child(2) { border-top-color: #f59e0b; }
+    .prob-card-airbnb:nth-child(3) { border-top-color: var(--ink); }
 
-    /* Tool Landscape Comparison Bar */
-    .tool-bridge-box { background: var(--paper); border: 1.5px solid var(--rule); border-left: 6px solid var(--cobalt); border-radius: 6px; padding: 20px 28px; display: grid; grid-template-columns: 1.15fr 60px 1.45fr; align-items: center; gap: 24px; }
-    .tool-frag { display: flex; flex-direction: column; gap: 10px; }
-    .tool-frag-title { font: 900 16.5px/1 var(--font-mono); color: var(--risk); letter-spacing: .04em; }
-    .tool-icon-row { display: flex; align-items: center; gap: 20px; }
-    .tool-icon-row img { height: 48px; width: 48px; object-fit: contain; }
-    .tool-frag p { font-size: 18px; color: var(--ink-2); font-weight: 750; line-height: 1.4; }
-    .tool-vs { font: 900 32px/1 var(--font-mono); color: var(--cobalt); text-align: center; }
-    .tool-ax { display: flex; flex-direction: column; gap: 10px; background: #eaf1ff; padding: 18px 24px; border-radius: 6px; }
-    .tool-ax-title { font: 900 16.5px/1 var(--font-mono); color: var(--cobalt); letter-spacing: .04em; }
-    .tool-ax-flow { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 900; color: var(--ink); flex-wrap: nowrap; }
-    .tool-ax-flow span { background: #fff; padding: 9px 15px; border-radius: 4px; border: 1.5px solid #bfdbfe; font-size: 17.5px; font-weight: 850; white-space: nowrap; }
-    .tool-ax-flow i { color: var(--cobalt); font-style: normal; font-weight: 900; font-size: 22px; }
+    .prob-card-top { display: flex; flex-direction: column; gap: 12px; }
+    .prob-tag-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font: 800 13px/1 var(--font-mono);
+      letter-spacing: .08em;
+      color: var(--risk);
+      background: var(--risk-bg);
+      padding: 5px 10px;
+      border-radius: 4px;
+      width: fit-content;
+    }
+    .prob-card-airbnb:nth-child(2) .prob-tag-badge { color: #d97706; background: #fef3c7; }
+    .prob-card-airbnb:nth-child(3) .prob-tag-badge { color: var(--ink); background: #f1f5f9; }
 
-    /* ---------- 03 Solution 1: Candidate CRM (Live Capture Rail) ---------- */
-    .crm-showcase { display: grid; grid-template-columns: minmax(0, 1fr) 450px; gap: 24px; flex: 1; min-height: 0; }
-    .crm-capture { min-width: 0; min-height: 0; background: #fff; border: 1.5px solid var(--rule); border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 12px 32px rgba(0,0,0,0.06); }
-    .crm-capture-bar { height: 40px; background: #eaedf3; border-bottom: 1.5px solid var(--rule); display: flex; align-items: center; justify-content: space-between; padding: 0 18px; font: 800 14px/1 var(--font-mono); color: var(--muted); }
-    .crm-capture img { width: 100%; height: calc(100% - 40px); object-fit: cover; object-position: top center; }
-    .crm-rail { display: grid; grid-template-rows: repeat(4, 1fr); background: var(--paper); border: 1.5px solid var(--rule); border-top: 5px solid var(--cobalt); border-radius: 6px; }
-    .crm-rail-item { display: flex; flex-direction: column; justify-content: center; gap: 8px; padding: 18px 26px; border-bottom: 1px solid var(--rule); }
-    .crm-rail-item:last-child { border-bottom: none; }
-    .crm-rail-item-head { display: flex; align-items: center; justify-content: space-between; }
-    .crm-rail-item-head-left { display: flex; align-items: center; gap: 12px; }
-    .crm-rail-item-head-left img { width: 28px; height: 28px; filter: invert(29%) sepia(87%) saturate(2515%) hue-rotate(215deg) brightness(96%) contrast(90%); }
-    .crm-rail-item b { font-size: 24px; font-weight: 900; color: var(--ink); letter-spacing: -.03em; }
-    .crm-rail-item.active b { color: var(--cobalt); }
-    .crm-rail-badge { font: 800 13px/1 var(--font-mono); background: #e8f0fe; color: var(--cobalt); padding: 4px 9px; border-radius: 3px; }
-    .crm-rail-item p { font-size: 18px; line-height: 1.4; color: var(--ink-2); font-weight: 750; margin: 0; }
-    .crm-rail-item small { font-size: 15.5px; color: var(--muted); font-weight: 600; line-height: 1.35; }
+    .prob-card-airbnb h2 {
+      font-size: 30px;
+      font-weight: 900;
+      line-height: 1.25;
+      color: var(--ink);
+    }
+    .prob-card-airbnb p {
+      font-size: 19px;
+      line-height: 1.5;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .prob-logos-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-top: 20px;
+      border-top: 1.5px solid #edf0f5;
+    }
+    .prob-logos-row img { height: 38px; width: 38px; object-fit: contain; }
 
-    /* ---------- 04 Solution 2: Core Tech (Dance Pose & Vocal Pitch Visuals) ---------- */
-    .tech-duo-stage { display: grid; grid-template-rows: 1fr 1fr; gap: 18px; flex: 1; min-height: 0; }
-    .tech-row { display: grid; grid-template-columns: 660px 1fr; min-height: 0; border: 1.5px solid var(--rule); background: var(--paper); border-radius: 6px; overflow: hidden; }
-    .tech-row figure { position: relative; min-width: 0; min-height: 0; margin: 0; background: #11151c; overflow: hidden; }
-    .tech-row figure img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
-    .tech-row figcaption { position: absolute; left: 16px; bottom: 14px; padding: 8px 14px; background: rgba(10, 17, 34, 0.94); color: #fff; font: 800 13px/1 var(--font-mono); border-radius: 4px; letter-spacing: .04em; }
-    .tech-copy { display: flex; flex-direction: column; justify-content: center; padding: 26px 36px; border-left: 5px solid var(--cobalt); }
-    .tech-copy small { font: 900 14px/1 var(--font-mono); color: var(--cobalt); letter-spacing: .12em; }
-    .tech-copy h2 { font-size: 32px; font-weight: 900; line-height: 1.2; margin: 8px 0 10px; color: var(--ink); }
-    .tech-copy p { font-size: 19px; line-height: 1.45; color: var(--ink-2); font-weight: 700; margin-bottom: 14px; }
-    .tech-flow { display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 850; color: var(--ink); margin-bottom: 12px; }
-    .tech-flow b { color: var(--cobalt); font-size: 20px; }
-    .tech-flow span { background: #f0f4fc; padding: 7px 14px; border-radius: 4px; border: 1.5px solid #cbe0fe; font-size: 16.5px; }
-    .tech-bench-pill { background: #f8fafc; border: 1px solid var(--rule); border-left: 4px solid var(--accent-green); padding: 9px 14px; border-radius: 4px; font-size: 15.5px; font-weight: 750; color: var(--ink-2); }
-    .tech-bench-pill b { color: var(--accent-green); font-weight: 900; }
+    /* Contrast ribbon */
+    .prob-ribbon {
+      background: var(--paper);
+      border: 1.5px solid var(--rule);
+      border-left: 6px solid var(--cobalt);
+      border-radius: 6px;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .prob-ribbon-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--risk);
+    }
+    .prob-ribbon-arrow {
+      font: 900 28px/1 var(--font-mono);
+      color: var(--cobalt);
+    }
+    .prob-ribbon-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 21px;
+      font-weight: 900;
+      color: var(--cobalt-deep);
+    }
+    .prob-ribbon-pill {
+      background: var(--cobalt);
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 4px;
+      font: 800 15px/1 var(--font-mono);
+    }
 
-    /* ---------- 05 GTM / Distribution (Visual Funnel & Loop) ---------- */
-    .gtm-stage { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 24px; flex: 1; min-height: 0; }
-    .gtm-left { display: flex; flex-direction: column; justify-content: space-between; }
-    .gtm-funnel { list-style: none; display: grid; grid-template-rows: repeat(3, 1fr); gap: 14px; flex: 1; min-height: 0; }
-    .gtm-funnel li { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
-    .gtm-funnel li:nth-child(1) { background: #eaf1ff; border-left: 8px solid #60a5fa; }
-    .gtm-funnel li:nth-child(2) { background: #d3e2fd; border-left: 8px solid var(--cobalt); }
-    .gtm-funnel li:nth-child(3) { background: var(--cobalt); color: #fff; border-left: 8px solid var(--cobalt-deep); }
-    .gtm-funnel-label { display: flex; flex-direction: column; gap: 5px; }
-    .gtm-funnel-label strong { display: block; font-size: 26px; font-weight: 900; }
-    .gtm-funnel-label span { font-size: 18px; color: var(--ink-2); font-weight: 700; }
-    .gtm-funnel li:nth-child(3) .gtm-funnel-label span { color: #dce7ff; }
-    .gtm-funnel-stat-wrap { text-align: right; }
-    .gtm-funnel-stat { font: 900 50px/1 var(--font-mono); letter-spacing: -.04em; }
-    .gtm-funnel-stat-sub { font: 800 13.5px/1 var(--font-mono); color: var(--muted); margin-top: 4px; }
-    .gtm-funnel li:nth-child(3) .gtm-funnel-stat-sub { color: #bfdbfe; }
-    .gtm-flywheel { background: var(--paper); border: 1.5px solid var(--rule); border-left: 6px solid var(--cobalt); border-radius: 6px; padding: 18px 24px; margin-top: 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-    .gtm-flywheel span { font-size: 18px; font-weight: 850; background: #eaf1ff; padding: 10px 18px; border-radius: 4px; color: var(--cobalt-deep); }
-    .gtm-flywheel i { color: var(--cobalt); font-style: normal; font-weight: 900; font-size: 22px; }
-    .gtm-right-screen { background: #fff; border: 1.5px solid var(--rule); border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 12px 32px rgba(0,0,0,0.06); }
-    .gtm-right-screen-bar { height: 40px; background: #eaedf3; border-bottom: 1.5px solid var(--rule); display: flex; align-items: center; justify-content: space-between; padding: 0 18px; font: 800 14px/1 var(--font-mono); color: var(--muted); }
-    .gtm-right-screen img { width: 100%; height: calc(100% - 40px); object-fit: cover; object-position: top center; }
+    /* ---------- SLIDE 03: SOLUTION (Pattern B: Live Split) ---------- */
+    .sol-stage-airbnb {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+      flex: 1;
+      min-height: 0;
+    }
+    .sol-screen-card {
+      background: #fff;
+      border: 1.5px solid var(--rule);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 14px 36px rgba(0,0,0,0.06);
+    }
+    .sol-screen-bar {
+      height: 40px;
+      background: #eaedf3;
+      border-bottom: 1.5px solid var(--rule);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      font: 800 13.5px/1 var(--font-mono);
+      color: var(--muted);
+    }
+    .sol-screen-bar b { color: var(--cobalt); }
+    .sol-screen-card img {
+      width: 100%;
+      height: calc(100% - 40px);
+      object-fit: cover;
+      object-position: top center;
+    }
 
-    /* ---------- 06 Competition Matrix & Metrics (도표!) ---------- */
-    .compete-stage { display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 24px; flex: 1; min-height: 0; }
-    .matrix-box { background: var(--paper); border: 1.5px solid var(--rule); border-radius: 6px; padding: 20px 24px; display: flex; flex-direction: column; }
-    .matrix-table { width: 100%; border-collapse: collapse; height: 100%; font-size: 17.5px; }
-    .matrix-table th, .matrix-table td { text-align: center; border-bottom: 1.5px solid var(--rule); vertical-align: middle; padding: 15px 10px; }
-    .matrix-table thead th { font: 900 17.5px/1.3 var(--font-sans); color: var(--muted); border-bottom: 2.5px solid var(--ink); padding-bottom: 14px; }
-    .matrix-table thead th:first-child { text-align: left; padding-left: 10px; }
-    .matrix-table tbody th { text-align: left; font-weight: 900; font-size: 19.5px; padding-left: 10px; color: var(--ink); }
-    .matrix-table tbody th span { display: block; font-size: 15.5px; color: var(--muted); font-weight: 650; margin-top: 3px; }
-    .matrix-table td { font-size: 28px; font-weight: 900; }
-    .matrix-table td.yes { color: var(--cobalt); font-size: 32px; }
-    .matrix-table td.partial { color: #f59e0b; font-size: 28px; }
-    .matrix-table td.no { color: #cbd5e1; font-size: 26px; }
-    .matrix-table tr.us { background: #eaf1ff; }
-    .matrix-table tr.us th, .matrix-table tr.us td { color: var(--cobalt); font-weight: 900; }
-    .matrix-table tr.us td { font-size: 32px; }
-    .comp-metrics { display: flex; flex-direction: column; gap: 14px; }
-    .comp-metric-card { background: var(--paper); border: 1.5px solid var(--rule); border-top: 5px solid var(--cobalt); border-radius: 6px; padding: 22px 26px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
-    .comp-metric-tag { font: 900 13.5px/1 var(--font-mono); color: var(--cobalt); letter-spacing: .1em; margin-bottom: 3px; }
-    .comp-metric-big { font-size: 68px; font-weight: 900; line-height: 1; color: var(--cobalt); letter-spacing: -.05em; font-family: var(--font-mono); margin: 3px 0 5px; }
-    .comp-metric-big small { font-size: 28px; font-family: var(--font-sans); color: var(--ink); margin-left: 4px; }
-    .comp-metric-card strong { font-size: 22px; font-weight: 900; color: var(--ink); margin-bottom: 5px; }
-    .comp-metric-card p { font-size: 17px; color: var(--muted); font-weight: 650; margin: 0 0 10px; }
-    .comp-metric-bar { height: 13px; background: #e2e8f0; border-radius: 6px; overflow: hidden; border: 1px solid #cbd5e1; }
-    .comp-metric-bar i { display: block; height: 100%; background: var(--cobalt); border-radius: 6px; }
+    .sol-benefits-grid {
+      display: grid;
+      grid-template-rows: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .sol-benefit-card {
+      background: var(--paper);
+      border: 1.5px solid var(--rule);
+      border-left: 6px solid var(--cobalt);
+      border-radius: 8px;
+      padding: 24px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.02);
+    }
+    .sol-benefit-card small {
+      font: 800 13px/1 var(--font-mono);
+      color: var(--cobalt);
+      letter-spacing: .08em;
+    }
+    .sol-benefit-card h3 {
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--ink);
+    }
+    .sol-benefit-card p {
+      font-size: 18px;
+      color: var(--muted);
+      font-weight: 600;
+      line-height: 1.4;
+    }
 
-    /* ---------- 07 Business Model & Unit Economics (도표!) ---------- */
-    .bm-stage { display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 24px; flex: 1; min-height: 0; }
-    .bm-tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .bm-tier { background: var(--paper); border: 1.5px solid var(--rule); border-radius: 6px; padding: 22px 18px 18px; display: flex; flex-direction: column; }
-    .bm-tier.featured { border-top: 6px solid var(--cobalt); background: #fafdff; box-shadow: 0 10px 24px rgba(37,99,235,0.08); border-color: #bfdbfe; }
-    .bm-tier-head { margin-bottom: 10px; }
-    .bm-tier small { font: 900 13.5px/1 var(--font-mono); color: var(--cobalt); letter-spacing: .06em; }
-    .bm-tier h3 { font-size: 26px; font-weight: 900; margin: 5px 0 6px; }
-    .bm-price { font-size: 46px; font-weight: 900; color: var(--ink); font-family: var(--font-mono); letter-spacing: -.03em; }
-    .bm-price span { font-size: 18px; font-weight: 750; color: var(--muted); font-family: var(--font-sans); }
-    .bm-tier-target { font-size: 15px; font-weight: 800; color: var(--cobalt-deep); background: #eef4ff; padding: 4px 8px; border-radius: 3px; display: inline-block; margin-top: 4px; }
-    .bm-tier-items { list-style: none; display: flex; flex-direction: column; gap: 11px; font-size: 17px; color: var(--ink-2); font-weight: 750; margin: 14px 0 12px; }
-    .bm-tier-items li { display: flex; align-items: flex-start; gap: 6px; line-height: 1.35; }
-    .bm-tier-items li::before { content: "✓"; color: var(--cobalt); font-weight: 900; font-size: 17px; flex-shrink: 0; }
-    .bm-tier-subbox { margin-top: auto; margin-bottom: 10px; padding: 10px 12px; background: #f8fafc; border: 1px solid var(--rule); border-radius: 4px; font-size: 15px; font-weight: 700; color: var(--ink-2); line-height: 1.4; }
-    .bm-tier.featured .bm-tier-subbox { background: #eaf1ff; border-color: #bfdbfe; color: var(--cobalt-deep); }
-    .bm-tier-subbox b { color: var(--cobalt); font-weight: 850; }
-    .bm-tier.featured .bm-tier-subbox b { color: var(--cobalt-deep); }
-    .bm-tier-pill { padding: 10px 12px; background: #f1f5f9; border-radius: 4px; font-size: 15px; font-weight: 850; color: var(--ink); text-align: center; }
-    .bm-tier.featured .bm-tier-pill { background: #eaf1ff; color: var(--cobalt); }
+    /* ---------- SLIDE 04: CORE TECH (Dance & Vocal Visual Duo) ---------- */
+    .tech-stage-airbnb {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      flex: 1;
+      min-height: 0;
+    }
+    .tech-card-airbnb {
+      background: var(--paper);
+      border: 1.5px solid var(--rule);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+    }
+    .tech-fig-airbnb {
+      position: relative;
+      height: 330px;
+      background: #11151c;
+      overflow: hidden;
+    }
+    .tech-fig-airbnb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .tech-fig-tag {
+      position: absolute;
+      left: 18px;
+      bottom: 14px;
+      background: rgba(10, 17, 34, 0.92);
+      color: #fff;
+      padding: 7px 14px;
+      border-radius: 4px;
+      font: 800 13px/1 var(--font-mono);
+      letter-spacing: .06em;
+      border-left: 3px solid var(--cobalt);
+    }
+    .tech-info-airbnb {
+      padding: 28px 32px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-top: 2px solid var(--rule);
+    }
+    .tech-info-top small {
+      font: 900 13.5px/1 var(--font-mono);
+      color: var(--cobalt);
+      letter-spacing: .1em;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .tech-info-top h2 {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+    .tech-info-top p {
+      font-size: 18px;
+      color: var(--muted);
+      font-weight: 600;
+      line-height: 1.45;
+    }
+    .tech-stat-callout {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f0f5ff;
+      border: 1.5px solid #bfdbfe;
+      border-radius: 6px;
+      padding: 14px 20px;
+      margin-top: 14px;
+    }
+    .tech-stat-callout span {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--cobalt-deep);
+    }
+    .tech-stat-callout b {
+      font: 900 32px/1 var(--font-mono);
+      color: var(--cobalt);
+    }
 
-    .bm-right-box { background: var(--paper); border: 1.5px solid var(--rule); border-top: 6px solid var(--ink); border-radius: 6px; padding: 24px; display: flex; flex-direction: column; }
-    .bm-right-box h3 { font-size: 26px; font-weight: 900; margin-bottom: 4px; }
-    .bm-unit-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 17.5px; }
-    .bm-unit-table th { text-align: left; padding: 10px 6px; border-bottom: 2px solid var(--ink); font-weight: 900; font-size: 17.5px; }
-    .bm-unit-table td { padding: 12px 6px; border-bottom: 1px solid var(--rule); color: var(--ink-2); font-weight: 750; }
-    .bm-unit-table tr:last-child td { font-weight: 900; color: var(--cobalt); font-size: 21px; border-bottom: none; }
-    .bm-unit-bar-wrap { margin-top: 16px; }
-    .bm-unit-bar-title { display: flex; justify-content: space-between; font-size: 16px; font-weight: 850; margin-bottom: 8px; color: var(--ink-2); }
-    .bm-stacked-bar { display: flex; height: 48px; border-radius: 6px; overflow: hidden; border: 1.5px solid var(--rule); }
-    .bm-bar-cost { width: 9%; background: #fca5a5; display: grid; place-items: center; font: 900 13.5px/1 var(--font-mono); color: #991b1b; }
-    .bm-bar-margin { width: 91%; background: var(--cobalt); display: grid; place-items: center; font: 900 17px/1 var(--font-mono); color: #fff; }
-    .bm-margin-callout { margin-top: auto; padding: 18px 22px; background: #eaf1ff; border-left: 6px solid var(--cobalt); border-radius: 4px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
-    .bm-margin-callout span { font-size: 16.5px; font-weight: 850; color: var(--cobalt); display: block; margin-bottom: 3px; }
-    .bm-margin-callout .bm-arr-val { font-size: 42px; font-weight: 900; color: var(--cobalt); font-family: var(--font-mono); white-space: nowrap; flex-shrink: 0; letter-spacing: -.04em; }
-    .bm-margin-callout .bm-arr-val small { font-size: 22px; font-family: var(--font-sans); color: var(--ink); margin-left: 4px; font-weight: 850; }
+    /* ---------- SLIDE 05: MARKET SIZE & GTM (Airbnb TAM/SAM/SOM Circles) ---------- */
+    .market-stage-airbnb {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      flex: 1;
+      min-height: 0;
+      justify-content: space-between;
+    }
+    .market-3-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      flex: 1;
+      min-height: 0;
+    }
+    .market-card-airbnb {
+      background: var(--paper);
+      border: 1.5px solid var(--rule);
+      border-radius: 8px;
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.03);
+    }
+    .market-card-airbnb:nth-child(1) { border-top: 6px solid #94a3b8; }
+    .market-card-airbnb:nth-child(2) { border-top: 6px solid #3b82f6; }
+    .market-card-airbnb:nth-child(3) { border-top: 6px solid var(--cobalt); background: #f8fbff; }
 
-    /* ---------- 08 Roadmap & Ask (Full Grid & Allocation Bar) ---------- */
-    .road-ask-stage { display: grid; grid-template-rows: 1.18fr 0.82fr; gap: 16px; flex: 1; min-height: 0; }
-    .road-cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; height: 100%; }
-    .road-card { background: var(--paper); border: 1.5px solid var(--rule); border-top: 6px solid #94a3b8; border-radius: 6px; padding: 20px 20px 18px; display: flex; flex-direction: column; }
-    .road-card:nth-child(2) { border-top-color: #60a5fa; }
-    .road-card:nth-child(3) { border-top-color: var(--cobalt); background: #fafdff; }
-    .road-card:nth-child(4) { border-top-color: var(--cobalt-deep); background: #eaf1ff; }
-    .road-card-top { margin-bottom: 6px; }
-    .road-card-q { display: inline-block; font: 900 14px/1 var(--font-mono); color: var(--cobalt); margin-bottom: 4px; }
-    .road-card h3 { font-size: 25px; font-weight: 900; margin-bottom: 4px; }
-    .road-card-sub { font-size: 17px; color: var(--ink-2); font-weight: 750; line-height: 1.35; }
-    .road-card-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin: 12px 0 10px; font-size: 16.5px; color: var(--muted); font-weight: 650; }
-    .road-card-list li::before { content: "• "; color: var(--cobalt); font-weight: 900; }
-    .road-card-badge-box { margin-top: auto; margin-bottom: 10px; padding: 10px 12px; background: #f8fafc; border: 1px solid var(--rule); border-left: 4px solid var(--cobalt); border-radius: 4px; font-size: 14.5px; font-weight: 750; color: var(--ink-2); line-height: 1.4; }
-    .road-card:last-child .road-card-badge-box { background: #dbeafe; border-color: #bfdbfe; border-left-color: var(--cobalt-deep); color: var(--cobalt-deep); }
-    .road-card-badge-box b { color: var(--cobalt); font-weight: 900; }
-    .road-card:last-child .road-card-badge-box b { color: var(--cobalt-deep); }
-    .road-card-goal { padding: 12px 14px; background: #f1f5f9; border-radius: 4px; font: 900 19px/1 var(--font-mono); color: var(--ink); text-align: center; }
-    .road-card:last-child .road-card-goal { background: #bfdbfe; color: var(--cobalt-deep); font-size: 20px; }
+    .market-card-top small {
+      display: block;
+      font: 900 15px/1 var(--font-mono);
+      color: var(--cobalt);
+      letter-spacing: .12em;
+      margin-bottom: 12px;
+    }
+    .market-card-number {
+      font: 900 74px/1 var(--font-mono);
+      color: var(--ink);
+      letter-spacing: -.05em;
+      margin-bottom: 12px;
+    }
+    .market-card-airbnb:nth-child(3) .market-card-number { color: var(--cobalt); }
+    .market-card-number small {
+      font-size: 26px;
+      font-family: var(--font-sans);
+      color: var(--muted);
+      margin-left: 6px;
+    }
+    .market-card-airbnb:nth-child(3) .market-card-number small { color: var(--cobalt-deep); }
+    .market-card-top h3 {
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .market-card-airbnb p {
+      font-size: 18px;
+      color: var(--muted);
+      font-weight: 600;
+      line-height: 1.4;
+    }
 
-    .tool-alert-pill { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 800; padding: 6px 12px; border-radius: 4px; margin-top: 4px; }
-    .tool-alert-pill.danger { background: #fff1f0; color: var(--risk); border: 1px solid #fecaca; }
-    .tool-alert-pill.success { background: #eaf1ff; color: var(--cobalt-deep); border: 1px solid #bfdbfe; }
+    .market-flywheel-ribbon {
+      background: var(--paper);
+      border: 1.5px solid var(--rule);
+      border-left: 6px solid var(--cobalt);
+      border-radius: 6px;
+      padding: 18px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .market-flywheel-step {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 19px;
+      font-weight: 850;
+      color: var(--ink);
+    }
+    .market-flywheel-step b {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--cobalt);
+      color: #fff;
+      font: 800 14px/1 var(--font-mono);
+    }
+    .market-flywheel-arrow {
+      font: 900 24px/1 var(--font-mono);
+      color: var(--cobalt);
+    }
 
-    /* Investment Allocation Bar */
-    .ask-panel { background: var(--night); color: #fff; padding: 24px 36px; border-radius: 6px; display: flex; flex-direction: column; justify-content: space-between; border-left: 6px solid var(--cobalt); }
-    .ask-panel-top { display: flex; justify-content: space-between; align-items: center; }
-    .ask-panel-top h2 { font-size: 34px; font-weight: 900; letter-spacing: -.03em; }
-    .ask-panel-top span { font: 900 17.5px/1 var(--font-mono); color: #93c5fd; }
-    .ask-alloc-bar { display: flex; height: 50px; border-radius: 6px; overflow: hidden; margin: 14px 0 14px; border: 1.5px solid rgba(255,255,255,0.25); }
-    .ask-seg-1 { width: 50%; background: var(--cobalt); display: grid; place-items: center; font: 900 16.5px/1 var(--font-mono); color: #fff; }
-    .ask-seg-2 { width: 35%; background: #3b82f6; display: grid; place-items: center; font: 900 16.5px/1 var(--font-mono); color: #fff; }
-    .ask-seg-3 { width: 15%; background: #60a5fa; display: grid; place-items: center; font: 900 15.5px/1 var(--font-mono); color: #11151c; }
-    .ask-panel-foot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .ask-foot-item { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14); padding: 12px 16px; border-radius: 4px; font-size: 16.5px; color: #e2e8f0; font-weight: 650; }
-    .ask-foot-item b { color: #fff; font-weight: 900; font-size: 17px; }
+    /* ---------- SLIDE 06: COMPETITION (The Iconic Airbnb 2x2 Matrix) ---------- */
+    .comp-stage-airbnb {
+      display: grid;
+      grid-template-columns: 1.18fr 0.82fr;
+      gap: 28px;
+      flex: 1;
+      min-height: 0;
+    }
+
+    /* 2x2 Positioning Matrix Container */
+    .matrix-container {
+      position: relative;
+      background: var(--paper);
+      border: 1.5px solid var(--rule);
+      border-radius: 8px;
+      padding: 48px 24px 38px 24px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.04);
+    }
+    .matrix-top-axis-bar {
+      position: absolute;
+      top: 12px;
+      left: 20px;
+      right: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font: 800 12.5px/1 var(--font-mono);
+      letter-spacing: .06em;
+    }
+    .matrix-axis-x-left {
+      color: var(--muted);
+      background: #f1f5f9;
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+    .matrix-axis-y-top {
+      color: var(--cobalt);
+      background: #eaf1ff;
+      padding: 5px 14px;
+      border-radius: 4px;
+      font-weight: 900;
+      border: 1px solid #bfdbfe;
+    }
+    .matrix-axis-x-right {
+      color: var(--cobalt);
+      background: #eaf1ff;
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-weight: 850;
+      border: 1px solid #bfdbfe;
+    }
+    .matrix-bottom-axis-bar {
+      position: absolute;
+      bottom: 12px;
+      left: 20px;
+      right: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font: 800 12px/1 var(--font-mono);
+      letter-spacing: .06em;
+    }
+    .matrix-axis-y-bottom {
+      color: var(--muted);
+      background: #f1f5f9;
+      padding: 4px 12px;
+      border-radius: 4px;
+    }
+
+    .matrix-grid-2x2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 16px;
+      height: 100%;
+      position: relative;
+    }
+    /* Crosshair lines */
+    .matrix-grid-2x2::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: calc(50% - 1px);
+      width: 2px;
+      background: #cbd5e1;
+      border-left: 2px dashed #94a3b8;
+    }
+    .matrix-grid-2x2::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: calc(50% - 1px);
+      height: 2px;
+      background: #cbd5e1;
+      border-top: 2px dashed #94a3b8;
+    }
+
+    .matrix-quad {
+      padding: 22px 24px;
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+    }
+    .matrix-quad.top-left {
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+    }
+    .matrix-quad.bottom-left {
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+    }
+    .matrix-quad.bottom-right {
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+    }
+    .matrix-quad.top-right-hero {
+      background: #eaf1ff;
+      border: 2.5px solid var(--cobalt);
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.16);
+    }
+
+    .matrix-quad small {
+      font: 800 12.5px/1 var(--font-mono);
+      color: var(--muted);
+      letter-spacing: .06em;
+      margin-bottom: 6px;
+      display: block;
+    }
+    .matrix-quad.top-right-hero small {
+      color: var(--cobalt);
+      font-size: 13.5px;
+      font-weight: 900;
+    }
+    .matrix-quad h4 {
+      font-size: 23px;
+      font-weight: 900;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .matrix-quad.top-right-hero h4 {
+      font-size: 30px;
+      color: var(--cobalt);
+      font-weight: 900;
+      letter-spacing: -.02em;
+    }
+    .matrix-quad p {
+      font-size: 16px;
+      color: var(--muted);
+      font-weight: 650;
+      line-height: 1.4;
+    }
+    .matrix-quad.top-right-hero p {
+      color: var(--cobalt-deep);
+      font-weight: 750;
+      font-size: 17px;
+    }
+    .matrix-logo-badges {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 12px;
+    }
+    .matrix-logo-badges img {
+      height: 30px;
+      width: 30px;
+      object-fit: contain;
+    }
+
+    /* Right side: 3 Giant Impact Numbers */
+    .comp-right-metrics {
+      display: grid;
+      grid-template-rows: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .comp-hero-stat-card {
+      background: var(--paper);
+      border: 1.5px solid var(--rule);
+      border-left: 6px solid var(--cobalt);
+      border-radius: 8px;
+      padding: 24px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.02);
+    }
+    .comp-stat-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+    }
+    .comp-stat-num {
+      font: 900 54px/1 var(--font-mono);
+      color: var(--cobalt);
+      letter-spacing: -.04em;
+    }
+    .comp-hero-stat-card strong {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .comp-hero-stat-card p {
+      font-size: 17px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    /* ---------- SLIDE 07: BUSINESS MODEL (Airbnb Style Simplicity) ---------- */
+    .bm-stage-airbnb {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 28px;
+      flex: 1;
+      min-height: 0;
+    }
+    .bm-tiers-airbnb {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .bm-tier-card-airbnb {
+      background: var(--paper);
+      border: 1.5px solid var(--rule);
+      border-radius: 8px;
+      padding: 28px 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.03);
+    }
+    .bm-tier-card-airbnb.featured {
+      border-top: 6px solid var(--cobalt);
+      background: #f8fbff;
+      border-color: #bfdbfe;
+      box-shadow: 0 10px 28px rgba(37, 99, 235, 0.1);
+    }
+    .bm-tier-card-top small {
+      font: 900 13px/1 var(--font-mono);
+      color: var(--cobalt);
+      letter-spacing: .08em;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .bm-tier-card-top h3 {
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+    .bm-price-airbnb {
+      font: 900 48px/1 var(--font-mono);
+      color: var(--ink);
+      letter-spacing: -.03em;
+      margin-bottom: 6px;
+    }
+    .bm-tier-card-airbnb.featured .bm-price-airbnb { color: var(--cobalt); }
+    .bm-price-airbnb span {
+      font-size: 18px;
+      font-family: var(--font-sans);
+      color: var(--muted);
+      font-weight: 700;
+    }
+    .bm-tier-target-tag {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--muted);
+      background: #f1f5f9;
+      padding: 4px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 18px;
+    }
+    .bm-tier-card-airbnb.featured .bm-tier-target-tag {
+      background: #e0e8f7;
+      color: var(--cobalt-deep);
+    }
+
+    .bm-tier-points {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 17px;
+      font-weight: 750;
+      color: var(--ink-2);
+      border-top: 1.5px solid #edf0f5;
+      padding-top: 18px;
+    }
+    .bm-tier-points li {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      line-height: 1.35;
+    }
+    .bm-tier-points li::before {
+      content: "✓";
+      color: var(--cobalt);
+      font-weight: 900;
+      font-size: 16px;
+    }
+    .bm-tier-bottom-pill {
+      margin-top: auto;
+      padding: 10px 12px;
+      background: #f1f5f9;
+      border-radius: 4px;
+      font: 800 14px/1 var(--font-mono);
+      color: var(--ink);
+      text-align: center;
+    }
+    .bm-tier-card-airbnb.featured .bm-tier-bottom-pill {
+      background: #eaf1ff;
+      color: var(--cobalt);
+    }
+
+    /* Right side: Unit economics */
+    .bm-unit-hero-airbnb {
+      background: var(--paper);
+      border: 1.5px solid var(--rule);
+      border-top: 6px solid var(--ink);
+      border-radius: 8px;
+      padding: 32px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.03);
+    }
+    .bm-unit-hero-airbnb small {
+      font: 900 13.5px/1 var(--font-mono);
+      color: var(--cobalt);
+      letter-spacing: .1em;
+    }
+    .bm-unit-hero-airbnb h3 {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--ink);
+      margin: 6px 0 16px;
+    }
+    .bm-unit-big-split {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f8fafc;
+      padding: 20px 24px;
+      border-radius: 6px;
+      border: 1px solid var(--rule);
+    }
+    .bm-split-col strong {
+      display: block;
+      font: 900 44px/1 var(--font-mono);
+      color: var(--ink);
+      margin-top: 4px;
+    }
+    .bm-split-col:last-child strong { color: var(--cobalt); }
+    .bm-split-col span { font-size: 15.5px; font-weight: 800; color: var(--muted); }
+
+    /* Visual Stacked Margin Bar */
+    .bm-bar-section { margin: 18px 0; }
+    .bm-bar-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 16px;
+      font-weight: 850;
+      margin-bottom: 8px;
+    }
+    .bm-bar-labels span:first-child { color: var(--risk); }
+    .bm-bar-labels span:last-child { color: var(--cobalt); }
+    .bm-stacked-bar-airbnb {
+      display: flex;
+      height: 48px;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1.5px solid var(--rule);
+    }
+    .bm-bar-seg-cost {
+      width: 9%;
+      background: #fca5a5;
+      display: grid;
+      place-items: center;
+      font: 900 13px/1 var(--font-mono);
+      color: #991b1b;
+    }
+    .bm-bar-seg-margin {
+      width: 91%;
+      background: var(--cobalt);
+      display: grid;
+      place-items: center;
+      font: 900 17px/1 var(--font-mono);
+      color: #fff;
+      letter-spacing: .02em;
+    }
+
+    .bm-arr-goal-box {
+      background: #eaf1ff;
+      border-left: 6px solid var(--cobalt);
+      padding: 18px 24px;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .bm-arr-goal-box span {
+      font-size: 16px;
+      font-weight: 850;
+      color: var(--cobalt-deep);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .bm-arr-goal-box strong { font-size: 20px; font-weight: 900; color: var(--ink); }
+    .bm-arr-val-airbnb {
+      font: 900 48px/1 var(--font-mono);
+      color: var(--cobalt);
+      letter-spacing: -.04em;
+    }
+    .bm-arr-val-airbnb small {
+      font-size: 22px;
+      font-family: var(--font-sans);
+      color: var(--ink);
+      margin-left: 4px;
+    }
+
+    /* ---------- SLIDE 08: ROADMAP & ASK (Airbnb 4-Phase & Seed Panel) ---------- */
+    .road-stage-airbnb {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      flex: 1;
+      min-height: 0;
+      justify-content: space-between;
+    }
+    .road-4-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      flex: 1;
+      min-height: 0;
+    }
+    .road-step-card-airbnb {
+      background: var(--paper);
+      border: 1.5px solid var(--rule);
+      border-top: 6px solid #94a3b8;
+      border-radius: 8px;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.02);
+    }
+    .road-step-card-airbnb:nth-child(2) { border-top-color: #60a5fa; }
+    .road-step-card-airbnb:nth-child(3) { border-top-color: var(--cobalt); background: #f8fbff; }
+    .road-step-card-airbnb:nth-child(4) { border-top-color: var(--cobalt-deep); background: #eaf1ff; }
+
+    .road-step-card-airbnb small {
+      font: 900 13px/1 var(--font-mono);
+      color: var(--cobalt);
+      letter-spacing: .08em;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .road-step-card-airbnb h3 {
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .road-step-card-airbnb p {
+      font-size: 17px;
+      color: var(--muted);
+      font-weight: 650;
+      line-height: 1.4;
+    }
+    .road-step-badge {
+      background: #f1f5f9;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font: 900 17px/1 var(--font-mono);
+      color: var(--ink);
+      text-align: center;
+      margin-top: 12px;
+    }
+    .road-step-card-airbnb:last-child .road-step-badge {
+      background: var(--cobalt);
+      color: #fff;
+    }
+
+    /* Seed Round Ask Panel */
+    .ask-panel-airbnb {
+      background: var(--night);
+      color: #fff;
+      padding: 28px 36px;
+      border-radius: 8px;
+      border-left: 6px solid var(--cobalt);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .ask-panel-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .ask-panel-top-row h2 {
+      font-size: 34px;
+      font-weight: 900;
+      letter-spacing: -.03em;
+    }
+    .ask-panel-top-row span {
+      font: 800 16px/1 var(--font-mono);
+      color: #93c5fd;
+    }
+
+    .ask-bar-wrap {
+      display: flex;
+      height: 44px;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+    .ask-seg-1 {
+      width: 50%;
+      background: var(--cobalt);
+      display: grid;
+      place-items: center;
+      font: 900 15px/1 var(--font-mono);
+      color: #fff;
+    }
+    .ask-seg-2 {
+      width: 35%;
+      background: #3b82f6;
+      display: grid;
+      place-items: center;
+      font: 900 15px/1 var(--font-mono);
+      color: #fff;
+    }
+    .ask-seg-3 {
+      width: 15%;
+      background: #60a5fa;
+      display: grid;
+      place-items: center;
+      font: 900 14px/1 var(--font-mono);
+      color: #0b1120;
+    }
+
+    .ask-footer-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .ask-footer-col {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 12px 16px;
+      border-radius: 4px;
+      font-size: 16px;
+      color: #e2e8f0;
+      font-weight: 600;
+    }
+    .ask-footer-col b {
+      color: #fff;
+      font-weight: 900;
+      font-size: 17px;
+    }
 
     /* ---------- Navigation ---------- */
-    .deck-nav { position: absolute; bottom: 16px; right: var(--safe-x); display: flex; align-items: center; gap: 14px; z-index: 10; font: 700 13.5px/1 var(--font-mono); color: var(--muted); }
-    .nav-prev, .nav-next { background: var(--paper); border: 1.5px solid var(--rule); width: 36px; height: 36px; display: grid; place-items: center; cursor: pointer; font-size: 17px; color: var(--ink); border-radius: 4px; }
-    .nav-prev:hover, .nav-next:hover { border-color: var(--cobalt); color: var(--cobalt); }
+    .deck-nav {
+      position: absolute;
+      bottom: 16px;
+      right: var(--safe-x);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      z-index: 10;
+      font: 700 13.5px/1 var(--font-mono);
+      color: var(--muted);
+    }
+    .nav-prev, .nav-next {
+      background: var(--paper);
+      border: 1.5px solid var(--rule);
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      font-size: 17px;
+      color: var(--ink);
+      border-radius: 4px;
+    }
+    .nav-prev:hover, .nav-next:hover {
+      border-color: var(--cobalt);
+      color: var(--cobalt);
+    }
     .nav-dots { display: flex; gap: 6px; }
-    .nav-dot { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--muted); background: transparent; padding: 0; cursor: pointer; }
-    .nav-dot[aria-current="true"] { background: var(--cobalt); border-color: var(--cobalt); }
-    .keyboard-hint { position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%); font: 600 12.5px/1 var(--font-mono); color: #788292; pointer-events: none; }
+    .nav-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 1.5px solid var(--muted);
+      background: transparent;
+      padding: 0;
+      cursor: pointer;
+    }
+    .nav-dot[aria-current="true"] {
+      background: var(--cobalt);
+      border-color: var(--cobalt);
+    }
+    .keyboard-hint {
+      position: fixed;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      font: 600 12.5px/1 var(--font-mono);
+      color: #788292;
+      pointer-events: none;
+    }
 
     @page { size: 1600px 900px; margin: 0; }
     @media print {
@@ -305,13 +1325,19 @@
       #deck { display: block; width: auto; height: auto; }
       #deck-frame { position: static; }
       #deck-frame, #slides { width: 1600px; height: auto; transform: none !important; box-shadow: none; }
-      .slide { position: relative; display: flex !important; flex-direction: column; page-break-after: always; break-after: page; }
+      .slide {
+        position: relative;
+        display: flex !important;
+        flex-direction: column;
+        page-break-after: always;
+        break-after: page;
+      }
       .deck-nav, .keyboard-hint { display: none !important; }
     }
   </style>
 </head>
 <body>
-  <main id="deck" aria-label="Enter-AX 4분 발표용 IR 피치 덱 v2.4">
+  <main id="deck" aria-label="Enter-AX Airbnb 스타일 IR 피치 덱">
     <div id="deck-frame">
       <div id="slides" aria-live="polite">
 
@@ -319,15 +1345,10 @@
         <section class="slide is-active" id="slide-01" data-title="Cover" data-section="" aria-hidden="false">
           <div class="cover-box">
             <div class="cover-left">
-              <span class="cover-badge">ENTERTAINMENT ALL-IN-ONE AX OS · 4-MIN PITCH</span>
+              <span class="cover-badge">ENTERTAINMENT ALL-IN-ONE AX OS · SEED ROUND</span>
               <div class="cover-title">ENTER—AX</div>
               <h1 class="cover-h1">기획사 4대 밸류체인을 연결하는<br><span class="headline-key">엔터테인먼트 올인원 AX OS</span></h1>
               <p class="cover-desc">지원자 접수부터 AI 듀얼 심사, <b>카카오톡 알림톡·Slack 전사 발송</b>까지 원클릭으로 자동화합니다.</p>
-              <ul class="cover-bullets">
-                <li><span></span>전국 6,629개 기획사의 파편화된 수작업 150시간 완전 제거</li>
-                <li><span></span>MediaPipe 33관절 안무 비교 & 음향 지문 0.5초 중복 탐지 기술 탑재</li>
-                <li><span></span>건당 원가 45원 · 소프트웨어 순마진 91% 고수익 SaaS 구조</li>
-              </ul>
             </div>
             <div class="cover-right">
               <div class="cover-screen-frame">
@@ -335,11 +1356,7 @@
                   <span></span><span></span><span></span>
                   <div style="margin-left:auto; font:800 13px/1 var(--font-mono); color:var(--muted);">ENTER—AX WORKSPACE LIVE</div>
                 </div>
-                <img class="cover-screen-img" src="public/images/landing/screen-pipeline.png" alt="Enter-AX 후보 스크리닝 칸반 CRM 실제 구동 화면">
-                <div class="cover-callout-pill">
-                  <b>실제 상용 구동 프로덕트</b><br>
-                  0초 대용량 스트리밍 & 실시간 협업 채점표 엔진
-                </div>
+                <img class="cover-screen-img" src="public/images/landing/screen-pipeline.png" alt="Enter-AX CRM 실제 구동 화면">
               </div>
             </div>
             <div class="cover-footer">
@@ -348,219 +1365,173 @@
                 <strong>전국 6,629개 기획사</strong>
               </div>
               <div class="cover-foot-col">
-                <small>CORE MODULES</small>
-                <strong>캐스팅 · A&R · 마케팅</strong>
+                <small>SCREENING SPEED</small>
+                <strong>3초 즉시 스트리밍 심사</strong>
               </div>
               <div class="cover-foot-col">
                 <small>UNIT ECONOMICS</small>
                 <strong>건당 원가 45원 (마진 91%)</strong>
               </div>
               <div class="cover-foot-col">
-                <small>CURRENT STAGE</small>
-                <strong>실무 검증 완료 · 시드 유치</strong>
+                <small>CURRENT ASK</small>
+                <strong>Seed 3억 원 유치</strong>
               </div>
             </div>
           </div>
         </section>
 
-        <!-- 02 PROBLEM (Real Companies & Tool Fragmentation Diagram) -->
+        <!-- 02 PROBLEM (Airbnb 3-Pillar Style) -->
         <section class="slide" id="slide-02" data-title="Problem" data-section="P" aria-hidden="true">
           <header class="slide-head">
             <p class="kicker">
-              <b>P</b><span class="ch">PROBLEM</span><span class="sub">실제 기획사 공고 vs 파편화된 도구 현실</span>
-              <span class="timing">발표 권장 35초</span>
+              <b>P</b><span class="ch">PROBLEM</span><span class="sub">기획사 4대 부서의 단절과 수작업 현실</span>
+              <span class="timing">발표 권장 30초</span>
             </p>
-            <h1>공식 접수 안내 뒤에는 <span class="headline-key">도구 단절과 수작업 지옥</span>이 남는다</h1>
+            <h1>도구 파편화로 <span class="headline-key">매월 150시간을 수작업에 낭비</span>합니다</h1>
           </header>
-          <div class="slide-content prob-stage">
-            <!-- Top: Real Agency Cases (YG & JYP Official Auditions) -->
-            <div class="prob-cases">
-              <article class="prob-case-card">
-                <div class="prob-case-head">
-                  <img src="assets/deck/logo-yg.svg" alt="YG Entertainment">
-                  <span>2026 GLOBAL AUDITION 공고</span>
+          <div class="slide-content prob-stage-airbnb">
+            <!-- 3 Classic Problem Pillars -->
+            <div class="prob-3-grid">
+              <article class="prob-card-airbnb">
+                <div class="prob-card-top">
+                  <span class="prob-tag-badge">01 대용량 유실</span>
+                  <h2>30일 만료 &amp; 코덱 에러</h2>
+                  <p>이메일과 드라이브 링크가 30일 만에 만료되어 지원자 18%가 심사 전 영구 유실됩니다.</p>
                 </div>
-                <h2>YG · 온라인 접수 후 이메일 수동 개별 통지</h2>
-                <div class="prob-steps">
-                  <div class="prob-step"><b>01 접수 단계</b><strong>웹폼 개별 접수</strong><small>월 1,500건 영상·프로필 링크 수신</small></div>
-                  <div class="prob-step warn"><b>02 대용량 병목</b><strong>30일 만료 위험</strong><small>MOV 코덱 에러 & 링크 영구 만료 유실</small></div>
-                  <div class="prob-step warn"><b>03 통지 병목</b><strong>수기 이메일 발송</strong><small>합격자 엑셀 복사 및 수작업 야근</small></div>
-                </div>
-                <div class="prob-card-foot">
-                  <span>현장 병목 지표</span> 주간 24시간 다운로드 대기 소요 · 링크 만료 유망주 유실 위험 100%
-                </div>
-              </article>
-
-              <article class="prob-case-card">
-                <div class="prob-case-head">
-                  <img src="assets/deck/logo-jyp.svg" alt="JYP Entertainment">
-                  <span>OFFICIAL ONLINE AUDITION</span>
-                </div>
-                <h2>JYP · 별도 오디션 채널 및 심사위원 수기 취합</h2>
-                <div class="prob-steps">
-                  <div class="prob-step"><b>01 지원 채널</b><strong>자체 지원서</strong><small>대용량 파일 분산 수집</small></div>
-                  <div class="prob-step warn"><b>02 엑셀 이관</b><strong>데이터 수기 복사</strong><small>지원자 인적사항 엑셀 재입력 80시간</small></div>
-                  <div class="prob-step warn"><b>03 채점 취합</b><strong>종이 채점표</strong><small>심사위원 점수 수기 취합 4시간 소요</small></div>
-                </div>
-                <div class="prob-card-foot">
-                  <span>현장 병목 지표</span> 심사 결과 통보 지연 · 타 대형 기획사로 최우수 유망주 유출 발생
-                </div>
-              </article>
-            </div>
-
-            <!-- Bottom: Visual Tool Landscape Diagram (Fragmented Stack vs ENTER—AX) -->
-            <div class="tool-bridge-box">
-              <div class="tool-frag">
-                <span class="tool-frag-title">기존 기획사 4대 부서 파편화 도구 6종 (매월 150시간 수작업 허비)</span>
-                <div class="tool-icon-row">
+                <div class="prob-logos-row">
                   <img src="assets/deck/logos/logo-gmail.svg" alt="Gmail" title="Gmail">
                   <img src="assets/deck/logos/logo-gdrive.svg" alt="Google Drive" title="Google Drive">
-                  <img src="assets/deck/logos/logo-sheets.svg" alt="Sheets" title="Sheets">
                   <img src="assets/deck/logos/logo-dropbox.svg" alt="Dropbox" title="Dropbox">
+                </div>
+              </article>
+
+              <article class="prob-card-airbnb">
+                <div class="prob-card-top">
+                  <span class="prob-tag-badge">02 수기 데이터 이관</span>
+                  <h2>엑셀 재입력 &amp; 종이 채점</h2>
+                  <p>지원자 인적사항을 엑셀로 복사하는 데 80시간, 심사위원 종이 채점 취합에 매회 4시간이 걸립니다.</p>
+                </div>
+                <div class="prob-logos-row">
+                  <img src="assets/deck/logos/logo-sheets.svg" alt="Sheets" title="Sheets">
+                  <img src="assets/deck/logos/logo-notion.svg" alt="Notion" title="Notion">
+                </div>
+              </article>
+
+              <article class="prob-card-airbnb">
+                <div class="prob-card-top">
+                  <span class="prob-tag-badge">03 통지 지연</span>
+                  <h2>카톡·Slack 수동 개별 발송</h2>
+                  <p>심사 결과를 전사 공유하고 합격자에게 통보하기까지 5일 이상 지연되어 인재를 놓칩니다.</p>
+                </div>
+                <div class="prob-logos-row">
                   <img src="assets/deck/logos/logo-kakaotalk.svg" alt="KakaoTalk" title="KakaoTalk">
                   <img src="assets/deck/logos/logo-slack.svg" alt="Slack" title="Slack">
                 </div>
-                <p>30일 링크 만료 유실 · MOV 코덱 재생 에러 · 수백 개 중복 데모 청음 · 숏폼 수동 편집 야근</p>
-                <div class="tool-alert-pill danger">현장 손실: 부서 간 데이터 단절로 매월 150시간 낭비 및 지원자 18% 유실</div>
+              </article>
+            </div>
+
+            <!-- Bottom Contrast Ribbon -->
+            <div class="prob-ribbon">
+              <div class="prob-ribbon-left">
+                <span>기존 현실: 파편화 도구 6종 · 월 150시간 수작업 허비</span>
               </div>
-
-              <div class="tool-vs">VS</div>
-
-              <div class="tool-ax">
-                <span class="tool-ax-title">ENTER—AX 단일 통합 파이프라인 (업무 시간 96% 감축)</span>
-                <div class="tool-ax-flow">
-                  <span>0초 즉시 스트리밍</span>
-                  <i>→</i>
-                  <span>AI 안무·보컬 듀얼 분석</span>
-                  <i>→</i>
-                  <span>실시간 전사 합산 채점</span>
-                  <i>→</i>
-                  <span>원클릭 카톡·Slack 발송</span>
-                </div>
-                <div class="tool-alert-pill success">도입 효과: 0초 스트리밍 & 실시간 AI 심사로 접수부터 통지까지 원스톱 완결</div>
+              <div class="prob-ribbon-arrow">➔</div>
+              <div class="prob-ribbon-right">
+                <span>ENTER—AX: 0초 스트리밍 &amp; 실시간 AI 심사</span>
+                <span class="prob-ribbon-pill">업무 시간 96% 감축</span>
               </div>
             </div>
           </div>
           <div class="footer-rule" aria-hidden="true"></div>
         </section>
 
-        <!-- 03 SOLUTION 1: CANDIDATE CRM -->
-        <section class="slide" id="slide-03" data-title="CRM" data-section="S1" aria-hidden="true">
+        <!-- 03 SOLUTION (Pattern B: Live UI Split + 3 Benefits) -->
+        <section class="slide" id="slide-03" data-title="Solution" data-section="S1" aria-hidden="true">
           <header class="slide-head">
             <p class="kicker">
-              <b>S</b><span class="ch">SOLUTION 01</span><span class="sub">통합 지원자 CRM</span>
+              <b>S</b><span class="ch">SOLUTION</span><span class="sub">통합 지원자 CRM</span>
               <span class="timing">발표 권장 35초</span>
             </p>
-            <h1>접수 즉시 전사 공유되는 <span class="headline-key">통합 지원자 CRM</span></h1>
+            <h1>접수부터 심사, 발송까지 <span class="headline-key">단 하나의 올인원 파이프라인</span></h1>
           </header>
-          <div class="slide-content">
-            <div class="crm-showcase">
-              <div class="crm-capture">
-                <div class="crm-capture-bar">
-                  <span>ENTER—AX CANDIDATE PIPELINE (실제 라이브 구동 화면)</span>
-                  <span style="color:var(--cobalt); font-weight:800;">LIVE PRODUCTION WORKSPACE</span>
-                </div>
-                <img src="public/images/landing/screen-pipeline.png" alt="Enter-AX 스크리닝 칸반 CRM 실제 화면">
+          <div class="slide-content sol-stage-airbnb">
+            <!-- Left: Real Product Live UI -->
+            <div class="sol-screen-card">
+              <div class="sol-screen-bar">
+                <span>ENTER—AX CANDIDATE CRM</span>
+                <b>LIVE PRODUCTION WORKSPACE</b>
+              </div>
+              <img src="public/images/landing/screen-pipeline.png" alt="Enter-AX 스크리닝 칸반 CRM 실제 화면">
+            </div>
+
+            <!-- Right: 3 Big Benefits -->
+            <div class="sol-benefits-grid">
+              <div class="sol-benefit-card">
+                <small>BENEFIT 01</small>
+                <h3>0초 스트리밍 엔진</h3>
+                <p>다운로드 대기 없이 즉시 재생. Cloudflare R2 연동으로 영상 트래픽 Egress 비용 0원.</p>
               </div>
 
-              <div class="crm-rail">
-                <div class="crm-rail-item active">
-                  <div class="crm-rail-item-head">
-                    <div class="crm-rail-item-head-left">
-                      <img src="assets/deck/icons/video-clip.svg" alt="">
-                      <b>0초 스트리밍 엔진</b>
-                    </div>
-                    <span class="crm-rail-badge">트래픽 0원</span>
-                  </div>
-                  <p>다운로드 대기 없는 즉시 스트리밍 재생</p>
-                  <small>Cloudflare R2 연동으로 대용량 MOV·MP4 버퍼링 없이 즉시 재생 (Egress 비용 0원)</small>
-                </div>
+              <div class="sol-benefit-card">
+                <small>BENEFIT 02</small>
+                <h3>실시간 칸반 &amp; 협업 채점표</h3>
+                <p>서류접수 → 실기 원클릭 이동. 심사위원별 점수 입력 즉시 전사 실시간 자동 집계.</p>
+              </div>
 
-                <div class="crm-rail-item">
-                  <div class="crm-rail-item-head">
-                    <div class="crm-rail-item-head-left">
-                      <img src="assets/deck/icons/kanban-board.svg" alt="">
-                      <b>실시간 칸반 워크플로</b>
-                    </div>
-                    <span class="crm-rail-badge">원클릭 전환</span>
-                  </div>
-                  <p>서류접수 → 1차심사 → 2차실기 드래그 이동</p>
-                  <small>단계 변경 시 담당 심사위원과 지원자에게 상태 알림이 자동 동기화됩니다.</small>
-                </div>
-
-                <div class="crm-rail-item">
-                  <div class="crm-rail-item-head">
-                    <div class="crm-rail-item-head-left">
-                      <img src="assets/deck/icons/audio-wave.svg" alt="">
-                      <b>오디오 핑거프린트</b>
-                    </div>
-                    <span class="crm-rail-badge">0.5초 탐지</span>
-                  </div>
-                  <p>파형 시각화 & 중복 데모 0.5초 자동 판별</p>
-                  <small>사내 10만 곡 음원 DB 지문 대조로 파일명 바뀐 중복곡 및 표절 리스크 원천 차단</small>
-                </div>
-
-                <div class="crm-rail-item">
-                  <div class="crm-rail-item-head">
-                    <div class="crm-rail-item-head-left">
-                      <img src="assets/deck/icons/table.svg" alt="">
-                      <b>동시 협업 채점표</b>
-                    </div>
-                    <span class="crm-rail-badge">자동 합산</span>
-                  </div>
-                  <p>임원·실무자 동시 온라인 채점 및 자동 집계</p>
-                  <small>종이 채점표와 수기 엑셀 없이 심사 즉시 순위와 피드백 리포트가 전사 생성됩니다.</small>
-                </div>
+              <div class="sol-benefit-card">
+                <small>BENEFIT 03</small>
+                <h3>원클릭 카톡·Slack 전사 발송</h3>
+                <p>심사 완료 버튼 한 번으로 합격자 카카오 알림톡 발송 및 전사 슬랙 채널 자동 보고.</p>
               </div>
             </div>
           </div>
           <div class="footer-rule" aria-hidden="true"></div>
         </section>
 
-        <!-- 04 SOLUTION 2: CORE ENTERTAINMENT TECH (Dance Pose & Vocal Pitch Curves) -->
-        <section class="slide" id="slide-04" data-title="Tech" data-section="S1" aria-hidden="true">
+        <!-- 04 CORE TECH (Dance & Vocal Side-by-Side Visuals) -->
+        <section class="slide" id="slide-04" data-title="Core Tech" data-section="S1" aria-hidden="true">
           <header class="slide-head">
             <p class="kicker">
-              <b>S</b><span class="ch">SOLUTION 02</span><span class="sub">핵심 엔터테인먼트 AI 기술</span>
-              <span class="timing">발표 권장 40초</span>
+              <b>T</b><span class="ch">CORE TECH</span><span class="sub">핵심 엔터테인먼트 AI 기술</span>
+              <span class="timing">발표 권장 35초</span>
             </p>
-            <h1>춤 동작과 노래 음정을 <span class="headline-key">같은 구간에서 나란히 비교</span>한다</h1>
+            <h1>춤 동작과 보컬 음정을 <span class="headline-key">나란히 비교하는 엔터 AI 엔진</span></h1>
           </header>
-          <div class="slide-content tech-duo-stage">
-            <!-- Row 1: AI Dance Pose Synchronization -->
-            <article class="tech-row">
-              <figure>
+          <div class="slide-content tech-stage-airbnb">
+            <!-- Card 1: Dance -->
+            <article class="tech-card-airbnb">
+              <div class="tech-fig-airbnb">
                 <img src="assets/deck/choreography-comparison-illustration.png" alt="MediaPipe 기반 안무 관절 움직임 비교">
-                <figcaption>MediaPipe 33개 관절 골격 트래킹 · NewJeans/aespa 싱크율 대조</figcaption>
-              </figure>
-              <div class="tech-copy">
-                <small>AI DANCE CHOREOGRAPHY MATCHING</small>
-                <h2>춤 동작 33개 관절 골격 싱크 비교</h2>
-                <p>두 영상의 관절 궤적을 동일 타임라인에서 나란히 정밀 분석하여 박자 일치율을 자동 측정합니다.</p>
-                <div class="tech-flow">
-                  <span>기준 안무 영상 등록</span><b>→</b><span>33개 관절 위치 추출</span><b>→</b><span>구간 싱크율 85% 자동 채점</span>
+                <div class="tech-fig-tag">MediaPipe 33관절 골격 트래킹</div>
+              </div>
+              <div class="tech-info-airbnb">
+                <div class="tech-info-top">
+                  <small>AI DANCE CHOREOGRAPHY</small>
+                  <h2>안무 골격 싱크율 자동 비교</h2>
+                  <p>두 영상의 관절 궤적을 동일 타임라인에서 정밀 분석하여 박자 일치율을 자동 측정합니다.</p>
                 </div>
-                <div class="tech-bench-pill">
-                  <b>정밀도 검증:</b> 실시간 관절 오차율 2.4% 이내 · 회전 및 점프 각도 프레임 단위 비교
+                <div class="tech-stat-callout">
+                  <span>안무 싱크율 자동 채점</span>
+                  <b>85%</b>
                 </div>
               </div>
             </article>
 
-            <!-- Row 2: AI Vocal Pitch Frequency & Audio Fingerprinting -->
-            <article class="tech-row">
-              <figure>
+            <!-- Card 2: Vocal -->
+            <article class="tech-card-airbnb">
+              <div class="tech-fig-airbnb">
                 <img src="assets/deck/vocal-pitch-comparison-illustration.png" alt="음정 주파수 커브 및 오디오 파형 분석">
-                <figcaption>주파수 F0 음정 곡선 매칭 · 오디오 핑거프린트 중복 데모 탐지</figcaption>
-              </figure>
-              <div class="tech-copy">
-                <small>AI VOCAL PITCH & AUDIO FINGERPRINTING</small>
-                <h2>보컬 음정 안정도 & 음향 지문 중복 탐지</h2>
-                <p>원곡 가이드와 지원자의 F0 음정 곡선을 대조하고, 사내 DB 10만 곡 중복 데모를 0.5초 내 탐지합니다.</p>
-                <div class="tech-flow">
-                  <span>지원자 음원 접수</span><b>→</b><span>F0 주파수 커브 매칭</span><b>→</b><span>사내 중복 음원 100% 필터링</span>
+                <div class="tech-fig-tag">F0 주파수 커브 &amp; 오디오 핑거프린트</div>
+              </div>
+              <div class="tech-info-airbnb">
+                <div class="tech-info-top">
+                  <small>AI VOCAL &amp; AUDIO FINGERPRINT</small>
+                  <h2>보컬 음정 안정도 &amp; 중복 데모 탐지</h2>
+                  <p>가이드와 지원자의 F0 음정 곡선을 대조하고 사내 10만 곡 중복 데모를 0.5초 내 탐지합니다.</p>
                 </div>
-                <div class="tech-bench-pill">
-                  <b>기술 성과:</b> 곡명 변경·피치 변조된 중복 데모 0.5초 필터링 · 작곡가 홀드 분쟁 원천 차단
+                <div class="tech-stat-callout">
+                  <span>중복 음원 판별 소요 시간</span>
+                  <b>0.5초</b>
                 </div>
               </div>
             </article>
@@ -568,375 +1539,329 @@
           <div class="footer-rule" aria-hidden="true"></div>
         </section>
 
-        <!-- 05 GTM / DISTRIBUTION (Funnel & Flywheel Diagram) -->
-        <section class="slide" id="slide-05" data-title="GTM" data-section="S2" aria-hidden="true">
+        <!-- 05 MARKET SIZE & GTM (Airbnb TAM/SAM/SOM 3-Card Style) -->
+        <section class="slide" id="slide-05" data-title="Market Size" data-section="M" aria-hidden="true">
           <header class="slide-head">
             <p class="kicker">
-              <b>G</b><span class="ch">GO-TO-MARKET</span><span class="sub">전국 학원 독점 유통 파이프라인</span>
+              <b>M</b><span class="ch">MARKET SIZE &amp; GTM</span><span class="sub">시장 규모 및 독점 유통 파이프라인</span>
               <span class="timing">발표 권장 30초</span>
             </p>
-            <h1>초기 100개 기획사 락인 및 <span class="headline-key">전국 학원 파이프라인 독점</span></h1>
+            <h1>전국 6,629개 기획사와 <span class="headline-key">280개 독점 학원 파이프라인</span></h1>
           </header>
-          <div class="slide-content gtm-stage">
-            <!-- Left: Visual Funnel & Flywheel Loop -->
-            <div class="gtm-left">
-              <ul class="gtm-funnel">
-                <li>
-                  <div class="gtm-funnel-label">
-                    <strong>01 전국 280개 보컬·댄스 학원 연계</strong>
-                    <span>입시 학원 오디션 공식 접수 창구 독점 제휴 체결</span>
-                  </div>
-                  <div class="gtm-funnel-stat-wrap">
-                    <div class="gtm-funnel-stat">50,000<small style="font-size:20px;">명</small></div>
-                    <div class="gtm-funnel-stat-sub">연간 지원자 모수 확보</div>
-                  </div>
-                </li>
-                <li>
-                  <div class="gtm-funnel-label">
-                    <strong>02 중견 기획사 50곳 무료 파일럿</strong>
-                    <span>30일 실무 워크플로 체험 후 전사 유료 콘솔 전환</span>
-                  </div>
-                  <div class="gtm-funnel-stat-wrap">
-                    <div class="gtm-funnel-stat">50<small style="font-size:20px;">개사</small></div>
-                    <div class="gtm-funnel-stat-sub">전환율 30% 타깃</div>
-                  </div>
-                </li>
-                <li>
-                  <div class="gtm-funnel-label">
-                    <strong>03 유료 구독 전환 & 도메인 락인</strong>
-                    <span>audition.agency.com 공식 서브도메인 탑재로 이탈 불가</span>
-                  </div>
-                  <div class="gtm-funnel-stat-wrap">
-                    <div class="gtm-funnel-stat" style="color:#fff;">15<small style="font-size:20px; color:#dce7ff;">개사</small></div>
-                    <div class="gtm-funnel-stat-sub">월 150만 원 Pro 플랜</div>
-                  </div>
-                </li>
-              </ul>
+          <div class="slide-content market-stage-airbnb">
+            <!-- 3 TAM / SAM / SOM Giant Cards -->
+            <div class="market-3-grid">
+              <div class="market-card-airbnb">
+                <div class="market-card-top">
+                  <small>TAM · 전체 시장</small>
+                  <div class="market-card-number">6,629<small>개사</small></div>
+                  <h3>전국 등록 기획사</h3>
+                </div>
+                <p>국내 대중문화예술기획업 등록사 전수. 연간 K-POP 오디션 지원자 50만 명 규모.</p>
+              </div>
 
-              <div class="gtm-flywheel">
-                <span>학원 원생 독점 인입</span>
-                <i>→</i>
-                <span>프로필 데이터 축적</span>
-                <i>→</i>
-                <span>기획사 인재 공급</span>
-                <i>→</i>
-                <span>B2B OS 독점 락인</span>
+              <div class="market-card-airbnb">
+                <div class="market-card-top">
+                  <small>SAM · 유효 시장</small>
+                  <div class="market-card-number">1,200<small>개사</small></div>
+                  <h3>정기 오디션 기획사</h3>
+                </div>
+                <p>오디션 및 신인개발팀을 정기 가동하는 기획사. 월 50만~150만 원 SaaS 구독 잠재 고객군.</p>
+              </div>
+
+              <div class="market-card-airbnb">
+                <div class="market-card-top">
+                  <small>SOM / GTM · 초기 독점 진입</small>
+                  <div class="market-card-number">280<small>개원</small></div>
+                  <h3>전국 독점 제휴 학원망</h3>
+                </div>
+                <p>전국 보컬·댄스 입시 학원과 공식 접수 독점 제휴. 연간 5만 명 원생 지원자 독점 인입.</p>
               </div>
             </div>
 
-            <!-- Right: Real Discovery Platform Screen -->
-            <div class="gtm-right-screen">
-              <div class="gtm-right-screen-bar">
-                <span>ENTER—AX TALENT DISCOVERY & AUDITION PORTAL</span>
-                <span style="color:var(--cobalt); font-weight:800;">LIVE PLATFORM</span>
-              </div>
-              <img src="public/images/landing/screen-discover.png" alt="Enter-AX 지원자 발굴 포털 실제 화면">
+            <!-- Flywheel Ribbon -->
+            <div class="market-flywheel-ribbon">
+              <div class="market-flywheel-step"><b>1</b><span>학원 원생 독점 인입</span></div>
+              <div class="market-flywheel-arrow">➔</div>
+              <div class="market-flywheel-step"><b>2</b><span>지원자 프로필 데이터 축적</span></div>
+              <div class="market-flywheel-arrow">➔</div>
+              <div class="market-flywheel-step"><b>3</b><span>기획사 100곳 인재 공급</span></div>
+              <div class="market-flywheel-arrow">➔</div>
+              <div class="market-flywheel-step"><b>4</b><span style="color:var(--cobalt); font-weight:900;">B2B OS 독점 락인</span></div>
             </div>
           </div>
           <div class="footer-rule" aria-hidden="true"></div>
         </section>
 
-        <!-- 06 COMPETITION & VALIDATION (Matrix Table & Progress Bars) -->
-        <section class="slide" id="slide-06" data-title="Competition" data-section="S2" aria-hidden="true">
+        <!-- 06 COMPETITION (The Iconic Airbnb 2x2 Positioning Matrix) -->
+        <section class="slide" id="slide-06" data-title="Competition" data-section="C" aria-hidden="true">
           <header class="slide-head">
             <p class="kicker">
-              <b>V</b><span class="ch">VALIDATION & MATRIX</span><span class="sub">타사 솔루션 비교 및 실측 성과</span>
+              <b>C</b><span class="ch">COMPETITION</span><span class="sub">엔터테인먼트 포지셔닝 사분면</span>
               <span class="timing">발표 권장 35초</span>
             </p>
-            <h1>흩어진 포인트 솔루션을 <span class="headline-key">단일 통합 OS로 압도</span>한다</h1>
+            <h1>엔터 특화 멀티모달 AI OS는 <span class="headline-key">ENTER—AX가 유일합니다</span></h1>
           </header>
-          <div class="slide-content compete-stage">
-            <!-- Left: Full Feature Matrix Table (도표!) -->
-            <div class="matrix-box">
-              <table class="matrix-table">
-                <thead>
-                  <tr>
-                    <th>핵심 기능 영역</th>
-                    <th>구글 워크스페이스<br><small style="font-weight:normal;">Drive / Sheets</small></th>
-                    <th>범용 협업 SaaS<br><small style="font-weight:normal;">Notion / Airtable</small></th>
-                    <th>포인트 AI 툴<br><small style="font-weight:normal;">OpusClip / Cyanite</small></th>
-                    <th style="color:var(--cobalt); font-size:18px;">ENTER—AX<br><small style="color:var(--cobalt); font-weight:900;">엔터 올인원 OS</small></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th>대용량 0초 스트리밍<span>다운로드 없는 브라우저 즉시 재생</span></th>
-                    <td class="no">✕</td>
-                    <td class="no">✕</td>
-                    <td class="partial">△</td>
-                    <td class="yes">●</td>
-                  </tr>
-                  <tr>
-                    <th>AI 안무 골격 구간 비교<span>MediaPipe 33개 관절 싱크 대조</span></th>
-                    <td class="no">✕</td>
-                    <td class="no">✕</td>
-                    <td class="no">✕</td>
-                    <td class="yes">●</td>
-                  </tr>
-                  <tr>
-                    <th>A&R 음향 지문 중복 탐지<span>오디오 파형 일치율 0.5초 대조</span></th>
-                    <td class="no">✕</td>
-                    <td class="no">✕</td>
-                    <td class="partial">△</td>
-                    <td class="yes">●</td>
-                  </tr>
-                  <tr>
-                    <th>9:16 숏폼 자동 클리핑<span>보컬 킬링파트 & 다국어 자막</span></th>
-                    <td class="no">✕</td>
-                    <td class="no">✕</td>
-                    <td class="partial">△</td>
-                    <td class="yes">●</td>
-                  </tr>
-                  <tr class="us">
-                    <th>카카오톡·Slack 전사 연동<span>원클릭 승인 & 모바일 즉시 발송</span></th>
-                    <td class="no">✕</td>
-                    <td class="partial">△</td>
-                    <td class="no">✕</td>
-                    <td class="yes">●</td>
-                  </tr>
-                </tbody>
-              </table>
+          <div class="slide-content comp-stage-airbnb">
+            <!-- Left: The Iconic Airbnb 2x2 Matrix -->
+            <div class="matrix-container">
+              <div class="matrix-top-axis-bar">
+                <span class="matrix-axis-x-left">◄ 범용 도구 (General)</span>
+                <span class="matrix-axis-y-top">▲ 멀티모달 AI 심사 분석 (Deep Multimodal AI)</span>
+                <span class="matrix-axis-x-right">엔터 전문 특화 OS (Domain AX) ►</span>
+              </div>
+
+              <div class="matrix-grid-2x2">
+                <!-- Top-Left: Point AI Tools -->
+                <div class="matrix-quad top-left">
+                  <small>단일 기능 포인트 AI</small>
+                  <h4>OpusClip / Cyanite</h4>
+                  <p>영상 숏폼 자르기 또는 음원 분석 등 파편화된 단일 기능에 국한</p>
+                  <div class="matrix-logo-badges">
+                    <img src="assets/deck/logos/logo-opusclip.png" alt="OpusClip">
+                    <img src="assets/deck/logos/logo-cyanite.png" alt="Cyanite">
+                  </div>
+                </div>
+
+                <!-- Top-Right: ENTER—AX HERO -->
+                <div class="matrix-quad top-right-hero">
+                  <small>★ 유일한 엔터테인먼트 올인원 AX OS</small>
+                  <h4>ENTER—AX</h4>
+                  <p>0초 스트리밍 · 33관절 안무 비교 · F0 음정 분석 · 카톡/Slack 원클릭 발송</p>
+                  <div style="margin-top:10px; font:900 13px/1 var(--font-mono); color:var(--cobalt);">
+                    THE ONLY SPECIALIZED AI OS
+                  </div>
+                </div>
+
+                <!-- Bottom-Left: General Storage & Spreadsheets -->
+                <div class="matrix-quad bottom-left">
+                  <small>범용 클라우드 / 문서</small>
+                  <h4>Google Drive / Dropbox / Notion</h4>
+                  <p>대용량 다운로드 대기, 30일 만료, 엔터 도메인 AI 기능 부재</p>
+                  <div class="matrix-logo-badges">
+                    <img src="assets/deck/logos/logo-gdrive.svg" alt="Google Drive">
+                    <img src="assets/deck/logos/logo-dropbox.svg" alt="Dropbox">
+                    <img src="assets/deck/logos/logo-notion.svg" alt="Notion">
+                  </div>
+                </div>
+
+                <!-- Bottom-Right: Legacy Audition Forms -->
+                <div class="matrix-quad bottom-right">
+                  <small>구형 자체 오디션 웹폼</small>
+                  <h4>자체 제작 웹 양식 / 이메일</h4>
+                  <p>단순 접수용 폼에 불과하여 심사·통지 업무는 전액 수작업 유지</p>
+                </div>
+              </div>
+
+              <div class="matrix-bottom-axis-bar">
+                <span class="matrix-axis-y-bottom">▼ 단순 파일 보관 / 재생 (Basic Storage &amp; View)</span>
+              </div>
             </div>
 
-            <!-- Right: 3 Big Metrics with Visual Bars -->
-            <div class="comp-metrics">
-              <div class="comp-metric-card">
-                <span class="comp-metric-tag">SCREENING TIME REDUCTION</span>
-                <div class="comp-metric-big">3<small>초</small></div>
-                <strong>지원서 AI 스크리닝 (-96%)</strong>
-                <p>다운로드 8분 대기 → 스트리밍 3초 즉시 심사</p>
-                <div class="comp-metric-bar"><i style="width:96%;"></i></div>
+            <!-- Right: 3 Giant Impact Figures -->
+            <div class="comp-right-metrics">
+              <div class="comp-hero-stat-card">
+                <div class="comp-stat-head">
+                  <span class="comp-stat-num">-96%</span>
+                  <small style="font:800 13px/1 var(--font-mono); color:var(--cobalt);">3초 즉시 심사</small>
+                </div>
+                <strong>지원서 스크리닝 소요 시간</strong>
+                <p>다운로드 8분 대기에서 3초 즉시 스트리밍 심사로 단축</p>
               </div>
 
-              <div class="comp-metric-card">
-                <span class="comp-metric-tag">MEETING PREPARATION TIME</span>
-                <div class="comp-metric-big">10<small>분</small></div>
-                <strong>주간 심사 회의 준비 (-95%)</strong>
-                <p>종이 채점표 수기 취합 4시간 → 실시간 합산</p>
-                <div class="comp-metric-bar"><i style="width:95%;"></i></div>
+              <div class="comp-hero-stat-card">
+                <div class="comp-stat-head">
+                  <span class="comp-stat-num">-95%</span>
+                  <small style="font:800 13px/1 var(--font-mono); color:var(--cobalt);">자동 실시간 합산</small>
+                </div>
+                <strong>심사 회의 준비 시간</strong>
+                <p>종이 채점표 수기 취합 4시간에서 실시간 자동 집계로 단축</p>
               </div>
 
-              <div class="comp-metric-card">
-                <span class="comp-metric-tag">EGRESS BANDWIDTH COST</span>
-                <div class="comp-metric-big">0<small>원</small></div>
-                <strong>미디어 트래픽 비용 (100% 절감)</strong>
-                <p>Cloudflare R2 연동으로 영상 전송료 0원 고정</p>
-                <div class="comp-metric-bar"><i style="width:100%; background:var(--accent-green);"></i></div>
+              <div class="comp-hero-stat-card">
+                <div class="comp-stat-head">
+                  <span class="comp-stat-num" style="color:var(--accent-green);">0원</span>
+                  <small style="font:800 13px/1 var(--font-mono); color:var(--accent-green);">Egress 100% 절감</small>
+                </div>
+                <strong>미디어 트래픽 전송 비용</strong>
+                <p>Cloudflare R2 오브젝트 스토리지 연동으로 트래픽 비용 0원 고정</p>
               </div>
             </div>
           </div>
           <div class="footer-rule" aria-hidden="true"></div>
         </section>
 
-        <!-- 07 BUSINESS MODEL (Visual Tiers & Stacked Margin Bar) -->
+        <!-- 07 BUSINESS MODEL (Airbnb Simplicity: Clean Tiers + 91% Margin Bar) -->
         <section class="slide" id="slide-07" data-title="Business Model" data-section="BM" aria-hidden="true">
           <header class="slide-head">
             <p class="kicker">
-              <b>B</b><span class="ch">BUSINESS MODEL</span><span class="sub">구독 요금제 & 단위 경제학</span>
+              <b>B</b><span class="ch">BUSINESS MODEL</span><span class="sub">구독 요금제 &amp; 단위 경제학</span>
               <span class="timing">발표 권장 35초</span>
             </p>
             <h1>건당 원가 45원, <span class="headline-key">91% 고마진 B2B SaaS 구독 모델</span></h1>
           </header>
-          <div class="slide-content">
-            <div class="bm-stage">
-              <!-- 3 Pricing Tiers -->
-              <div class="bm-tiers">
-                <div class="bm-tier">
-                  <div class="bm-tier-head">
-                    <small>STARTER</small>
-                    <h3>스타터 플랜</h3>
-                    <div class="bm-price">50<span style="font-size:20px; font-weight:800; color:var(--ink);">만 원</span><span> /월</span></div>
-                    <span class="bm-tier-target">5인 이하 소형 기획사 적합</span>
+          <div class="slide-content bm-stage-airbnb">
+            <!-- 3 Clean Pricing Tiers (3 lines each!) -->
+            <div class="bm-tiers-airbnb">
+              <div class="bm-tier-card-airbnb">
+                <div class="bm-tier-card-top">
+                  <small>STARTER</small>
+                  <h3>스타터 플랜</h3>
+                  <div class="bm-price-airbnb">50<span>만 원/월</span></div>
+                  <span class="bm-tier-target-tag">5인 이하 소형 기획사</span>
+                </div>
+                <ul class="bm-tier-points">
+                  <li>월 지원자 500명 심사 접수</li>
+                  <li>0초 스트리밍 50GB 제공</li>
+                  <li>카카오 알림톡 월 500건 발송</li>
+                </ul>
+                <div class="bm-tier-bottom-pill">연 ARR 600만 원 (소형사 표준)</div>
+              </div>
+
+              <div class="bm-tier-card-airbnb featured">
+                <div class="bm-tier-card-top">
+                  <small>PRO · 핵심 주력 (80%)</small>
+                  <h3>프로 플랜</h3>
+                  <div class="bm-price-airbnb">150<span>만 원/월</span></div>
+                  <span class="bm-tier-target-tag" style="background:#dbeafe; color:var(--cobalt-deep);">10~50인 중견 기획사 표준</span>
+                </div>
+                <ul class="bm-tier-points">
+                  <li>지원자 무제한 심사 &amp; 저장</li>
+                  <li>AI 안무 &amp; 보컬 듀얼 분석</li>
+                  <li>카카오톡 &amp; Slack 무제한 연동</li>
+                </ul>
+                <div class="bm-tier-bottom-pill">연 ARR 1,800만 원 (핵심 타깃)</div>
+              </div>
+
+              <div class="bm-tier-card-airbnb">
+                <div class="bm-tier-card-top">
+                  <small>ENTERPRISE</small>
+                  <h3>엔터프라이즈</h3>
+                  <div class="bm-price-airbnb">400<span>만 원~/월</span></div>
+                  <span class="bm-tier-target-tag">50인 이상 대형 상장사</span>
+                </div>
+                <ul class="bm-tier-points">
+                  <li>A&amp;R 음향 지문 10만 곡 DB</li>
+                  <li>온프레미스 / 전용 VPC 클라우드</li>
+                  <li>전담 엔지니어 &amp; 내부 ERP 연동</li>
+                </ul>
+                <div class="bm-tier-bottom-pill">연 ARR 4,800만 원 이상</div>
+              </div>
+            </div>
+
+            <!-- Right Hero: Unit Economics & 91% Margin Bar -->
+            <div class="bm-unit-hero-airbnb">
+              <div>
+                <small>UNIT ECONOMICS</small>
+                <h3>단위 경제학 및 목표 ARR</h3>
+
+                <div class="bm-unit-big-split">
+                  <div class="bm-split-col">
+                    <span>지원자 1인당 원가</span>
+                    <strong>45원</strong>
                   </div>
-                  <ul class="bm-tier-items">
-                    <li>월 지원자 500명 심사 접수</li>
-                    <li>0초 스트리밍 50GB 제공</li>
-                    <li>카카오 알림톡 월 500건 발송</li>
-                    <li>기본 칸반 파이프라인 CRM</li>
-                    <li>엑셀 일괄 내보내기 지원</li>
-                    <li>전담 이메일 기술 지원</li>
-                  </ul>
-                  <div class="bm-tier-subbox"><b>포함 인프라:</b> R2 스토리지 50GB · 카카오 알림톡 500건 · 엑셀 내보내기</div>
-                  <div class="bm-tier-pill">연간 계약 시 10% 할인 · ARR 600만 원</div>
+                  <div style="font:900 24px/1 var(--font-mono); color:var(--muted);">vs</div>
+                  <div class="bm-split-col">
+                    <span>환산 수취 판가</span>
+                    <strong>500원</strong>
+                  </div>
                 </div>
 
-                <div class="bm-tier featured">
-                  <div class="bm-tier-head">
-                    <small>PRO (핵심 주력 플랜)</small>
-                    <h3>프로 플랜</h3>
-                    <div class="bm-price" style="color:var(--cobalt);">150<span style="font-size:20px; font-weight:800; color:var(--cobalt);">만 원</span><span> /월</span></div>
-                    <span class="bm-tier-target" style="background:#dbeafe; color:var(--cobalt-deep);">10~50인 중견 기획사 표준</span>
+                <div class="bm-bar-section">
+                  <div class="bm-bar-labels">
+                    <span>원가 45원 (9%)</span>
+                    <span>소프트웨어 순마진 91%</span>
                   </div>
-                  <ul class="bm-tier-items">
-                    <li>지원자 무제한 접수 및 저장</li>
-                    <li>AI 안무 33관절 골격 매칭 심사</li>
-                    <li>AI 보컬 주파수 음정 정밀 분석</li>
-                    <li>카카오톡 & Slack 무제한 연동</li>
-                    <li>실시간 동시 협업 온라인 채점표</li>
-                    <li>오디션 전용 서브도메인 제공</li>
-                  </ul>
-                  <div class="bm-tier-subbox"><b>포함 인프라:</b> 무제한 스트리밍 · AI 안무/보컬 매칭 · Slack/카톡 연동 · 전용 도메인</div>
-                  <div class="bm-tier-pill">연간 ARR 1,800만 원 (전환 80% 주력)</div>
-                </div>
-
-                <div class="bm-tier">
-                  <div class="bm-tier-head">
-                    <small>ENTERPRISE</small>
-                    <h3>엔터프라이즈</h3>
-                    <div class="bm-price">400<span style="font-size:20px; font-weight:800; color:var(--ink);">만 원~</span><span> /월</span></div>
-                    <span class="bm-tier-target">50인 이상 대형 기획사 (상장사)</span>
+                  <div class="bm-stacked-bar-airbnb">
+                    <div class="bm-bar-seg-cost">9%</div>
+                    <div class="bm-bar-seg-margin">91% 고수익 소프트웨어 마진</div>
                   </div>
-                  <ul class="bm-tier-items">
-                    <li>온프레미스 / 전용 VPC 클라우드</li>
-                    <li>A&R 음향 지문 10만 곡 전수 DB</li>
-                    <li>9:16 숏폼 AI 자동 하이라이트</li>
-                    <li>엔터프라이즈 전담 보안 감사 & SLA</li>
-                    <li>전담 엔지니어 1:1 기술 지원</li>
-                    <li>맞춤형 기획사 내부 ERP 연동</li>
-                  </ul>
-                  <div class="bm-tier-subbox"><b>포함 인프라:</b> 온프레미스/VPC 클라우드 · 음향 지문 10만 곡 DB · 커스텀 ERP 연동</div>
-                  <div class="bm-tier-pill">연간 계약 ARR 4,800만 원 이상</div>
                 </div>
               </div>
 
-              <!-- Right: Unit Economics & Stacked Bar -->
-              <div class="bm-right-box">
+              <div class="bm-arr-goal-box">
                 <div>
-                  <h3>단위 경제학 (Unit Economics)</h3>
-                  <table class="bm-unit-table">
-                    <thead>
-                      <tr><th>구분</th><th>금액</th><th>비고</th></tr>
-                    </thead>
-                    <tbody>
-                      <tr><td>지원자 1인당 인프라 원가</td><td>45원</td><td>Cloudflare R2 + 경량 LLM</td></tr>
-                      <tr><td>플랜 환산 건당 단가</td><td>500원</td><td>Pro 플랜 3,000건 기준</td></tr>
-                      <tr><td>건당 기여이익 (순마진)</td><td>455원</td><td>소프트웨어 순마진 91%</td></tr>
-                      <tr><td>영업이익률 (순마진율)</td><td>91%</td><td>압도적 고수익 구조</td></tr>
-                    </tbody>
-                  </table>
-
-                  <div class="bm-unit-bar-wrap">
-                    <div class="bm-unit-bar-title">
-                      <span>원가 45원 (9%)</span>
-                      <span style="color:var(--cobalt); font-weight:900;">소프트웨어 순마진 91%</span>
-                    </div>
-                    <div class="bm-stacked-bar">
-                      <div class="bm-bar-cost">45원</div>
-                      <div class="bm-bar-margin">91% 고수익 마진 구조 달성</div>
-                    </div>
-                  </div>
+                  <span>3년 차 목표 ARR (유료 고객 80개사)</span>
+                  <strong>Pro 65개사 + Enterprise 15개사</strong>
                 </div>
-
-                <div class="bm-margin-callout">
-                  <div style="min-width:0;">
-                    <span>3년 차 목표 ARR (유료 고객 80개사 기준)</span>
-                    <strong style="font-size:20px; color:var(--ink); display:block; white-space:nowrap;">Pro 65개사 + Ent 15개사</strong>
-                  </div>
-                  <div class="bm-arr-val">9.9<small>억 원</small></div>
-                </div>
+                <div class="bm-arr-val-airbnb">9.9<small>억 원</small></div>
               </div>
             </div>
           </div>
           <div class="footer-rule" aria-hidden="true"></div>
         </section>
 
-        <!-- 08 ROADMAP & ASK (Full Height Cards & Allocation Bar) -->
+        <!-- 08 ROADMAP & ASK (Airbnb 4-Phase Milestones + Seed Round Ask) -->
         <section class="slide" id="slide-08" data-title="Roadmap & Ask" data-section="R" aria-hidden="true">
           <header class="slide-head">
             <p class="kicker">
-              <b>R</b><span class="ch">ROADMAP & ASK</span><span class="sub">계단식 성장 로드맵 및 투자 유치</span>
-              <span class="timing">발표 권장 35초</span>
+              <b>R</b><span class="ch">ROADMAP &amp; ASK</span><span class="sub">성장 마일스톤 및 시드 투자 유치</span>
+              <span class="timing">발표 권장 30초</span>
             </p>
             <h1>엔터테인먼트의 시작과 끝을 책임지는 <span class="headline-key">No.1 엔터 테크 기업</span></h1>
           </header>
-          <div class="slide-content road-ask-stage">
-            <!-- Top: Visual 4-Quarter Milestones Grid -->
-            <div class="road-cards-grid">
-              <div class="road-card">
-                <div class="road-card-top">
-                  <span class="road-card-q">Q1 2026 · 현재 단계</span>
-                  <h3>파일럿 & 카톡 연동</h3>
-                  <div class="road-card-sub">핵심 CRM 상용화 및 실무 검증</div>
+          <div class="slide-content road-stage-airbnb">
+            <!-- 4-Phase Milestone Cards -->
+            <div class="road-4-grid">
+              <div class="road-step-card-airbnb">
+                <div>
+                  <small>Q1 2026 · 현재 단계</small>
+                  <h3>파일럿 &amp; 카톡 연동</h3>
+                  <p>중견 기획사 30곳 파일럿 완료 및 카카오 알림톡·Slack 전사 연동 상용화</p>
                 </div>
-                <ul class="road-card-list">
-                  <li>중견 기획사 30곳 파일럿 완료</li>
-                  <li>카카오 알림톡 및 Slack 전사 연동</li>
-                  <li>후보 스크리닝 칸반 정식 배포</li>
-                  <li>현장 업무시간 96% 감축 검증</li>
-                </ul>
-                <div class="road-card-badge-box"><b>핵심 달성:</b> 카톡 알림톡 실시간 발송 · 주간 80시간 절감</div>
-                <div class="road-card-goal">30개사 파일럿</div>
+                <div class="road-step-badge">30개사 파일럿</div>
               </div>
 
-              <div class="road-card">
-                <div class="road-card-top">
-                  <span class="road-card-q">Q2 2026 · 숏폼 확장</span>
-                  <h3>숏폼 엔진 출시</h3>
-                  <div class="road-card-sub">AI 영상 편집 엔진 상용화</div>
+              <div class="road-step-card-airbnb">
+                <div>
+                  <small>Q2 2026 · 전환 확장</small>
+                  <h3>유료 100개사 전환</h3>
+                  <p>전국 280개 학원 접수망 연계 및 9:16 숏폼 AI 하이라이트 엔진 출시</p>
                 </div>
-                <ul class="road-card-list">
-                  <li>AI 하이라이트 9:16 자동 클리핑</li>
-                  <li>유료 구독 기획사 100곳 달성</li>
-                  <li>보컬·안무 자동 채점 정밀도 90%</li>
-                  <li>전국 280개 학원 접수망 연계</li>
-                </ul>
-                <div class="road-card-badge-box"><b>핵심 달성:</b> 9:16 쇼츠 자동 편집 · 전국 280개 학원 연동</div>
-                <div class="road-card-goal">100개사 전환</div>
+                <div class="road-step-badge">100개사 전환</div>
               </div>
 
-              <div class="road-card">
-                <div class="road-card-top">
-                  <span class="road-card-q">Q3 2026 · 글로벌 진출</span>
+              <div class="road-step-card-airbnb">
+                <div>
+                  <small>Q3 2026 · 글로벌 진출</small>
                   <h3>글로벌 오디션 확장</h3>
-                  <div class="road-card-sub">해외 현지 기획사 파트너십</div>
+                  <p>일본·동남아 30개 기획사 제휴 및 A&amp;R 음향 지문 10만 곡 DB 구축</p>
                 </div>
-                <ul class="road-card-list">
-                  <li>글로벌 다국어 오디션 접수 지원</li>
-                  <li>일본·동남아 30개 기획사 제휴</li>
-                  <li>A&R 음향 지문 10만 곡 DB 구축</li>
-                  <li>해외 유망주 다이렉트 캐스팅</li>
-                </ul>
-                <div class="road-card-badge-box"><b>핵심 달성:</b> 글로벌 다국어 오디션 · 10만 곡 음향 지문 DB</div>
-                <div class="road-card-goal">해외 30개사</div>
+                <div class="road-step-badge">해외 30개사</div>
               </div>
 
-              <div class="road-card">
-                <div class="road-card-top">
-                  <span class="road-card-q">Q4 2026 · 시장 독점</span>
-                  <h3>ARR 15억 달성</h3>
-                  <div class="road-card-sub">엔터테인먼트 표준 OS 독점</div>
+              <div class="road-step-card-airbnb">
+                <div>
+                  <small>Q4 2026 · 독점 완성</small>
+                  <h3>ARR 15억 원 달성</h3>
+                  <p>국내외 150개 기획사 도입 및 캐스팅부터 정산까지 엔터 전주기 OS 완성</p>
                 </div>
-                <ul class="road-card-list">
-                  <li>유료 기획사 250개사 돌파</li>
-                  <li>연간 ARR 15억 원 달성 (BEP 초과)</li>
-                  <li>Series A 기관 투자 라운드 오픈</li>
-                  <li>국내 시장 점유율 35% 확보</li>
-                </ul>
-                <div class="road-card-badge-box"><b>핵심 달성:</b> 유료 250개사 · ARR 15억 원 · Series A 오픈</div>
-                <div class="road-card-goal">ARR 15억 원</div>
+                <div class="road-step-badge">ARR 15억 원</div>
               </div>
             </div>
 
-            <!-- Bottom: Seed 3억 원 Allocation Bar -->
-            <div class="ask-panel">
-              <div class="ask-panel-top">
-                <h2>Seed Round 3억 원 유치</h2>
-                <span>RUNWAY 18개월 확보 · BEP 14개월 조기 달성</span>
+            <!-- Seed Investment Ask Panel -->
+            <div class="ask-panel-airbnb">
+              <div class="ask-panel-top-row">
+                <h2>Seed 3억 원 유치</h2>
+                <span>RUNWAY 18 MONTHS · 유료 고객 100개사 확보</span>
               </div>
-              <div class="ask-alloc-bar">
-                <div class="ask-seg-1">R&D 파이프라인 고도화 50% (1.5억)</div>
-                <div class="ask-seg-2">기획사 영업 & 학원 제휴 GTM 35% (1.05억)</div>
-                <div class="ask-seg-3">인프라/보안 15% (0.45억)</div>
+
+              <div class="ask-bar-wrap">
+                <div class="ask-seg-1">50% R&amp;D (1.5억 원)</div>
+                <div class="ask-seg-2">35% GTM (1.05억 원)</div>
+                <div class="ask-seg-3">15% 인프라 (0.45억 원)</div>
               </div>
-              <div class="ask-panel-foot-grid">
-                <div class="ask-foot-item">
-                  <b>R&D 1.5억</b>: 안무 33관절 골격 매칭 & 보컬 F0 주파수 분석 엔진 고도화
+
+              <div class="ask-footer-grid">
+                <div class="ask-footer-col">
+                  <b>R&amp;D (1.5억 원)</b> : MediaPipe 33관절 안무 및 10만 곡 음향 지문 엔진 고도화
                 </div>
-                <div class="ask-foot-item">
-                  <b>GTM 1.05억</b>: 전국 280개 보컬·댄스 학원 독점 제휴망 및 B2B 전담 영업
+                <div class="ask-footer-col">
+                  <b>GTM (1.05억 원)</b> : 전국 280개 학원 접수망 독점 제휴 및 파일럿 100개사 전사 전환
                 </div>
-                <div class="ask-foot-item">
-                  <b>인프라 0.45억</b>: Cloudflare R2 무제한 스토리지 및 ISMS 수준 보안 구축
+                <div class="ask-footer-col">
+                  <b>인프라 (0.45억 원)</b> : 글로벌 초저지연 CDN 및 엔터프라이즈 VPC 보안 감사 구축
                 </div>
               </div>
             </div>
@@ -945,114 +1870,103 @@
         </section>
 
       </div>
-
-      <!-- Navigation Overlay -->
-      <nav class="deck-nav" aria-label="Slide navigation">
-        <button type="button" class="nav-prev" id="nav-prev" aria-label="이전 슬라이드">←</button>
-        <span class="slide-counter" id="slide-counter">1 / 8</span>
-        <button type="button" class="nav-next" id="nav-next" aria-label="다음 슬라이드">→</button>
-        <div class="nav-dots" id="nav-dots" role="tablist"></div>
-      </nav>
     </div>
+
+    <!-- Navigation & Page Counter -->
+    <div class="page-no" id="page-counter">01 / 08</div>
+    <nav class="deck-nav" aria-label="Slide navigation">
+      <button class="nav-prev" id="nav-prev" aria-label="이전 슬라이드 (←)">←</button>
+      <div class="nav-dots" id="nav-dots">
+        <button class="nav-dot" aria-current="true" aria-label="1번 슬라이드"></button>
+        <button class="nav-dot" aria-current="false" aria-label="2번 슬라이드"></button>
+        <button class="nav-dot" aria-current="false" aria-label="3번 슬라이드"></button>
+        <button class="nav-dot" aria-current="false" aria-label="4번 슬라이드"></button>
+        <button class="nav-dot" aria-current="false" aria-label="5번 슬라이드"></button>
+        <button class="nav-dot" aria-current="false" aria-label="6번 슬라이드"></button>
+        <button class="nav-dot" aria-current="false" aria-label="7번 슬라이드"></button>
+        <button class="nav-dot" aria-current="false" aria-label="8번 슬라이드"></button>
+      </div>
+      <button class="nav-next" id="nav-next" aria-label="다음 슬라이드 (→)">→</button>
+    </nav>
   </main>
-  <div class="keyboard-hint" aria-hidden="true">키보드 ← / → 방향키로 슬라이드를 넘길 수 있습니다 (스페이스바 / 클릭)</div>
+
+  <div class="keyboard-hint" aria-hidden="true">← / → 키 또는 클릭으로 슬라이드를 이동하세요</div>
 
   <script>
     (function () {
-      const slides = Array.from(document.querySelectorAll(".slide"));
-      const frame = document.getElementById("deck-frame");
-      const counter = document.getElementById("slide-counter");
-      const prevBtn = document.getElementById("nav-prev");
-      const nextBtn = document.getElementById("nav-next");
-      const dotsContainer = document.getElementById("nav-dots");
-      const total = slides.length;
-      let currentIndex = 0;
+      'use strict';
+      const deck = document.getElementById('deck');
+      const frame = document.getElementById('deck-frame');
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const dots = Array.from(document.querySelectorAll('.nav-dot'));
+      const prevBtn = document.getElementById('nav-prev');
+      const nextBtn = document.getElementById('nav-next');
+      const counter = document.getElementById('page-counter');
+      let current = 0;
 
-      slides.forEach((slide, idx) => {
-        const dot = document.createElement("button");
-        dot.className = "nav-dot";
-        dot.type = "button";
-        dot.setAttribute("role", "tab");
-        dot.setAttribute("aria-label", (idx + 1) + "번 슬라이드");
-        dot.addEventListener("click", () => goTo(idx));
-        dotsContainer.appendChild(dot);
-      });
-
-      const dots = Array.from(dotsContainer.querySelectorAll(".nav-dot"));
-
-      function fitScale() {
+      function updateScale() {
         const vw = window.innerWidth;
         const vh = window.innerHeight;
         const scale = Math.min(vw / 1600, vh / 900);
         frame.style.transform = `translate(-50%, -50%) scale(${scale})`;
       }
 
-      function update() {
+      function showSlide(index) {
+        if (index < 0) index = 0;
+        if (index >= slides.length) index = slides.length - 1;
+        current = index;
+
         slides.forEach((s, i) => {
-          const isActive = i === currentIndex;
-          s.classList.toggle("is-active", isActive);
-          s.setAttribute("aria-hidden", !isActive);
+          const active = i === current;
+          s.classList.toggle('is-active', active);
+          s.setAttribute('aria-hidden', active ? 'false' : 'true');
         });
 
         dots.forEach((d, i) => {
-          d.setAttribute("aria-current", i === currentIndex ? "true" : "false");
+          d.setAttribute('aria-current', i === current ? 'true' : 'false');
         });
 
-        counter.textContent = `${currentIndex + 1} / ${total}`;
-        prevBtn.disabled = currentIndex === 0;
-        nextBtn.disabled = currentIndex === total - 1;
+        const numStr = String(current + 1).padStart(2, '0');
+        const totalStr = String(slides.length).padStart(2, '0');
+        if (counter) counter.textContent = `${numStr} / ${totalStr}`;
 
-        const hash = slides[currentIndex].id.replace("slide-", "");
-        if (location.hash !== "#" + hash) {
-          history.replaceState(null, "", "#" + hash);
+        if (history.replaceState) {
+          history.replaceState(null, '', '#' + (current + 1));
         }
       }
 
-      function goTo(idx) {
-        if (idx < 0 || idx >= total) return;
-        currentIndex = idx;
-        update();
-      }
+      prevBtn.addEventListener('click', () => showSlide(current - 1));
+      nextBtn.addEventListener('click', () => showSlide(current + 1));
 
-      function next() { if (currentIndex < total - 1) goTo(currentIndex + 1); }
-      function prev() { if (currentIndex > 0) goTo(currentIndex - 1); }
+      dots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => showSlide(idx));
+      });
 
-      prevBtn.addEventListener("click", prev);
-      nextBtn.addEventListener("click", next);
-
-      window.addEventListener("keydown", (e) => {
-        if (["ArrowRight", "PageDown", " ", "Enter"].includes(e.key)) {
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
           e.preventDefault();
-          next();
-        } else if (["ArrowLeft", "PageUp", "Backspace"].includes(e.key)) {
+          showSlide(current + 1);
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
           e.preventDefault();
-          prev();
-        } else if (e.key === "Home") {
+          showSlide(current - 1);
+        } else if (e.key === 'Home') {
           e.preventDefault();
-          goTo(0);
-        } else if (e.key === "End") {
+          showSlide(0);
+        } else if (e.key === 'End') {
           e.preventDefault();
-          goTo(total - 1);
+          showSlide(slides.length - 1);
         }
       });
 
-      window.addEventListener("resize", fitScale);
-      fitScale();
+      window.addEventListener('resize', updateScale);
+      updateScale();
 
-      window.addEventListener("hashchange", () => {
-        const h = location.hash.replace("#", "");
-        if (h) {
-          const idx = slides.findIndex(s => s.id === "slide-" + h);
-          if (idx >= 0 && idx !== currentIndex) goTo(idx);
-        }
-      });
-
-      const initialHash = location.hash.replace("#", "");
-      if (initialHash) {
-        const found = slides.findIndex(s => s.id === "slide-" + initialHash);
-        if (found >= 0) currentIndex = found;
+      const hash = parseInt(window.location.hash.replace('#', ''), 10);
+      if (!isNaN(hash) && hash >= 1 && hash <= slides.length) {
+        showSlide(hash - 1);
+      } else {
+        showSlide(0);
       }
-      update();
     })();
   </script>
 </body>

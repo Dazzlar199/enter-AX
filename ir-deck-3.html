@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ENTER—AX | 8장 IR 덱 (프로토타입 단계)</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+  <style>
+    /*
+      ENTER—AX IR deck v3 · 8 slides · 1600×900
+      원칙: 슬라이드 한 장에 메시지 하나. 본문은 22px 이상. 증거 상태(사실/프로토타입/가정/목표)를 화면에 표기한다.
+    */
+    *, *::before, *::after { box-sizing: border-box; }
+    :root {
+      --canvas: #f6f5f1; --paper: #fff; --ink: #141820; --ink-2: #3a404b; --muted: #626a78;
+      --cobalt: #2864e8; --pale: #dceaff; --rule: #d7dae0; --risk: #c2410c; --go: #4d6b00;
+      --font-sans: "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", "Noto Sans KR", Arial, sans-serif;
+      --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    }
+    p, h1, h2, h3, ul, ol, figure { margin: 0; padding: 0; }
+    html, body { margin: 0; width: 100%; height: 100%; }
+    body { overflow: hidden; background: #e4e3de; color: var(--ink); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+    #deck { position: relative; width: 100vw; height: 100vh; }
+    #frame { position: absolute; top: 50%; left: 50%; width: 1600px; height: 900px; transform-origin: center; box-shadow: 0 24px 64px rgba(20,24,32,.16); }
+    .slide { position: absolute; inset: 0; display: none; flex-direction: column; padding: 96px 96px 72px; background: var(--canvas); overflow: hidden; word-break: keep-all; }
+    .slide.is-active { display: flex; }
+    .chrome { position: absolute; top: 36px; left: 96px; right: 96px; display: flex; justify-content: space-between; font: 600 13px/1 var(--font-mono); letter-spacing: .12em; color: var(--muted); }
+    .chrome b { font: 800 15px/1 var(--font-sans); letter-spacing: .02em; color: var(--ink); }
+    .pg { position: absolute; bottom: 30px; left: 96px; font: 600 13px/1 var(--font-mono); letter-spacing: .1em; color: var(--muted); }
+    .kicker { font: 700 15px/1 var(--font-mono); letter-spacing: .16em; color: var(--cobalt); margin-bottom: 22px; }
+    h1 { font-size: 62px; line-height: 1.22; font-weight: 800; letter-spacing: -.04em; text-wrap: balance; max-width: 1380px; }
+    h1 em { font-style: normal; color: var(--cobalt); }
+    .lead { font-size: 26px; line-height: 1.55; color: var(--ink-2); }
+    .tag { display: inline-flex; align-items: center; gap: 8px; font: 600 13px/1 var(--font-mono); letter-spacing: .1em; }
+    .tag::before { content: ""; width: 9px; height: 9px; background: currentColor; }
+    .tag.proto { color: var(--cobalt); } .tag.assume { color: var(--risk); } .tag.fact { color: var(--ink); } .tag.target { color: var(--go); }
+    .src { position: absolute; left: 96px; right: 96px; bottom: 62px; font-size: 15px; color: var(--muted); line-height: 1.5; }
+    .src a { color: inherit; }
+    .body { flex: 1; min-height: 0; margin-top: 40px; }
+    .slide:has(.src) .body { margin-bottom: 64px; }
+
+    /* 01 cover */
+    #s1 { padding: 0; }
+    #s1 .l { position: absolute; left: 96px; top: 0; bottom: 0; width: 700px; display: flex; flex-direction: column; justify-content: center; }
+    #s1 .eyebrow { font: 700 15px/1 var(--font-mono); letter-spacing: .16em; color: var(--cobalt); margin-bottom: 28px; }
+    #s1 .logo { white-space: nowrap; font: 700 118px/.9 "Space Grotesk", Arial, sans-serif; letter-spacing: -.08em; color: var(--cobalt); }
+    #s1 .sub { margin-top: 34px; padding-top: 28px; border-top: 2px solid var(--ink); font-size: 44px; line-height: 1.25; font-weight: 800; letter-spacing: -.05em; }
+    #s1 .sub em { font-style: normal; color: var(--cobalt); }
+    #s1 .who { margin-top: 30px; font-size: 22px; color: var(--muted); line-height: 1.6; }
+    #s1 img { position: absolute; right: 96px; top: 96px; width: 600px; height: 708px; object-fit: cover; border: 1px solid var(--rule); }
+
+    /* 02 problem */
+    .prob { display: grid; grid-template-columns: 560px 1fr; gap: 80px; align-items: center; height: 100%; }
+    .prob .big { font-size: 190px; line-height: .9; font-weight: 800; letter-spacing: -.07em; color: var(--cobalt); font-variant-numeric: tabular-nums; }
+    .prob .big small { font-size: 56px; letter-spacing: -.03em; color: var(--ink); margin-left: 8px; }
+    .prob .cap { margin-top: 22px; font-size: 24px; line-height: 1.5; color: var(--ink-2); }
+    .rows { border-top: 2px solid var(--ink); }
+    .rows li { list-style: none; display: grid; grid-template-columns: 56px 1fr; padding: 28px 0; border-bottom: 1px solid var(--rule); font-size: 32px; font-weight: 750; letter-spacing: -.03em; line-height: 1.35; }
+    .rows li span { font: 700 18px/2.2 var(--font-mono); color: var(--cobalt); }
+
+    /* 03/04 shots */
+    .shots { display: grid; gap: 28px; height: 100%; }
+    .shots.two { grid-template-columns: 1fr 1fr; }
+    .shot { display: flex; flex-direction: column; min-height: 0; }
+    .shot .frame { flex: 1; min-height: 0; overflow: hidden; border: 1px solid var(--rule); background: #fff; }
+    .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top left; display: block; }
+    .shot .cap { padding-top: 18px; font-size: 26px; font-weight: 750; letter-spacing: -.03em; display: flex; gap: 14px; align-items: baseline; }
+    .shot .cap small { font-size: 20px; font-weight: 500; color: var(--muted); letter-spacing: 0; }
+    .flow { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; margin-top: 22px; border-top: 2px solid var(--ink); }
+    .flow div { padding: 18px 24px 0 0; font-size: 24px; font-weight: 750; letter-spacing: -.03em; line-height: 1.4; }
+    .flow div + div { padding-left: 24px; border-left: 1px solid var(--rule); }
+    .flow span { display: block; font: 700 14px/1 var(--font-mono); color: var(--cobalt); margin-bottom: 10px; letter-spacing: .1em; }
+    .p4 { display: grid; grid-template-columns: 1fr 520px; gap: 56px; height: 100%; }
+    .p4 .side { display: flex; flex-direction: column; justify-content: center; }
+
+    /* 05 market */
+    .fun { display: grid; grid-template-columns: repeat(3, 1fr); height: 100%; border-top: 2px solid var(--ink); }
+    .fun article { padding: 40px 36px 0 0; display: flex; flex-direction: column; }
+    .fun article + article { padding-left: 36px; border-left: 1px solid var(--rule); }
+    .fun .t { font: 700 15px/1 var(--font-mono); letter-spacing: .12em; color: var(--muted); }
+    .fun .n { margin-top: 30px; font-size: 118px; line-height: .95; font-weight: 800; letter-spacing: -.06em; font-variant-numeric: tabular-nums; }
+    .fun .n small { font-size: 38px; letter-spacing: -.02em; margin-left: 6px; }
+    .fun article:nth-child(1) .n { color: var(--cobalt); }
+    .fun .d { margin-top: 26px; font-size: 26px; line-height: 1.45; font-weight: 700; letter-spacing: -.03em; }
+    .fun .tag { margin-top: auto; padding-bottom: 28px; }
+
+    /* 06 pricing */
+    .tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; height: 100%; border-top: 2px solid var(--ink); }
+    .tiers article { padding: 36px 36px 0 0; display: flex; flex-direction: column; }
+    .tiers article + article { padding-left: 36px; border-left: 1px solid var(--rule); }
+    .tiers .t { font: 700 15px/1 var(--font-mono); letter-spacing: .12em; color: var(--cobalt); }
+    .tiers .p { margin-top: 28px; font-size: 104px; line-height: .95; font-weight: 800; letter-spacing: -.06em; font-variant-numeric: tabular-nums; }
+    .tiers .p small { font-size: 28px; letter-spacing: -.02em; margin-left: 8px; color: var(--ink-2); font-weight: 700; }
+    .tiers .d { margin-top: 30px; font-size: 26px; line-height: 1.5; font-weight: 700; letter-spacing: -.03em; }
+    .tiers .m { margin-top: 12px; font-size: 22px; color: var(--muted); line-height: 1.5; }
+    .tiers .tag { margin-top: auto; padding-bottom: 28px; }
+
+    /* 07 team */
+    .team { display: grid; grid-template-columns: 1fr 1fr 1fr; height: 100%; border-top: 2px solid var(--ink); }
+    .team article { padding: 36px 36px 0 0; display: flex; flex-direction: column; }
+    .team article + article { padding-left: 36px; border-left: 1px solid var(--rule); }
+    .team .t { font: 700 15px/1 var(--font-mono); letter-spacing: .12em; color: var(--cobalt); }
+    .team h2 { margin-top: 22px; font-size: 46px; letter-spacing: -.04em; line-height: 1.15; font-weight: 800; }
+    .team .big { margin-top: 26px; font-size: 100px; line-height: .95; font-weight: 800; letter-spacing: -.06em; color: var(--cobalt); }
+    .team .big small { font-size: 34px; color: var(--ink); letter-spacing: -.02em; margin-left: 6px; }
+    .team p { margin-top: 24px; font-size: 26px; line-height: 1.5; font-weight: 700; letter-spacing: -.03em; color: var(--ink-2); }
+    .team .m { font-size: 22px; font-weight: 500; color: var(--muted); margin-top: 14px; }
+    .team .tag { margin-top: auto; padding-bottom: 28px; }
+    .team ul { margin-top: 24px; list-style: none; }
+    .team li { padding: 12px 0; border-bottom: 1px solid var(--rule); font-size: 24px; font-weight: 700; letter-spacing: -.02em; }
+
+    /* 08 next */
+    .gates { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 2px solid var(--ink); }
+    .gates article { padding: 32px 32px 0 0; }
+    .gates article + article { padding-left: 32px; border-left: 1px solid var(--rule); }
+    .gates .t { font: 700 15px/1 var(--font-mono); letter-spacing: .12em; color: var(--cobalt); }
+    .gates h2 { margin-top: 20px; font-size: 40px; line-height: 1.2; letter-spacing: -.04em; font-weight: 800; }
+    .gates p { margin-top: 16px; font-size: 24px; line-height: 1.5; color: var(--ink-2); font-weight: 600; }
+    .cta { margin-top: 40px; padding: 30px 40px; background: var(--ink); color: #fff; display: flex; justify-content: space-between; align-items: center; }
+    .cta b { font-size: 34px; letter-spacing: -.04em; font-weight: 800; }
+    .cta span { font-size: 22px; color: #c7cdd8; }
+
+    .nav { position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 5; }
+    .nav button { width: 10px; height: 10px; padding: 0; border: 0; border-radius: 50%; background: #b9bcc4; cursor: pointer; }
+    .nav button[aria-current="true"] { background: var(--cobalt); }
+    @page { size: 1600px 900px; margin: 0; }
+    @media print {
+      html, body { width: auto; height: auto; overflow: visible; background: #fff; }
+      #deck { width: auto; height: auto; } #frame { position: static; transform: none !important; box-shadow: none; height: auto; }
+      .slide { position: relative; display: flex !important; height: 900px; break-after: page; }
+      .nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main id="deck" aria-label="ENTER—AX IR 덱">
+    <div id="frame">
+
+      <!-- 01 표지 -->
+      <section class="slide" id="s1" data-title="표지">
+        <div class="l">
+          <p class="eyebrow">ENTERTAINMENT AX · SEED PREPARATION</p>
+          <div class="logo">ENTER—AX</div>
+          <p class="sub">오디션 지원자와 기획사를<br><em>한곳에서</em> 잇습니다</p>
+          <p class="who">발표자 김찬주 · 대표 &nbsp;|&nbsp; 2026.10<br>현재 단계: 프로토타입 완성, 파일럿 기획사 모집 전</p>
+        </div>
+        <img src="assets/deck/cover-product-generated-v1.png" alt="Enter-AX 제품 이미지(생성 이미지)">
+      </section>
+
+      <!-- 02 문제 -->
+      <section class="slide" id="s2" data-title="문제">
+        <p class="kicker">01 · PROBLEM</p>
+        <h1>오디션 지원은 <em>영상</em>으로 몰립니다.<br>검토는 어디서 어떻게 하고 있을까요?</h1>
+        <div class="body">
+          <div class="prob">
+            <div>
+              <div class="big">12<small>만 명</small></div>
+              <p class="cap">HYBE×Geffen 드림아카데미<br>지원자 수 (2023.08 보도)</p>
+            </div>
+            <ul class="rows">
+              <li><span>01</span>지원자는 공고마다 사진·영상을 다시 제출</li>
+              <li><span>02</span>기획사는 받은 영상을 메일·드라이브로 검토</li>
+              <li><span>03</span>누가 어디까지 봤는지 팀이 공유하기 어려움</li>
+            </ul>
+          </div>
+        </div>
+        <p class="src"><span class="tag assume">가설</span> 2·3번은 현장 인터뷰로 검증할 내용입니다. 출처: <a href="https://www.allkpop.com/article/2023/08/hybe-universal-music-group-project-the-debut-dream-academy-draws-global-interest-with-120000-applicants">allkpop</a> · <a href="https://www.yg-audition.com/en/notice/236">YG 글로벌 오디션 공고(온라인 사전 지원)</a></p>
+      </section>
+
+      <!-- 03 솔루션 -->
+      <section class="slide" id="s3" data-title="솔루션">
+        <p class="kicker">02 · SOLUTION</p>
+        <h1>지원자는 <em>한 번 등록</em>하고,<br>기획사는 <em>한곳에서 검토</em>합니다</h1>
+        <div class="body">
+          <div class="shots two">
+            <figure class="shot"><div class="frame"><img src="public/images/landing/onboarding.png" alt="지원자 프로필 등록 화면"></div><figcaption class="cap">지원자 프로필 <small>사진 3장 · 보컬/댄스 영상 · 공개 범위</small></figcaption></figure>
+            <figure class="shot"><div class="frame"><img src="public/images/landing/real-discover.png" alt="기획사 지원자 탐색 화면"></div><figcaption class="cap">기획사 탐색·후보 관리 <small>필터 · 비교 · 상태 보드</small></figcaption></figure>
+          </div>
+        </div>
+        <p class="src"><span class="tag proto">프로토타입</span> 화면의 인물·수치는 시연 데이터입니다.</p>
+      </section>
+
+      <!-- 04 제품 -->
+      <section class="slide" id="s4" data-title="제품">
+        <p class="kicker">03 · PRODUCT</p>
+        <h1>반복 업무는 <em>자동화</em>하고,<br>결정은 <em>사람</em>이 합니다</h1>
+        <div class="body">
+          <div class="p4">
+            <figure class="shot"><div class="frame"><img src="public/images/landing/workflow-editor.png" alt="워크플로 편집기: 지원자 가져오기, 캐스팅 리드 승인, 검토 단계 이동"></div></figure>
+            <div class="side">
+              <div class="flow" style="grid-template-columns:1fr;border-top:2px solid var(--ink)">
+                <div style="padding:22px 0;border-bottom:1px solid var(--rule)"><span>01</span>노드를 끌어 연결해 업무 흐름을 직접 설계</div>
+                <div style="padding:22px 0;border-bottom:1px solid var(--rule);border-left:0"><span>02</span>승인 노드에서 멈추고, 담당자가 확인해야 진행</div>
+                <div style="padding:22px 0;border-left:0"><span>03</span>자동 합격·탈락과 외모 점수화는 제공하지 않음</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="src"><span class="tag proto">프로토타입</span> 실제 구현 화면 캡처 · 시연 데이터</p>
+      </section>
+
+      <!-- 05 시장 -->
+      <section class="slide" id="s5" data-title="시장">
+        <p class="kicker">04 · MARKET</p>
+        <h1>국내 기획사 <em>6,629곳</em>에서<br>정기 오디션 운영사부터 시작합니다</h1>
+        <div class="body">
+          <div class="fun">
+            <article><span class="t">TAM · 등록 기획사</span><div class="n">6,629<small>곳</small></div><p class="d">대중문화예술기획업 등록 기업(정상)</p><span class="tag fact">사실 · KOCCA 2026.08</span></article>
+            <article><span class="t">SAM · 정기 오디션 운영</span><div class="n">약 1,500<small>곳</small></div><p class="d">서울 법인 3,750곳 × 정기 오디션 운영 40%</p><span class="tag assume">가정 · 검증 필요</span></article>
+            <article><span class="t">SOM · 3년 차 목표</span><div class="n">80<small>곳</small></div><p class="d">유료 80곳 · 연 약 9.9억 원 ARR</p><span class="tag target">목표 · 요금제 기준 산식</span></article>
+          </div>
+        </div>
+        <p class="src">9.9억 = Starter 50곳(3.0억) + Growth 25곳(4.5억) + Enterprise 5곳(2.4억). 출처: <a href="https://www.data.go.kr/data/15118569/fileData.do">한국콘텐츠진흥원 등록기업 현황</a></p>
+      </section>
+
+      <!-- 06 BM -->
+      <section class="slide" id="s6" data-title="비즈니스 모델">
+        <p class="kicker">05 · BUSINESS MODEL</p>
+        <h1>기획사 규모에 맞춘 <em>월 구독</em>으로 시작합니다</h1>
+        <div class="body">
+          <div class="tiers">
+            <article><span class="t">STARTER</span><div class="p">50<small>만 원 / 월</small></div><p class="d">한 팀이 운영하는<br>소규모·비정기 모집</p><p class="m">접수 → 후보 검토 · 후보 보드</p><span class="tag assume">제안가 · 파일럿에서 검증</span></article>
+            <article><span class="t">GROWTH</span><div class="p">150<small>만 원 / 월</small></div><p class="d">여러 담당자가 운영하는<br>상시 모집</p><p class="m">팀 검토 · 상태 관리 · 결과 공유</p><span class="tag assume">제안가 · 파일럿에서 검증</span></article>
+            <article><span class="t">ENTERPRISE</span><div class="p">400<small>만 원~ / 월</small></div><p class="d">여러 팀·권한·보안 환경<br>맞춤 구성</p><p class="m">권한 분리 · 외부 연동은 협의</p><span class="tag assume">제안가 · 협의</span></article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 07 팀 -->
+      <section class="slide" id="s7" data-title="팀">
+        <p class="kicker">06 · TEAM</p>
+        <h1>음악 현장을 아는 대표와,<br>직접 만드는 개발자의 <em>2인 팀</em></h1>
+        <div class="body">
+          <div class="team">
+            <article><span class="t">CEO · 사업·제품 방향</span><h2>김찬주</h2><div class="big">7<small>년</small></div><p>녹음 스튜디오 운영<br>음악 프리랜서로 활동</p><span class="tag fact">사실 · 본인 제공</span></article>
+            <article><span class="t">ENGINEERING</span><h2>개발자 1명</h2><p>프로토타입의 지원자·기획사 화면, 백엔드, 분석·콘텐츠 처리 직접 구현</p><p class="m">성명·이력은 확인 후 기재</p><span class="tag fact">사실 · 2인 팀</span></article>
+            <article><span class="t">현재까지 만든 것</span><ul><li>지원자 프로필 등록·공개 범위</li><li>기획사 탐색·후보 보드</li><li>워크플로 편집기·사람 승인</li><li>기획사 로그인·권한 분리</li></ul><span class="tag proto">프로토타입 · 시연 데이터</span></article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 08 다음 단계 -->
+      <section class="slide" id="s8" data-title="다음 단계">
+        <p class="kicker">07 · NEXT</p>
+        <h1>다음 목표는 <em>첫 파일럿</em>으로<br>진짜 쓰임을 확인하는 것입니다</h1>
+        <div class="body">
+          <div class="gates">
+            <article><span class="t">STEP 01</span><h2>파일럿 기획사 협의</h2><p>오디션을 운영하는 기획사와 현장 인터뷰·시연</p></article>
+            <article><span class="t">STEP 02</span><h2>실제 업무에 적용</h2><p>검토 시간과 반복 업무를 직접 측정</p></article>
+            <article><span class="t">STEP 03</span><h2>첫 유료 계약</h2><p>측정 결과로 요금제·범위 확정</p></article>
+          </div>
+          <div class="cta"><b>파일럿 파트너 기획사를 찾고 있습니다</b><span>김찬주 대표 · ENTER—AX</span></div>
+        </div>
+        <p class="src"><span class="tag target">목표</span> 투자 조건과 일정은 협의 후 별도로 제안합니다.</p>
+      </section>
+
+    </div>
+  </main>
+  <nav class="nav" aria-label="슬라이드 이동"></nav>
+  <script>
+    const slides = [...document.querySelectorAll('.slide')];
+    const nav = document.querySelector('.nav');
+    let cur = 0;
+    slides.forEach((s, i) => {
+      if (i > 0) {
+        const c = document.createElement('div'); c.className = 'chrome'; c.setAttribute('aria-hidden', 'true');
+        c.innerHTML = '<b>ENTER—AX</b><span>' + s.dataset.title + '</span>'; s.prepend(c);
+        const p = document.createElement('span'); p.className = 'pg'; p.setAttribute('aria-hidden', 'true');
+        p.textContent = String(i + 1).padStart(2, '0') + ' / ' + String(slides.length).padStart(2, '0'); s.append(p);
+      }
+      const b = document.createElement('button'); b.type = 'button';
+      b.setAttribute('aria-label', (i + 1) + '번 슬라이드: ' + s.dataset.title);
+      b.addEventListener('click', () => go(i)); nav.append(b);
+    });
+    function go(i) {
+      cur = Math.max(0, Math.min(slides.length - 1, i));
+      slides.forEach((s, k) => { s.classList.toggle('is-active', k === cur); s.setAttribute('aria-hidden', String(k !== cur)); nav.children[k].setAttribute('aria-current', String(k === cur)); });
+    }
+    function scale() {
+      const k = Math.min(innerWidth / 1600, innerHeight / 900) * .96;
+      document.getElementById('frame').style.transform = 'translate(-50%,-50%) scale(' + k + ')';
+    }
+    document.addEventListener('keydown', e => {
+      if (['ArrowRight', 'ArrowDown', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); go(cur + 1); }
+      if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); go(cur - 1); }
+      if (e.key === 'Home') go(0); if (e.key === 'End') go(slides.length - 1);
+    });
+    addEventListener('resize', scale); go(0); scale();
+  </script>
+</body>
+</html>

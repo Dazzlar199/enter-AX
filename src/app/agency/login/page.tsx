@@ -40,7 +40,7 @@ export default function AgencyLoginPage() {
           <input required minLength={8} type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
         </label>
         {error ? <p role="alert">{error}</p> : null}
-        <button disabled={submitting} type="submit">{submitting ? "로그인 중..." : "로그인"}</button>
+        <button className="s-btn s-btn--dark" disabled={submitting} type="submit">{submitting ? "로그인 중..." : "로그인"}</button>
       </form>
     </main>
   );

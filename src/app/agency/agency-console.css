@@ -37,6 +37,12 @@
 .agency-console-topbar { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 16px; min-width: 0; padding: 0 28px; border-bottom: 1px solid var(--s-line); background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(12px); }
 .agency-console-topbar__title { overflow: hidden; color: var(--s-ink-2); font-size: 0.86rem; font-weight: 700; white-space: nowrap; text-overflow: ellipsis; }
 .agency-console-topbar__actions { display: flex; align-items: center; gap: 8px; }
+
+.account-badge { display: flex; align-items: center; gap: 8px; padding-right: 10px; border-right: 1px solid var(--s-line); }
+.account-badge__name { color: var(--s-ink); font-size: 0.86rem; font-weight: 700; white-space: nowrap; }
+.account-badge__role { padding: 2px 8px; border-radius: 999px; background: var(--s-soft); color: var(--s-muted); font-size: 0.7rem; font-weight: 700; white-space: nowrap; }
+.account-badge__logout { flex: none; height: 30px; padding: 0 10px; border: 1px solid var(--s-line-2); border-radius: 8px; background: #fff; color: var(--s-ink-2); font-size: 0.8rem; font-weight: 650; white-space: nowrap; cursor: pointer; transition: border-color 0.15s ease, color 0.15s ease; }
+.account-badge__logout:hover { border-color: var(--s-ink); color: var(--s-ink); }
 .agency-console-main { min-width: 0; padding: 32px clamp(20px, 3vw, 40px) 64px; }
 
 /* ---------- Shared page pieces ---------- */
@@ -143,6 +149,7 @@
 }
 @media (max-width: 680px) {
   .agency-console-topbar { padding: 0 14px; }
+  .agency-console-topbar__actions { flex-shrink: 0; overflow-x: auto; }
   .agency-console-topbar__actions .demo-badge { display: none; }
   .agency-console-main { padding: 20px 14px 40px; }
 }
@@ -153,6 +160,7 @@
   display: grid;
   place-items: center;
   padding: 24px;
+  background: var(--s-bg);
 }
 
 .agency-login__form {
@@ -160,19 +168,49 @@
   max-width: 360px;
   display: grid;
   gap: 16px;
+  padding: 32px;
+  border: 1px solid var(--s-line);
+  border-radius: var(--s-radius);
+  background: #fff;
+  box-shadow: var(--s-shadow);
+}
+
+.agency-login__form h1 {
+  margin: 0 0 4px;
+  font-size: 1.3rem;
+  font-weight: 850;
+  letter-spacing: -0.03em;
+  color: var(--s-ink);
 }
 
 .agency-login__form label {
   display: grid;
   gap: 8px;
+  font-size: 0.86rem;
+  font-weight: 650;
+  color: var(--s-ink-2);
 }
 
 .agency-login__form input {
-  padding: 12px;
+  height: 42px;
+  padding: 0 14px;
   border: 1px solid var(--s-line-2);
   border-radius: 8px;
+  color: var(--s-ink);
+  font-size: 0.92rem;
+}
+.agency-login__form input:focus-visible {
+  outline: 2px solid var(--s-blue);
+  outline-offset: 1px;
 }
 
 .agency-login__form [role="alert"] {
+  margin: 0;
   color: #b3261e;
+  font-size: 0.84rem;
+}
+
+.agency-login__form .s-btn {
+  width: 100%;
+  height: 44px;
 }

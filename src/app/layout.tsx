@@ -3,16 +3,18 @@ import type { Metadata, Viewport } from "next";
 import { DemoProvider } from "@/features/demo/DemoProvider";
 
 import "./globals.css";
+import "@/styles/studio.css";
+import "@/styles/app-pages.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://dazzlingstudio-d423acmci-dazzlars-projects.vercel.app"),
   title: {
-    default: "Enter-AX | 엔터테인먼트 AX 운영 플랫폼",
+    default: "Enter-AX | 엔터테인먼트 올인원 AX 플랫폼",
     template: "%s | Enter-AX",
   },
-  description: "지원자 등록부터 엔터사의 검수·컨택·사내 AX·홍보 콘텐츠 준비까지 연결하는 인터랙티브 데모입니다.",
+  description: "글로벌 오디션 지원부터 A&R 데모 청음, 숏폼 홍보 자동화까지 — 엔터테인먼트 비즈니스를 위한 차세대 인텔리전스 워크스페이스.",
   applicationName: "Enter-AX",
-  keywords: ["엔터테인먼트 AX", "오디션", "인재 검수", "업무 자동화", "홍보 콘텐츠"],
+  keywords: ["엔터테인먼트 AX", "오디션", "K-POP", "A&R", "숏폼 자동화", "캐스팅"],
   robots: { index: true, follow: true },
 };
 
@@ -20,12 +22,20 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#0b0d0f",
+  themeColor: "#08090d",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ko">
+      <head>
+        <link
+          rel="stylesheet"
+          as="style"
+          crossOrigin="anonymous"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
+        />
+      </head>
       <body>
         <DemoProvider>{children}</DemoProvider>
       </body>

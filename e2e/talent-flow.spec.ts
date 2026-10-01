@@ -6,7 +6,7 @@ test("talent can move through profile, media and consent steps", async ({ page }
   await page.getByLabel("생년월일").fill("2002-04-18");
   await page.getByLabel("거주 지역").fill("서울");
   await page.getByLabel("자기소개").fill("무대와 카메라 앞에서 성장하는 지원자입니다.");
-  await page.getByLabel(/idol/).check();
+  await page.getByLabel("아이돌").check();
   await page.getByRole("button", { name: "다음" }).click();
   await expect(page.getByRole("heading", { name: "얼굴 사진 3장" })).toBeVisible();
   const image = { name: "face.png", mimeType: "image/png", buffer: Buffer.from("demo-image") };
@@ -24,7 +24,7 @@ test("talent can move through profile, media and consent steps", async ({ page }
   await expect(page.getByRole("heading", { name: "공개 범위와 동의" })).toBeVisible();
   await page.getByRole("checkbox", { name: /개인정보 처리와 선택한 범위/ }).check();
   await page.getByRole("button", { name: "프로필 등록" }).click();
-  await expect(page.getByRole("heading", { name: /프로필 흐름이/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "프로필을 등록했어요" })).toBeVisible();
 });
 
 test("talent can confirm an offer response", async ({ page }) => {
@@ -33,6 +33,6 @@ test("talent can confirm an offer response", async ({ page }) => {
   if (await accept.count()) {
     await accept.first().click();
     await page.getByRole("button", { name: "확인" }).click();
-    await expect(page.getByText("accepted")).toBeVisible();
+    await expect(page.getByText("수락함").first()).toBeVisible();
   }
 });

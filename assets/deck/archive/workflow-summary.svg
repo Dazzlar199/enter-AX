@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="500" viewBox="0 0 600 500" role="img" aria-label="자료 입력, 검토 지원, 담당자 결정, 후속 업무로 이어지는 흐름">
+  <rect width="600" height="500" fill="#ffffff"/>
+  <g font-family="Pretendard, Apple SD Gothic Neo, sans-serif" text-anchor="middle">
+    <rect x="110" y="23" width="380" height="81" rx="5" fill="#f4f8ff" stroke="#9cbcf7"/>
+    <rect x="110" y="23" width="7" height="81" fill="#2864e8"/>
+    <text x="300" y="73" fill="#141820" font-size="27" font-weight="750">지원 자료</text>
+    <path d="M300 105v32m-9-9 9 9 9-9" fill="none" stroke="#7194dc" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="110" y="139" width="380" height="81" rx="5" fill="#faf8ff" stroke="#c7b9f6"/>
+    <rect x="110" y="139" width="7" height="81" fill="#745dda"/>
+    <text x="300" y="190" fill="#141820" font-size="27" font-weight="750">후보 검토</text>
+    <path d="M300 221v32m-9-9 9 9 9-9" fill="none" stroke="#a595df" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="110" y="255" width="380" height="81" rx="5" fill="#fff7f0" stroke="#e9b899"/>
+    <rect x="110" y="255" width="7" height="81" fill="#e2773e"/>
+    <text x="300" y="306" fill="#141820" font-size="27" font-weight="750">담당자 결정</text>
+    <path d="M300 337v32m-9-9 9 9 9-9" fill="none" stroke="#d7a080" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="110" y="371" width="380" height="81" rx="5" fill="#f3fcfa" stroke="#abe1d9"/>
+    <rect x="110" y="371" width="7" height="81" fill="#1aa79b"/>
+    <text x="300" y="422" fill="#141820" font-size="27" font-weight="750">후속 업무</text>
+  </g>
+</svg>

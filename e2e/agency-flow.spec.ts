@@ -20,15 +20,16 @@ test("agency can discover talent and open a verified review", async ({ page }) =
   await expect(page.getByRole("heading", { name: "카메라 테스트 제안" })).toBeVisible();
 });
 
-test("agency can move pipeline and approve agent work", async ({ page }) => {
-  await page.goto("/agency/pipeline");
-  await page.getByLabel("candidate-1 단계 이동").selectOption("internal-review");
+test("agency can run a workflow that pauses for approval and moves talent to review", async ({ page }) => {
   await page.goto("/agency/ax");
-  await page.getByRole("button", { name: "승인" }).first().click();
-  await expect(page.getByText("completed").first()).toBeVisible();
-  const failedJob = page.locator('[data-job-id="agent-job-5"]');
-  await failedJob.getByRole("button", { name: "재시도" }).click();
-  await expect(failedJob.getByText("queued", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "업무 흐름 시작", exact: true }).click();
+  await expect(page.getByText("승인이 필요합니다")).toBeVisible();
+  await page.getByRole("button", { name: "승인하고 계속" }).click();
+  await expect(page.getByText(/실행 완료 · 4\/4 단계/)).toBeVisible();
+  await page.getByRole("button", { name: "패널 닫기" }).click();
+  await page.getByTestId("rf__node-review").click();
+  await page.getByRole("tab", { name: "처리 결과" }).click();
+  await expect(page.getByRole("cell", { name: "내부 검토" }).first()).toBeVisible();
 });
 
 test("agency can prepare promotional content candidates", async ({ page }) => {

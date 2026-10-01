@@ -5,5 +5,15 @@ import { useDemo } from "@/features/demo/DemoProvider";
 
 export default function PipelinePage() {
   const { state, moveCandidate } = useDemo();
-  return <main className="pipeline-page"><header><p>AGENCY / PIPELINE</p><h1>후보자 운영 파이프라인</h1><p>단계 변경과 최근 활동이 브라우저 데모 상태에 기록됩니다. 자동 합격·탈락은 없습니다.</p></header><CandidateBoard candidates={state.candidates} talents={state.talents} onMove={moveCandidate} /></main>;
+  return (
+    <div className="ag-page ag-page--wide">
+      <header className="ag-head">
+        <div>
+          <h1>지원자 관리</h1>
+          <p>지원자별 진행 단계와 담당자, 다음 할 일을 팀이 함께 봅니다.</p>
+        </div>
+      </header>
+      <CandidateBoard candidates={state.candidates} talents={state.talents} onMove={moveCandidate} />
+    </div>
+  );
 }

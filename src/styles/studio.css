@@ -1,0 +1,48 @@
+/*
+  ENTER—AX "studio" design language (light, image-first, simple).
+  Shared by the talent community and the agency console.
+*/
+:root {
+  --s-bg: #ffffff;
+  --s-soft: #f5f5f7;
+  --s-soft-2: #ededf0;
+  --s-ink: #0f0f10;
+  --s-ink-2: #3d3d44;
+  --s-muted: #76767f;
+  --s-line: #ececef;
+  --s-line-2: #dcdce1;
+  --s-brand: #ff4d2e;
+  --s-blue: #2b59ff;
+  --s-radius: 16px;
+  --s-radius-sm: 10px;
+  --s-shadow: 0 1px 2px rgba(15, 15, 16, 0.04), 0 8px 24px -12px rgba(15, 15, 16, 0.18);
+}
+
+/* Field chips: soft pastel per field, like Figma's color tags. */
+.s-chip { display: inline-flex; align-items: center; height: 24px; padding: 0 9px; border-radius: 999px; background: var(--s-soft); color: var(--s-ink-2); font-size: 0.74rem; font-weight: 700; white-space: nowrap; }
+.s-chip[data-field="vocal"] { background: #eef1ff; color: #3346c9; }
+.s-chip[data-field="dance"] { background: #fff0eb; color: #c4431f; }
+.s-chip[data-field="actor"] { background: #eaf8f0; color: #1e7a4c; }
+.s-chip[data-field="model"] { background: #f5eeff; color: #7038c2; }
+.s-chip[data-field="idol"] { background: #fff6dc; color: #946600; }
+
+.s-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 40px; padding: 0 16px; border: 1px solid var(--s-line-2); border-radius: 999px; background: #fff; color: var(--s-ink); font-size: 0.88rem; font-weight: 700; white-space: nowrap; cursor: pointer; transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease; }
+.s-btn:hover { border-color: var(--s-ink); }
+.s-btn--dark { border-color: var(--s-ink); background: var(--s-ink); color: #fff; }
+.s-btn--dark:hover { background: #2b2b2f; }
+.s-btn--sm { height: 32px; padding: 0 12px; font-size: 0.8rem; }
+
+/* Media card: photo first, name and field on top of it. */
+.s-media { position: relative; display: block; overflow: hidden; border-radius: var(--s-radius); background: var(--s-soft); isolation: isolate; }
+.s-media img { transition: transform 0.4s ease; }
+.s-media:hover img { transform: scale(1.04); }
+.s-media__shade { position: absolute; inset: 45% 0 0; background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.62)); z-index: 1; pointer-events: none; }
+.s-media__info { position: absolute; left: 14px; right: 14px; bottom: 12px; z-index: 2; color: #fff; }
+.s-media__info strong { display: block; font-size: 1.05rem; font-weight: 800; letter-spacing: -0.02em; }
+.s-media__info span { font-size: 0.8rem; opacity: 0.85; }
+.s-media__tag { position: absolute; top: 12px; left: 12px; z-index: 2; }
+.s-media__tag .s-chip { background: rgba(255, 255, 255, 0.92); }
+
+@media (prefers-reduced-motion: reduce) {
+  .s-media img { transition: none; }
+}

@@ -1,0 +1,90 @@
+{
+  "company_name": "Enter-AX",
+  "tagline": "The AI Audition & Talent Operations OS for Global Entertainment",
+  "problem": [
+    "수작업 스크리닝의 한계: 매회 5,000건 이상의 영상을 수동 검토하며 피로도와 심사 누락 발생",
+    "막대한 글로벌 출장비: 해외 오디션 1회당 수천만 원의 출장비 및 물리적 시공간 제약",
+    "주관적 평가 편차: 댄스 안무 싱크로율과 보컬 음정 편차를 검증할 객관적 데이터 부재"
+  ],
+  "solution": [
+    "초고속 멀티모달 스크리닝: AI가 상위 5% 유망 지원자를 즉각 선별하여 검토 시간 90% 단축",
+    "국경 없는 글로벌 오디션: 전 세계 어디서나 모바일 지원 및 본사 실시간 파이프라인 관리",
+    "정밀 데이터 기반 심사: 33개 관절 포즈 트래킹 및 피치 음정 정밀 분석 리포트 제공"
+  ],
+  "market_validation": [
+    "연간 글로벌 K-Pop 오디션 지원자 수: 250만 명 돌파 (해외 비중 65%)",
+    "국내외 주요 기획사 해외 출장 오디션 예산: 연간 회사당 2억~5억 원 소모",
+    "비수도권 및 해외 유망 지망생의 82%가 오디션 현장 접근성 부족 호소"
+  ],
+  "market_size": {
+    "tam": "24.8조 원 (글로벌 엔터테인먼트 캐스팅 및 에이전시 운영 시장)",
+    "sam": "1.2조 원 (글로벌 K-Pop 및 댄스/보컬 오디션 특화 시장)",
+    "som": "450억 원 (국내외 주요 기획사 150곳 연간 SaaS 및 매칭 수수료)",
+    "growth_rate": "연평균 18.5% 성장"
+  },
+  "product_steps": [
+    {
+      "step": 1,
+      "title": "Talent Onboarding",
+      "description": "지원자의 프로필, 영상, 음원이 표준화된 데이터 카드로 즉시 생성"
+    },
+    {
+      "step": 2,
+      "title": "AI Deep Analysis",
+      "description": "안무 일치도(포즈 랜드마크) 및 음정 편차(피치 트래킹) 실시간 점수화"
+    },
+    {
+      "step": 3,
+      "title": "Agency Pipeline & Offer",
+      "description": "칸반 보드 기반의 단계별 심사, 합격 통보 및 다이렉트 캐스팅 오퍼 발송"
+    }
+  ],
+  "business_model": {
+    "revenue_streams": [
+      "B2B SaaS 구독 (Starter 월 50만 원 / Enterprise 월 200만 원~)",
+      "탤런트 AI 정밀 분석 리포트 발급 수수료 (건당 15,000원)",
+      "캐스팅 및 연습생 계약 성사 시 매칭 수수료 (5~10%)"
+    ],
+    "unit_economics": {
+      "cac": "약 80만 원 (B2B 세일즈)",
+      "ltv": "약 2,400만 원 (평균 24개월 유지 기준)",
+      "ltv_cac_ratio": "30x"
+    }
+  },
+  "competition": {
+    "quadrants": {
+      "top_right": "Enter-AX (엔터 특화 + 멀티모달 AI 분석)",
+      "top_left": "OpusClip, Runway (범용 비디오 도구 + AI 분석)",
+      "bottom_left": "Google Drive, Dropbox (범용 스토리지)",
+      "bottom_right": "Disco.ac, 이메일 접수폼 (엔터 도메인 + 단순 파일 보관)"
+    },
+    "moat": [
+      "K-Pop 안무 및 보컬에 최적화된 독자 도메인 데이터셋",
+      "지망생 성장 이력이 시계열로 누적되는 독점 탤런트 풀 네트워크 효과",
+      "에이전시 내부 심사 워크플로우에 깊숙이 결합된 높은 전환 비용"
+    ]
+  },
+  "team": [
+    {
+      "role": "CEO / Product Lead",
+      "experience": "엔터테인먼트 기획 및 플랫폼 비즈니스 총괄"
+    },
+    {
+      "role": "CTO / AI Architect",
+      "experience": "컴퓨터 비전(Pose Estimation) 및 오디오 DSP 연구 개발"
+    }
+  ],
+  "financials_and_ask": {
+    "raising": "5억 원 (Seed Round)",
+    "use_of_funds": {
+      "rnd": "50% (멀티모달 AI 모델 고도화 및 인프라)",
+      "gtm": "30% (국내외 기획사 파트너십 및 지망생 유치)",
+      "ops": "20% (운영 및 글로벌 법률/특허)"
+    },
+    "18_month_milestones": [
+      "국내외 에이전시 파트너 50개사 확보",
+      "월간 활성 지원자 50,000명 돌파",
+      "연간 반복 매출(ARR) 10억 원 달성"
+    ]
+  }
+}

@@ -8,9 +8,10 @@ export type ShellMode = "public" | "talent" | "agency";
 
 const navigation: Record<ShellMode, Array<{ href: string; label: string }>> = {
   public: [
-    { href: "/#flow", label: "연결 흐름" },
-    { href: "/talent", label: "지원자" },
-    { href: "/agency", label: "엔터사 AX" },
+    { href: "/#talent", label: "지원자" },
+    { href: "/#agency", label: "기획사" },
+    { href: "/#workflow", label: "업무 자동화" },
+    { href: "/talent", label: "커뮤니티" },
   ],
   talent: [
     { href: "/talent/onboarding", label: "프로필 등록" },
@@ -18,8 +19,8 @@ const navigation: Record<ShellMode, Array<{ href: string; label: string }>> = {
     { href: "/talent/offers", label: "받은 제안" },
   ],
   agency: [
-    { href: "/agency/discover", label: "인재 탐색" },
-    { href: "/agency/pipeline", label: "후보 파이프라인" },
+    { href: "/agency/discover", label: "지원자 찾기" },
+    { href: "/agency/pipeline", label: "지원자 관리" },
     { href: "/agency/ax", label: "AX Command" },
     { href: "/agency/content", label: "콘텐츠 자동화" },
   ],

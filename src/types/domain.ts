@@ -125,6 +125,24 @@ export interface AgentJob {
   updatedAt: string;
 }
 
+export interface ContentPlanSegment {
+  role: string;
+  start: number;
+  end: number;
+  caption: string;
+}
+
+export interface ContentClipCandidate {
+  id: string;
+  title: string;
+  label: "데모 생성물" | "AI 추출 결과" | "AI 기획 결과";
+  url?: string;
+  startSec?: number;
+  endSec?: number;
+  score?: number;
+  planSegments?: ContentPlanSegment[];
+}
+
 export interface ContentJob {
   id: string;
   title: string;
@@ -135,7 +153,8 @@ export interface ContentJob {
   captionStyle: string;
   aspectRatio: "9:16" | "1:1" | "16:9";
   step: ContentStep;
-  clipCandidates: Array<{ id: string; title: string; label: "데모 생성물" }>;
+  clipCandidates: ContentClipCandidate[];
+  transcript?: string;
   rejectionReason?: string;
   createdAt: string;
   updatedAt: string;
@@ -146,6 +165,25 @@ export interface ProfileView {
   talentId: string;
   agencyId: string;
   viewedAt: string;
+}
+
+export type CommunityCategory = "자유" | "질문" | "합격후기" | "정보공유";
+
+export interface CommunityReply {
+  id: string;
+  authorName: string;
+  body: string;
+  createdAt: string;
+}
+
+export interface CommunityPost {
+  id: string;
+  authorName: string;
+  category: CommunityCategory;
+  title: string;
+  body: string;
+  createdAt: string;
+  replies: CommunityReply[];
 }
 
 export interface DemoState {
@@ -160,6 +198,7 @@ export interface DemoState {
   agentJobs: AgentJob[];
   contentJobs: ContentJob[];
   profileViews: ProfileView[];
+  communityPosts: CommunityPost[];
 }
 
 export type ValidationErrors = Partial<

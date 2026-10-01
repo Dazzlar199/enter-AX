@@ -14,7 +14,8 @@ function isDemoState(value: unknown): value is DemoState {
     Array.isArray(candidate.offers) &&
     Array.isArray(candidate.candidates) &&
     Array.isArray(candidate.agentJobs) &&
-    Array.isArray(candidate.contentJobs)
+    Array.isArray(candidate.contentJobs) &&
+    Array.isArray(candidate.communityPosts)
   );
 }
 

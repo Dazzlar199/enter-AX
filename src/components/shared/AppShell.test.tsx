@@ -16,7 +16,7 @@ describe("AppShell", () => {
     );
 
     expect(screen.getByText("ENTER—AX")).toBeInTheDocument();
-    expect(screen.getByText(/데모 환경/)).toBeInTheDocument();
+    expect(screen.getByText("시연 데이터")).toBeInTheDocument();
     expect(screen.getByRole("navigation", { name: "주요 메뉴" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "본문으로 건너뛰기" })).toHaveAttribute("href", "#main-content");
   });

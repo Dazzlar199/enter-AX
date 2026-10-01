@@ -1,0 +1,692 @@
+/* 
+  Enter-AX Public Landing: Anti-slop, Swiss precision layout.
+  Adheres to .agents/skills/design-taste-frontend, emil-design-eng, and enter-ax-ui.
+*/
+
+.ld {
+  --ld-bg: #fbfbfd;
+  --ld-surface: #ffffff;
+  --ld-surface-alt: #f5f5f8;
+  --ld-ink: #0f0f14;
+  --ld-ink-secondary: #3b3d4e;
+  --ld-muted: #6f7287;
+  --ld-line: #e6e7ee;
+  --ld-line-soft: #f0f1f6;
+  --ld-blue: #1842e6;
+  --ld-blue-soft: #edf1ff;
+  --ld-radius-lg: 20px;
+  --ld-radius-md: 14px;
+  --ld-radius-sm: 8px;
+  --ld-shadow-subtle: 0 1px 3px rgba(15, 15, 20, 0.04), 0 6px 18px -6px rgba(15, 15, 20, 0.06);
+  --ld-shadow-elevated: 0 4px 12px rgba(15, 15, 20, 0.03), 0 24px 48px -12px rgba(15, 15, 20, 0.12);
+
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 40px);
+  color: var(--ld-ink);
+  background: var(--ld-bg);
+}
+
+/* Base button primitives with tactile micro-interactions (Emil Kowalski) */
+.ld-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.ld-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 24px;
+  border: 1px solid var(--ld-line);
+  border-radius: var(--ld-radius-md);
+  background: var(--ld-surface);
+  color: var(--ld-ink);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.15s ease,
+              border-color 0.15s ease,
+              box-shadow 0.15s ease;
+}
+
+.ld-btn:hover {
+  border-color: var(--ld-ink);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(15, 15, 20, 0.08);
+}
+
+.ld-btn:active {
+  transform: scale(0.97);
+}
+
+.ld-btn--primary {
+  border-color: var(--ld-ink);
+  background: var(--ld-ink);
+  color: #ffffff;
+}
+
+.ld-btn--primary:hover {
+  background: #252632;
+  border-color: #252632;
+  box-shadow: 0 6px 18px -4px rgba(15, 15, 20, 0.28);
+}
+
+.ld-btn--secondary {
+  background: var(--ld-surface-alt);
+  border-color: transparent;
+}
+
+.ld-btn--secondary:hover {
+  background: #ebebee;
+  border-color: var(--ld-line);
+}
+
+.ld-btn--inverse {
+  border-color: rgba(255, 255, 255, 0.24);
+  background: transparent;
+  color: #ffffff;
+}
+
+.ld-btn--inverse:hover {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.ld-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ld-ink-secondary);
+  font-size: 0.92rem;
+  font-weight: 650;
+  text-decoration: none;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.ld-link:hover {
+  color: var(--ld-blue);
+  transform: translateX(2px);
+}
+
+/* ------------------------------------------------------------- */
+/* 1. HERO SECTION: Asymmetric Split (Anti-Center Bias)          */
+/* ------------------------------------------------------------- */
+.ld-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  align-items: center;
+  gap: clamp(32px, 5vw, 64px);
+  padding: clamp(56px, 8vw, 96px) 0 clamp(40px, 6vw, 64px);
+  border-bottom: 1px solid var(--ld-line-soft);
+}
+
+.ld-hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.ld-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 28px;
+  padding: 0 12px;
+  margin-bottom: 20px;
+  border-radius: 999px;
+  background: var(--ld-blue-soft);
+  color: var(--ld-blue);
+  font-size: 0.78rem;
+  font-weight: 750;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ld-eyebrow__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ld-blue);
+}
+
+.ld-hero h1 {
+  margin: 0;
+  font-size: clamp(2.4rem, 4.4vw, 3.8rem);
+  font-weight: 850;
+  line-height: 1.12;
+  letter-spacing: -0.045em;
+  color: var(--ld-ink);
+  word-break: keep-all;
+}
+
+.ld-hero__lede {
+  max-width: 540px;
+  margin: 22px 0 32px;
+  color: var(--ld-ink-secondary);
+  font-size: clamp(1.02rem, 1.25vw, 1.15rem);
+  line-height: 1.68;
+  word-break: keep-all;
+}
+
+.ld-hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--ld-line-soft);
+  color: var(--ld-muted);
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.ld-hero-meta__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ld-hero-meta__item svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: var(--ld-blue);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+/* Hero Right: Tactile Window Preview */
+.ld-hero-showcase {
+  position: relative;
+}
+
+.ld-window {
+  overflow: hidden;
+  border: 1px solid var(--ld-line);
+  border-radius: var(--ld-radius-lg);
+  background: var(--ld-surface);
+  box-shadow: var(--ld-shadow-elevated);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.ld-window:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(15, 15, 20, 0.05), 0 32px 64px -16px rgba(15, 15, 20, 0.16);
+}
+
+.ld-window__bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 14px;
+  background: #f7f7f9;
+  border-bottom: 1px solid var(--ld-line);
+}
+
+.ld-window__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #dcdee5;
+}
+
+.ld-window__title {
+  margin-left: 6px;
+  color: var(--ld-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.ld-window img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Floating status pill overlay */
+.ld-floating-status {
+  position: absolute;
+  bottom: -16px;
+  left: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 999px;
+  background: rgba(15, 15, 20, 0.92);
+  backdrop-filter: blur(12px);
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  box-shadow: 0 12px 28px -6px rgba(15, 15, 20, 0.32);
+}
+
+.ld-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.28);
+}
+
+/* ------------------------------------------------------------- */
+/* 2. DUAL-PERSPECTIVE BENTO SECTION (Replacing Zigzag Slop)     */
+/* ------------------------------------------------------------- */
+.ld-bento-section {
+  padding: clamp(64px, 9vw, 112px) 0;
+  border-bottom: 1px solid var(--ld-line-soft);
+}
+
+.ld-section-head {
+  max-width: 680px;
+  margin-bottom: clamp(32px, 5vw, 56px);
+}
+
+.ld-section-head h2 {
+  margin: 0;
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+  font-weight: 850;
+  line-height: 1.18;
+  letter-spacing: -0.04em;
+  color: var(--ld-ink);
+  word-break: keep-all;
+}
+
+.ld-section-head p {
+  margin: 14px 0 0;
+  color: var(--ld-ink-secondary);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  word-break: keep-all;
+}
+
+.ld-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+}
+
+.ld-bento-card {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(24px, 4vw, 36px);
+  border: 1px solid var(--ld-line);
+  border-radius: var(--ld-radius-lg);
+  background: var(--ld-surface);
+  box-shadow: var(--ld-shadow-subtle);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+}
+
+.ld-bento-card:hover {
+  border-color: #d2d4df;
+  transform: translateY(-2px);
+}
+
+.ld-bento-card__badge {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  height: 26px;
+  padding: 0 10px;
+  margin-bottom: 14px;
+  border-radius: 6px;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.ld-bento-card--talent .ld-bento-card__badge {
+  background: #fff0eb;
+  color: #c4431f;
+}
+
+.ld-bento-card--agency .ld-bento-card__badge {
+  background: #eef1ff;
+  color: #1a42d8;
+}
+
+.ld-bento-card h3 {
+  margin: 0 0 18px;
+  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  color: var(--ld-ink);
+  line-height: 1.25;
+}
+
+.ld-points {
+  display: grid;
+  gap: 14px;
+  margin: 0 0 28px;
+  padding: 0;
+  list-style: none;
+}
+
+.ld-points li {
+  display: grid;
+  gap: 3px;
+  padding-left: 14px;
+  border-left: 2px solid var(--ld-line);
+}
+
+.ld-points strong {
+  font-size: 0.96rem;
+  font-weight: 750;
+  color: var(--ld-ink);
+}
+
+.ld-points span {
+  color: var(--ld-muted);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  word-break: keep-all;
+}
+
+.ld-bento-card__frame {
+  margin-top: auto;
+  margin-bottom: 24px;
+  overflow: hidden;
+  border: 1px solid var(--ld-line);
+  border-radius: var(--ld-radius-md);
+  background: #f7f8fb;
+}
+
+.ld-bento-card__frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.35s ease;
+}
+
+.ld-bento-card:hover .ld-bento-card__frame img {
+  transform: scale(1.02);
+}
+
+/* ------------------------------------------------------------- */
+/* 3. WORKFLOW SHOWCASE: Architectural Studio Canvas             */
+/* ------------------------------------------------------------- */
+.ld-workflow {
+  padding: clamp(72px, 10vw, 120px) 0;
+  border-bottom: 1px solid var(--ld-line-soft);
+}
+
+.ld-workflow-canvas {
+  margin: 36px 0 32px;
+  overflow: hidden;
+  border: 1px solid var(--ld-line);
+  border-radius: var(--ld-radius-lg);
+  background: #ffffff;
+  box-shadow: var(--ld-shadow-elevated);
+}
+
+.ld-workflow-canvas img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ld-step-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.ld-step-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px;
+  border: 1px solid var(--ld-line);
+  border-radius: var(--ld-radius-md);
+  background: var(--ld-surface);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.ld-step-item:hover {
+  border-color: #cbcedb;
+  transform: translateY(-2px);
+}
+
+.ld-step-item__num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: #f0f2f8;
+  color: var(--ld-ink-secondary);
+  font-size: 0.78rem;
+  font-weight: 800;
+  font-family: var(--font-mono, monospace);
+}
+
+.ld-step-item strong {
+  margin-top: 4px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ld-ink);
+}
+
+.ld-step-item span {
+  color: var(--ld-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  word-break: keep-all;
+}
+
+/* ------------------------------------------------------------- */
+/* 4. PRINCIPLES & TRUST: Guardrails Grid                        */
+/* ------------------------------------------------------------- */
+.ld-principles {
+  padding: clamp(72px, 10vw, 120px) 0;
+  border-bottom: 1px solid var(--ld-line-soft);
+}
+
+.ld-principles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: 36px;
+}
+
+.ld-principle-card {
+  display: flex;
+  flex-direction: column;
+  padding: 28px 24px;
+  border: 1px solid var(--ld-line);
+  border-radius: var(--ld-radius-md);
+  background: #ffffff;
+  transition: border-color 0.2s ease;
+}
+
+.ld-principle-card:hover {
+  border-color: #b8bac9;
+}
+
+.ld-principle-card__tag {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  height: 22px;
+  padding: 0 8px;
+  margin-bottom: 14px;
+  border-radius: 4px;
+  background: #f5f5f7;
+  color: var(--ld-ink-secondary);
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ld-principle-card strong {
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ld-ink);
+  line-height: 1.35;
+  word-break: keep-all;
+}
+
+.ld-principle-card span {
+  margin-top: 8px;
+  color: var(--ld-muted);
+  font-size: 0.9rem;
+  line-height: 1.65;
+  word-break: keep-all;
+}
+
+/* ------------------------------------------------------------- */
+/* 5. CLOSING CTA BANNER: Deep Contrast Studio Feel              */
+/* ------------------------------------------------------------- */
+.ld-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  margin: clamp(64px, 9vw, 104px) 0 48px;
+  padding: clamp(40px, 6vw, 64px);
+  border-radius: var(--ld-radius-lg);
+  background: #0f1015;
+  color: #ffffff;
+  box-shadow: 0 20px 48px -12px rgba(15, 16, 21, 0.36);
+}
+
+.ld-cta__text {
+  max-width: 520px;
+}
+
+.ld-cta h2 {
+  margin: 0;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 850;
+  letter-spacing: -0.04em;
+  line-height: 1.2;
+}
+
+.ld-cta p {
+  margin: 12px 0 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 1.02rem;
+  line-height: 1.6;
+}
+
+.ld-cta .ld-btn--primary {
+  border-color: #ffffff;
+  background: #ffffff;
+  color: #0f1015;
+}
+
+.ld-cta .ld-btn--primary:hover {
+  background: #e5e6ee;
+  border-color: #e5e6ee;
+}
+
+/* ------------------------------------------------------------- */
+/* 6. FOOTER                                                     */
+/* ------------------------------------------------------------- */
+.ld-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 32px 0 56px;
+  border-top: 1px solid var(--ld-line);
+  color: var(--ld-muted);
+  font-size: 0.86rem;
+  font-weight: 550;
+}
+
+.ld-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.ld-footer a {
+  color: var(--ld-ink-secondary);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.ld-footer a:hover {
+  color: var(--ld-ink);
+}
+
+/* ------------------------------------------------------------- */
+/* RESPONSIVE LAYOUT MECHANICS                                   */
+/* ------------------------------------------------------------- */
+@media (max-width: 960px) {
+  .ld-hero {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+    padding-top: 48px;
+  }
+
+  .ld-hero__content {
+    align-items: flex-start;
+  }
+
+  .ld-bento-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .ld-step-grid,
+  .ld-principles-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .ld-cta {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 36px 28px;
+  }
+}
+
+@media (max-width: 540px) {
+  .ld-actions {
+    width: 100%;
+  }
+
+  .ld-actions .ld-btn {
+    flex: 1 1 100%;
+  }
+
+  .ld-floating-status {
+    position: static;
+    margin-top: 14px;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ld-btn,
+  .ld-window,
+  .ld-bento-card,
+  .ld-step-item,
+  .ld-bento-card__frame img {
+    transition: none !important;
+    transform: none !important;
+  }
+}

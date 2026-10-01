@@ -57,7 +57,7 @@ export function MediaInput({ kind, value, onChange }: { kind: "보컬" | "댄스
         </div>
       )}
       {error ? <p className="field-error" role="alert">{error}</p> : null}
-      <p className="field-help">YouTube는 재생 전용이며 다운로드하거나 AI 분석하지 않습니다. 분석 연결은 원본 파일 업로드가 필요합니다.</p>
+      <p className="field-help">원본 파일(MP4, WebM)은 기획사가 춤·음정 비교에 쓸 수 있어요. YouTube는 재생 전용이라 비교 분석에는 쓰이지 않아요.</p>
     </fieldset>
   );
 }

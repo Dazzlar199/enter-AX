@@ -6,9 +6,16 @@ const bundleAnalyzer = withBundleAnalyzer({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  turbopack: {
+    root: process.cwd(),
+  },
   // 프로덕션 최적화 설정
   compress: true,
   poweredByHeader: false,
+
+  // 번들러가 __dirname 기반 바이너리/모델 경로를 잘못 재작성하지 않도록
+  // 서버 전용 패키지는 번들링하지 않고 그대로 require 하게 함
+  serverExternalPackages: ['ffmpeg-static', '@huggingface/transformers', 'pdf-parse', 'pdfjs-dist'],
 
   // 이미지 최적화
   images: {

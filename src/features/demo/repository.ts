@@ -3,6 +3,7 @@ import type { Dispatch } from "react";
 import type {
   AgentJob,
   AgentJobStatus,
+  CommunityCategory,
   ContentAction,
   ContentJob,
   ContentStep,
@@ -36,6 +37,8 @@ export interface DemoRepository {
   transitionAgentJob(jobId: string, status: AgentJobStatus): void;
   createContentJob(input: ContentJobInput): string;
   transitionContentJob(jobId: string, action: ContentAction, rejectionReason?: string): void;
+  createCommunityPost(input: { authorName: string; category: CommunityCategory; title: string; body: string }): string;
+  replyToCommunityPost(postId: string, input: { authorName: string; body: string }): void;
 }
 
 const nextContentSteps: Partial<Record<ContentStep, Partial<Record<ContentAction, ContentStep>>>> = {
@@ -111,6 +114,25 @@ export function createDemoRepository(
       dispatch({
         type: "content/transitioned",
         payload: { jobId, action, nextStep, rejectionReason },
+      });
+    },
+    createCommunityPost: (input) => {
+      const id = `post-${state.communityPosts.length + 1}-${Date.now()}`;
+      const now = new Date().toISOString();
+      dispatch({
+        type: "community/post-created",
+        payload: { post: { id, ...input, createdAt: now, replies: [] } },
+      });
+      return id;
+    },
+    replyToCommunityPost: (postId, input) => {
+      const post = state.communityPosts.find((item) => item.id === postId);
+      if (!post) return;
+      const id = `reply-${postId}-${post.replies.length + 1}-${Date.now()}`;
+      const now = new Date().toISOString();
+      dispatch({
+        type: "community/reply-created",
+        payload: { postId, reply: { id, ...input, createdAt: now } },
       });
     },
   };

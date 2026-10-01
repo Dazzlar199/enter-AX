@@ -3,330 +3,1020 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ENTER—AX | IR Deck 2026</title>
+  <title>ENTER—AX | 제품 소개·파일럿 파트너십</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&display=swap">
   <style>
+    /*
+      ENTER—AX IR deck · editorial system
+      Canvas 1600×900. Type scale follows the golden ratio at its major steps:
+      body 18 → h3 28 → h1 52 → figure 84 → hero 136 (each ≈ ×1.618 from 11/17/32/52/84).
+      One accent (cobalt). Structure comes from hairline rules and columns, not boxed cards.
+    */
     *, *::before, *::after { box-sizing: border-box; }
     :root {
       --canvas: #f6f5f1;
       --paper: #ffffff;
       --ink: #141820;
+      --ink-2: #3a404b;
       --muted: #626a78;
       --cobalt: #2864e8;
+      --cobalt-deep: #0f2f7a;
       --pale-blue: #dceaff;
       --approval: #c8f45d;
-      --risk: #f06445;
+      --risk: #d9482b;
       --rule: #d7dae0;
-      --font-sans: Pretendard, "Noto Sans KR", "Apple SD Gothic Neo", Arial, sans-serif;
-      --font-mono: "IBM Plex Mono", "Space Mono", ui-monospace, monospace;
+      --night: #0b1428;
+
+      --font-sans: "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", "Noto Sans KR", Arial, sans-serif;
+      --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+      --fs-cap: 13px;
+      --fs-sm: 15px;
+      --fs-body: 18px;
+      --fs-lead: 22px;
+      --fs-h3: 28px;
+      --fs-h2: 36px;
+      --fs-h1: 52px;
+      --fs-fig: 84px;
+      --fs-hero: 136px;
+
       --slide-w: 1600px;
       --slide-h: 900px;
       --safe-x: 88px;
-      --safe-y: 64px;
+      --safe-top: 96px;
+      --safe-bottom: 64px;
     }
     html, body { margin: 0; width: 100%; height: 100%; }
-    body { overflow: hidden; font-family: var(--font-sans); background: #e7e7e3; color: var(--ink); }
-    #deck { width: 100vw; height: 100vh; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); place-items: center; }
-    #deck-frame { position: relative; width: var(--slide-w); height: var(--slide-h); transform-origin: center; box-shadow: 0 24px 64px rgba(20, 24, 32, .18); }
+    body { overflow: hidden; font-family: var(--font-sans); background: #e4e3de; color: var(--ink); -webkit-font-smoothing: antialiased; font-feature-settings: "tnum" 1; }
+    p, h1, h2, h3, ol, ul, dl, dd, figure { margin: 0; padding: 0; }
+    a { color: inherit; }
+    #deck { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+    #deck-frame { position: absolute; top: 50%; left: 50%; width: var(--slide-w); height: var(--slide-h); transform-origin: center; transform: translate(-50%, -50%); box-shadow: 0 24px 64px rgba(20, 24, 32, .16); }
     #slides { position: relative; width: 100%; height: 100%; }
-    .slide { position: absolute; inset: 0; display: none; width: var(--slide-w); height: var(--slide-h); padding: var(--safe-y) var(--safe-x) 68px; background: var(--canvas); overflow: hidden; }
-    .slide::before { content: ""; position: absolute; top: 38px; left: var(--safe-x); right: var(--safe-x); height: 1px; background: var(--rule); }
-    .slide::after { content: attr(data-title); position: absolute; top: 19px; right: var(--safe-x); font: 600 10px/1 var(--font-mono); letter-spacing: .13em; text-transform: uppercase; color: var(--muted); }
-    .slide.is-active { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: auto auto minmax(0, 1fr) auto; column-gap: 24px; row-gap: 18px; }
-    .slide-kicker { grid-column: 1 / 13; margin: 0; font: 600 14px/1 var(--font-mono); letter-spacing: .12em; color: var(--cobalt); }
-    .slide h1 { grid-column: 1 / 11; max-width: 1220px; margin: 0; font: 800 58px/1.08 var(--font-sans); letter-spacing: -.035em; }
-    p { margin: 0; }
-    .slide-content { grid-column: 1 / 13; min-height: 0; }
-    .source-line { grid-column: 1 / 11; align-self: end; font: 500 12px/1.35 var(--font-sans); color: var(--muted); }
-    .evidence-tag { display: inline-flex; padding: 5px 8px; border: 1px solid currentColor; font: 600 12px/1 var(--font-mono); letter-spacing: .08em; }
-    .figure { font: 800 88px/.95 var(--font-sans); letter-spacing: -.055em; }
-    .diagram { width: 100%; height: 100%; display: block; }
-    .diagram text { font-family: var(--font-sans); fill: var(--ink); }
-    .diagram .mono { font-family: var(--font-mono); letter-spacing: 1px; }
-    .diagram .muted { fill: var(--muted); }
-    .diagram .paper { fill: var(--paper); stroke: var(--rule); stroke-width: 1.5; }
-    .diagram .ink-block { fill: var(--ink); }
-    .diagram .ink-text { fill: var(--paper); }
-    .diagram .blue { fill: var(--cobalt); }
-    .diagram .blue-stroke { fill: none; stroke: var(--cobalt); stroke-width: 3; }
-    .diagram .approval { fill: var(--approval); stroke: var(--ink); stroke-width: 1.5; }
-    .diagram .risk { fill: var(--risk); }
-    .deck-nav { position: absolute; z-index: 20; right: 32px; bottom: 24px; display: flex; gap: 8px; align-items: center; opacity: .28; transition: opacity .18s ease; }
-    .deck-nav:hover, .deck-nav:focus-within { opacity: 1; }
-    .deck-nav button { border: 1px solid var(--rule); background: var(--paper); color: var(--ink); padding: 8px 12px; cursor: pointer; }
+
+    /* ---------- Slide frame ---------- */
+    .slide { position: absolute; inset: 0; display: none; width: var(--slide-w); height: var(--slide-h); padding: var(--safe-top) var(--safe-x) var(--safe-bottom); background: var(--canvas); overflow: hidden; word-break: keep-all; }
+    .slide.is-active { display: flex; flex-direction: column; }
+    .slide-chrome { position: absolute; top: 34px; left: var(--safe-x); right: var(--safe-x); display: flex; justify-content: space-between; align-items: center; padding-bottom: 14px; border-bottom: 1px solid var(--rule); font: 600 12px/1 var(--font-mono); letter-spacing: .12em; color: var(--muted); }
+    .slide-chrome .brand { color: var(--ink); letter-spacing: .04em; font-family: var(--font-sans); font-weight: 800; font-size: 14px; }
+    .psst { display: flex; gap: 22px; }
+    .psst span { position: relative; }
+    .psst span[aria-current="true"] { color: var(--cobalt); }
+    .psst span[aria-current="true"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: -15px; height: 2px; background: var(--cobalt); }
+    .page-no { position: absolute; bottom: 26px; left: var(--safe-x); font: 600 12px/1 var(--font-mono); letter-spacing: .1em; color: var(--muted); }
+
+    .slide-head { flex: none; margin-bottom: 36px; }
+    .slide-head h1 { margin-inline:auto; text-align:center; }
+    .slide-head .kicker { justify-content:flex-start; }
+    .kicker { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+    .kicker b { display: grid; place-items: center; width: 30px; height: 30px; background: var(--cobalt); color: #fff; font: 700 16px/1 var(--font-mono); }
+    .kicker .ch { font: 600 14px/1 var(--font-mono); letter-spacing: .14em; color: var(--cobalt); }
+    .kicker .sub { padding-left: 12px; border-left: 1px solid var(--rule); font-size: 16px; font-weight: 700; color: var(--ink-2); }
+    .slide h1 { font-size: var(--fs-h1); line-height: 1.2; font-weight: 800; letter-spacing: -.035em; max-width: 1340px; text-wrap: balance; }
+    .slide-head h1 .headline-key { color:var(--cobalt); font-weight:900; }
+    .slide-head h1 .headline-light { color:var(--ink-2); font-weight:650; }
+    .slide-content { flex: 1 1 auto; min-height: 0; }
+    .footer-rule { flex:none; height:34px; margin-top:24px; border-top:1px solid var(--rule); }
+
+    /* Evidence state: a mono label with a square marker. No pills. */
+    .evidence-tag { display: inline-flex; align-items: center; gap: 7px; margin-right: 10px; font: 600 11.5px/1 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink); vertical-align: 1px; }
+    .evidence-tag::before { content: ""; width: 8px; height: 8px; background: currentColor; }
+    .evidence-tag.live { color: var(--cobalt); }
+    .evidence-tag.prototype { color: var(--cobalt); }
+    .evidence-tag.assumption { color: var(--risk); }
+    .evidence-tag.target { color: #5d7a00; }
+    .evidence-tag.fact { color: var(--ink); }
+
+    .label { font: 700 14px/1.3 var(--font-sans); letter-spacing: .01em; color: var(--muted); }
+    .label.mono { font: 600 13px/1.3 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; }
+    .lead { font-size: var(--fs-lead); line-height: 1.55; color: var(--ink-2); }
+    .body { font-size: var(--fs-body); line-height: 1.62; color: var(--muted); }
+    .fig { font-weight: 800; letter-spacing: -.045em; line-height: .95; font-variant-numeric: tabular-nums; }
+
+    /* ---------- 01 Cover (original poster) ---------- */
+    #slide-01 { padding: 0; }
+    .cover-poster { grid-column: 1 / -1; grid-row: 1 / -1; width: 100%; height: 100%; position: relative; overflow: hidden; background: var(--canvas); color: var(--ink); }
+    .cover-poster-image { position: absolute; top: 64px; right: 88px; width: 660px; height: 676px; object-fit: cover; object-position: center; border: 1px solid var(--rule); }
+    .cover-poster-shade { display: none; }
+    .cover-poster-content { position: absolute; z-index: 2; top: 64px; left: 88px; bottom: 136px; width: 690px; display: flex; flex-direction: column; align-items:center; justify-content: center; text-align:center; }
+    .cover-poster-kicker { position: absolute; top: 0; left: 0; margin: 0; font: 700 12px/1 var(--font-mono); letter-spacing: .14em; color: var(--cobalt); }
+    .cover-poster-eyebrow { margin: 0 0 22px; font: 700 13px/1 var(--font-mono); letter-spacing: .16em; color: var(--cobalt); }
+    #slide-01 .cover-poster-title { width: 100%; max-width: none; margin: 0; text-align: center; font: 700 116px/.93 "Space Grotesk", Arial, sans-serif; letter-spacing: -.082em; color: var(--cobalt); -webkit-text-stroke:.65px currentColor; }
+    .cover-poster-sub { width:100%; margin: 27px 0 0; padding-top: 24px; border-top: 2px solid var(--ink); font-family:"Apple SD Gothic Neo", "Pretendard Variable", sans-serif; font-size: 42px; line-height: 1.2; font-weight: 800; letter-spacing: -.065em; color: var(--ink); word-break: keep-all; }
+    .cover-poster-sub .headline-key { color:var(--cobalt); font-weight:900; }
+    .cover-poster-desc { margin: 20px 0 0; max-width: 680px; font-size: 18px; font-weight: 560; line-height: 1.65; color: var(--muted); }
+    .cover-poster-desc b { display:inline-block; min-width:73px; color:var(--ink); font-weight:800; }
+    .cover-poster-footer { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; height: 112px; background: var(--paper); border-top: 2px solid var(--cobalt); color: var(--ink); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: center; gap: 0; padding: 0 260px; }
+    .cpf-item { min-width: 0; text-align: center; }
+    .cpf-item span { display: block; margin-bottom: 8px; font: 700 12px/1 var(--font-sans); color: var(--cobalt); }
+    .cpf-item strong { display: block; font-size: 16px; font-weight: 750; white-space: nowrap; }
+    .cpf-item + .cpf-item { border-left: 1px solid var(--rule); }
+
+    /* ---------- 02 Problem ---------- */
+    .problem { display:grid; grid-template-rows:minmax(0,1fr) 92px; gap:20px; height:100%; }
+    .official-cases { display:grid; grid-template-columns:1fr 1fr; gap:22px; min-height:0; }
+    .official-case { display:flex; flex-direction:column; padding:35px 38px 32px; background:var(--paper); border-top:4px solid var(--cobalt); }
+    .official-case:nth-child(2) { border-top-color:var(--ink); }
+    .official-case-head { display:flex; align-items:center; justify-content:space-between; gap:20px; }
+    .official-case-head img { display:block; max-width:180px; max-height:46px; object-fit:contain; object-position:left center; }
+    .official-case-head span { font:600 13px/1 var(--font-mono); color:var(--muted); letter-spacing:.08em; }
+    .official-case h2 { margin-top:35px; font-size:35px; line-height:1.18; letter-spacing:-.035em; }
+    .official-steps { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-top:auto; }
+    .official-step { min-width:0; padding:19px 17px; background:#f3f6fc; border-top:2px solid var(--rule); }
+    .official-step b { display:block; margin-bottom:12px; font:700 13px/1 var(--font-mono); color:var(--cobalt); }
+    .official-step strong { display:block; font-size:22px; line-height:1.2; letter-spacing:-.025em; }
+    .official-step small { display:block; margin-top:8px; font-size:15px; line-height:1.35; color:var(--muted); }
+    .problem-question { display:flex; align-items:center; justify-content:center; gap:30px; padding:18px 30px; background:#edf3ff; border-left:4px solid var(--cobalt); text-align:center; }
+    .problem-question b { flex:none; color:var(--cobalt); font:700 13px/1 var(--font-mono); letter-spacing:.08em; }
+    .problem-question strong { font-size:24px; line-height:1.25; letter-spacing:-.025em; }
+    .problem-facts { display: flex; flex-direction: column; }
+    .problem-facts .fig { font-size: 140px; color: var(--cobalt); margin-top: 24px; }
+    .problem-facts .fig small { font-size: 40px; letter-spacing: -.02em; margin-left: 6px; color: var(--ink); }
+    .problem-facts .body { margin-top: 20px; }
+    .problem-facts > .body { font-size: 20px; line-height: 1.5; color: var(--ink-2); }
+    .problem-facts .body b { color: var(--ink); font-weight: 700; }
+    .fact-2 { margin-top: auto; padding-top: 22px; border-top: 1px solid var(--ink); }
+    .fact-2 .steps { margin-top: 16px; font-size: 24px; font-weight: 700; line-height: 1.4; }
+    .fact-2 .steps i { font-style: normal; color: var(--cobalt); padding: 0 8px; }
+    .fact-2 .body { margin-top: 8px; font-size: var(--fs-sm); }
+
+    .intake { display: grid; grid-template-columns: 168px 1fr; align-items: center; row-gap: 14px; margin-top: 16px; }
+    .intake .logo img { display: block; height: 22px; width: auto; }
+    .fact-2 .chips { display: flex; align-items: center; gap: 8px; }
+    .fact-2 .chips span { padding: 9px 12px; background: var(--pale-blue); color: var(--cobalt); font-size: 16px; font-weight: 750; white-space: nowrap; }
+    .fact-2 .chips i { font-style: normal; color: var(--cobalt); font-weight: 800; }
+    .trace { display: flex; flex-direction: column; border-left: 1px solid var(--rule); padding-left: 56px; min-height: 0; }
+    .trace .diagram { flex: 1; min-height: 0; width: 100%; margin-top: 12px; }
+    .trace-result { padding-top: 16px; border-top: 1px solid var(--ink); font-size: var(--fs-lead); font-weight: 750; }
+    .trace-result em { font-style: normal; color: var(--risk); }
+
+    /* ---------- Problem-to-product bridge ---------- */
+    .continuity { height:100%; display:grid; grid-template-rows:1fr 74px 1fr 72px; background:var(--paper); border:1px solid var(--rule); }
+    .continuity-lane { display:grid; grid-template-columns:190px repeat(3,1fr); align-items:stretch; }
+    .continuity-lane + .continuity-lane { border-top:1px solid var(--rule); }
+    .continuity-label { display:flex; flex-direction:column; justify-content:center; padding:0 28px; background:#eaf1ff; }
+    .continuity-label.agency { background:#eef0f4; }
+    .continuity-label span { color:var(--cobalt); font:700 14px/1 var(--font-mono); letter-spacing:.12em; }
+    .continuity-label.agency span { color:var(--ink); }
+    .continuity-label strong { margin-top:12px; font-size:31px; letter-spacing:-.04em; }
+    .continuity-step { position:relative; display:flex; align-items:center; gap:24px; padding:0 20px 0 34px; }
+    .continuity-step:not(:last-child)::after { content:'→'; position:absolute; right:-12px; z-index:2; color:var(--cobalt); font:700 30px/1 var(--font-mono); }
+    .continuity-icon { flex:none; width:76px; height:76px; display:grid; place-items:center; border:2px solid var(--cobalt); border-radius:50%; background:var(--paper); }
+    .continuity-icon img { width:38px; height:38px; filter:invert(29%) sepia(87%) saturate(2515%) hue-rotate(215deg) brightness(96%) contrast(90%); }
+    .continuity-lane.agency .continuity-icon { border-color:var(--ink); }
+    .continuity-lane.agency .continuity-icon img { filter:none; }
+    .continuity-step strong { display:block; font-size:25px; line-height:1.2; letter-spacing:-.03em; }
+    .continuity-step small { display:block; margin-top:9px; font-size:16px; color:var(--muted); }
+    .continuity-pivot { display:flex; align-items:center; justify-content:center; gap:30px; background:var(--cobalt); color:#fff; }
+    .continuity-pivot::before,.continuity-pivot::after { content:''; width:170px; height:1px; background:rgba(255,255,255,.5); }
+    .continuity-pivot span { font:700 14px/1 var(--font-mono); letter-spacing:.12em; }
+    .continuity-pivot strong { font-size:30px; letter-spacing:-.035em; }
+    .continuity-metrics { display:grid; grid-template-columns:190px 1fr 1fr; align-items:center; border-top:1px solid var(--rule); background:#f1f5ff; }
+    .continuity-metrics > b { padding-left:28px; color:var(--cobalt); font-size:17px; }
+    .continuity-metrics > span { padding:0 28px; border-left:1px solid #cbd9f6; font-size:19px; font-weight:750; }
+
+    .community-stage { height:100%; display:grid; grid-template-rows:minmax(0,1fr) 138px; gap:16px; }
+    .community-board-shot { min-height:0; overflow:hidden; border:1px solid var(--rule); border-top:4px solid var(--cobalt); background:#fff; }
+    .community-board-shot img { width:100%; height:100%; display:block; object-fit:cover; object-position:center 30%; }
+    .community-foot { display:grid; grid-template-columns:1fr 1fr 1fr 310px; gap:0; background:var(--paper); border:1px solid var(--rule); }
+    .community-phase { position:relative; display:flex; align-items:center; gap:16px; padding:18px 22px; border-right:1px solid var(--rule); }
+    .community-phase::after { content:'→'; position:absolute; right:-12px; z-index:2; color:var(--cobalt); font:700 26px/1 var(--font-mono); }
+    .community-phase b { display:grid; place-items:center; flex:none; width:34px; height:34px; background:var(--cobalt); color:#fff; font:700 14px/1 var(--font-mono); }
+    .community-phase strong { font-size:22px; line-height:1.2; letter-spacing:-.03em; }
+    .community-phase:last-of-type { border-right:1px solid var(--rule); }
+    .community-profile { display:flex; flex-direction:column; justify-content:center; gap:10px; padding:14px 22px; min-width:0; background:#edf3ff; }
+    .community-profile strong { display:block; font-size:20px; color:var(--cobalt); }
+    .community-profile-fields { display:flex; flex-wrap:wrap; gap:5px; }
+    .community-profile-fields span { padding:5px 8px; background:#fff; border:1px solid #b6cbf7; font-size:13px; font-weight:700; color:var(--ink-2); }
+
+    .system-map { height:100%; display:grid; grid-template-rows:minmax(0,1fr) 86px; gap:18px; }
+    .system-scene { display:grid; grid-template-columns:1fr 84px 1.12fr 84px 1fr; align-items:stretch; }
+    .system-wing { min-width:0; display:flex; flex-direction:column; border:1px solid var(--rule); background:var(--paper); }
+    .system-wing figure { height:64%; min-height:0; margin:0; overflow:hidden; border-bottom:1px solid var(--rule); }
+    .system-wing figure img { width:100%; height:100%; display:block; object-fit:cover; object-position:left top; }
+    .system-wing .wing-copy { display:flex; flex-direction:column; justify-content:center; padding:24px 26px; }
+    .system-wing .wing-copy small { color:var(--cobalt); font:700 13px/1 var(--font-mono); letter-spacing:.1em; }
+    .system-wing .wing-copy strong { margin-top:10px; font-size:29px; letter-spacing:-.035em; }
+    .system-wing .wing-copy span { margin-top:6px; font-size:16px; color:var(--muted); }
+    .system-link { display:grid; place-items:center; color:var(--cobalt); font:700 48px/1 var(--font-mono); }
+    .profile-hub { position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; border:2px solid var(--cobalt); background:#edf3ff; text-align:center; }
+    .profile-hub::before { content:''; position:absolute; inset:19px; border:1px solid #99b8fb; pointer-events:none; }
+    .profile-hub-card { width:160px; height:115px; display:grid; grid-template-rows:29px 1fr; border:1px solid #90b3fc; background:#fff; text-align:left; box-shadow:0 9px 22px rgba(20,24,32,.08); }
+    .profile-hub-card i { display:block; width:100%; height:29px; background:var(--cobalt); }
+    .profile-hub-card div { display:grid; grid-template-columns:47px 1fr; gap:8px; align-items:center; padding:10px; }
+    .profile-hub-card b { display:grid; place-items:center; width:43px; height:43px; background:#e4edff; color:var(--cobalt); font-size:22px; }
+    .profile-hub-card span { display:grid; gap:7px; }
+    .profile-hub-card span::before,.profile-hub-card span::after { content:''; height:8px; background:#dfe7f6; }
+    .profile-hub-card span::after { width:70%; }
+    .profile-hub small { margin-top:22px; color:var(--cobalt); font:700 14px/1 var(--font-mono); letter-spacing:.1em; }
+    .profile-hub strong { margin-top:10px; font-size:42px; line-height:1.15; letter-spacing:-.04em; }
+    .profile-hub .hub-fields { display:flex; gap:12px; margin-top:28px; }
+    .profile-hub .hub-fields span { padding:10px 12px; background:var(--paper); border:1px solid #b6cbf7; font-size:17px; font-weight:750; }
+    .system-guards { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .system-guards p { display:flex; align-items:center; gap:18px; padding:18px 24px; background:var(--paper); border-left:3px solid var(--cobalt); font-size:18px; }
+    .system-guards img { width:32px; height:32px; flex:none; filter:invert(29%) sepia(87%) saturate(2515%) hue-rotate(215deg) brightness(96%) contrast(90%); }
+    .system-guards b { color:var(--cobalt); }
+
+    .ax-proof { height:100%; display:grid; grid-template-columns:1fr 560px; gap:46px; }
+    .ax-process { display:flex; flex-direction:column; }
+    .ax-process ol { list-style:none; display:grid; grid-template-rows:repeat(4,1fr); flex:1; border-top:2px solid var(--cobalt); }
+    .ax-process li { display:grid; grid-template-columns:72px 1fr; align-items:center; border-bottom:1px solid var(--rule); }
+    .ax-process li b { color:var(--cobalt); font:700 18px/1 var(--font-mono); }
+    .ax-process li strong { display:block; font-size:26px; letter-spacing:-.025em; }
+    .ax-process li span { display:block; margin-top:5px; font-size:16px; color:var(--muted); }
+    .ax-screen { min-height:0; display:flex; flex-direction:column; border:1px solid var(--rule); background:var(--paper); }
+    .ax-screen img { width:100%; height:40%; object-fit:cover; object-position:left top; border-bottom:1px solid var(--rule); }
+    .ax-screen h2 { margin:28px 28px 8px; font-size:27px; letter-spacing:-.03em; }
+    .ax-screen p { margin:0 28px; font-size:17px; line-height:1.45; color:var(--muted); }
+    .ax-screen .human { margin:auto 28px 28px; padding:18px 20px; background:var(--pale-blue); color:var(--cobalt-deep); font-size:20px; font-weight:800; }
+    .ax-flow-showcase { height:100%; display:grid; grid-template-columns:minmax(0,1fr) 296px; gap:24px; }
+    .ax-flow-capture { min-width:0; min-height:0; margin:0; overflow:hidden; border:1px solid var(--rule); background:var(--paper); }
+    .ax-flow-capture img { display:block; width:100%; height:100%; object-fit:cover; object-position:center 52%; }
+    .ax-flow-rail { display:grid; grid-template-rows:repeat(3,1fr); background:var(--paper); border-top:3px solid var(--cobalt); }
+    .ax-flow-rail p { display:flex; flex-direction:column; justify-content:center; gap:8px; margin:0; padding:19px 22px; border-bottom:1px solid var(--rule); }
+    .ax-flow-rail b { font-size:24px; letter-spacing:-.03em; }
+    .ax-flow-rail span { font-size:17px; line-height:1.4; color:var(--muted); }
+    .ax-flow-rail p:nth-child(2) b { color:var(--cobalt); }
+    .gtm-profile-preview { display:flex; align-items:center; gap:20px; padding:20px 26px; }
+    .gtm-profile-preview .anonymous-avatar { width:104px; height:104px; }
+    .gtm-profile-preview strong { display:block; font-size:23px; }
+    .gtm-profile-preview span { display:block; margin-top:10px; font-size:16px; color:var(--muted); }
+
+    /* ---------- 03 Solution ---------- */
+    .solution-panorama { display:flex; flex-direction:column; height:100%; min-height:0; }
+    .solution-panorama img { display:block; width:100%; flex:1 1 auto; min-height:0; object-fit:cover; object-position:center; border:1px solid var(--rule); background:var(--paper); }
+    .solution-labels { flex:none; display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); min-height:94px; border-top:2px solid var(--cobalt); background:var(--paper); }
+    .solution-labels li { list-style:none; padding:15px 16px 10px; border-right:1px solid var(--rule); }
+    .solution-labels li:last-child { border-right:0; }
+    .solution-labels b { display:block; margin-bottom:8px; color:var(--cobalt); font:700 12px/1 var(--font-mono); letter-spacing:.1em; }
+    .solution-labels strong { display:block; font-size:22px; line-height:1.2; letter-spacing:-.025em; }
+
+    /* ---------- 04 Product ---------- */
+    .feature-showcase { height:100%; display:grid; grid-template-rows:repeat(2,minmax(0,1fr)); gap:18px; }
+    .feature-card { display:grid; grid-template-columns:570px minmax(0,1fr); min-height:0; overflow:hidden; border:1px solid var(--rule); background:var(--paper); }
+    .feature-visual { position:relative; min-height:0; margin:0; overflow:hidden; background:#e9edf2; }
+    .feature-visual img { display:block; width:100%; height:100%; object-fit:cover; }
+    .feature-visual figcaption { position:absolute; left:16px; bottom:16px; padding:7px 10px; border:1px solid rgba(255,255,255,.7); background:rgba(20,24,32,.84); color:#fff; font:700 12px/1 var(--font-sans); letter-spacing:.02em; }
+    .feature-copy { display:flex; flex-direction:column; justify-content:center; gap:15px; padding:30px 42px; border-left:4px solid var(--cobalt); }
+    .feature-copy .evidence-tag { width:fit-content; color:var(--cobalt); }
+    .feature-copy h2 { margin:0; font-size:38px; line-height:1.18; letter-spacing:-.035em; word-break:keep-all; }
+    .feature-copy p { font-size:20px; line-height:1.45; color:var(--muted); word-break:keep-all; }
+    .feature-flow { display:flex; align-items:center; gap:10px; padding-top:10px; border-top:1px solid var(--rule); font-size:15px; font-weight:700; color:var(--ink); }
+    .feature-flow b { color:var(--cobalt); font-size:18px; }
+
+    /* ---------- 05 Market ---------- */
+    .market { display: grid; grid-template-columns: 1fr 420px; column-gap: 72px; height: 100%; }
+    .sizing { list-style: none; display: grid; grid-template-rows: 1.25fr 1fr 1fr; border-top: 1px solid var(--ink); }
+    .sizing li { display: grid; grid-template-columns: 88px 1fr; column-gap: 24px; align-content: center; border-bottom: 1px solid var(--rule); }
+    .sizing .label { padding-top: 12px; color: var(--ink); }
+    .sizing .fig { font-size: 64px; color: var(--ink); }
+    .sizing li:first-child .fig { font-size: var(--fs-fig); }
+    .sizing .fig small { font-size: 28px; letter-spacing: -.02em; margin-left: 4px; }
+    .sizing .bar { height: 10px; margin: 16px 0 12px; background: var(--rule); }
+    .sizing .bar i { display: block; height: 100%; background: var(--cobalt); }
+    .sizing li:last-child .bar i { background: var(--risk); }
+    .sizing p { font-size: var(--fs-sm); line-height: 1.5; color: var(--muted); }
+    .sizing p b { color: var(--ink); }
+    .registry { display: flex; flex-direction: column; }
+    .registry .label { padding-bottom: 14px; }
+    .registry dl { flex: 1; display: grid; grid-template-rows: repeat(4, 1fr); border-top: 1px solid var(--ink); }
+    .registry dl div { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--rule); }
+    .registry dt { font-size: var(--fs-body); color: var(--ink-2); }
+    .registry dd { font-size: 40px; font-weight: 800; letter-spacing: -.04em; }
+    .registry dd small { font-size: var(--fs-sm); font-weight: 600; letter-spacing: 0; color: var(--muted); margin-left: 6px; }
+    .registry dl div.hl dd { color: var(--cobalt); }
+
+    /* ---------- 06 Competition ---------- */
+    .compete { display: grid; grid-template-columns: 1fr 400px; column-gap: 64px; height: 100%; }
+    .matrix { width: 100%; height: 100%; border-collapse: collapse; }
+    .matrix th, .matrix td { border-bottom: 1px solid var(--rule); text-align: center; vertical-align: middle; }
+    .matrix thead th { padding: 0 8px 16px; font: 700 14px/1.35 var(--font-sans); letter-spacing: 0; color: var(--muted); border-bottom: 1px solid var(--ink); }
+    .matrix thead th:first-child { text-align: left; padding-left: 0; }
+    .matrix tbody th { text-align: left; padding: 0 16px 0 0; }
+    .matrix tbody th strong { display: block; font-size: 21px; font-weight: 750; letter-spacing: -.02em; }
+    .matrix tbody th span { display: block; margin-top: 5px; font-size: 14px; color: var(--muted); }
+    .matrix td { font-size: 24px; color: var(--ink); width: 150px; }
+    .matrix td.no { color: #b9bec8; }
+    .matrix td small { display: block; margin-top: 4px; font-size: 12.5px; color: var(--muted); }
+    .matrix tr.us th strong, .matrix tr.us td { color: var(--cobalt); }
+    .matrix tr.us { background: #edf3ff; }
+    .matrix tr.us th { padding-left: 16px; }
+    .matrix-key { margin-top: 12px; font-size: 13px; color: var(--muted); }
+    .majors { display: flex; flex-direction: column; border-left: 1px solid var(--rule); padding-left: 44px; }
+    .majors > .label { padding-bottom: 16px; }
+    .majors ul { list-style: none; flex: 1; display: grid; grid-template-rows: repeat(3, 1fr); border-top: 1px solid var(--ink); }
+    .majors li { display: flex; flex-direction: column; justify-content: center; gap: 8px; border-bottom: 1px solid var(--rule); }
+    .majors li img { height: 24px; width: auto; max-width: 150px; object-fit: contain; object-position: left center; }
+    .majors li strong { font-size: var(--fs-body); font-weight: 750; }
+    .majors li span { font-size: 14px; color: var(--muted); line-height: 1.45; }
+    .majors .so { padding-top: 18px; font-size: var(--fs-body); line-height: 1.5; font-weight: 750; }
+    .majors .so em { font-style: normal; color: var(--cobalt); }
+
+    /* ---------- 07 Business model ---------- */
+    .bm { display: grid; grid-template-columns: 1fr 520px; column-gap: 64px; height: 100%; }
+    .price { width: 100%; border-collapse: collapse; height: 100%; }
+    .price th, .price td { text-align: left; border-bottom: 1px solid var(--rule); padding: 0 16px 0 0; vertical-align: middle; }
+    .price thead th { padding-bottom: 16px; font: 700 14px/1 var(--font-sans); letter-spacing: 0; color: var(--muted); border-bottom: 1px solid var(--ink); }
+    .price tbody th strong { display: block; font: 600 20px/1 var(--font-mono); letter-spacing: .04em; }
+    .price tbody th span { display: block; margin-top: 8px; font-size: 14px; font-weight: 500; color: var(--muted); }
+    .price td { font-size: 36px; font-weight: 800; letter-spacing: -.04em; }
+    .price td small { font-size: 16px; font-weight: 600; letter-spacing: 0; margin-left: 2px; color: var(--muted); }
+    .price td.sub { color: var(--cobalt); }
+    .price td.setup { font-size: 26px; color: var(--ink-2); }
+    .arr { display: flex; flex-direction: column; }
+    .arr .fig { margin-top: 14px; font-size: var(--fs-fig); color: var(--ink); }
+    .arr .fig small { font-size: 32px; margin-left: 6px; letter-spacing: -.02em; }
+    .stack { display: flex; height: 56px; margin-top: 28px; }
+    .stack i { display: block; height: 100%; }
+    .stack i:nth-child(1) { background: var(--pale-blue); }
+    .stack i:nth-child(2) { background: var(--cobalt); }
+    .stack i:nth-child(3) { background: var(--cobalt-deep); }
+    .stack-legend { list-style: none; margin-top: 28px; border-top: 1px solid var(--ink); }
+    .acv { margin-top: auto; display: flex; justify-content: space-between; align-items: baseline; padding-top: 16px; border-top: 2px solid var(--ink); }
+    .acv span { font-size: var(--fs-body); color: var(--ink-2); }
+    .acv b { font-size: var(--fs-h2); font-weight: 800; letter-spacing: -.03em; color: var(--cobalt); }
+    .acv b small { font-size: var(--fs-body); color: var(--muted); font-weight: 600; margin-left: 4px; letter-spacing: 0; }
+    .stack-legend li { display: grid; grid-template-columns: 14px 1fr auto; column-gap: 14px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--rule); font-size: var(--fs-body); }
+    .stack-legend li::before { content: ""; width: 14px; height: 14px; background: var(--c); }
+    .stack-legend li b { font-weight: 800; font-size: 22px; letter-spacing: -.02em; }
+    .stack-legend li.once { color: var(--muted); }
+    .stack-legend li.once b { color: var(--muted); font-size: var(--fs-body); }
+
+    /* ---------- 08 Go-to-market ---------- */
+    .gtm { display: grid; grid-template-columns: 1fr 1fr; height: 100%; }
+    .gtm > section { display: flex; flex-direction: column; min-height: 0; }
+    .gtm > section:first-child { padding-right: 56px; }
+    .gtm > section + section { border-left: 1px solid var(--rule); padding-left: 56px; }
+    .funnel { list-style: none; flex: 1; display: grid; grid-template-rows: repeat(3, 1fr); gap: 14px; margin-top: 20px; }
+    .funnel li { position: relative; display: flex; align-items: center; gap: 20px; padding: 0 28px; width: var(--w); min-width: 250px; background: var(--pale-blue); }
+    .funnel li:nth-child(2) { background: #8fb0f4; }
+    .funnel li:nth-child(3) { background: var(--cobalt); color: #fff; }
+    .funnel b { font-size: 48px; font-weight: 800; letter-spacing: -.04em; }
+    .funnel span { font-size: var(--fs-body); font-weight: 700; }
+    .funnel li:nth-child(3) span { white-space: nowrap; }
+    .measure { margin-top: 18px; font-size: var(--fs-sm); color: var(--muted); }
+    .gtm-shots { flex: 1; min-height: 0; display: grid; grid-template-rows: auto minmax(0, 1fr); gap: 14px; margin-top: 20px; }
+    .gtm-shots .gtm-shot:first-child img { height: auto; }
+    .gtm-shot { min-height: 0; border: 1px solid var(--rule); background: var(--paper); overflow: hidden; }
+    .gtm-shot img { width: 100%; height: 100%; object-fit: cover; object-position: 62% top; display: block; }
+    .gtm-shot + .gtm-shot img { object-position: left center; }
+    .loop { display: flex; align-items: center; gap: 10px; margin-top: 18px; }
+    .loop span { padding: 10px 14px; background: var(--pale-blue); color: var(--cobalt); font-size: var(--fs-body); font-weight: 750; }
+    .loop i { font-style: normal; color: var(--cobalt); font-weight: 800; font-size: 20px; }
+
+    /* ---------- 09 Roadmap ---------- */
+    .roadmap { height: 100%; }
+    .phases { height: 100%; display: grid; grid-template-columns: repeat(4, 1fr); column-gap: 20px; border-top: 1px solid var(--ink); }
+    .phases article { display: flex; flex-direction: column; padding-top: 20px; min-height: 0; }
+    .phases h2 { margin-top: 10px; font-size: var(--fs-h2); font-weight: 800; letter-spacing: -.03em; }
+    .phases .act { margin-top: 8px; font-size: var(--fs-body); color: var(--muted); }
+    .stair { flex: 1; display: flex; align-items: flex-end; margin-top: 20px; border-bottom: 2px solid var(--ink); }
+    .stair .bar { width: 100%; display: flex; flex-direction: column; justify-content: flex-start; padding: 18px 20px; background: var(--pale-blue); }
+    .phases article:nth-child(2) .bar { background: #8fb0f4; }
+    .phases article:nth-child(3) .bar { background: var(--cobalt); color: #fff; }
+    .phases article:nth-child(4) .bar { background: var(--cobalt-deep); color: #fff; }
+    .phases article:nth-child(n+3) .evidence-tag.target { color: var(--approval); }
+    .stair strong { margin-top: 10px; font-size: 24px; line-height: 1.3; font-weight: 800; letter-spacing: -.02em; }
+
+    /* ---------- 10 Team ---------- */
+    .team { display: grid; grid-template-columns: repeat(3, 1fr); height: 100%; border-top: 1px solid var(--ink); }
+    .team article { display: flex; flex-direction: column; padding: 28px 44px 0; border-left: 1px solid var(--rule); }
+    .team article:first-child { padding-left: 0; border-left: 0; }
+    .team .tb { margin-top: 12px; }
+    .team .fig { margin-top: 36px; font-size: 150px; color: var(--cobalt); }
+    .team .fig small { font-size: 36px; margin-left: 6px; letter-spacing: -.02em; color: var(--ink); }
+    .team .cap { margin-top: 18px; font-size: var(--fs-lead); font-weight: 750; letter-spacing: -.02em; }
+    .team ul { list-style: none; margin-top: auto; border-top: 1px solid var(--rule); }
+    .team li { padding: 14px 0; border-bottom: 1px solid var(--rule); font-size: var(--fs-body); color: var(--ink-2); }
+    .team .hire .fig { color: var(--ink); }
+
+    /* ---------- 11 Ask ---------- */
+    #slide-11 { background: var(--night); color: #fff; }
+    #slide-11 .slide-chrome { border-color: rgba(255,255,255,.16); color: rgba(255,255,255,.5); }
+    #slide-11 .slide-chrome .brand { color: #fff; }
+    #slide-11 .psst span[aria-current="true"] { color: var(--approval); }
+    #slide-11 .psst span[aria-current="true"]::after { background: var(--approval); }
+    #slide-11 .page-no { color: rgba(255,255,255,.5); }
+    #slide-11 .kicker b { background: var(--approval); color: var(--night); }
+    #slide-11 .kicker .ch { color: var(--approval); }
+    #slide-11 .kicker .sub { color: #fff; border-color: rgba(255,255,255,.2); }
+    #slide-11 .evidence-tag.target { color: var(--approval); }
+    .ask { display: grid; grid-template-columns: 500px 1fr; column-gap: 72px; height: 100%; }
+    .ask-hero { display: flex; flex-direction: column; justify-content: center; border-right: 1px solid rgba(255,255,255,.16); }
+    .ask-hero .fig { font-size: 200px; color: var(--approval); letter-spacing: -.06em; }
+    .ask-hero p { margin-top: 20px; font-size: var(--fs-lead); line-height: 1.5; color: #c6cfdd; }
+    .ask-hero p b { color: #fff; font-size: 30px; display: block; margin-bottom: 6px; letter-spacing: -.02em; }
+    .ask-right { display: flex; flex-direction: column; }
+    .ask-list { list-style: none; flex: 1; display: grid; grid-template-rows: repeat(3, 1fr); border-top: 1px solid rgba(255,255,255,.4); }
+    .ask-list li { display: grid; grid-template-columns: 64px 1fr; align-items: center; border-bottom: 1px solid rgba(255,255,255,.14); }
+    .ask-list b { font: 500 16px/1 var(--font-mono); color: var(--approval); }
+    .ask-list strong { display: block; font-size: var(--fs-h3); font-weight: 800; letter-spacing: -.025em; }
+    .ask-list span { display: block; margin-top: 6px; font-size: var(--fs-body); color: #aab5c7; }
+    .ask-path { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 28px; }
+    .ask-path div { padding-right: 20px; }
+    .ask-path div + div { padding-left: 20px; border-left: 1px solid rgba(255,255,255,.14); }
+    .ask-path .label { color: #8faeff; }
+    .ask-path strong { display: block; margin-top: 8px; font-size: 20px; font-weight: 750; }
+
+    /* ---------- Investor-facing second half ---------- */
+    .proof-duo { display:grid; grid-template-rows:repeat(2,minmax(0,1fr)); gap:18px; height:100%; }
+    .proof-row { display:grid; grid-template-columns:700px 1fr; min-height:0; border:1px solid var(--rule); background:var(--paper); }
+    .proof-row figure { position:relative; min-width:0; min-height:0; overflow:hidden; background:#edf1f5; }
+    .proof-row figure img { display:block; width:100%; height:100%; object-fit:cover; }
+    .proof-row figure figcaption { position:absolute; left:16px; bottom:14px; padding:7px 10px; background:rgba(20,24,32,.86); color:#fff; font-size:12px; font-weight:700; }
+    .proof-row__copy { display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px 34px; border-left:4px solid var(--cobalt); text-align:center; }
+    .proof-row__copy small { color:var(--cobalt); font:700 12px/1 var(--font-mono); letter-spacing:.12em; }
+    .proof-row__copy h2 { margin:13px 0 8px; font-size:37px; line-height:1.1; letter-spacing:-.04em; }
+    .proof-row__copy p { max-width:580px; font-size:19px; line-height:1.4; color:var(--muted); }
+    .proof-row__flow { width:100%; max-width:540px; display:flex; justify-content:center; gap:13px; margin-top:18px; padding-top:14px; border-top:1px solid var(--rule); font-size:16px; font-weight:750; }
+    .proof-row__flow b { color:var(--cobalt); }
+
+    .market-stage { display:grid; grid-template-columns:690px 1fr; gap:42px; height:100%; }
+    .market-main { display:flex; flex-direction:column; padding:36px 42px; background:var(--paper); border-top:4px solid var(--cobalt); }
+    .market-main .big { margin:28px 0 12px; color:var(--cobalt); font-size:155px; line-height:.9; font-weight:850; letter-spacing:-.07em; }
+    .market-main .big small { margin-left:8px; font-size:41px; letter-spacing:-.02em; color:var(--ink); }
+    .market-main h2 { font-size:32px; line-height:1.18; letter-spacing:-.04em; }
+    .market-main .ratio { display:flex; align-items:center; gap:15px; margin-top:auto; padding-top:19px; border-top:1px solid var(--rule); font-size:19px; }
+    .market-main .ratio b { color:var(--cobalt); }
+    .market-main .ratio i { flex:1; height:9px; background:#e2e6ec; }
+    .market-main .ratio i::after { content:''; display:block; width:84%; height:100%; background:var(--cobalt); }
+    .market-layers { display:grid; grid-template-rows:repeat(3,1fr); gap:12px; }
+    .market-layer { display:grid; grid-template-columns:110px 1fr; align-items:center; gap:20px; padding:18px 26px; background:var(--paper); border-left:3px solid var(--rule); }
+    .market-layer:first-child { border-left-color:var(--ink); }
+    .market-layer:nth-child(2) { border-left-color:var(--cobalt); }
+    .market-layer:last-child { border-left-color:var(--cobalt-deep); }
+    .market-layer .label { color:var(--cobalt); }
+    .market-layer strong { display:block; font-size:47px; line-height:1; letter-spacing:-.055em; }
+    .market-layer strong small { font-size:20px; letter-spacing:0; }
+    .market-layer p { margin-top:10px; font-size:16px; line-height:1.4; color:var(--muted); }
+
+    .coverage { height:100%; display:grid; grid-template-rows:72px repeat(4,1fr); border-top:2px solid var(--ink); }
+    .coverage-row { display:grid; grid-template-columns:330px repeat(4,1fr); align-items:stretch; border-bottom:1px solid var(--rule); }
+    .coverage-row > * { display:flex; align-items:center; justify-content:center; border-left:1px solid var(--rule); }
+    .coverage-row > *:first-child { justify-content:flex-start; border-left:0; padding-left:20px; }
+    .coverage-head { color:var(--muted); font-size:17px; font-weight:750; text-align:center; }
+    .coverage-row .provider { flex-direction:column; align-items:flex-start; gap:6px; }
+    .coverage-row .provider strong { font-size:22px; }
+    .coverage-row .provider span { font-size:14px; color:var(--muted); }
+    .coverage-mark { color:var(--cobalt); font-size:30px; font-weight:800; }
+    .coverage-mark.partial { color:#74819a; }
+    .coverage-mark.no { color:#bdc3ce; }
+    .coverage-row.us { background:#eaf1ff; border-bottom:3px solid var(--cobalt); }
+    .coverage-row.us .provider strong { color:var(--cobalt); }
+    .coverage-row.us .coverage-mark { font-size:34px; }
+
+    .pricing-board { height:100%; display:grid; grid-template-rows:minmax(0,1fr) 106px; gap:20px; }
+    .pricing-tiers { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .pricing-tier { display:flex; flex-direction:column; padding:27px 30px; background:var(--paper); border-top:4px solid var(--rule); }
+    .pricing-tier:first-child { border-top-color:var(--cobalt); }
+    .pricing-tier h2 { color:var(--ink); font:700 17px/1 var(--font-mono); letter-spacing:.05em; }
+    .pricing-tier .price-main { margin:auto 0 9px; color:var(--cobalt); font-size:84px; line-height:.85; font-weight:850; letter-spacing:-.06em; }
+    .pricing-tier .price-main small { margin-left:7px; color:var(--ink); font-size:25px; letter-spacing:-.01em; }
+    .pricing-tier p { font-size:19px; color:var(--muted); }
+    .pricing-tier dl { display:flex; justify-content:space-between; margin-top:auto; padding-top:19px; border-top:1px solid var(--rule); font-size:17px; }
+    .pricing-tier dd { font-weight:800; }
+    .pricing-scenario { display:flex; align-items:center; justify-content:space-between; gap:28px; padding:18px 34px; background:#eaf1ff; border-left:4px solid var(--cobalt); }
+    .pricing-scenario p { font-size:17px; line-height:1.4; }
+    .pricing-scenario p b { display:block; font-size:20px; }
+    .pricing-scenario strong { flex:none; color:var(--cobalt); font-size:51px; letter-spacing:-.06em; }
+    .pricing-scenario strong small { font-size:23px; letter-spacing:0; }
+
+    /* Market, tool landscape, and tier scenes share one evidence-first grid. */
+    .market-journey { display:grid; height:100%; }
+    .market-stage-items { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; }
+    .market-stage-item { position:relative; display:flex; flex-direction:column; padding:25px 27px; background:var(--paper); border-top:4px solid var(--rule); }
+    .market-stage-item:not(:last-child)::after { content:'→'; position:absolute; right:-21px; top:48%; z-index:2; color:var(--cobalt); font:700 30px/1 var(--font-mono); }
+    .market-stage-item.is-focus { background:#eaf1ff; border-top-color:var(--cobalt); }
+    .market-stage-item:nth-child(3) { border-top-color:#8ba7dc; }
+    .market-stage-item:nth-child(4) { border-top-color:var(--cobalt-deep); }
+    .stage-state { align-self:flex-start; padding:6px 8px; background:#eef0f4; color:var(--ink-2); font:700 12px/1 var(--font-mono); }
+    .stage-state.is-assumption { background:#fff0eb; color:var(--risk); }
+    .stage-state.is-target { background:#eaf1ff; color:var(--cobalt-deep); }
+    .market-stage-item h2 { margin-top:27px; font-size:25px; letter-spacing:-.035em; }
+    .market-stage-item strong { margin-top:auto; font-size:70px; line-height:1; letter-spacing:-.06em; color:var(--cobalt); }
+    .market-stage-item:first-child strong { color:var(--ink); }
+    .market-stage-item strong small { margin-left:4px; font-size:23px; color:var(--ink); letter-spacing:0; }
+    .market-stage-item p { margin-top:15px; padding-top:12px; border-top:1px solid var(--rule); font-size:15px; line-height:1.3; color:var(--muted); }
+    .market-economics { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; height:100%; }
+    .market-economics > article { display:flex; flex-direction:column; min-width:0; padding:31px 34px 27px; background:var(--paper); border-top:5px solid var(--rule); }
+    .market-economics > article:nth-child(2) { border-top-color:var(--cobalt); }
+    .market-economics > article:nth-child(3) { background:#eaf1ff; border-top-color:var(--cobalt-deep); }
+    .market-economics .market-code { color:var(--cobalt); font:700 29px/1 var(--font-mono); letter-spacing:.02em; }
+    .market-economics h2 { margin-top:27px; font-size:27px; line-height:1.2; letter-spacing:-.035em; }
+    .market-economics strong { display:block; margin-top:47px; font-size:94px; line-height:1; letter-spacing:-.07em; color:var(--ink); white-space:nowrap; }
+    .market-economics > article:nth-child(3) strong { color:var(--cobalt-deep); }
+    .market-economics strong small { margin-left:6px; font-size:31px; letter-spacing:-.03em; }
+    .market-economics .market-base { margin-top:auto; padding-top:21px; border-top:1px solid var(--rule); }
+    .market-economics .market-base b { display:block; font-size:25px; line-height:1.2; }
+    .market-economics .market-base span { display:block; margin-top:8px; font-size:16px; line-height:1.4; color:var(--muted); }
+    .market-economics .market-status { margin-top:19px; color:var(--muted); font:700 15px/1.25 var(--font-sans); letter-spacing:-.01em; }
+    .market-economics > article:nth-child(2) .market-status { color:var(--risk); }
+    .market-economics > article:nth-child(3) .market-status { color:var(--cobalt-deep); }
+
+    .tool-landscape { display:grid; grid-template-rows:minmax(0,1fr) 166px; gap:20px; height:100%; }
+    .tool-categories { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .tool-category { display:flex; flex-direction:column; min-width:0; padding:27px 30px 22px; background:var(--paper); border-top:4px solid var(--rule); }
+    .tool-category:nth-child(2) { border-top-color:#9ca7bd; }
+    .tool-category:nth-child(3) { border-top-color:var(--ink); }
+    .tool-type { color:var(--muted); font:700 12px/1 var(--font-mono); letter-spacing:.1em; }
+    .tool-icons { display:flex; align-items:center; gap:15px; height:88px; margin-top:14px; }
+    .tool-icons img { width:56px; height:56px; object-fit:contain; }
+    .tool-icons img[src$=".png"] { width:54px; height:54px; border:1px solid var(--rule); border-radius:11px; }
+    .tool-icons.audition { gap:22px; }
+    .tool-icons.audition img { width:132px; height:48px; object-position:left center; }
+    .tool-category h2 { margin-top:7px; font-size:29px; letter-spacing:-.04em; }
+    .tool-category p { margin-top:10px; font-size:18px; line-height:1.35; color:var(--ink-2); }
+    .tool-category small { margin-top:auto; padding-top:16px; color:var(--muted); font-size:14px; }
+    .tool-bridge { display:grid; grid-template-columns:315px 1fr; align-items:center; gap:20px; padding:22px 28px; background:#eaf1ff; border-left:4px solid var(--cobalt); }
+    .tool-bridge-head span { display:block; color:var(--cobalt); font:700 12px/1 var(--font-mono); letter-spacing:.08em; }
+    .tool-bridge-head strong { display:block; margin-top:12px; font-size:31px; letter-spacing:-.04em; }
+    .tool-bridge-steps { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .tool-bridge-steps span { display:flex; flex-direction:column; align-items:center; gap:8px; min-width:116px; font-size:18px; font-weight:750; text-align:center; }
+    .tool-bridge-steps img { width:36px; height:36px; filter:invert(29%) sepia(87%) saturate(2515%) hue-rotate(215deg) brightness(96%) contrast(90%); }
+    .tool-bridge-steps i { color:var(--cobalt); font:700 27px/1 var(--font-mono); font-style:normal; }
+
+    .pricing-board { display:block; height:100%; }
+    .pricing-tiers { height:100%; }
+    .pricing-tier { padding:25px 28px 24px; }
+    .pricing-tier h2 { margin-top:15px; font:800 27px/1.2 var(--font-sans); letter-spacing:-.04em; }
+    .tier-top > span { color:var(--cobalt); font:700 13px/1 var(--font-mono); letter-spacing:.08em; }
+    .tier-scene { display:flex; align-items:center; justify-content:center; gap:8px; min-height:105px; margin-top:20px; padding:14px 9px; background:#edf3ff; }
+    .tier-scene span { display:flex; flex-direction:column; align-items:center; gap:8px; min-width:74px; color:var(--ink-2); font-size:15px; font-weight:750; white-space:nowrap; }
+    .tier-scene img { display:block; width:33px; height:33px; filter:invert(29%) sepia(87%) saturate(2515%) hue-rotate(215deg) brightness(96%) contrast(90%); }
+    .tier-scene i { color:var(--cobalt); font:700 22px/1 var(--font-mono); font-style:normal; }
+    .tier-features { margin-top:17px; }
+    .tier-feature { display:flex; justify-content:space-between; gap:10px; padding:9px 0; border-bottom:1px solid var(--rule); font-size:16px !important; color:var(--ink-2) !important; }
+    .tier-feature b { color:var(--muted); }
+    .tier-feature span { text-align:right; }
+    .tier-price { display:flex; align-items:end; justify-content:space-between; gap:8px; margin-top:auto; padding-top:17px; }
+    .tier-price strong { color:var(--cobalt); font-size:53px; line-height:1; letter-spacing:-.06em; }
+    .tier-price strong small { margin-left:4px; color:var(--ink); font-size:17px; letter-spacing:0; }
+    .tier-price > span { padding-bottom:5px; color:var(--muted); font-size:14px; white-space:nowrap; }
+
+    .community-proof { display:grid; grid-template-columns:minmax(0,1fr) 250px; gap:18px; height:100%; }
+    .community-proof-screen { min-height:0; overflow:hidden; border:1px solid var(--rule); border-top:4px solid var(--cobalt); background:var(--paper); }
+    .community-proof-screen img { display:block; width:100%; height:100%; object-fit:contain; }
+    .community-proof-screen { position:relative; }
+    .community-proof-screen figcaption { position:absolute; right:14px; bottom:14px; padding:8px 11px; background:rgba(20,24,32,.88); color:#fff; font-size:13px; font-weight:700; }
+    .community-proof-path { display:grid; grid-template-rows:1fr 1fr; align-items:stretch; background:var(--paper); border-top:4px solid var(--cobalt); }
+    .community-proof-path > div { display:grid; grid-template-columns:42px auto; column-gap:12px; align-content:center; padding:19px 14px; border-bottom:1px solid var(--rule); }
+    .community-proof-path img { grid-row:1 / 3; width:42px; height:42px; align-self:center; filter:invert(29%) sepia(87%) saturate(2515%) hue-rotate(215deg) brightness(96%) contrast(90%); }
+    .community-proof-path strong { font-size:20px; line-height:1.2; }
+    .community-proof-path span { margin-top:5px; font-size:15px; line-height:1.35; color:var(--muted); }
+    .community-proof-path > b { display:none; }
+
+    .system-diagram { display:grid; height:100%; }
+    .product-flow { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.18fr) minmax(0,1fr); gap:18px; align-items:stretch; }
+    .product-map-wing { display:flex; flex-direction:column; min-width:0; background:var(--paper); border-top:4px solid var(--rule); }
+    .product-map-shot { position:relative; display:block; height:72%; min-height:0; overflow:hidden; border-bottom:1px solid var(--rule); background:var(--paper); }
+    .product-map-shot figcaption { position:absolute; right:12px; bottom:12px; padding:6px 9px; background:rgba(20,24,32,.86); color:#fff; font-size:12px; font-weight:700; }
+    .product-map-shot img { display:block; width:100%; height:100%; object-fit:cover; object-position:center; }
+    .product-map-wing:first-child .product-map-shot img { object-fit:cover; object-position:50% center; }
+    .product-map-wing:last-child .product-map-shot img { object-fit:contain; object-position:center; }
+    .product-map-copy { display:flex; flex:1; flex-direction:column; justify-content:center; padding:22px 28px 25px; }
+    .product-map-copy small { color:var(--cobalt); font:700 13px/1 var(--font-mono); letter-spacing:.06em; }
+    .product-map-copy h2 { margin-top:14px; font-size:30px; line-height:1.2; letter-spacing:-.04em; }
+    .product-map-copy p { margin-top:12px; font-size:19px; line-height:1.35; color:var(--ink-2); }
+    .product-step { display:flex; flex-direction:column; min-width:0; padding:29px 31px; background:var(--paper); border-top:4px solid var(--rule); }
+    .product-step > small { color:var(--cobalt); font:700 13px/1 var(--font-mono); letter-spacing:.08em; }
+    .product-step h2 { margin-top:24px; font-size:31px; line-height:1.15; letter-spacing:-.045em; }
+    .product-step > p { margin-top:13px; font-size:19px; line-height:1.45; color:var(--ink-2); }
+    .product-step > strong { display:block; margin-top:auto; padding-top:20px; border-top:1px solid var(--rule); font-size:19px; line-height:1.4; }
+    .product-step > strong span { color:var(--cobalt); }
+    .product-profile { background:#eaf1ff; border:2px solid var(--cobalt); padding:30px 35px; }
+    .product-profile > small { color:var(--cobalt-deep); }
+    .product-profile h2 { margin-top:19px; font-size:38px; }
+    .product-profile > p { margin-top:7px; }
+    .profile-sheet { display:flex; flex:1; flex-direction:column; gap:0; margin-top:29px; background:var(--paper); border:1px solid #b6cbf7; }
+    .profile-sheet div { display:flex; flex:1; align-items:center; justify-content:space-between; min-height:52px; padding:0 26px; border-bottom:1px solid var(--rule); }
+    .profile-sheet div:last-child { border-bottom:0; }
+    .profile-sheet span { font-size:16px; color:var(--muted); }
+    .profile-sheet b { font-size:25px; }
+    .product-profile > strong { border-top:0; padding-top:22px; font-size:18px; color:var(--cobalt-deep); }
+    .product-connector { position:relative; display:flex; align-items:center; justify-content:center; color:var(--cobalt); font:700 30px/1 var(--font-mono); }
+    .product-connector::before { content:""; position:absolute; top:50%; left:6px; right:6px; height:3px; background:var(--cobalt); transform:translateY(-50%); }
+    .product-connector span { position:relative; z-index:1; background:var(--canvas); padding:0 3px; }
+    .product-boundary { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+    .product-boundary p { display:flex; align-items:center; justify-content:center; gap:13px; padding:14px 20px; background:var(--paper); border-left:4px solid var(--cobalt); font-size:18px; line-height:1.3; }
+    .product-boundary b { color:var(--cobalt); }
+
+    .ax-proof-wide { height:100%; }
+    .workflow-map { display:grid; grid-template-columns:1.05fr 65px 1.15fr 65px 1.15fr 65px 1.05fr; align-items:center; gap:0; height:100%; padding:34px 38px; background:#fff; border:1px solid var(--rule); border-top:4px solid var(--cobalt); }
+    .workflow-stage { display:flex; flex-direction:column; min-width:0; height:100%; }
+    .workflow-stage-head { display:flex; align-items:center; gap:11px; height:56px; border-bottom:1px solid var(--rule); }
+    .workflow-stage-head span { color:var(--cobalt); font:700 14px/1 var(--font-mono); }
+    .workflow-stage-head strong { font-size:20px; letter-spacing:-.03em; }
+    .workflow-stage-body { display:flex; flex:1; flex-direction:column; justify-content:center; gap:15px; }
+    .workflow-node { display:flex; align-items:center; min-height:88px; padding:15px 19px; border:1px solid #bed1f8; border-left:5px solid var(--cobalt); background:#f5f8ff; box-shadow:0 4px 12px rgba(20,50,105,.035); }
+    .workflow-node strong { display:block; font-size:22px; line-height:1.15; letter-spacing:-.035em; }
+    .workflow-node small { display:block; margin-top:8px; color:var(--muted); font-size:14px; line-height:1.2; }
+    .workflow-stage.review .workflow-stage-head span { color:#6753ca; }
+    .workflow-stage.review .workflow-node { min-height:116px; border-color:#d7cdfb; border-left-color:#745dda; background:#faf8ff; }
+    .workflow-stage.decision .workflow-stage-head span { color:#b75422; }
+    .workflow-stage.decision .workflow-node { min-height:172px; border-color:#edc3ad; border-left-color:#e2773e; background:#fff7f0; }
+    .workflow-stage.decision .workflow-node strong { font-size:26px; }
+    .workflow-stage.output .workflow-stage-head span { color:#168b81; }
+    .workflow-stage.output .workflow-node { border-color:#bce8e0; border-left-color:#1aa79b; background:#f3fcfa; }
+    .workflow-link { position:relative; height:2px; margin:50px 8px 0; background:#8aa9df; }
+    .workflow-link::after { content:""; position:absolute; right:-1px; top:50%; width:10px; height:10px; border-top:2px solid #3f6ec8; border-right:2px solid #3f6ec8; transform:translateY(-50%) rotate(45deg); }
+    .workflow-link.to-decision { background:#a697d9; }
+    .workflow-link.to-decision::after { border-color:#745dda; }
+    .workflow-link.to-output { background:#d5a080; }
+    .workflow-link.to-output::after { border-color:#d77942; }
+
+    .roadmap-gates { display:grid; grid-template-columns:1.62fr repeat(3,minmax(0,1fr)); gap:18px; height:100%; }
+    .roadmap-gate { display:flex; flex-direction:column; min-width:0; padding:30px 28px 27px; background:var(--paper); border-top:4px solid var(--rule); }
+    .roadmap-gate.is-now { background:var(--cobalt-deep); border-top-color:var(--cobalt); color:#fff; padding:30px 35px 27px; }
+    .roadmap-gate > span { color:var(--cobalt); font:700 14px/1 var(--font-mono); letter-spacing:.02em; }
+    .roadmap-gate.is-now > span { color:#c6d8ff; }
+    .roadmap-gate .roadmap-number { display:block; margin-top:30px; font:800 72px/.9 var(--font-sans); letter-spacing:-.065em; color:var(--cobalt); }
+    .roadmap-gate.is-now .roadmap-number { font-size:100px; color:#fff; }
+    .roadmap-gate h2 { margin-top:24px; font-size:28px; line-height:1.2; letter-spacing:-.04em; }
+    .roadmap-gate.is-now h2 { font-size:36px; }
+    .roadmap-gate > p { margin-top:15px; font-size:17px; line-height:1.4; color:var(--ink-2); }
+    .roadmap-gate.is-now > p { color:#dce7ff; }
+    .roadmap-check { margin-top:auto; padding-top:20px; border-top:1px solid var(--rule); }
+    .roadmap-check small { display:block; color:var(--muted); font:700 12px/1 var(--font-mono); letter-spacing:.06em; }
+    .roadmap-check strong { display:block; margin-top:11px; font-size:19px; line-height:1.3; letter-spacing:-.025em; }
+    .roadmap-gate.is-now .roadmap-check { border-color:#6e88c4; }
+    .roadmap-gate.is-now .roadmap-check small { color:#c6d8ff; }
+
+    .validation-plan { height:100%; display:grid; grid-template-rows:minmax(0,1fr) 120px; gap:22px; }
+    .validation-steps { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .validation-step { position:relative; display:flex; flex-direction:column; padding:31px 33px; background:var(--paper); border-top:4px solid var(--cobalt); }
+    .validation-step::after { content:'→'; position:absolute; right:-20px; top:49%; z-index:2; color:var(--cobalt); font:700 36px/1 var(--font-mono); }
+    .validation-step:last-child::after { display:none; }
+    .validation-step small { font:700 13px/1 var(--font-mono); color:var(--cobalt); letter-spacing:.1em; }
+    .validation-step strong { margin-top:30px; font-size:76px; line-height:1; letter-spacing:-.065em; }
+    .validation-step strong em { margin-left:7px; font-size:31px; font-style:normal; }
+    .validation-step h2 { margin-top:15px; font-size:28px; }
+    .validation-step p { margin-top:auto; padding-top:15px; border-top:1px solid var(--rule); font-size:17px; color:var(--muted); }
+    .community-test { display:grid; grid-template-columns:220px repeat(4,1fr); align-items:center; background:#edf3ff; border-left:4px solid var(--cobalt); }
+    .community-test b { padding-left:30px; font-size:20px; }
+    .community-test span { position:relative; text-align:center; font-size:19px; font-weight:750; }
+    .community-test span:not(:last-child)::after { content:'→'; position:absolute; right:-9px; color:var(--cobalt); }
+
+    .milestone-grid { height:100%; display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+    .milestone { display:flex; flex-direction:column; padding:28px 28px 26px; background:var(--paper); border-top:4px solid var(--cobalt); }
+    .milestone small { font:700 14px/1 var(--font-mono); color:var(--cobalt); letter-spacing:.08em; }
+    .milestone h2 { margin-top:35px; font-size:30px; line-height:1.15; }
+    .milestone .proof-number { margin:auto 0; color:var(--cobalt); font-size:62px; line-height:1; font-weight:850; letter-spacing:-.055em; }
+    .milestone .proof-number small { font-size:24px; letter-spacing:0; }
+    .milestone p:last-child { margin-top:auto; padding-top:17px; border-top:1px solid var(--rule); font-size:17px; line-height:1.4; color:var(--muted); }
+
+    .team-duo { height:100%; }
+    .team-members { display:grid; grid-template-columns:1fr 1fr; gap:20px; height:100%; }
+    .team-member { display:flex; flex-direction:column; padding:32px 39px; background:var(--paper); border-top:4px solid var(--cobalt); }
+    .team-member:nth-child(2) { border-top-color:var(--ink); }
+    .team-member small { font:700 14px/1 var(--font-mono); color:var(--cobalt); }
+    .team-member h2 { margin-top:23px; font-size:39px; line-height:1.1; letter-spacing:-.04em; }
+    .team-member .team-proof { margin:27px 0 12px; font-size:77px; line-height:1; font-weight:850; color:var(--cobalt); letter-spacing:-.06em; }
+    .team-member .team-proof span { font-size:26px; letter-spacing:-.02em; }
+    .team-member .team-proof-label { font-size:18px; font-weight:750; color:var(--ink-2); }
+    .team-member ul { display:grid; gap:0; margin-top:auto; padding:0; list-style:none; border-top:1px solid var(--rule); }
+    .team-member li { display:flex; align-items:center; gap:14px; min-height:62px; border-bottom:1px solid var(--rule); font-size:20px; font-weight:650; line-height:1.3; }
+    .team-member li::before { content:""; flex:none; width:7px; height:7px; background:var(--cobalt); }
+
+    #slide-11 { background:var(--canvas); color:var(--ink); }
+    #slide-11 .slide-chrome { border-color:var(--rule); color:var(--muted); }
+    #slide-11 .slide-chrome .brand { color:var(--ink); }
+    #slide-11 .psst span[aria-current="true"] { color:var(--cobalt); }
+    #slide-11 .psst span[aria-current="true"]::after { background:var(--cobalt); }
+    #slide-11 .page-no { color:var(--muted); }
+    #slide-11 .kicker b { background:var(--cobalt); color:#fff; }
+    #slide-11 .kicker .ch { color:var(--cobalt); }
+    #slide-11 .kicker .sub { color:var(--ink-2); border-color:var(--rule); }
+    #slide-11 .evidence-tag.target { color:#5d7a00; }
+    .closing { height:100%; display:grid; grid-template-rows:minmax(0,1fr) 135px; gap:18px; }
+    .closing-diagram { display:flex; flex-direction:column; min-height:0; padding:26px 34px 20px; background:var(--paper); border-top:4px solid var(--cobalt); }
+    .closing-diagram > small { color:var(--cobalt); font:700 13px/1 var(--font-mono); letter-spacing:.1em; }
+    .closing-flow { display:grid; grid-template-columns:1fr 64px 1.1fr 64px 1fr; align-items:stretch; gap:0; flex:1; min-height:0; margin-top:19px; }
+    .closing-flow-card { display:flex; flex-direction:column; padding:21px 23px; border:1px solid var(--rule); background:#fff; }
+    .closing-flow-card.profile { border-color:#a9c2fa; background:#eef4ff; }
+    .closing-flow-card > span { color:var(--cobalt); font:700 13px/1 var(--font-mono); letter-spacing:.05em; }
+    .closing-flow-card > h2 { margin-top:12px; font-size:28px; line-height:1.15; letter-spacing:-.045em; }
+    .closing-flow-card > p { margin-top:7px; font-size:17px; color:var(--muted); }
+    .closing-flow-card > div { display:flex; align-items:center; gap:11px; margin-top:auto; padding:13px 14px; background:#f4f7fd; border-left:3px solid var(--cobalt); font-size:17px; font-weight:750; }
+    .closing-flow-card > div + div { margin-top:8px; }
+    .closing-flow-card.profile > div { background:#fff; }
+    .closing-flow-card img { width:25px; height:25px; filter:invert(29%) sepia(87%) saturate(2515%) hue-rotate(215deg) brightness(96%) contrast(90%); }
+    .closing-flow-arrow { display:flex; align-items:center; justify-content:center; color:var(--cobalt); font:700 34px/1 var(--font-mono); }
+    .closing-return { margin-top:15px; padding-top:10px; border-top:1px solid var(--rule); text-align:center; color:var(--cobalt-deep); font-size:17px; font-weight:750; }
+    .closing-contact { display:grid; grid-template-columns:360px minmax(0,1fr) 280px; align-items:center; gap:28px; padding:18px 34px; background:#eaf1ff; border-top:3px solid var(--cobalt); }
+    .closing-contact-heading small { display:block; margin-bottom:8px; color:var(--cobalt); font:700 12px/1 var(--font-mono); letter-spacing:.09em; }
+    .closing-contact-heading strong { display:block; font-size:27px; line-height:1.12; letter-spacing:-.045em; }
+    .closing-contact-heading span { display:block; margin-top:7px; color:var(--muted); font-size:15px; }
+    .closing-contact p { min-width:0; padding-left:23px; border-left:1px solid #b6cbf7; }
+    .closing-contact p span { display:block; margin-bottom:7px; color:var(--cobalt); font-size:14px; font-weight:750; }
+    .closing-contact a { color:var(--ink); text-decoration:none; font-size:23px; line-height:1.2; font-weight:750; letter-spacing:-.025em; white-space:nowrap; }
+
+    /* ---------- Navigation ---------- */
+    .deck-nav { position: absolute; z-index: 20; right: 28px; bottom: 18px; display: flex; gap: 8px; align-items: center; opacity: 0; transition: opacity .18s ease; }
+    #deck-frame:hover .deck-nav, .deck-nav:focus-within { opacity: 1; }
+    .deck-nav button { border: 1px solid var(--rule); background: var(--paper); color: var(--ink); padding: 7px 11px; cursor: pointer; font: 600 12px/1 var(--font-mono); }
     .nav-dots { display: flex; gap: 5px; }
     .nav-dot { width: 8px; height: 8px; padding: 0 !important; border-radius: 50%; }
     .nav-dot[aria-current="true"] { background: var(--cobalt); border-color: var(--cobalt); }
-    .slide-counter { min-width: 58px; font: 700 11px/1 var(--font-mono); text-align: center; }
+    .slide-counter { min-width: 58px; font: 600 11px/1 var(--font-mono); text-align: center; color: var(--muted); }
     .keyboard-hint { position: fixed; right: 16px; bottom: 10px; font: 11px/1 var(--font-mono); color: var(--muted); }
-    .lede { max-width: 820px; font-size: 20px; line-height: 1.55; color: var(--muted); }
-    .cover-grid, .problem-map, .stat-grid, .flow, .proof-grid, .boundary-grid, .market-grid,
-    .competition-grid, .money-flow, .validation-grid, .team-grid, .ask-grid { display: grid; gap: 24px; height: 100%; align-content: center; }
-    .cover-grid { grid-template-columns: 1.3fr .7fr; align-items: end; }
-    .wordmark { font-size: 104px; font-weight: 900; letter-spacing: -.075em; }
-    .cover-note { padding-left: 24px; border-left: 2px solid var(--cobalt); font-size: 18px; line-height: 1.5; }
-    .problem-map { grid-template-columns: 1fr 1.2fr; align-items: center; }
-    .problem-list { display: grid; gap: 10px; }
-    .problem-list span { padding: 18px; border-top: 1px solid #d7dae0; font-size: 18px; }
-    .operator { padding: 38px; background: #141820; color: #fff; font-size: 28px; line-height: 1.35; }
-    .stat-grid { grid-template-columns: repeat(3, 1fr); align-items: center; }
-    .stat { padding: 24px 0; border-top: 2px solid #141820; }
-    .stat strong { display: block; font-size: 70px; letter-spacing: -.05em; }
-    .stat span { display: block; margin-top: 14px; font-size: 16px; line-height: 1.45; color: #626a78; }
-    .flow { grid-template-columns: repeat(5, 1fr); align-items: center; }
-    .flow-step { position: relative; min-height: 170px; padding: 22px; border: 1px solid #d7dae0; background: #fff; }
-    .flow-step:not(:last-child)::after { content: "→"; position: absolute; top: 62px; right: -22px; z-index: 2; color: #2864e8; font-size: 26px; }
-    .flow-step.approve { background: #c8f45d; border-color: #141820; }
-    .flow-step b { display: block; font: 700 13px/1 monospace; letter-spacing: .08em; }
-    .flow-step span { display: block; margin-top: 70px; font-size: 18px; font-weight: 700; }
-    .proof-grid { grid-template-columns: 1.55fr .65fr; align-items: stretch; }
-    .proof-shot { position: relative; min-height: 0; border: 1px solid #d7dae0; background: #fff; overflow: hidden; }
-    .proof-shot img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
-    .proof-shot figcaption { position: absolute; left: 16px; bottom: 16px; display: flex; gap: 9px; align-items: center; padding: 9px 11px; border: 1px solid var(--rule); background: var(--paper); font-size: 13px; font-weight: 700; }
-    .proof-results { display: grid; align-content: center; }
-    .proof-result { padding: 18px 0; border-top: 1px solid #d7dae0; }
-    .proof-result strong { display: block; margin: 8px 0 4px; font-size: 22px; }
-    .proof-result span:last-child { color: #626a78; font-size: 14px; }
-    .boundary-grid { grid-template-columns: repeat(3, 1fr); }
-    .boundary { padding: 24px; border-top: 8px solid #d7dae0; background: #fff; }
-    .boundary.now { border-color: #2864e8; }
-    .boundary.next { border-color: #c8f45d; }
-    .boundary h2 { margin: 0 0 28px; font: 800 20px/1 monospace; }
-    .boundary p { font-size: 18px; line-height: 1.7; }
-    .market-grid { align-content: center; }
-    .market-row { display: grid; grid-template-columns: 110px 1fr 230px; gap: 20px; align-items: center; }
-    .market-label { font: 800 16px/1 monospace; }
-    .market-bar { height: 72px; background: #dceaff; border-left: 6px solid #2864e8; display: flex; align-items: center; padding: 0 22px; }
-    .market-row.sam .market-bar { width: 64%; }
-    .market-row.som .market-bar { width: 36%; background: #fff; border-color: #f06445; }
-    .market-value { font-size: 30px; font-weight: 900; }
-    .market-formula { font-size: 13px; line-height: 1.4; color: #626a78; }
-    .competition-grid { grid-template-columns: 1.2fr .8fr; }
-    .comparison { width: 100%; border-collapse: collapse; background: #fff; }
-    .comparison th, .comparison td { padding: 13px 14px; border-bottom: 1px solid #d7dae0; text-align: left; font-size: 14px; }
-    .comparison th { font-size: 12px; color: #626a78; }
-    .position-note { padding: 28px; background: #141820; color: #fff; display: grid; align-content: center; gap: 18px; }
-    .position-note strong { font-size: 28px; line-height: 1.25; }
-    .position-note p { line-height: 1.55; color: #d7dae0; }
-    .money-flow { grid-template-columns: 1fr auto 1fr auto 1fr; align-items: center; }
-    .money-node { min-height: 210px; padding: 26px; border: 1px solid #d7dae0; background: #fff; }
-    .money-node.primary { background: #2864e8; color: #fff; }
-    .money-node h2 { margin: 0 0 22px; font-size: 22px; }
-    .money-node p { font-size: 17px; line-height: 1.6; }
-    .money-arrow { font-size: 34px; color: #2864e8; }
-    .validation-grid { grid-template-columns: repeat(3, 1fr); align-items: center; }
-    .validation-step { min-height: 230px; padding: 28px; border-top: 8px solid #d7dae0; background: #fff; }
-    .validation-step.current { border-color: #2864e8; }
-    .validation-step.target { border-color: #c8f45d; }
-    .validation-step strong { display: block; margin: 18px 0; font-size: 26px; }
-    .validation-step p { font-size: 16px; line-height: 1.55; color: #626a78; }
-    .team-grid { grid-template-columns: repeat(3, 1fr); }
-    .team-column { position: relative; min-height: 270px; padding: 28px; border-top: 2px solid var(--ink); overflow: hidden; }
-    .team-column::before { content: attr(data-index); position: absolute; right: 16px; bottom: -28px; font: 800 144px/.8 var(--font-sans); letter-spacing: -.08em; color: var(--rule); opacity: .55; }
-    .team-column > * { position: relative; z-index: 1; }
-    .team-column h2 { margin: 0 0 24px; font-size: 17px; }
-    .team-column strong { display: block; margin-bottom: 14px; font-size: 25px; line-height: 1.3; }
-    .team-column p { color: #626a78; font-size: 16px; line-height: 1.6; }
-    .ask-grid { grid-template-columns: 1.25fr .75fr; align-items: center; }
-    .ask-main { padding: 38px; background: #141820; color: #fff; }
-    .ask-main strong { display: block; font-size: 56px; line-height: 1.1; letter-spacing: -.04em; }
-    .ask-main p { margin-top: 26px; font-size: 20px; line-height: 1.6; color: #d7dae0; }
-    .ask-side { display: grid; gap: 16px; }
-    .ask-item { padding: 20px; border-top: 1px solid #141820; font-size: 18px; font-weight: 700; }
-    @page { size: 13.333in 7.5in; margin: 0; }
+
+    @page { size: 1600px 900px; margin: 0; }
     @media print {
       html, body { width: auto; height: auto; overflow: visible; background: #fff; }
       #deck { display: block; width: auto; height: auto; }
-      #deck-frame, #slides { width: 1280px; height: auto; transform: none !important; box-shadow: none; }
-      .slide { position: relative; display: grid !important; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: auto auto minmax(0, 1fr) auto; column-gap: 24px; row-gap: 18px; width: 1600px; height: 900px; zoom: .8; page-break-after: always; break-after: page; }
+      #deck-frame { position: static; }
+      #deck-frame, #slides { width: 1600px; height: auto; transform: none !important; box-shadow: none; }
+      .slide { position: relative; display: flex !important; flex-direction: column; page-break-after: always; break-after: page; }
       .deck-nav, .keyboard-hint { display: none !important; }
     }
   </style>
 </head>
 <body>
-  <main id="deck" aria-label="Enter-AX IR deck">
+  <main id="deck" aria-label="Enter-AX 제품 소개 및 파일럿 파트너십 덱">
     <div id="deck-frame">
       <div id="slides" aria-live="polite">
-        <section class="slide is-active" id="slide-01" data-title="Cover" aria-hidden="false">
-          <p class="slide-kicker">ENTER—AX / IR DECK 2026</p>
-          <h1>인재 발견부터 콘텐츠 실행까지,<br>엔터사의 운영을 연결합니다.</h1>
-          <div class="slide-content cover-grid">
-            <div>
-              <div class="wordmark">ENTER—AX</div>
-              <p class="lede">중소·중견 엔터테인먼트사를 위한 Human-in-the-loop AX workflow</p>
+
+        <!-- 01 COVER -->
+        <section class="slide is-active" id="slide-01" data-title="Cover" data-section="" aria-hidden="false">
+          <div class="cover-poster">
+            <img class="cover-poster-image" src="assets/deck/cover-product-generated-v1.png" alt="실제 서비스 화면을 바탕으로 재구성한 제품 소개 이미지: 오디션 커뮤니티와 엔터사 AX 업무 흐름">
+            <div class="cover-poster-shade" aria-hidden="true"></div>
+            <div class="cover-poster-content">
+              <p class="cover-poster-eyebrow">B2C 오디션 커뮤니티 · B2B 엔터사 AX</p>
+              <h1 class="cover-poster-title">ENTER—AX</h1>
+              <p class="cover-poster-sub">지원자와 기획사를 잇는<br><span class="headline-key">양방향</span> 오디션 AX 플랫폼</p>
+              <p class="cover-poster-desc"><b>지원자</b> 정보 공유 · 프로필 등록<br><b>기획사</b> 후보 검토 · 제안</p>
             </div>
-            <p class="cover-note"><span class="evidence-tag">PROTOTYPE</span><br><br>지원자 접수 · 검토 보조 · 콘텐츠 실행을 하나의 운영 흐름으로.</p>
-          </div>
-          <p class="source-line">Working prototype · Korea · September 2026</p>
-        </section>
-
-        <section class="slide" id="slide-02" data-title="Problem" aria-hidden="true">
-          <p class="slide-kicker">01 / PROBLEM</p>
-          <h1>한 명의 실무자가 영상, 후보표, 콘텐츠 파일 사이를 오갑니다.</h1>
-          <svg class="slide-content diagram" data-diagram="fragmentation" viewBox="0 0 1424 500" role="img" aria-labelledby="fragmentation-title">
-            <title id="fragmentation-title">이메일, 스프레드시트, 드라이브, 메신저 업무가 한 명의 담당자에게 집중되는 구조</title>
-            <defs><marker id="arrow-fragment" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" class="blue"/></marker></defs>
-            <g>
-              <rect class="paper" x="0" y="10" width="380" height="90"/><text class="mono muted" x="28" y="42" font-size="13">01 / INBOX</text><text x="28" y="76" font-size="22" font-weight="700">오디션 영상 · 이메일</text>
-              <rect class="paper" x="0" y="132" width="380" height="90"/><text class="mono muted" x="28" y="164" font-size="13">02 / STATUS</text><text x="28" y="198" font-size="22" font-weight="700">후보 상태 · 스프레드시트</text>
-              <rect class="paper" x="0" y="254" width="380" height="90"/><text class="mono muted" x="28" y="286" font-size="13">03 / FILE</text><text x="28" y="320" font-size="22" font-weight="700">원본 파일 · 드라이브</text>
-              <rect class="paper" x="0" y="376" width="380" height="90"/><text class="mono muted" x="28" y="408" font-size="13">04 / APPROVAL</text><text x="28" y="442" font-size="22" font-weight="700">승인 요청 · 메신저</text>
-            </g>
-            <g class="blue-stroke" marker-end="url(#arrow-fragment)"><path d="M400 55C600 55 610 215 760 238"/><path d="M400 177C580 177 620 225 760 242"/><path d="M400 299C580 299 620 260 760 250"/><path d="M400 421C600 421 610 285 760 257"/></g>
-            <rect class="ink-block" x="790" y="92" width="634" height="330"/>
-            <text class="mono ink-text" x="836" y="140" font-size="14">ONE OPERATOR / FOUR TOOLS</text>
-            <text class="ink-text" x="836" y="225" font-size="38" font-weight="800">맥락은 사람에게 남고,</text>
-            <text class="ink-text" x="836" y="276" font-size="38" font-weight="800">기록은 도구마다 흩어집니다.</text>
-            <line x1="836" y1="322" x2="1260" y2="322" stroke="#626a78"/>
-            <text x="836" y="363" font-size="17" class="ink-text">검토 → 공유 → 제작 사이의 인수인계가 반복됩니다.</text>
-          </svg>
-          <p class="source-line">초기 문제 가설 · 고객 인터뷰에서 업무량과 처리시간을 검증할 항목</p>
-        </section>
-
-        <section class="slide" id="slide-03" data-title="Why Now" aria-hidden="true">
-          <p class="slide-kicker">02 / WHY NOW</p>
-          <h1>시장은 커지고, 운영은 복잡해졌고, AI 도입은 이미 시작됐습니다.</h1>
-          <div class="slide-content stat-grid">
-            <div class="stat"><strong>6,629</strong><span>정상 상태 대중문화예술기획업 등록기업<br>2026.08.12 기준</span></div>
-            <div class="stat"><strong>+15.8%<br><small>/ +32.4%</small></strong><span>2025 국내 대중음악산업 매출 / 수출 증가율</span></div>
-            <div class="stat"><strong>32.1%</strong><span>2025년 4분기 콘텐츠사업체 생성형 AI 활용률</span></div>
-          </div>
-          <p class="source-line">출처: KOCCA·공공데이터포털 등록기업 현황(2026.08.12), KOCCA 2025 콘텐츠산업 동향분석 및 대중음악산업계 간담회</p>
-        </section>
-
-        <section class="slide" id="slide-04" data-title="Solution" aria-hidden="true">
-          <p class="slide-kicker">03 / SOLUTION</p>
-          <h1>AI는 먼저 정리하고, 사람은 판단하고, 시스템은 실행합니다.</h1>
-          <svg class="slide-content diagram" data-diagram="workflow" viewBox="0 0 1424 470" role="img" aria-labelledby="workflow-title">
-            <title id="workflow-title">등록, 분석, 검토, 실행, 사람 승인으로 이어지는 Enter-AX 운영 흐름</title>
-            <defs><marker id="arrow-flow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" class="blue"/></marker></defs>
-            <path d="M245 215H330M530 215H615M815 215H900M1100 215H1185" class="blue-stroke" marker-end="url(#arrow-flow)"/>
-            <g transform="translate(0 95)"><rect class="paper" width="245" height="240"/><circle cx="52" cy="54" r="24" class="blue-stroke"/><path d="M26 112h52M52 88v48" class="blue-stroke"/><text class="mono muted" x="24" y="172" font-size="13">01 / REGISTER</text><text x="24" y="210" font-size="20" font-weight="700">프로필·미디어 등록</text></g>
-            <g transform="translate(285 95)"><rect class="paper" width="245" height="240"/><rect x="28" y="28" width="68" height="56" class="blue-stroke"/><path d="M28 110h88M28 134h64" class="blue-stroke"/><text class="mono muted" x="24" y="172" font-size="13">02 / SCREEN</text><text x="24" y="210" font-size="20" font-weight="700">역량 분석·정리</text></g>
-            <g transform="translate(570 95)"><rect class="paper" width="245" height="240"/><path d="M28 36h150v86H28zM78 36v86M128 36v86" class="blue-stroke"/><text class="mono muted" x="24" y="172" font-size="13">03 / REVIEW</text><text x="24" y="210" font-size="20" font-weight="700">후보 파이프라인</text></g>
-            <g transform="translate(855 95)"><rect class="paper" width="245" height="240"/><path d="M34 90V38h44v52M34 90h44M108 42h88v70h-88zM140 58l30 20-30 20z" class="blue-stroke"/><text class="mono muted" x="24" y="172" font-size="13">04 / EXECUTE</text><text x="24" y="210" font-size="20" font-weight="700">콘텐츠 실행</text></g>
-            <g transform="translate(1140 95)"><rect class="approval" width="284" height="240"/><circle cx="58" cy="68" r="32" fill="#141820"/><path d="M43 68l10 10 22-24" fill="none" stroke="#c8f45d" stroke-width="6"/><text class="mono" x="24" y="172" font-size="13">05 / APPROVE</text><text x="24" y="210" font-size="20" font-weight="800">사람이 최종 승인</text></g>
-          </svg>
-          <p class="source-line"><span class="evidence-tag">PROTOTYPE</span> 자동 합격·탈락 없음 · 최종 판단과 발송은 사람이 승인</p>
-        </section>
-
-        <section class="slide" id="slide-05" data-title="Working Product" aria-hidden="true">
-          <p class="slide-kicker">04 / WORKING PRODUCT</p>
-          <h1>핵심 분석과 콘텐츠 파이프라인은 실제 영상으로 동작합니다.</h1>
-          <div class="slide-content proof-grid">
-            <figure class="proof-shot">
-              <img src="assets/deck/ax-command-center.png" alt="지원자 검토와 콘텐츠 실행 상태를 보여주는 Enter-AX 운영 화면">
-              <figcaption><span class="evidence-tag">PROTOTYPE</span> 화면 수치는 데모 데이터</figcaption>
-            </figure>
-            <div class="proof-results">
-              <div class="proof-result"><span class="evidence-tag">LIVE</span><strong>Pose + beat</strong><span>60초 로컬 샘플 · 약 14초</span></div>
-              <div class="proof-result"><span class="evidence-tag">LIVE</span><strong>Pitch DTW</strong><span>자기 비교 1.0 · 약 21초</span></div>
-              <div class="proof-result"><span class="evidence-tag">LIVE</span><strong>Choreo DTW</strong><span>264 frames · 자기 비교 1.0 · 약 11초</span></div>
+            <div class="cover-poster-footer">
+              <div class="cpf-item"><span>B2C / 지원자</span><strong>질문·정보·프로필</strong></div>
+              <div class="cpf-item"><span>B2B / 기획사</span><strong>후보 검토·업무 관리</strong></div>
+              <div class="cpf-item"><span>현재 단계</span><strong>제품 시연·파일럿 모집</strong></div>
             </div>
           </div>
-          <p class="source-line">2026.09.23 로컬 실행 확인 · 실행시간과 자기 비교값은 품질 벤치마크가 아닌 작동 증거</p>
         </section>
 
-        <section class="slide" id="slide-06" data-title="Product Boundary" aria-hidden="true">
-          <p class="slide-kicker">05 / PRODUCT BOUNDARY</p>
-          <h1>지금 동작하는 것과 앞으로 확장할 것을 분리했습니다.</h1>
-          <svg class="slide-content diagram" data-diagram="boundary" viewBox="0 0 1424 470" role="img" aria-labelledby="boundary-title">
-            <title id="boundary-title">현재 기능, 다음 검증, 장기 확장을 구분한 제품 경계</title>
-            <line x1="70" y1="112" x2="1354" y2="112" stroke="#d7dae0" stroke-width="2"/>
-            <circle cx="250" cy="112" r="13" class="blue"/><circle cx="712" cy="112" r="13" fill="#c8f45d" stroke="#141820"/><circle cx="1174" cy="112" r="13" fill="#ffffff" stroke="#141820" stroke-width="2"/>
-            <g transform="translate(40 145)"><text class="mono blue" x="0" y="30" font-size="15">NOW / LIVE</text><text x="0" y="82" font-size="28" font-weight="800">작동하는 핵심 흐름</text><text class="muted" x="0" y="126" font-size="18">프로필과 후보 파이프라인</text><text class="muted" x="0" y="160" font-size="18">포즈·피치·안무 비교</text><text class="muted" x="0" y="194" font-size="18">숏폼 렌더링과 전달</text></g>
-            <g transform="translate(502 145)"><text class="mono" x="0" y="30" font-size="15">NEXT / TEST</text><text x="0" y="82" font-size="28" font-weight="800">운영 조건 검증</text><text class="muted" x="0" y="126" font-size="18">3–5개사 파일럿</text><text class="muted" x="0" y="160" font-size="18">권한·미디어 저장</text><text class="muted" x="0" y="194" font-size="18">작업 큐와 비용 계측</text></g>
-            <g transform="translate(964 145)"><text class="mono muted" x="0" y="30" font-size="15">LATER / VISION</text><text x="0" y="82" font-size="28" font-weight="800">Enterprise AX 확장</text><text class="muted" x="0" y="126" font-size="18">A&amp;R 문서 흐름</text><text class="muted" x="0" y="160" font-size="18">메신저·일정 연동</text><text class="muted" x="0" y="194" font-size="18">회사별 업무 자동화</text></g>
-          </svg>
-          <p class="source-line"><span class="evidence-tag">TESTED</span> 자동 테스트 102개 통과 · PostgreSQL 연동 테스트 4개는 별도 환경 필요</p>
-        </section>
-
-        <section class="slide" id="slide-07" data-title="Market" aria-hidden="true">
-          <p class="slide-kicker">06 / MARKET</p>
-          <h1>첫 시장은 국내 6,629개 등록 기획사의 운영 소프트웨어입니다.</h1>
-          <svg class="slide-content diagram" data-diagram="market" viewBox="0 0 1424 460" role="img" aria-labelledby="market-title">
-            <title id="market-title">등록 기업 수와 가격 가정을 바탕으로 계산한 TAM, SAM, SOM 수평 막대</title>
-            <g transform="translate(0 22)"><text class="mono" y="48" font-size="16" font-weight="700">TAM</text><rect x="110" width="900" height="92" fill="#dceaff"/><rect x="110" width="8" height="92" class="blue"/><text x="148" y="57" font-size="36" font-weight="900">736억 원/년</text><text class="muted" x="1052" y="35" font-size="15">6,629개 × 연 1,110만 원</text><text x="1052" y="61" font-size="14" font-weight="700">기업 수 공식 · 객단가 가정</text></g>
-            <g transform="translate(0 166)"><text class="mono" y="48" font-size="16" font-weight="700">SAM</text><rect x="110" width="585" height="92" fill="#dceaff"/><rect x="110" width="8" height="92" class="blue"/><text x="148" y="57" font-size="36" font-weight="900">135억 원/년</text><text class="muted" x="737" y="35" font-size="15">1,500개 × 연 900만 원</text><text x="737" y="61" font-size="14" font-weight="700">고객 수·객단가 가정</text></g>
-            <g transform="translate(0 310)"><text class="mono" y="48" font-size="16" font-weight="700">SOM</text><rect x="110" width="365" height="92" fill="#ffffff" stroke="#d7dae0"/><rect x="110" width="8" height="92" class="risk"/><text x="148" y="57" font-size="36" font-weight="900">9.9억 원 ARR</text><text class="muted" x="517" y="35" font-size="15">Starter 50 + Growth 25 + Enterprise 5</text><text x="517" y="61" font-size="14" font-weight="700">3년 목표</text></g>
-          </svg>
-          <p class="source-line"><span class="evidence-tag">ASSUMPTION</span> 출처: 공공데이터포털 대중문화예술기획업 등록기업 현황(2026.08.12) · 가격과 적합 고객 수는 파일럿 검증 대상</p>
-        </section>
-
-        <section class="slide" id="slide-08" data-title="Competition" aria-hidden="true">
-          <p class="slide-kicker">07 / COMPETITIVE POSITION</p>
-          <h1>개별 기능이 아니라 엔터사의 승인 흐름을 연결합니다.</h1>
-          <div class="slide-content competition-grid">
-            <table class="comparison">
-              <thead><tr><th>대안</th><th>강점</th><th>남는 단절</th></tr></thead>
-              <tbody>
-                <tr><td>폼·시트·메신저</td><td>익숙하고 저렴함</td><td>검토 맥락과 실행 기록 분산</td></tr>
-                <tr><td>DISCO · Cyanite</td><td>음악 카탈로그와 A&amp;R 검색</td><td>한국형 지원자→콘텐츠 운영과 분리</td></tr>
-                <tr><td>OpusClip</td><td>완성도 높은 범용 영상 재가공</td><td>후보 검토·내부 승인과 분리</td></tr>
-                <tr><td><b>Enter—AX</b></td><td><b>지원자→후보→콘텐츠 연결</b></td><td>파일럿과 레퍼런스 확보 전</td></tr>
-              </tbody>
-            </table>
-            <aside class="position-note"><span class="evidence-tag">PROTOTYPE</span><strong>Human-in-the-loop가 제품의 경계입니다.</strong><p>분석 결과가 판단을 대신하지 않고, 사람의 승인 이후 다음 실행으로 이어집니다.</p></aside>
+        <!-- 02 PROBLEM -->
+        <section class="slide" id="slide-02" data-title="Problem" data-section="P" aria-hidden="true">
+          <header class="slide-head">
+            <p class="kicker"><b>P</b><span class="ch">PROBLEM</span><span class="sub">문제 인식</span></p>
+            <h1>공식 접수 안내 뒤에는 <span class="headline-key">지원 준비와 후보 검토</span>가 남는다</h1>
+          </header>
+          <div class="slide-content problem">
+            <div class="official-cases">
+              <article class="official-case">
+                <div class="official-case-head"><img src="assets/deck/logo-yg.svg" alt="YG Entertainment"><span>2026 GLOBAL AUDITION</span></div>
+                <h2>YG · 온라인 접수 후<br>선발자에게 이메일 통지</h2>
+                <div class="official-steps">
+                  <div class="official-step"><b>01</b><strong>사전 지원</strong><small>오디션 웹사이트</small></div>
+                  <div class="official-step"><b>02</b><strong>사진·영상</strong><small>얼굴이 보이게 제출</small></div>
+                  <div class="official-step"><b>03</b><strong>이메일 안내</strong><small>선발자에게 시간·장소 통지</small></div>
+                </div>
+              </article>
+              <article class="official-case">
+                <div class="official-case-head"><img src="assets/deck/logo-jyp.svg" alt="JYP Entertainment"><span>ONLINE AUDITION</span></div>
+                <h2>JYP · 별도의 온라인<br>오디션 채널 운영</h2>
+                <div class="official-steps">
+                  <div class="official-step"><b>01</b><strong>모집 확인</strong><small>공식 오디션 채널</small></div>
+                  <div class="official-step"><b>02</b><strong>지원 접수</strong><small>온라인 지원</small></div>
+                  <div class="official-step"><b>03</b><strong>결과 확인</strong><small>회사 안내에 따름</small></div>
+                </div>
+              </article>
+            </div>
+            <div class="problem-question"><b>확인할 문제</b><strong>지원자는 어떻게 준비하고, 기획사는 접수된 자료를 어떻게 검토할까?</strong></div>
           </div>
-          <p class="source-line">경쟁사 공개 제품 기준: DISCO A&amp;R &amp; Management, Cyanite, OpusClip · 2026.09 조사</p>
+          <template class="deck-evidence">공식 자료: https://www.yg-audition.com/en/notice/236 · https://audition.jype.com/audition/auditions · 지원자·기획사 업무 불편은 파일럿에서 확인할 과제</template>
+          <div class="footer-rule" aria-hidden="true"></div>
         </section>
 
-        <section class="slide" id="slide-09" data-title="Business Model" aria-hidden="true">
-          <p class="slide-kicker">08 / BUSINESS MODEL</p>
-          <h1>초기 세팅과 반복 구독으로 회사별 운영 워크플로를 공급합니다.</h1>
-          <div class="slide-content money-flow">
-            <article class="money-node"><h2>기획사</h2><p>도입 범위 합의<br>초기 세팅비<br>월 구독료</p></article>
-            <span class="money-arrow">→</span>
-            <article class="money-node primary"><h2>ENTER—AX</h2><p>워크플로 구성<br>미디어 분석<br>운영·지원</p></article>
-            <span class="money-arrow">→</span>
-            <article class="money-node"><h2>가격 가설</h2><p>Starter 50만/월<br>Growth 150만/월<br>Enterprise 400만+/월</p></article>
+        <!-- 03 WHY THE PROBLEM CONTINUES -->
+        <section class="slide" id="slide-02b" data-title="Open questions" data-section="P" aria-hidden="true">
+          <header class="slide-head">
+            <p class="kicker"><b>P</b><span class="ch">WORKFLOW</span><span class="sub">접수 앞뒤의 업무</span></p>
+            <h1>파일럿에서 <span class="headline-key">준비와 검토에 걸리는 시간</span>을 측정한다</h1>
+          </header>
+          <div class="slide-content continuity" role="img" aria-label="지원자는 오디션 정보 확인, 질문과 준비, 영상 정리를 거쳐 접수하고, 기획사는 접수 후 후보 검토, 후속 연락, 업무 처리로 이어가는 흐름도. 파일럿에서 지원자의 준비 시간과 기획사의 후보 검토 및 연락 시간을 측정한다.">
+            <div class="continuity-lane">
+              <div class="continuity-label"><span>접수 전</span><strong>지원자</strong></div>
+              <div class="continuity-step"><span class="continuity-icon"><img src="assets/deck/icons/folder-open.svg" alt=""></span><div><strong>정보 확인</strong><small>지원 조건 확인</small></div></div>
+              <div class="continuity-step"><span class="continuity-icon"><img src="assets/deck/icons/messages-square.svg" alt=""></span><div><strong>질문·준비</strong><small>정보와 경험 공유</small></div></div>
+              <div class="continuity-step"><span class="continuity-icon"><img src="assets/deck/icons/video-clip.svg" alt=""></span><div><strong>영상 정리</strong><small>이력과 자료 준비</small></div></div>
+            </div>
+            <div class="continuity-pivot"><strong>오디션 접수</strong></div>
+            <div class="continuity-lane agency">
+              <div class="continuity-label agency"><span>접수 후</span><strong>기획사</strong></div>
+              <div class="continuity-step"><span class="continuity-icon"><img src="assets/deck/icons/table.svg" alt=""></span><div><strong>후보 검토</strong><small>자료와 메모</small></div></div>
+              <div class="continuity-step"><span class="continuity-icon"><img src="assets/deck/icons/mail.svg" alt=""></span><div><strong>후속 연락</strong><small>상태와 제안</small></div></div>
+              <div class="continuity-step"><span class="continuity-icon"><img src="assets/deck/icons/kanban-board.svg" alt=""></span><div><strong>업무 처리</strong><small>일정과 콘텐츠</small></div></div>
+            </div>
+            <div class="continuity-metrics"><b>측정 항목</b><span>지원자 · 준비에 드는 시간</span><span>기획사 · 후보 검토·연락 시간</span></div>
           </div>
-          <p class="source-line"><span class="evidence-tag">ASSUMPTION</span> 세팅비 100만 / 300만 / 1,000만 원+ · 고객 인터뷰와 파일럿에서 지불의사 검증</p>
+          <div class="footer-rule" aria-hidden="true"></div>
         </section>
 
-        <section class="slide" id="slide-10" data-title="Validation and GTM" aria-hidden="true">
-          <p class="slide-kicker">09 / VALIDATION &amp; GTM</p>
-          <h1>다음 목표는 기능 추가가 아니라 첫 반복 가능한 고객 검증입니다.</h1>
-          <svg class="slide-content diagram" data-diagram="validation" viewBox="0 0 1424 460" role="img" aria-labelledby="validation-title">
-            <title id="validation-title">엔지니어링 증거에서 파일럿과 유료 전환 증거로 이어지는 검증 사다리</title>
-            <path d="M70 370H480V250H890V130H1354" fill="none" stroke="#d7dae0" stroke-width="16"/>
-            <circle cx="280" cy="370" r="18" class="blue"/><circle cx="685" cy="250" r="18" fill="#ffffff" stroke="#141820" stroke-width="3"/><circle cx="1125" cy="130" r="18" fill="#c8f45d" stroke="#141820" stroke-width="3"/>
-            <g transform="translate(70 40)"><text class="mono blue" y="26" font-size="14">LIVE / CURRENT</text><text y="76" font-size="31" font-weight="800">Engineering proof</text><text class="muted" y="116" font-size="17">분석·렌더링의 로컬 실행 확인</text></g>
-            <g transform="translate(505 160)"><text class="mono" y="26" font-size="14">TARGET / NEXT</text><text y="76" font-size="31" font-weight="800">3–5 pilots</text><text class="muted" y="116" font-size="17">처리시간·승인율·재사용 측정</text></g>
-            <g transform="translate(935 280)"><text class="mono" y="26" font-size="14">TARGET / EVIDENCE</text><text y="76" font-size="31" font-weight="800">Paid conversion</text><text class="muted" y="116" font-size="17">유료 전환과 추천 사례 확보</text></g>
-          </svg>
-          <p class="source-line">현재 고객 인터뷰·LOI·유료 계약은 제시하지 않음 · 확보 즉시 근거 수준을 갱신</p>
-        </section>
-
-        <section class="slide" id="slide-11" data-title="Team" aria-hidden="true">
-          <p class="slide-kicker">10 / TEAM &amp; EXECUTION</p>
-          <h1>작동 프로토타입을 만들었고, 이제 고객 검증 역량을 보강합니다.</h1>
-          <div class="slide-content team-grid">
-            <article class="team-column" data-index="01"><h2>필요 역량</h2><strong>산업 맥락을 읽는 제품 판단</strong><p>오디션 검토와 콘텐츠 실행을 하나의 운영 문제로 정의합니다.</p></article>
-            <article class="team-column" data-index="02"><h2>현재 증거</h2><strong>엔드투엔드 프로토타입 직접 구축</strong><p>웹 제품, 미디어 분석, 렌더링, 승인 흐름을 코드로 연결했습니다.</p></article>
-            <article class="team-column" data-index="03"><h2>보강 계획</h2><strong>파일럿 운영 · ML · B2B 세일즈</strong><p>고객 현장과 반복 검증할 동료 및 산업 파트너를 우선 확보합니다.</p></article>
+        <!-- 04 COMMUNITY -->
+        <section class="slide" id="slide-02c" data-title="Community" data-section="S1" aria-hidden="true">
+          <header class="slide-head">
+            <p class="kicker"><b>S</b><span class="ch">TALENT SIDE</span><span class="sub">지원자 커뮤니티</span></p>
+            <h1>커뮤니티의 정보 공유가 <span class="headline-key">지원자 프로필</span> 작성으로 이어진다</h1>
+          </header>
+          <div class="slide-content community-proof">
+            <figure class="community-proof-screen"><img src="assets/deck/community-color-v1.png" alt="커뮤니티 구성 예시 이미지: 질문, 정보 공유, 경험 나눔과 프로필"><figcaption>서비스 구성 예시 · 게시글은 샘플</figcaption></figure>
+            <div class="community-proof-path"><div><img src="assets/deck/icons/messages-square.svg" alt=""><strong>질문·정보·후기</strong><span>지원 준비를 함께 나누는 곳</span></div><b aria-hidden="true">→</b><div><img src="assets/deck/icons/video-clip.svg" alt=""><strong>지원자 프로필</strong><span>영상·소개·공개 범위를 정리</span></div></div>
           </div>
-          <p class="source-line">대표 경력과 외부 협업 실적은 검증된 프로필 자료 수령 후 추가</p>
+          <template class="deck-evidence">PROTOTYPE: 서비스 화면 기반 설명 이미지 · 게시글은 예시</template>
+          <div class="footer-rule" aria-hidden="true"></div>
         </section>
 
-        <section class="slide" id="slide-12" data-title="Ask" aria-hidden="true">
-          <p class="slide-kicker">11 / CLOSING ASK</p>
-          <h1>첫 5개 기획사 파일럿을 함께 만들 파트너를 찾습니다.</h1>
-          <div class="slide-content ask-grid">
-            <div class="ask-main"><span class="evidence-tag">TARGET</span><strong>INTERVIEW → PILOT → PAID EVIDENCE</strong><p>투자금보다 먼저, 반복 가능한 고객 문제와 도입 근거를 증명하겠습니다.</p></div>
-            <div class="ask-side">
-              <div class="ask-item">01 · 파일럿 기획사</div>
-              <div class="ask-item">02 · 산업 자문 파트너</div>
-              <div class="ask-item">03 · 초기 투자 논의</div>
+        <!-- 05 TWO-SIDED SYSTEM -->
+        <section class="slide" id="slide-02d" data-title="Product map" data-section="S1" aria-hidden="true">
+          <header class="slide-head">
+            <p class="kicker"><b>S</b><span class="ch">PRODUCT MAP</span><span class="sub">양쪽을 잇는 구조</span></p>
+            <h1><span class="headline-key">지원자 프로필</span>을 중심으로 커뮤니티와 기획사 검토가 이어진다</h1>
+          </header>
+          <div class="slide-content system-diagram">
+            <div class="product-flow">
+              <article class="product-map-wing"><figure class="product-map-shot"><img src="assets/deck/community-color-v1.png" alt="오디션 커뮤니티 구성 예시 이미지"><figcaption>구성 예시</figcaption></figure><div class="product-map-copy"><small>01 / 지원자 서비스</small><h2>오디션 커뮤니티</h2><p>질문·정보·후기 공유</p></div></article>
+              <article class="product-step product-profile"><small>02 / 지원자가 남기는 자료</small><h2>지원자 프로필</h2><p>기획사에 보여줄 내용을 직접 정리</p><div class="profile-sheet" aria-label="프로필에 담기는 영상, 소개와 SNS, 공개 범위"><div><span>01</span><b>영상</b></div><div><span>02</span><b>소개·SNS</b></div><div><span>03</span><b>공개 범위</b></div></div><strong>공개 범위와 제안 수신은 지원자가 선택</strong></article>
+              <article class="product-map-wing"><figure class="product-map-shot"><img src="assets/deck/workflow-summary.png" alt="지원 자료, 후보 검토, 담당자 결정, 후속 업무를 잇는 구조도"></figure><div class="product-map-copy"><small>03 / 기획사 서비스</small><h2>엔터사 AX</h2><p>후보 검토·후속 업무</p></div></article>
             </div>
           </div>
-          <p class="source-line">ENTER—AX · Working prototype · 2026</p>
+          <div class="footer-rule" aria-hidden="true"></div>
+        </section>
+
+        <!-- 07 AGENCY AX -->
+        <section class="slide" id="slide-03b" data-title="Agency AX" data-section="S1" aria-hidden="true">
+          <header class="slide-head">
+            <p class="kicker"><b>S</b><span class="ch">AGENCY SIDE</span><span class="sub">엔터사 AX</span></p>
+            <h1>후보를 가져오고, <span class="headline-key">담당자 승인</span> 후 검토 단계로 옮긴다</h1>
+          </header>
+          <div class="slide-content ax-flow-showcase">
+            <figure class="ax-flow-capture"><img src="public/images/landing/workflow-editor.png" alt="ENTER—AX 워크플로 편집기 실제 화면: 지원자 가져오기, 캐스팅 리드 승인, 검토 단계로 이동 노드가 연결됨"></figure>
+            <div class="ax-flow-rail">
+              <p><b>지원자 가져오기</b><span>등록된 프로필을 검토 흐름으로</span></p>
+              <p><b>담당자 승인</b><span>사람의 판단을 거쳐 다음 단계로</span></p>
+              <p><b>검토 단계 이동</b><span>결정 결과를 후보 파이프라인에 반영</span></p>
+            </div>
+          </div>
+          <template class="deck-evidence">PROTOTYPE: 실제 워크플로 편집기 시연 화면 · 데모 지원자 데이터와 브라우저 저장 사용 · 최종 판단은 담당자가 실행</template>
+          <div class="footer-rule" aria-hidden="true"></div>
+        </section>
+
+        <!-- 08 PRODUCT -->
+        <section class="slide" id="slide-04" data-title="Product" data-section="S1" aria-hidden="true">
+          <header class="slide-head">
+            <p class="kicker"><b>S</b><span class="ch">SOLUTION</span><span class="sub">개발 현황</span></p>
+            <h1>춤 동작과 노래 음정을 <span class="headline-key">같은 구간에서 비교</span>한다</h1>
+          </header>
+          <div class="slide-content proof-duo">
+            <article class="proof-row">
+              <figure>
+                <img src="assets/deck/choreography-comparison-illustration.png" alt="두 댄서의 같은 동작 위에 관절 위치와 연결선을 표시한 기능 설명 이미지">
+                <figcaption>기능 설명 이미지 · 실제 분석 화면 아님</figcaption>
+              </figure>
+              <div class="proof-row__copy">
+                <small>LOCAL RUN 01</small>
+                <h2>춤 동작 비교</h2>
+                <p>두 영상의 관절 움직임을 같은 구간에서 나란히 봅니다.</p>
+                <div class="proof-row__flow"><span>영상 2개</span><b>→</b><span>관절 위치</span><b>→</b><span>구간 비교</span></div>
+              </div>
+            </article>
+            <article class="proof-row">
+              <figure>
+                <img src="assets/deck/vocal-pitch-comparison-illustration.png" alt="녹음 중인 가수와 두 음정 곡선을 나란히 표시한 기능 설명 이미지">
+                <figcaption>기능 설명 이미지 · 실제 분석 화면 아님</figcaption>
+              </figure>
+              <div class="proof-row__copy">
+                <small>LOCAL RUN 02</small>
+                <h2>노래 음정 비교</h2>
+                <p>원곡과 지원자 음원의 음정 흐름을 맞춰 봅니다.</p>
+                <div class="proof-row__flow"><span>음원 2개</span><b>→</b><span>음정 곡선</span><b>→</b><span>구간 비교</span></div>
+              </div>
+            </article>
+          </div>
+          <template class="deck-evidence">PROTOTYPE: 로컬 샘플 비교 · 이미지는 기능 설명용 · 현장 정확도 미측정</template>
+          <div class="footer-rule" aria-hidden="true"></div>
+        </section>
+
+        <!-- 06 COMPETITION -->
+        <section class="slide" id="slide-06" data-title="Competition" data-section="S1" aria-hidden="true">
+          <header class="slide-head">
+            <p class="kicker"><b>S</b><span class="ch">SOLUTION</span><span class="sub">차별성</span></p>
+            <h1>흩어진 도구 사이에 <span class="headline-key">지원자별 후보 검토 흐름</span>을 만든다</h1>
+          </header>
+          <div class="slide-content tool-landscape">
+            <div class="tool-categories">
+              <article class="tool-category"><span class="tool-type">GENERAL WORKSPACE</span><div class="tool-icons"><img src="assets/deck/logos/logo-gmail.svg" alt="Gmail"><img src="assets/deck/logos/logo-gdrive.svg" alt="Google Drive"><img src="assets/deck/logos/logo-sheets.svg" alt="Google Sheets"></div><h2>접수·파일·연락</h2><p>범용 도구를 조합해 자료를 모으고 공유</p><small>Gmail · Drive · Sheets</small></article>
+              <article class="tool-category"><span class="tool-type">MEDIA SPECIALISTS</span><div class="tool-icons"><img src="assets/deck/logos/logo-opusclip.png" alt="OpusClip"><img src="assets/deck/logos/logo-cyanite.png" alt="Cyanite"></div><h2>영상·음악 작업</h2><p>영상 클립 제작 또는 음악 태깅·검색</p><small>OpusClip · Cyanite</small></article>
+              <article class="tool-category"><span class="tool-type">AUDITION CHANNELS</span><div class="tool-icons audition"><img src="assets/deck/logo-yg.svg" alt="YG Entertainment"><img src="assets/deck/logo-jyp.svg" alt="JYP Entertainment"></div><h2>공고·지원 절차</h2><p>각 회사가 오디션 조건과 접수를 운영</p><small>YG · JYP 공식 오디션 사이트</small></article>
+            </div>
+            <div class="tool-bridge"><div class="tool-bridge-head"><span>ENTER—AX / 차별점</span><strong>커뮤니티 프로필을 후보 검토로 연결</strong></div><div class="tool-bridge-steps"><span><img src="assets/deck/icons/messages-square.svg" alt="">커뮤니티</span><i>→</i><span><img src="assets/deck/icons/video-clip.svg" alt="">프로필</span><i>→</i><span><img src="assets/deck/icons/shield-check.svg" alt="">담당자 승인</span><i>→</i><span><img src="assets/deck/icons/kanban-board.svg" alt="">후보 관리</span></div></div>
+          </div>
+          <template class="deck-evidence">공개 소개 기준: https://workspace.google.com/features/ · https://www.opus.pro/ · https://cyanite.ai/ · https://www.yg-audition.com/en/notice/236 · https://audition.jype.com/audition/auditions · 로고는 식별용</template>
+          <div class="footer-rule" aria-hidden="true"></div>
+        </section>
+
+        <!-- 08 MARKET -->
+        <section class="slide" id="slide-05" data-title="Market" data-section="S2" aria-hidden="true">
+          <header class="slide-head">
+            <p class="kicker"><b>S</b><span class="ch">SCALE-UP</span><span class="sub">목표 시장</span></p>
+            <h1>등록기업 전체에서 <span class="headline-key">초기 접근 기획사</span>로 시장을 좁힌다</h1>
+          </header>
+          <div class="slide-content market-journey">
+            <div class="market-economics" aria-label="연간 시장 추정과 3년 차 매출 목표">
+              <article><span class="market-code">TAM</span><h2>등록기업 기준</h2><strong>398<small>억 원/년</small></strong><div class="market-base"><b>정상 영업 6,629곳</b><span>KOCCA 등록 목록 집계 × 연 600만 원</span></div><p class="market-status">시장 추정의 출발점</p></article>
+              <article><span class="market-code">SAM</span><h2>초기 접근 범위</h2><strong>90<small>억 원/년</small></strong><div class="market-base"><b>접근 대상 1,500곳</b><span>서울 소재 법인 3,750곳의 40% × 연 600만 원</span></div><p class="market-status">오디션 운영·구매 여부 확인 필요</p></article>
+              <article><span class="market-code">SOM</span><h2>3년 차 매출 목표</h2><strong>9.9<small>억 원 ARR</small></strong><div class="market-base"><b>유료 고객 80곳</b><span>Starter 50 · Growth 25 · Enterprise 5</span></div><p class="market-status">달성 목표 · 현재 매출 아님</p></article>
+            </div>
+          </div>
+          <template class="deck-evidence">DATA + ASSUMPTION: https://www.data.go.kr/data/15118569/fileData.do · KOCCA 등록기업 현황(2026.08.12) 정상 6,629곳/전체 7,891곳 · 서울 소재 법인 3,750곳과 40% 접근비율은 시장 세분화 기준 · SOM 50×50만×12 + 25×150만×12 + 5×400만×12 = 9.9억 원 · 모두 목표</template>
+          <div class="footer-rule" aria-hidden="true"></div>
+        </section>
+
+        <!-- 07 BUSINESS MODEL -->
+        <section class="slide" id="slide-07" data-title="Business Model" data-section="S2" aria-hidden="true">
+          <header class="slide-head">
+            <p class="kicker"><b>S</b><span class="ch">SCALE-UP</span><span class="sub">요금 설계안</span></p>
+            <h1>모집 규모와 협업 방식에 따라 <span class="headline-key">세 가지 요금제</span>로 나눈다</h1>
+          </header>
+          <div class="slide-content pricing-board">
+            <div class="pricing-tiers">
+              <article class="pricing-tier"><div class="tier-top"><span>STARTER</span><h2>한 번의 오디션을<br>한 팀이 운영</h2></div><div class="tier-scene"><span><img src="assets/deck/icons/upload-cloud.svg" alt="">접수</span><i>→</i><span><img src="assets/deck/icons/folder-open.svg" alt="">후보 검토</span></div><div class="tier-features"><p class="tier-feature"><b>운영</b><span>소규모·비정기 모집</span></p><p class="tier-feature"><b>협업</b><span>담당자 중심 검토</span></p><p class="tier-feature"><b>확장</b><span>기본 후보 보드</span></p></div><div class="tier-price"><strong>50<small>만 원/월</small></strong><span>초기 세팅 100만 원</span></div></article>
+              <article class="pricing-tier"><div class="tier-top"><span>GROWTH</span><h2>상시 모집을<br>여러 담당자가 운영</h2></div><div class="tier-scene"><span><img src="assets/deck/icons/upload-cloud.svg" alt="">상시 접수</span><i>→</i><span><img src="assets/deck/icons/messages-square.svg" alt="">팀 검토</span><i>→</i><span><img src="assets/deck/icons/kanban-board.svg" alt="">상태 관리</span></div><div class="tier-features"><p class="tier-feature"><b>운영</b><span>반복·상시 모집</span></p><p class="tier-feature"><b>협업</b><span>복수 담당자</span></p><p class="tier-feature"><b>확장</b><span>검토 결과 공유</span></p></div><div class="tier-price"><strong>150<small>만 원/월</small></strong><span>초기 세팅 300만 원</span></div></article>
+              <article class="pricing-tier"><div class="tier-top"><span>ENTERPRISE</span><h2>여러 팀의 권한과<br>운영 환경을 맞춤</h2></div><div class="tier-scene"><span><img src="assets/deck/icons/kanban-board.svg" alt="">팀별 운영</span><i>→</i><span><img src="assets/deck/icons/shield-check.svg" alt="">권한·보안</span><i>→</i><span><img src="assets/deck/icons/upload-cloud.svg" alt="">연동 협의</span></div><div class="tier-features"><p class="tier-feature"><b>운영</b><span>여러 프로젝트·팀</span></p><p class="tier-feature"><b>협업</b><span>권한 분리 제안</span></p><p class="tier-feature"><b>확장</b><span>별도 연동 협의</span></p></div><div class="tier-price"><strong>400<small>만 원/월부터</small></strong><span>초기 세팅 1,000만 원~</span></div></article>
+            </div>
+          </div>
+          <template class="deck-evidence">ASSUMPTION: 요금·초기 세팅비는 제안안 · 엔터프라이즈 권한·외부 연동은 협의 범위</template>
+          <div class="footer-rule" aria-hidden="true"></div>
+        </section>
+
+        <!-- 09 ROADMAP -->
+        <section class="slide" id="slide-09" data-title="Roadmap" data-section="S2" aria-hidden="true">
+          <header class="slide-head">
+            <p class="kicker"><b>S</b><span class="ch">SCALE-UP</span><span class="sub">성장 로드맵</span></p>
+            <h1>현장 검증을 거쳐 <span class="headline-key">첫 유료 계약과 반복 판매</span>로 확장한다</h1>
+          </header>
+          <div class="slide-content roadmap-gates">
+            <article class="roadmap-gate is-now"><span>현재 / 0–3개월</span><b class="roadmap-number">01</b><h2>현장 업무 확인</h2><p>실무자를 만나 접수·검토·연락 흐름을 기록</p><div class="roadmap-check"><small>다음 단계로 가는 조건</small><strong>반복 업무와 구매 담당자 확인</strong></div></article>
+            <article class="roadmap-gate"><span>3–6개월</span><b class="roadmap-number">02</b><h2>첫 실사용</h2><p>파트너와 오디션 1회 적용</p><div class="roadmap-check"><small>확인할 것</small><strong>기존 방식과 업무 시간 비교</strong></div></article>
+            <article class="roadmap-gate"><span>6–12개월</span><b class="roadmap-number">03</b><h2>유료 조건 검증</h2><p>반복 사용과 세팅 범위를 확인</p><div class="roadmap-check"><small>다음 단계로 가는 조건</small><strong>첫 유료 계약 또는 가격 재설계</strong></div></article>
+            <article class="roadmap-gate"><span>2–3년 차</span><b class="roadmap-number">04</b><h2>반복 판매</h2><p>기획사 직접 영업·소개 채널 확대</p><div class="roadmap-check"><small>3년 차 목표</small><strong>유료 고객 80곳 · ARR 9.9억 원</strong></div></article>
+          </div>
+          <template class="deck-evidence">TARGET: 기간은 오디션 일정에 따라 조정 · 현재 인터뷰·LOI·파일럿·유료 계약 없음</template>
+          <div class="footer-rule" aria-hidden="true"></div>
+        </section>
+
+        <!-- 10 TEAM -->
+        <section class="slide" id="slide-10" data-title="Team" data-section="T" aria-hidden="true">
+          <header class="slide-head">
+            <p class="kicker"><b>T</b><span class="ch">TEAM</span><span class="sub">팀 구성</span></p>
+            <h1><span class="headline-key">K-pop 제작 경험</span>과 풀스택·AI 개발 역량을 갖춘 2인 팀</h1>
+          </header>
+          <div class="slide-content team-duo">
+            <div class="team-members">
+              <article class="team-member"><small>CEO / 김찬주</small><h2>K-pop 음악·아이돌 제작</h2><div class="team-proof">7<span>년</span></div><span class="team-proof-label">녹음 스튜디오 운영</span><ul><li>스타트업 엔터테인먼트 아이돌 제작 경험</li><li>K-pop 음악 프로덕션·녹음 현장 경험</li><li>제품 방향·기획사 협력 담당</li></ul></article>
+              <article class="team-member"><small>ENGINEERING / 개발자 1명</small><h2>풀스택·AI 개발</h2><div class="team-proof">7<span>년</span></div><span class="team-proof-label">풀스택 개발 경력</span><ul><li>웹 서비스 설계·구현</li><li>AI 기능 설계·개발 전문성</li><li>지원자·기획사 플랫폼 직접 개발</li></ul></article>
+            </div>
+          </div>
+          <div class="footer-rule" aria-hidden="true"></div>
+        </section>
+
+        <!-- 11 ASK -->
+        <section class="slide" id="slide-11" data-title="Ask" data-section="" aria-hidden="true">
+          <header class="slide-head">
+            <p class="kicker"><b>A</b><span class="ch">CONTACT</span><span class="sub">파일럿 기획사 모집</span></p>
+            <h1>오디션 준비부터 후보 검토까지, <span class="headline-key">ENTER—AX</span></h1>
+          </header>
+          <div class="slide-content closing">
+            <div class="closing-diagram">
+              <small>THE PLATFORM / 지원자와 기획사의 연결</small>
+              <div class="closing-flow" role="img" aria-label="지원자는 오디션 커뮤니티에서 정보를 나누고 프로필을 남깁니다. 기획사는 공개된 프로필을 검토하고 제안을 보냅니다.">
+                <div class="closing-flow-card"><span>B2C · 지원자</span><h2>오디션 커뮤니티</h2><p>묻고 나누며 준비하는 공간</p><div><img src="assets/deck/icons/folder-open.svg" alt="">정보 공유</div><div><img src="assets/deck/icons/messages-square.svg" alt="">질문 · 후기</div></div>
+                <div class="closing-flow-arrow" aria-hidden="true">→</div>
+                <div class="closing-flow-card profile"><span>공통 기록</span><h2>지원자 프로필</h2><p>지원자가 직접 공개 범위 선택</p><div><img src="assets/deck/icons/video-clip.svg" alt="">영상 · 소개 · SNS</div><div><img src="assets/deck/icons/shield-check.svg" alt="">공개 범위 · 제안 수신</div></div>
+                <div class="closing-flow-arrow" aria-hidden="true">→</div>
+                <div class="closing-flow-card"><span>B2B · 기획사</span><h2>엔터사 AX</h2><p>담당자의 검토 공간</p><div><img src="assets/deck/icons/table.svg" alt="">후보 비교</div><div><img src="assets/deck/icons/kanban-board.svg" alt="">결정 · 후속 업무</div></div>
+              </div>
+              <div class="closing-return">← 기획사의 제안은 지원자에게 전달</div>
+            </div>
+            <div class="closing-contact">
+              <div class="closing-contact-heading"><small>PARTNERSHIP INQUIRY</small><strong>기획사 파일럿 파트너십</strong><span>담당 · 김찬주 대표</span></div>
+              <p><span>EMAIL</span><a href="mailto:rlackswn2000@gmail.com">rlackswn2000@gmail.com</a></p>
+              <p><span>PHONE</span><a href="tel:+821045926957">010-4592-6957</a></p>
+            </div>
+          </div>
+          <div class="footer-rule" aria-hidden="true"></div>
         </section>
       </div>
 
       <nav class="deck-nav" aria-label="슬라이드 이동">
         <button type="button" class="nav-prev" aria-label="이전 슬라이드">←</button>
         <div class="nav-dots" aria-label="슬라이드 목록"></div>
-        <span class="slide-counter" aria-live="polite">01 / 12</span>
+        <span class="slide-counter" aria-live="polite">01 / 13</span>
         <button type="button" class="nav-next" aria-label="다음 슬라이드">→</button>
       </nav>
     </div>
@@ -336,8 +1026,24 @@
     const slides = [...document.querySelectorAll('.slide')];
     const dots = document.querySelector('.nav-dots');
     const counter = document.querySelector('.slide-counter');
+    const sections = [['P', 'PROBLEM'], ['S1', 'SOLUTION'], ['S2', 'SCALE-UP'], ['T', 'TEAM']];
     let currentIndex = 0;
+
+    // Shared slide chrome: wordmark, PSST position, page number.
     slides.forEach((slide, index) => {
+      if (slide.id !== 'slide-01') {
+        const chrome = document.createElement('div');
+        chrome.className = 'slide-chrome';
+        chrome.setAttribute('aria-hidden', 'true');
+        const psst = sections.map(([key, name]) => `<span${slide.dataset.section === key ? ' aria-current="true"' : ''}>${name}</span>`).join('');
+        chrome.innerHTML = `<span class="brand">ENTER—AX</span><span class="psst">${psst}</span>`;
+        slide.prepend(chrome);
+        const pageNo = document.createElement('span');
+        pageNo.className = 'page-no';
+        pageNo.setAttribute('aria-hidden', 'true');
+        pageNo.textContent = `${String(index + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+        slide.append(pageNo);
+      }
       const dot = document.createElement('button');
       dot.type = 'button';
       dot.className = 'nav-dot';
@@ -356,13 +1062,15 @@
       counter.textContent = `${String(currentIndex + 1).padStart(2, '0')} / ${slides.length}`;
     }
     function applyScale() {
-      const scale = Math.min(window.innerWidth / 1600, window.innerHeight / 900, 1);
-      document.querySelector('#deck-frame').style.transform = `scale(${scale})`;
+      // Fit the 1600×900 canvas to the viewport with a small breathing margin, always centered.
+      const margin = 0.96;
+      const scale = Math.min(window.innerWidth / 1600, window.innerHeight / 900) * margin;
+      document.querySelector('#deck-frame').style.transform = `translate(-50%, -50%) scale(${scale})`;
     }
     window.deckController = {
       get current() { return currentIndex; },
       get total() { return slides.length; },
-      goTo(index) { activate(Math.max(0, Math.min(slides.length - 1, index))); },
+      goTo(index) { activate(index); },
       next() { this.goTo(currentIndex + 1); },
       previous() { this.goTo(currentIndex - 1); },
       scale: applyScale
@@ -370,22 +1078,10 @@
     document.querySelector('.nav-prev').addEventListener('click', () => window.deckController.previous());
     document.querySelector('.nav-next').addEventListener('click', () => window.deckController.next());
     document.addEventListener('keydown', (event) => {
-      if (['ArrowRight', 'ArrowDown', 'PageDown', ' '].includes(event.key)) {
-        event.preventDefault();
-        window.deckController.next();
-      }
-      if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(event.key)) {
-        event.preventDefault();
-        window.deckController.previous();
-      }
-      if (event.key === 'Home') {
-        event.preventDefault();
-        window.deckController.goTo(0);
-      }
-      if (event.key === 'End') {
-        event.preventDefault();
-        window.deckController.goTo(slides.length - 1);
-      }
+      if (['ArrowRight', 'ArrowDown', 'PageDown', ' '].includes(event.key)) { event.preventDefault(); window.deckController.next(); }
+      if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(event.key)) { event.preventDefault(); window.deckController.previous(); }
+      if (event.key === 'Home') { event.preventDefault(); window.deckController.goTo(0); }
+      if (event.key === 'End') { event.preventDefault(); window.deckController.goTo(slides.length - 1); }
     });
     window.deckController.goTo(0);
     window.deckController.scale();

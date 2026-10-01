@@ -1,3 +1,5 @@
+/** Shown only while the app runs on sample data (demo backend mode). */
 export function DemoBadge() {
-  return <span className="demo-badge">데모 환경 · 실제 전송 없음</span>;
+  if (process.env.NEXT_PUBLIC_BACKEND_MODE === "api") return null;
+  return <span className="demo-badge">시연 데이터</span>;
 }

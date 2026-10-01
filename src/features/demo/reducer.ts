@@ -3,6 +3,8 @@ import type {
   AgentJob,
   AgentJobStatus,
   Candidate,
+  CommunityPost,
+  CommunityReply,
   ContentAction,
   ContentJob,
   DemoState,
@@ -41,7 +43,9 @@ export type DemoAction =
   | {
       type: "content/transitioned";
       payload: { jobId: string; action: ContentAction; nextStep: ContentJob["step"]; rejectionReason?: string };
-    };
+    }
+  | { type: "community/post-created"; payload: { post: CommunityPost } }
+  | { type: "community/reply-created"; payload: { postId: string; reply: CommunityReply } };
 
 function appendActivity(candidate: Candidate, label: string): Candidate {
   return {
@@ -203,6 +207,17 @@ export function demoReducer(state: DemoState, action: DemoAction): DemoState {
                 updatedAt: ACTION_TIME,
               }
             : job,
+        ),
+      };
+    case "community/post-created":
+      return { ...state, communityPosts: [action.payload.post, ...state.communityPosts] };
+    case "community/reply-created":
+      return {
+        ...state,
+        communityPosts: state.communityPosts.map((post) =>
+          post.id === action.payload.postId
+            ? { ...post, replies: [...post.replies, action.payload.reply] }
+            : post,
         ),
       };
   }

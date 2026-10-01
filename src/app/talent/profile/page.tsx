@@ -3,18 +3,85 @@
 import { TalentProfileCard } from "@/components/talent/TalentProfileCard";
 import { useDemo } from "@/features/demo/DemoProvider";
 
+function Setting({ title, description, checked, onChange }: { title: string; description: string; checked: boolean; onChange: (checked: boolean) => void }) {
+  return (
+    <label className="ap-setting">
+      <span>
+        <strong>{title}</strong>
+        <small>{description}</small>
+      </span>
+      <span className="ap-switch">
+        <input aria-label={title} checked={checked} role="switch" type="checkbox" onChange={(event) => onChange(event.target.checked)} />
+        <span aria-hidden="true" />
+      </span>
+    </label>
+  );
+}
+
 export default function TalentProfilePage() {
   const { state, updateTalentPreferences } = useDemo();
   const talent = state.talents[0];
   const views = state.profileViews.filter((view) => view.talentId === talent.id);
-  const update = (preferences: Partial<Pick<typeof talent, "visibility" | "openToOffers" | "marketingConsent">>) => updateTalentPreferences(talent.id, { visibility: talent.visibility, openToOffers: talent.openToOffers, marketingConsent: talent.marketingConsent, ...preferences });
+  const update = (preferences: Partial<Pick<typeof talent, "visibility" | "openToOffers" | "marketingConsent">>) =>
+    updateTalentPreferences(talent.id, { visibility: talent.visibility, openToOffers: talent.openToOffers, marketingConsent: talent.marketingConsent, ...preferences });
 
   return (
-    <main className="workspace-page">
-      <header className="workspace-heading"><p>TALENT / PRIVACY</p><h1>내 프로필과 공개 범위</h1><p>데모 파일은 서버에 저장되지 않습니다. 공개와 제안 수신은 각각 따로 철회할 수 있습니다.</p></header>
+    <main className="ap-page">
+      <header className="ap-head">
+        <div>
+          <h1>내 프로필</h1>
+          <p>누가 내 프로필을 볼 수 있는지, 제안을 받을지 직접 정할 수 있어요.</p>
+        </div>
+      </header>
+
       <TalentProfileCard talent={talent} />
-      <section className="preference-panel"><h2>공개·이용 설정</h2><label><input checked={talent.visibility === "public"} type="checkbox" onChange={(e) => update({ visibility: e.target.checked ? "public" : "verified-agencies" })} /> 전체 공개 포트폴리오 허용</label><label><input checked={talent.openToOffers} type="checkbox" onChange={(e) => update({ openToOffers: e.target.checked })} /> 엔터사 오디션 제안 수신</label><label><input checked={talent.marketingConsent} type="checkbox" onChange={(e) => update({ marketingConsent: e.target.checked })} /> 홍보·마케팅 이용 동의</label>{talent.openToOffers ? <button className="button-outline" type="button" onClick={() => update({ openToOffers: false })}>제안 수신 철회</button> : null}</section>
-      <section className="view-history"><h2>엔터사 열람 이력 · 데모</h2>{views.map((view) => <p key={view.id}>{state.agencies.find((agency) => agency.id === view.agencyId)?.name} <time>{view.viewedAt.slice(0, 10)}</time></p>)}</section>
+
+      <section className="ap-section" aria-labelledby="ap-settings-title">
+        <h2 id="ap-settings-title">공개 설정</h2>
+        <div className="ap-card ap-settings">
+          <Setting
+            checked={talent.visibility === "public"}
+            description="끄면 인증된 기획사만 프로필을 볼 수 있어요."
+            title="커뮤니티에 전체 공개"
+            onChange={(checked) => update({ visibility: checked ? "public" : "verified-agencies" })}
+          />
+          <Setting
+            checked={talent.openToOffers}
+            description="끄면 새 오디션 제안을 받지 않아요. 이미 받은 제안은 그대로 남아요."
+            title="기획사 제안 받기"
+            onChange={(checked) => update({ openToOffers: checked })}
+          />
+          <Setting
+            checked={talent.marketingConsent}
+            description="커뮤니티 추천 영역에 내 무대를 소개하는 데 동의해요."
+            title="추천 소개 동의"
+            onChange={(checked) => update({ marketingConsent: checked })}
+          />
+        </div>
+      </section>
+
+      <section className="ap-section" aria-labelledby="ap-views-title">
+        <h2 id="ap-views-title">내 프로필을 본 기획사</h2>
+        <div className="ap-card ap-rows">
+          {views.length ? (
+            views.map((view) => {
+              const agency = state.agencies.find((item) => item.id === view.agencyId);
+              return (
+                <div className="ap-row" key={view.id}>
+                  <span className="ap-mark" aria-hidden="true">{agency?.name.slice(0, 1) ?? "?"}</span>
+                  <span>
+                    <strong>{agency?.name ?? "알 수 없는 기획사"}</strong>
+                    <small>{agency?.department}</small>
+                  </span>
+                  <time className="ap-muted" dateTime={view.viewedAt}>{view.viewedAt.slice(0, 10).replaceAll("-", ".")}</time>
+                </div>
+              );
+            })
+          ) : (
+            <p className="ap-empty">아직 프로필을 본 기획사가 없어요.</p>
+          )}
+        </div>
+      </section>
     </main>
   );
 }

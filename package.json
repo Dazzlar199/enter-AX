@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
@@ -16,12 +16,22 @@
     "check": "npm run typecheck && npm run lint && npm run test && npm run build",
     "analyze": "ANALYZE=true npm run build",
     "build:production": "npm run lint && npm run build",
-    "export": "next build && next export"
+    "db:up": "docker compose up -d postgres",
+    "db:down": "docker compose down",
+    "db:migrate": "node scripts/db-migrate.mjs"
   },
   "dependencies": {
+    "@huggingface/transformers": "^4.3.0",
+    "@xyflow/react": "^12.11.6",
+    "ffmpeg-static": "^5.3.0",
+    "googleapis": "^181.0.0",
+    "mammoth": "^1.12.3",
     "next": "15.5.25",
+    "pdf-parse": "^2.4.5",
+    "postgres": "^3.4.9",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

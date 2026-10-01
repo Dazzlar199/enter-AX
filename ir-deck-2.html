@@ -339,7 +339,7 @@
     /* Bigger headline just for this slide — other slides keep the compact header. The small
        P/PROBLEM eyebrow label stays left-aligned; the headline itself is boxed as one unit
        and centered on the slide, like a pulled-quote statement. */
-    #slide-02 .slide-head { margin-bottom: 36px; text-align: center; }
+    #slide-02 .slide-head { margin-bottom: 28px; text-align: center; }
     #slide-02 .kicker { justify-content: flex-start; }
     #slide-02 .kicker .timing { display: none; }
     #slide-02 h1 {
@@ -353,14 +353,23 @@
       letter-spacing: -.03em;
     }
     #slide-02 h1 .headline-key { color: var(--cobalt); }
+    /* Golden-ratio vertical rhythm: the leftover space above the cards and below the
+       ribbon is split 1:1.618 via flex-grow spacers, instead of collapsing to the top
+       (too tight) or dumping all of it below the ribbon (looked unfinished). */
     .prob-stage-airbnb {
       display: flex;
       flex-direction: column;
       gap: 28px;
       flex: 1;
       min-height: 0;
-      justify-content: flex-start;
     }
+    .prob-stage-airbnb::before,
+    .prob-stage-airbnb::after {
+      content: "";
+      flex: 0 1 0;
+    }
+    .prob-stage-airbnb::before { flex-grow: 0.382; }
+    .prob-stage-airbnb::after { flex-grow: 0.618; }
     .prob-4-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);

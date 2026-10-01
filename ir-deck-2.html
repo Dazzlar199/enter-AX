@@ -336,20 +336,27 @@
     }
 
     /* ---------- SLIDE 02: PROBLEM (Airbnb 3-Pillar Style) ---------- */
+    /* Bigger, centered headline just for this slide — other slides keep the compact left-aligned header. */
+    #slide-02 .slide-head { margin-bottom: 40px; }
+    #slide-02 .kicker { justify-content: center; }
+    #slide-02 .kicker .timing { display: none; }
+    #slide-02 h1 {
+      text-align: center;
+      font-size: 56px;
+      letter-spacing: -.04em;
+    }
     .prob-stage-airbnb {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 32px;
       flex: 1;
       min-height: 0;
-      justify-content: space-between;
+      justify-content: center;
     }
     .prob-3-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 24px;
-      flex: 1;
-      min-height: 0;
     }
     .prob-card-airbnb {
       background: var(--paper);

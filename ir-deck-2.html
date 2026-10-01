@@ -312,7 +312,7 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       align-items: center;
-      padding: 0 280px 0 84px;
+      padding: 0 330px 0 84px;
     }
     .cover-foot-col {
       text-align: left;
@@ -475,7 +475,7 @@
       width: 100%;
       height: calc(100% - 40px);
       object-fit: cover;
-      object-position: top center;
+      object-position: top left;
     }
 
     .sol-benefits-grid {
@@ -604,17 +604,15 @@
     .market-stage-airbnb {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 32px;
       flex: 1;
       min-height: 0;
-      justify-content: space-between;
+      justify-content: center;
     }
     .market-3-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 24px;
-      flex: 1;
-      min-height: 0;
     }
     .market-card-airbnb {
       background: var(--paper);
@@ -623,9 +621,10 @@
       padding: 36px 32px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: flex-start;
       box-shadow: 0 8px 24px rgba(0,0,0,0.03);
     }
+    .market-card-airbnb > p { margin-top: 28px; }
     .market-card-airbnb:nth-child(1) { border-top: 6px solid #94a3b8; }
     .market-card-airbnb:nth-child(2) { border-top: 6px solid #3b82f6; }
     .market-card-airbnb:nth-child(3) { border-top: 6px solid var(--cobalt); background: #f8fbff; }
@@ -923,6 +922,7 @@
     .bm-tiers-airbnb {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
+      align-items: start;
       gap: 18px;
     }
     .bm-tier-card-airbnb {
@@ -932,7 +932,7 @@
       padding: 28px 22px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: flex-start;
       box-shadow: 0 6px 18px rgba(0,0,0,0.03);
     }
     .bm-tier-card-airbnb.featured {
@@ -1006,7 +1006,7 @@
       font-size: 16px;
     }
     .bm-tier-bottom-pill {
-      margin-top: auto;
+      margin-top: 18px;
       padding: 10px 12px;
       background: #f1f5f9;
       border-radius: 4px;
@@ -1129,17 +1129,15 @@
     .road-stage-airbnb {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 32px;
       flex: 1;
       min-height: 0;
-      justify-content: space-between;
+      justify-content: center;
     }
     .road-4-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 18px;
-      flex: 1;
-      min-height: 0;
     }
     .road-step-card-airbnb {
       background: var(--paper);
@@ -1149,7 +1147,7 @@
       padding: 24px 20px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: flex-start;
       box-shadow: 0 4px 14px rgba(0,0,0,0.02);
     }
     .road-step-card-airbnb:nth-child(2) { border-top-color: #60a5fa; }
@@ -1182,7 +1180,7 @@
       font: 900 17px/1 var(--font-mono);
       color: var(--ink);
       text-align: center;
-      margin-top: 12px;
+      margin-top: 18px;
     }
     .road-step-card-airbnb:last-child .road-step-badge {
       background: var(--cobalt);

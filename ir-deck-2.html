@@ -336,28 +336,30 @@
     }
 
     /* ---------- SLIDE 02: PROBLEM (Airbnb 4-Pillar Style, one per department) ---------- */
-    /* Bigger headline just for this slide — other slides keep the compact header. Left-aligned
-       like the rest of the deck (centering read as excessive); the key phrase gets a boxed
-       highlight instead of just color, for emphasis without full-width centering. */
-    #slide-02 .slide-head { margin-bottom: 36px; }
+    /* Bigger headline just for this slide — other slides keep the compact header. The small
+       P/PROBLEM eyebrow label stays left-aligned; the headline itself is boxed as one unit
+       and centered on the slide, like a pulled-quote statement. */
+    #slide-02 .slide-head { margin-bottom: 36px; text-align: center; }
+    #slide-02 .kicker { justify-content: flex-start; }
     #slide-02 .kicker .timing { display: none; }
     #slide-02 h1 {
-      font-size: 50px;
-      letter-spacing: -.04em;
-    }
-    #slide-02 h1 .headline-key {
       display: inline-block;
+      margin: 0 auto;
+      padding: 22px 44px;
+      border: 2px solid var(--cobalt);
+      border-radius: 14px;
       background: var(--pale-blue);
-      padding: 2px 16px;
-      border-radius: 8px;
+      font-size: 44px;
+      letter-spacing: -.03em;
     }
+    #slide-02 h1 .headline-key { color: var(--cobalt); }
     .prob-stage-airbnb {
       display: flex;
       flex-direction: column;
       gap: 28px;
       flex: 1;
       min-height: 0;
-      justify-content: center;
+      justify-content: flex-start;
     }
     .prob-4-grid {
       display: grid;
